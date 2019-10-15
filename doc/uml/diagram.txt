@@ -1,0 +1,26 @@
+[<hidden> Go to http://www.nomnoml.com/ to generate diagram from this specification]
+
+[MoodEvent|
+	- datetime: Date;
+    - emotionalState: EmotionalState]
+
+
+[MoodEvent] +- 0..1 [SocialSituation]
+[MoodEvent] +- 0..1 [ReasonText]
+[MoodEvent] +- 0..1 [ReasonPhoto]
+[MoodEvent] +- 0..1 [Location]
+
+[Participant|username: String]
+
+[ParticipantMoodEvent]
+[ParticipantMoodEvent] +- [Participant]
+[ParticipantMoodEvent] +- [MoodEvent]
+
+[AppCompatActivity] <:- [RecentMoodEventsActivity]
+
+[RecentMoodEventsActivity] o- [RecentMoodEventsModel]
+[RecentMoodEventsActivity] o- [RecentMoodEventsAdapter]
+[RecentMoodEventsAdapter] o- 0..* [ParticipantMoodEvent]
+[ViewModel] <:- [RecentMoodEventsModel]
+[RecentMoodEventsModel] +- 0..* [ParticipantMoodEvent]
+[ArrayAdapter] <:- [RecentMoodEventsAdapter]

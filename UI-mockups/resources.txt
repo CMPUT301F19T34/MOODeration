@@ -1,0 +1,11 @@
+Sort Icon
+https://material.io/resources/icons/?search=sort&icon=sort&style=baseline
+Accessed October 17, 2019
+Used under the following license 
+https://www.apache.org/licenses/LICENSE-2.0.html
+
+List Icon
+https://material.io/resources/icons/?search=list&icon=list&style=baseline
+Accessed October 17, 2019
+Used under the following license
+https://www.apache.org/licenses/LICENSE-2.0.html

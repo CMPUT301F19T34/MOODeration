@@ -10,7 +10,7 @@
 [MoodEvent] +- 0..1 [ReasonPhoto]
 [MoodEvent] +- 0..1 [Location]
 
-[Participant|username: String]
+[Participant|email: String; username: String]
 
 [ParticipantMoodEvent]
 [ParticipantMoodEvent] +- [Participant]

@@ -9,12 +9,16 @@
 [ReasonPhoto]--[<note>these are probably fields]
 [Location]--[<note>these are probably fields]
 
+[<note> Class to store mood events]--[MoodEvent]
+
 [MoodEvent] socialSituation +- 0..1 [SocialSituation]
 [MoodEvent] reasonText +- 0..1 [ReasonText]
 [MoodEvent] reasonPhoto +- 0..1 [ReasonPhoto]
 [MoodEvent] location +- 0..1 [Location]
 
-[Participant|username: String]--[<note>username must be unique]
+[Participant|username: String]--[<note>Stores brief information
+about other participants.
+username must be unique.]
 
 [ParticipantMoodEvent]
 [ParticipantMoodEvent] +- [Participant]

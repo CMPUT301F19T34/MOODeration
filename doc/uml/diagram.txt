@@ -4,13 +4,17 @@
 	- datetime: Date;
     - emotionalState: EmotionalState]
 
+[SocialSituation]--[<note>these are probably fields]
+[ReasonText]--[<note>these are probably fields]
+[ReasonPhoto]--[<note>these are probably fields]
+[Location]--[<note>these are probably fields]
 
 [MoodEvent] +- 0..1 [SocialSituation]
 [MoodEvent] +- 0..1 [ReasonText]
 [MoodEvent] +- 0..1 [ReasonPhoto]
 [MoodEvent] +- 0..1 [Location]
 
-[Participant|username: String]
+[Participant|username: String]--[<note>username must be unique]
 
 [ParticipantMoodEvent]
 [ParticipantMoodEvent] +- [Participant]

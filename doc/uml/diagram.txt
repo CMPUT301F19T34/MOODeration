@@ -21,7 +21,7 @@ socialSituation, reasonText, and so on are optional.]--[MoodEvent]
 [MoodEvent] +- 0..1 [ReasonPhoto]
 [MoodEvent] +- 0..1 [Location]
 
-[Participant|username: String]--[<note>Stores brief information
+[Participant|username: String; email: String]--[<note>Stores brief information
 about other participants.
 username must be unique.]
 

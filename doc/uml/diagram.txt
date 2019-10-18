@@ -2,19 +2,24 @@
 
 [MoodEvent|
 	- datetime: Date;
-    - emotionalState: EmotionalState]
+    - emotionalState: EmotionalState;
+    - socialSituation: SocialSituation;
+    - reasonText: ReasonText;
+    - reasonPhoto: ReasonPhoto;
+    - location: Location]
 
-[SocialSituation]--[<note>these are probably fields]
-[ReasonText]--[<note>these are probably fields]
-[ReasonPhoto]--[<note>these are probably fields]
-[Location]--[<note>these are probably fields]
+[SocialSituation]--[<note>Here to show fields are optional (but not necessarily new classes)]
+[ReasonText]--[<note>Here to show fields are optional (but not necessarily new classes)]
+[ReasonPhoto]--[<note>Here to show fields are optional (but not necessarily new classes)]
+[Location]--[<note>Here to show fields are optional (but not necessarily new classes)]
 
-[<note> Class to store mood events]--[MoodEvent]
+[<note> Class to store mood events.
+socialSituation, reasonText, and so on are optional.]--[MoodEvent]
 
-[MoodEvent] socialSituation +- 0..1 [SocialSituation]
-[MoodEvent] reasonText +- 0..1 [ReasonText]
-[MoodEvent] reasonPhoto +- 0..1 [ReasonPhoto]
-[MoodEvent] location +- 0..1 [Location]
+[MoodEvent] +- 0..1 [SocialSituation]
+[MoodEvent] +- 0..1 [ReasonText]
+[MoodEvent] +- 0..1 [ReasonPhoto]
+[MoodEvent] +- 0..1 [Location]
 
 [Participant|username: String]--[<note>Stores brief information
 about other participants.

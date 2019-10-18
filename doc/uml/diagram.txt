@@ -9,10 +9,10 @@
 [ReasonPhoto]--[<note>these are probably fields]
 [Location]--[<note>these are probably fields]
 
-[MoodEvent] +- 0..1 [SocialSituation]
-[MoodEvent] +- 0..1 [ReasonText]
-[MoodEvent] +- 0..1 [ReasonPhoto]
-[MoodEvent] +- 0..1 [Location]
+[MoodEvent] socialSituation +- 0..1 [SocialSituation]
+[MoodEvent] reasonText +- 0..1 [ReasonText]
+[MoodEvent] reasonPhoto +- 0..1 [ReasonPhoto]
+[MoodEvent] location +- 0..1 [Location]
 
 [Participant|username: String]--[<note>username must be unique]
 

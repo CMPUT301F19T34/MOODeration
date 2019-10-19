@@ -8,20 +8,13 @@ import java.util.Calendar;
  * Stores information about a user's mood event
  */
 public class MoodEvent {
-    public enum EmotionalState {
-        HAPPY,
-        SAD,
-        MAD
-    }
-
-    public enum SocialSituation {
-        NONE,
-    }
+    public static final DateFormat dateFormat = SimpleDateFormat.getDateInstance();
+    public static final DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
 
     private Calendar dateTime;
     private EmotionalState emotionalState;
-    private String reason = null;
-    private SocialSituation socialSituation = SocialSituation.NONE;
+    private String reason;
+    private SocialSituation socialSituation;
 
     /**
      * MoodEvent Constructor
@@ -29,27 +22,16 @@ public class MoodEvent {
      *      A Calendar with the date and time of the MoodEvent.
      * @param emotionalState
      *      The emotional state for this MoodEvent
+     * @param socialSituation
+     *      The social situation for this MoodEvent
+     * @param reason
+     *      The reason for this MoodEvent
      */
-    public MoodEvent(Calendar dateTime, EmotionalState emotionalState) {
+    public MoodEvent(Calendar dateTime, EmotionalState emotionalState,
+                     SocialSituation socialSituation, String reason) {
         this.dateTime = dateTime;
         this.emotionalState = emotionalState;
-    }
-
-    /**
-     * Set a new reason for the MoodEvent
-     * @param reason
-     *      The new reason for the MoodEvent
-     */
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    /**
-     * Set the social situation of the MoodEvent
-     * @param socialSituation
-     *      The new social situation
-     */
-    public void setSocialSituation(SocialSituation socialSituation) {
         this.socialSituation = socialSituation;
+        this.reason = reason;
     }
 }

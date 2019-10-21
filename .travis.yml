@@ -1,0 +1,20 @@
+language: android
+dist: trusty
+jdk: oraclejdk8
+
+script:
+  # Call tests here
+  - echo Hello, world!
+
+  # Generate javadoc, which we will push to gh-pages in the deploy stage
+  - javadoc -d build/docs/javadoc $(find app/src -name *.java)
+
+# Push generated javadoc to gh-pages if we are in the master branch
+deploy:
+  provider: script
+  script: bash .utility/initiate-publish.sh
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master

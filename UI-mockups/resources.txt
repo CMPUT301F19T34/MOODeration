@@ -9,3 +9,33 @@ https://material.io/resources/icons/?search=list&icon=list&style=baseline
 Accessed October 17, 2019
 Used under the following license
 https://www.apache.org/licenses/LICENSE-2.0.html
+
+Map Icon
+https://material.io/resources/icons/?search=map&style=baseline
+Accessed October 18, 2019
+Used under the following license
+https://www.apache.org/licenses/LICENSE-2.0.html
+
+Add Icon
+https://material.io/resources/icons/?search=add&icon=add&style=baseline
+Accessed October 12, 2019
+Used under the following license
+https://www.apache.org/licenses/LICENSE-2.0.html
+
+Camera Icon
+https://material.io/resources/icons/?search=camera&icon=camera_alt&style=baseline
+Accessed October 18, 2019
+Used under the following license
+https://www.apache.org/licenses/LICENSE-2.0.html
+
+Map Image
+https://www.journaldev.com/10380/android-google-maps-example-tutorial
+Accessed October 18, 2019
+Used under the following license
+https://www.apache.org/licenses/LICENSE-2.0.html
+
+Toggle Icon
+https://material.io/resources/icons/?search=toggle&icon=toggle_on&style=baseline
+Accessed October 14, 2019
+Used under the following license
+https://www.apache.org/licenses/LICENSE-2.0.html

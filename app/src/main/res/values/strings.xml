@@ -4,12 +4,4 @@
     <string name="add_mood_event_title">Add Mood Event</string>
     <string name="add_mood_event_negative">Cancel</string>
     <string name="add_mood_event_positive">Confirm</string>
-    <string-array name="emotional_state_array">
-        <item>Happy</item>
-        <item>Sad</item>
-        <item>Mad</item>
-    </string-array>
-    <string-array name="social_situation_array">
-        <item>Not Specified</item>
-    </string-array>
 </resources>

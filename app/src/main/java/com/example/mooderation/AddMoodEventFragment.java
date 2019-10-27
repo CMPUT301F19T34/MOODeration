@@ -1,14 +1,12 @@
 package com.example.mooderation;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,13 +14,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
 
-public class AddMoodEventFragment extends DialogFragment {
-    private OnFragmentInteractionListener listener;
+public class AddMoodEventFragment extends Fragment {
 
     private TextView dateTextView;
     private TextView timeTextView;
@@ -32,27 +28,16 @@ public class AddMoodEventFragment extends DialogFragment {
 
     private Calendar dateTime;
 
-    public interface OnFragmentInteractionListener {
-        void onPositiveClick(MoodEvent moodEvent);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof OnFragmentInteractionListener) {
-            listener = (OnFragmentInteractionListener) context;
-        }
-        else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentListener");
-        }
-    }
-
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View view = inflater.inflate(R.layout.add_mood_event_fragment, null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.add_mood_event_fragment,
+                container, false);
 
         dateTextView = view.findViewById(R.id.date_text_view);
         timeTextView = view.findViewById(R.id.time_text_view);
@@ -62,23 +47,7 @@ public class AddMoodEventFragment extends DialogFragment {
 
         initializeUserInterface();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setView(view);
-        builder.setTitle(R.string.add_mood_event_title);
-        builder.setNegativeButton(R.string.add_mood_event_negative, null);
-        builder.setPositiveButton(R.string.add_mood_event_positive, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                MoodEvent moodEvent = new MoodEvent(
-                        dateTime,
-                        (EmotionalState) emotionalStateSpinner.getSelectedItem(),
-                        (SocialSituation) socialSituationSpinner.getSelectedItem(),
-                        reasonEditText.getText().toString());
-                listener.onPositiveClick(moodEvent);
-            }
-        });
-
-        return builder.create();
+        return view;
     }
 
     private void initializeUserInterface() {
@@ -107,7 +76,7 @@ public class AddMoodEventFragment extends DialogFragment {
     private <E extends Enum<E>> ArrayAdapter<E> getAdapter(Class<E> enumType) {
         // see this stack over flow post for more details
         // https://stackoverflow.com/questions/5469629
-        ArrayAdapter<E> adapter = new ArrayAdapter<E>(
+        ArrayAdapter<E> adapter = new ArrayAdapter<>(
                 getContext(),
                 android.R.layout.simple_spinner_item,
                 enumType.getEnumConstants());
@@ -130,6 +99,7 @@ public class AddMoodEventFragment extends DialogFragment {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             dateTime.set(Calendar.MINUTE, minute);
+            timeTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
         }
     }
 }

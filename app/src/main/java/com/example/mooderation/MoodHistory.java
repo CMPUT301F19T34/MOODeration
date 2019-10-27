@@ -5,18 +5,18 @@ import java.util.ArrayList;
 /**
  * Store's a user MoodEvent history
  */
-public class MoodEventHistory {
+public class MoodHistory {
     private ArrayList<MoodEvent> history;
 
     /**
-     * MoodEventHistory Constructor
+     * MoodHistory Constructor
      */
-    public MoodEventHistory() {
+    public MoodHistory() {
         history = new ArrayList<>();
     }
 
     /**
-     * Add a new MoodEvent to the MoodEventHistory
+     * Add a new MoodEvent to the MoodHistory
      * @param moodEvent
      *      The new MoodEvent to add to the history
      */

@@ -8,38 +8,42 @@ import java.util.Calendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class MoodEventHistoryTest {
-    private static MoodEventHistory moodEventHistory;
+public class MoodHistoryTest {
+    private static MoodHistory moodHistory;
 
     private static MoodEvent mockMoodEvent() {
         MoodEvent moodEvent = new MoodEvent(
                 Calendar.getInstance(),
-                MoodEvent.EmotionalState.HAPPY
+                EmotionalState.HAPPY,
+                SocialSituation.NONE,
+                "Reason"
         );
         return moodEvent;
     }
 
     @BeforeAll
     static void testSetup() {
-        moodEventHistory = new MoodEventHistory();
+        moodHistory = new MoodHistory();
 
         MoodEvent moodEvent = mockMoodEvent();
-        moodEventHistory.addMoodEvent(moodEvent);
+        moodHistory.addMoodEvent(moodEvent);
     }
 
     @Test
     void testAddMoodEvent() {
-        assertEquals(1, moodEventHistory.getHistory().size());
+        assertEquals(1, moodHistory.getHistory().size());
 
         final MoodEvent moodEvent = new MoodEvent(
                 Calendar.getInstance(),
-                MoodEvent.EmotionalState.SAD
+                EmotionalState.SAD,
+                SocialSituation.NONE,
+                "Reason"
         );
-        moodEventHistory.addMoodEvent(moodEvent);
+        moodHistory.addMoodEvent(moodEvent);
 
-        assertEquals(2, moodEventHistory.getHistory().size());
+        assertEquals(2, moodHistory.getHistory().size());
 
         assertThrows(IllegalArgumentException.class,
-                () -> moodEventHistory.addMoodEvent(moodEvent));
+                () -> moodHistory.addMoodEvent(moodEvent));
     }
 }

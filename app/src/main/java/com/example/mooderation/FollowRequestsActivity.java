@@ -2,19 +2,21 @@ package com.example.mooderation;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.WriteBatch;
@@ -25,6 +27,9 @@ import java.util.List;
 
 
 public class FollowRequestsActivity extends AppCompatActivity {
+
+    FirebaseFirestore db;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +45,7 @@ public class FollowRequestsActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
-            finish();
+            startActivity(new Intent(this, LoginActivity.class));
             return;
         }
         FollowRequests followRequests = new FollowRequests(this, db, user);
@@ -63,11 +68,21 @@ public class FollowRequestsActivity extends AppCompatActivity {
             listAdapter.notifyDataSetChanged();
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+    }
 }
 
 
 class FollowRequests {
 
+    private static final String TAG = "FollowRequests";
     private FirebaseFirestore db;
     private FirebaseUser user;
     private DocumentReference userDocument;
@@ -115,12 +130,21 @@ class FollowRequests {
             for (QueryDocumentSnapshot doc: queryDocumentSnapshots) {
                 ids.add(doc.getId());
             }
-            List<Participant> users = new ArrayList<>();
+
+            List<Participant> participants = new ArrayList<>();
+
+            participants.clear();
+            listener.onDataChanged(participants);
+
             for (String id: ids) {
-                DocumentSnapshot result = db.collection("users").document(id).get().getResult();
-                users.add(new Participant(id, result.get("username").toString()));
+                db.collection("users").document(id).get().addOnSuccessListener(documentSnapshot -> {
+                    String username = documentSnapshot.getString("username");
+                    synchronized (participants) {
+                        participants.add(new Participant(id, username));
+                        listener.onDataChanged(participants);
+                    }
+                }).addOnFailureListener(e1 -> Log.e(TAG, "Failed to load request: " + e1.toString()));
             }
-            listener.onDataChanged(users);
         });
     }
 }

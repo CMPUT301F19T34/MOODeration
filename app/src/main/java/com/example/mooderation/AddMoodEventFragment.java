@@ -3,7 +3,6 @@ package com.example.mooderation;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ import androidx.navigation.Navigation;
 import java.util.Calendar;
 
 public class AddMoodEventFragment extends Fragment {
-    private MoodHistoryViewModel moodHistory;
+    private MoodHistoryViewModel moodHistoryViewModel;
 
     private TextView dateTextView;
     private TextView timeTextView;
@@ -42,34 +41,32 @@ public class AddMoodEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.add_mood_event_fragment,
+        View view = inflater.inflate(R.layout.add_mood_event_layout,
                 container, false);
 
         // ViewModel for tracking MoodHistory
-        moodHistory = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
+        moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
 
         // get an Calendar with the current date and time
         dateTime = Calendar.getInstance();
 
         // find and initialize dateTextView and setup DatePicker
-        dateTextView = view.findViewById(R.id.date_text_view);
+        dateTextView = view.findViewById(R.id.date_picker_button);
         dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-        dateTextView.setOnClickListener((View v) -> {
+        dateTextView.setOnClickListener((View v) ->
             new DatePickerDialog(getActivity(), new DateSetListener(),
                     dateTime.get(Calendar.YEAR),
                     dateTime.get(Calendar.MONTH),
-                    dateTime.get(Calendar.DAY_OF_MONTH)).show();
-        });
+                    dateTime.get(Calendar.DAY_OF_MONTH)).show());
 
         // find and initialize timeTextView and setup TimePicker
-        timeTextView = view.findViewById(R.id.time_text_view);
+        timeTextView = view.findViewById(R.id.time_picker_button);
         timeTextView.setText(MoodEvent.timeFormat.format(dateTime.getTime()));
-        timeTextView.setOnClickListener((View v) -> {
+        timeTextView.setOnClickListener((View v) ->
             new TimePickerDialog(getActivity(), new TimeSetListener(),
                     dateTime.get(Calendar.HOUR_OF_DAY),
                     dateTime.get(Calendar.MINUTE),
-                    false).show();
-        });
+                    false).show());
 
         // find and initialize emotionalStateSpinner
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);
@@ -90,7 +87,7 @@ public class AddMoodEventFragment extends Fragment {
                     (EmotionalState) emotionalStateSpinner.getSelectedItem(),
                     (SocialSituation) socialSituationSpinner.getSelectedItem(),
                     reasonEditText.getText().toString());
-            moodHistory.addMoodEvent(moodEvent);
+            moodHistoryViewModel.addMoodEvent(moodEvent);
 
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();

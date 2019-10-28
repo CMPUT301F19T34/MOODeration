@@ -34,4 +34,24 @@ public class MoodEvent {
         this.socialSituation = socialSituation;
         this.reason = reason;
     }
+
+    public String getDate() {
+        return dateFormat.format(dateTime.getTime());
+    }
+
+    public String getTime() {
+        return timeFormat.format(dateTime.getTime());
+    }
+
+    public EmotionalState getEmotionalState() {
+        return emotionalState;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public SocialSituation getSocialSituation() {
+        return socialSituation;
+    }
 }

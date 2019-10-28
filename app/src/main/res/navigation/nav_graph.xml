@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/viewMoodHistoryFragment">
+    app:startDestination="@+id/moodHistoryFragment">
 
     <fragment
-        android:id="@+id/viewMoodHistoryFragment"
-        android:name="com.example.mooderation.ViewMoodHistoryFragment"
+        android:id="@+id/moodHistoryFragment"
+        android:name="com.example.mooderation.MoodHistoryFragment"
         android:label="view_mood_history_fragment"
-        tools:layout="@layout/view_mood_history_fragment">
+        tools:layout="@layout/mood_history_layout">
         <action
             android:id="@+id/action_viewMoodHistoryFragment_to_addMoodEventFragment"
             app:destination="@id/addMoodEventFragment"
@@ -23,5 +23,5 @@
         android:id="@+id/addMoodEventFragment"
         android:name="com.example.mooderation.AddMoodEventFragment"
         android:label="add_mood_event_fragment"
-        tools:layout="@layout/add_mood_event_fragment" />
+        tools:layout="@layout/add_mood_event_layout" />
 </navigation>

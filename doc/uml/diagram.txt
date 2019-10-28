@@ -1,0 +1,39 @@
+[<hidden> Go to http://www.nomnoml.com/ to generate diagram from this specification]
+
+[MoodEvent|
+	- datetime: Date;
+    - emotionalState: EmotionalState;
+    - socialSituation: SocialSituation;
+    - reasonText: ReasonText;
+    - reasonPhoto: ReasonPhoto;
+    - location: Location]
+
+[SocialSituation]--[<note>Here to show fields are optional (but not necessarily new classes)]
+[ReasonText]--[<note>Here to show fields are optional (but not necessarily new classes)]
+[ReasonPhoto]--[<note>Here to show fields are optional (but not necessarily new classes)]
+[Location]--[<note>Here to show fields are optional (but not necessarily new classes)]
+
+[<note> Class to store mood events.
+socialSituation, reasonText, and so on are optional.]--[MoodEvent]
+
+[MoodEvent] +- 0..1 [SocialSituation]
+[MoodEvent] +- 0..1 [ReasonText]
+[MoodEvent] +- 0..1 [ReasonPhoto]
+[MoodEvent] +- 0..1 [Location]
+
+[Participant|username: String; email: String]--[<note>Stores brief information
+about other participants.
+username must be unique.]
+
+[ParticipantMoodEvent]
+[ParticipantMoodEvent] +- [Participant]
+[ParticipantMoodEvent] +- [MoodEvent]
+
+[AppCompatActivity] <:- [RecentMoodEventsActivity]
+
+[RecentMoodEventsActivity] o- [RecentMoodEventsModel]
+[RecentMoodEventsActivity] o- [RecentMoodEventsAdapter]
+[RecentMoodEventsAdapter] o- 0..* [ParticipantMoodEvent]
+[ViewModel] <:- [RecentMoodEventsModel]
+[RecentMoodEventsModel] +- 0..* [ParticipantMoodEvent]
+[ArrayAdapter] <:- [RecentMoodEventsAdapter]

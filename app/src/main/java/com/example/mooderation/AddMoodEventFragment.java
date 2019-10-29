@@ -113,6 +113,9 @@ public class AddMoodEventFragment extends Fragment {
         return adapter;
     }
 
+    /**
+     * Listens for the date to be set by a DatePickerDialog
+     */
     private class DateSetListener implements DatePickerDialog.OnDateSetListener {
 
         @Override
@@ -122,6 +125,9 @@ public class AddMoodEventFragment extends Fragment {
         }
     }
 
+    /**
+     * Listens for the time to be set by a TimePickerDialog
+     */
     private class TimeSetListener implements TimePickerDialog.OnTimeSetListener {
 
         @Override

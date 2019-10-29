@@ -10,15 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for populating a RecyclerView from
+ * an ArrayList of MoodEvents
+ */
 public class MoodEventAdapter extends RecyclerView.Adapter<MoodEventAdapter.ViewHolder> {
     private ArrayList<MoodEvent> moodEventData;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView moodTextView;
-        public TextView dateTextView;
-        public TextView timeTextView;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView moodTextView;
+        TextView dateTextView;
+        TextView timeTextView;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             moodTextView = itemView.findViewById(R.id.mood_text_view);
             dateTextView = itemView.findViewById(R.id.date_text_view);
@@ -26,6 +30,10 @@ public class MoodEventAdapter extends RecyclerView.Adapter<MoodEventAdapter.View
         }
     }
 
+    /**
+     * MoodEventAdapter Constructor
+     * @param data The list of MoodEvents to populate the RecyclerView with
+     */
     public MoodEventAdapter(ArrayList<MoodEvent> data) {
         moodEventData = data;
     }

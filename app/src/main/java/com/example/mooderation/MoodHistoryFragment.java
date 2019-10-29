@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+/**
+ * Fragment for viewing the User's own MoodEvents.
+ */
 public class MoodHistoryFragment extends Fragment {
     private MoodHistoryViewModel moodHistoryViewModel;
 

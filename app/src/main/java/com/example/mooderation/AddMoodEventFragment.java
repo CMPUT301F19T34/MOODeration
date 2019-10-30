@@ -53,20 +53,20 @@ public class AddMoodEventFragment extends Fragment {
         // find and initialize dateTextView and setup DatePicker
         dateTextView = view.findViewById(R.id.date_picker_button);
         dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-        dateTextView.setOnClickListener((View v) ->
-            new DatePickerDialog(getActivity(), new DateSetListener(),
-                    dateTime.get(Calendar.YEAR),
-                    dateTime.get(Calendar.MONTH),
-                    dateTime.get(Calendar.DAY_OF_MONTH)).show());
+//        dateTextView.setOnClickListener((View v) ->
+//            new DatePickerDialog(getActivity(), new DateSetListener(),
+//                    dateTime.get(Calendar.YEAR),
+//                    dateTime.get(Calendar.MONTH),
+//                    dateTime.get(Calendar.DAY_OF_MONTH)).show());
 
         // find and initialize timeTextView and setup TimePicker
         timeTextView = view.findViewById(R.id.time_picker_button);
         timeTextView.setText(MoodEvent.timeFormat.format(dateTime.getTime()));
-        timeTextView.setOnClickListener((View v) ->
-            new TimePickerDialog(getActivity(), new TimeSetListener(),
-                    dateTime.get(Calendar.HOUR_OF_DAY),
-                    dateTime.get(Calendar.MINUTE),
-                    false).show());
+//        timeTextView.setOnClickListener((View v) ->
+//            new TimePickerDialog(getActivity(), new TimeSetListener(),
+//                    dateTime.get(Calendar.HOUR_OF_DAY),
+//                    dateTime.get(Calendar.MINUTE),
+//                    false).show());
 
         // find and initialize emotionalStateSpinner
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);

@@ -8,7 +8,7 @@ import java.util.Calendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MoodHistoryRepositoryTest {
+class MoodHistoryRepositoryTest {
     private static MoodHistoryRepository moodHistory;
 
     MoodEvent mockMoodEvent() {

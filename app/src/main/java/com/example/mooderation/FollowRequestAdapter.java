@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class FollowRequestAdapter extends ArrayAdapter<Participant> {
-    public FollowRequestAdapter(@NonNull Context context, @NonNull List<Participant> participants) {
-        super(context, 0, participants);
+public class FollowRequestAdapter extends ArrayAdapter<FollowRequest> {
+    public FollowRequestAdapter(@NonNull Context context, @NonNull List<FollowRequest> requests) {
+        super(context, 0, requests);
     }
 
     @Override
@@ -23,11 +23,11 @@ public class FollowRequestAdapter extends ArrayAdapter<Participant> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.follow_request, parent, false);
         }
-        Participant participant = getItem(position);
+        FollowRequest request = getItem(position);
         @NonNull TextView title = convertView.findViewById(R.id.title);
         TextView description = convertView.findViewById(R.id.description);
         title.setText("Follow request");
-        description.setText(participant.getUsername() + " wants to follow you");
+        description.setText(request.getParticipant().getUsername() + " wants to follow you");
         return convertView;
     }
 }

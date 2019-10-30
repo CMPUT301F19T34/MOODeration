@@ -34,4 +34,24 @@ class MoodHistoryRepositoryTest {
         assertEquals(1, moodHistory.getMoodEventList().size());
         assertTrue(moodHistory.getMoodEventList().contains(moodEvent));
     }
+
+    @Test
+    void testGetMoodEventList() {
+        for (int i = 0; i < 10; i++) {
+            moodHistory.addMoodEvent(mockMoodEvent());
+            try {
+                // ensures there is difference in time between each MoodEvent
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+
+        // ensure the MoodEvent list is in reverse chronological order
+        for (int i = 0; i < moodHistory.getMoodEventList().size() - 1; i++) {
+            MoodEvent first = moodHistory.getMoodEventList().get(i);
+            MoodEvent second = moodHistory.getMoodEventList().get(i + 1);
+            assertTrue(first.getCalendar().after(second.getCalendar()));
+        }
+    }
 }

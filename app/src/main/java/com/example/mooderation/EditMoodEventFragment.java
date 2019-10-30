@@ -1,5 +1,4 @@
 package com.example.mooderation;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -21,15 +20,16 @@ import androidx.navigation.Navigation;
 
 import java.util.Calendar;
 
-public class AddMoodEventFragment extends Fragment {
+public class EditMoodEventFragment extends Fragment {
     private MoodHistoryViewModel moodHistory;
 
-    private TextView dateTextView;
-    private TextView timeTextView;
+    //private TextView dateTextView;
+    //private TextView timeTextView;
     private Spinner emotionalStateSpinner;
     private Spinner socialSituationSpinner;
     private EditText reasonEditText;
     private Button saveButton;
+    private Button cancelButton;
 
     private Calendar dateTime;
 
@@ -42,7 +42,7 @@ public class AddMoodEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.add_mood_event_fragment,
+        View view = inflater.inflate(R.layout.edit_mood_event_fragment,
                 container, false);
 
         // ViewModel for tracking MoodHistory
@@ -52,9 +52,9 @@ public class AddMoodEventFragment extends Fragment {
         dateTime = Calendar.getInstance();
 
         // find and initialize dateTextView and setup DatePicker
-        dateTextView = view.findViewById(R.id.date_text_view);
+        /*dateTextView = view.findViewById(R.id.date_text_view);
         dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-        /*dateTextView.setOnClickListener((View v) -> {
+        dateTextView.setOnClickListener((View v) -> {
             new DatePickerDialog(getActivity(), new DateSetListener(),
                     dateTime.get(Calendar.YEAR),
                     dateTime.get(Calendar.MONTH),
@@ -62,9 +62,9 @@ public class AddMoodEventFragment extends Fragment {
         });*/
 
         // find and initialize timeTextView and setup TimePicker
-        timeTextView = view.findViewById(R.id.time_text_view);
+        /*timeTextView = view.findViewById(R.id.time_text_view);
         timeTextView.setText(MoodEvent.timeFormat.format(dateTime.getTime()));
-        /*timeTextView.setOnClickListener((View v) -> {
+        timeTextView.setOnClickListener((View v) -> {
             new TimePickerDialog(getActivity(), new TimeSetListener(),
                     dateTime.get(Calendar.HOUR_OF_DAY),
                     dateTime.get(Calendar.MINUTE),
@@ -96,6 +96,12 @@ public class AddMoodEventFragment extends Fragment {
             Navigation.findNavController(v).popBackStack();
         });
 
+        cancelButton = view.findViewById(R.id.cancel_button);
+        cancelButton.setOnClickListener((View v) -> {
+            // Close the current fragment
+            Navigation.findNavController(v).popBackStack();
+        });
+
         return view;
     }
 
@@ -106,6 +112,7 @@ public class AddMoodEventFragment extends Fragment {
      * @param <E> The type of the Enum passed to createAdapter
      * @return A spinner adapter populated using Enum values
      */
+
     private <E extends Enum<E>> ArrayAdapter<E> createAdapter(Class<E> enumType) {
         // see StackOverFlow https://stackoverflow.com/questions/5469629
         ArrayAdapter<E> adapter = new ArrayAdapter<>(
@@ -115,7 +122,7 @@ public class AddMoodEventFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
-
+/*
     private class DateSetListener implements DatePickerDialog.OnDateSetListener {
 
         @Override
@@ -133,5 +140,5 @@ public class AddMoodEventFragment extends Fragment {
             dateTime.set(Calendar.MINUTE, minute);
             timeTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
         }
-    }
+    }*/
 }

@@ -1,10 +1,15 @@
 package com.example.mooderation;
 
+import androidx.lifecycle.ViewModelProviders;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListDataPump {
+    //private MoodHistoryViewModel moodHistory;
+
+    //private MoodHistoryViewModel moodHistory = ViewModelProviders.of(MainActivity.this).get(MoodHistoryViewModel.class);
     public static HashMap<String, List<String>> getData() {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
@@ -16,6 +21,9 @@ public class ExpandableListDataPump {
         Happy.add("Reason: None");
 
         List<String> Sad = new ArrayList<String>();
+        Sad.add("Mood: Sad");
+        Sad.add("Date: 2019-10-28");
+        Sad.add("Time: 10:00 AM");
         Sad.add("Situation: None");
         Sad.add("Reason: None");
 

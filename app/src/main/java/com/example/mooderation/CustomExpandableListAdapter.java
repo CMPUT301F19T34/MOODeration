@@ -11,6 +11,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
@@ -54,6 +57,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         if(isLastChild){
             editbutton.setVisibility(View.VISIBLE);
             deletebutton.setVisibility(View.VISIBLE);
+
+            editbutton.setOnClickListener((View v) -> {
+                NavDirections action = ViewMoodHistoryFragmentDirections
+                        .actionViewMoodHistoryFragmentToEditMoodEventFragment();
+                Navigation.findNavController(v).navigate(action);
+            });
         }else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);

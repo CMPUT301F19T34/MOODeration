@@ -1,5 +1,4 @@
 package com.example.mooderation;
 
-public class MoodEventTest {
-
+public class MoodHistoryTest {
 }

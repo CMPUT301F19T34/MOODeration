@@ -15,7 +15,7 @@ public enum SocialSituation {
     NONE("Not Specified"),
     ALONE("Alone"),
     ONE_PERSON("One other person"),
-    SEVERAL_PEOPLE("Two to several people"),
+    SEVERAL_PEOPLE("Several people"),
     CROWD("Crowd");
 
     public String externalName;

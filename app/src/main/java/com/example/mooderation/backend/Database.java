@@ -24,7 +24,7 @@ public interface Database {
      * As the current user, deny a follow request
      * @param request The follow request to deny
      */
-    void denyFollowReqest(FollowRequest request);
+    void denyFollowRequest(FollowRequest request);
 
     /**
      * Listen for changes to the current user's list of follow requests. The listener is called

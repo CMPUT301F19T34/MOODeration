@@ -49,15 +49,15 @@ public class FirebaseDatabase implements Database {
                 followersPath().document(request.getParticipant().getUid()),
                 new HashMap<String, Object>()
         );
-        batch.commit().addOnFailureListener(e -> Log.e(TAG, "Faild to accept request"));
+        batch.commit().addOnFailureListener(e -> Log.e(TAG, "Failed to accept request"));
     }
 
     @Override
-    public void denyFollowReqest(FollowRequest request) {
+    public void denyFollowRequest(FollowRequest request) {
         followRequestsPath()
                 .document(request.getParticipant().getUid())
                 .delete()
-                .addOnFailureListener(e -> Log.e(TAG, "Faild to deny request: ", e));
+                .addOnFailureListener(e -> Log.e(TAG, "Failed to deny request: ", e));
     }
 
     @Override

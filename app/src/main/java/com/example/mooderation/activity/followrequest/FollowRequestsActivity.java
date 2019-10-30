@@ -52,7 +52,7 @@ public class FollowRequestsActivity extends AppCompatActivity {
             builder.setTitle("Accept " + request.getParticipant().getUsername() + "'s follow request?")
                     .setMessage("The user " + request.getParticipant().getUsername() + " wants to follow your mood history. If you accept, they will be able to see the most recent mood event of your mood history in their feed.")
                     .setPositiveButton("Accept", (dialogInterface, i1) -> database.acceptFollowRequest(request))
-                    .setNegativeButton("Deny", (dialogInterface, i12) -> database.denyFollowReqest(request))
+                    .setNegativeButton("Deny", (dialogInterface, i12) -> database.denyFollowRequest(request))
                     .show();
         });
 

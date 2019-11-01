@@ -50,23 +50,13 @@ public class AddMoodEventFragment extends Fragment {
         // get an Calendar with the current date and time
         dateTime = Calendar.getInstance();
 
-        // find and initialize dateTextView and setup DatePicker
+        // find and initialize dateTextView
         dateTextView = view.findViewById(R.id.date_picker_button);
         dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-//        dateTextView.setOnClickListener((View v) ->
-//            new DatePickerDialog(getActivity(), new DateSetListener(),
-//                    dateTime.get(Calendar.YEAR),
-//                    dateTime.get(Calendar.MONTH),
-//                    dateTime.get(Calendar.DAY_OF_MONTH)).show());
 
-        // find and initialize timeTextView and setup TimePicker
+        // find and initialize timeTextView
         timeTextView = view.findViewById(R.id.time_picker_button);
         timeTextView.setText(MoodEvent.timeFormat.format(dateTime.getTime()));
-//        timeTextView.setOnClickListener((View v) ->
-//            new TimePickerDialog(getActivity(), new TimeSetListener(),
-//                    dateTime.get(Calendar.HOUR_OF_DAY),
-//                    dateTime.get(Calendar.MINUTE),
-//                    false).show());
 
         // find and initialize emotionalStateSpinner
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);
@@ -111,30 +101,5 @@ public class AddMoodEventFragment extends Fragment {
                 enumType.getEnumConstants());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
-    }
-
-    /**
-     * Listens for the date to be set by a DatePickerDialog
-     */
-    private class DateSetListener implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            dateTime.set(year, month, dayOfMonth);
-            dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-        }
-    }
-
-    /**
-     * Listens for the time to be set by a TimePickerDialog
-     */
-    private class TimeSetListener implements TimePickerDialog.OnTimeSetListener {
-
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            dateTime.set(Calendar.MINUTE, minute);
-            timeTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-        }
     }
 }

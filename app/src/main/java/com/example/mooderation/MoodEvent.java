@@ -1,5 +1,7 @@
 package com.example.mooderation;
 
+import android.location.Location;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,6 +17,7 @@ public class MoodEvent implements Comparable<MoodEvent> {
     private EmotionalState emotionalState;
     private String reason;
     private SocialSituation socialSituation;
+    private Location location;
 
     /**
      * MoodEvent Constructor
@@ -26,13 +29,16 @@ public class MoodEvent implements Comparable<MoodEvent> {
      *      The social situation for this MoodEvent
      * @param reason
      *      The reason for this MoodEvent
+     * @param location
+     *      The location of the MoodEvent
      */
     public MoodEvent(Calendar calendar, EmotionalState emotionalState,
-                     SocialSituation socialSituation, String reason) {
+                     SocialSituation socialSituation, String reason, Location location) {
         this.calendar = calendar;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
         this.reason = reason;
+        this.location = location;
     }
 
     public Calendar getCalendar() {
@@ -57,6 +63,10 @@ public class MoodEvent implements Comparable<MoodEvent> {
 
     public SocialSituation getSocialSituation() {
         return socialSituation;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 
     @Override

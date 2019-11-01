@@ -7,7 +7,7 @@ import java.util.Calendar;
 /**
  * Stores information about a user's mood event
  */
-public class MoodEvent implements Comparable<MoodEvent> {
+public class MoodEvent {
     public static final DateFormat dateFormat = SimpleDateFormat.getDateInstance();
     public static final DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
 
@@ -57,10 +57,5 @@ public class MoodEvent implements Comparable<MoodEvent> {
 
     public SocialSituation getSocialSituation() {
         return socialSituation;
-    }
-
-    @Override
-    public int compareTo(MoodEvent moodEvent) {
-        return -calendar.compareTo(moodEvent.getCalendar());
     }
 }

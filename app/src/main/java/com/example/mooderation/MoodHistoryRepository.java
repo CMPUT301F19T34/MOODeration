@@ -2,6 +2,7 @@ package com.example.mooderation;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Handles locally storing and updating the user's MoodHistory
@@ -30,7 +31,8 @@ public class MoodHistoryRepository {
         }
 
         moodEventList.add(moodEvent);
-        Collections.sort(moodEventList);    // temporary fix to keep MoodEvents in order
+        // temporary fix to keep MoodEvents in order
+        Collections.sort(moodEventList, (lhs, rhs) -> -lhs.getCalendar().compareTo(rhs.getCalendar()));
     }
 
     /**

@@ -1,7 +1,5 @@
 package com.example.mooderation;
 
-import android.location.Location;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

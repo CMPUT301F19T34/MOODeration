@@ -1,11 +1,10 @@
 package com.example.mooderation;
 
 import android.app.Activity;
-import android.view.View;
-import android.widget.EditText;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+
 import com.robotium.solo.Solo;
 
 import org.junit.Before;

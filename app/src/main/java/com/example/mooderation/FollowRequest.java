@@ -36,6 +36,15 @@ public class FollowRequest {
         return createTimestamp;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) return true;
+        if (other == null) return false;
+        if (other.getClass() != getClass()) return false;
+        FollowRequest request = (FollowRequest) other;
+        return request.uid.equals(uid) && request.username.equals(username) && request.createTimestamp.equals(createTimestamp);
+    }
+
     private String uid;
     private String username;
     private Timestamp createTimestamp;

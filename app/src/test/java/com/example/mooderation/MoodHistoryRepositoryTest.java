@@ -16,8 +16,7 @@ class MoodHistoryRepositoryTest {
                 Calendar.getInstance(),
                 EmotionalState.HAPPY,
                 SocialSituation.NONE,
-                "Reason",
-                null);
+                "Reason");
     }
 
     @BeforeEach

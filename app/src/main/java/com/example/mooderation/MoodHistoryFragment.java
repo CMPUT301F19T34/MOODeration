@@ -29,9 +29,7 @@ public class MoodHistoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
-        moodHistoryViewModel.getLiveData().observe(this, moodHistory -> {
-            adapter.notifyDataSetChanged();
-        });
+        moodHistoryViewModel.getLiveData().observe(this, moodHistory -> adapter.notifyDataSetChanged());
     }
 
     @Override

@@ -1,29 +1,30 @@
 package com.example.mooderation;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 /**
  * Represents a single request by a given participant to follow the current user
  */
 public class FollowRequest {
-    /**
-     * Initializes the FollowRequest
-     *
-     * @param participant      Participant who is requesting to follow the current user
-     * @param createTimestamp  Creation time of the follow request
-     */
-    public FollowRequest(Participant participant, Timestamp createTimestamp) {
-        this.participant = participant;
+    public FollowRequest(String uid, String username, Timestamp createTimestamp) {
+        this.uid = uid;
+        this.username = username;
         this.createTimestamp = createTimestamp;
     }
 
-    /**
-     * Gets the participant who is requesting to follow the current user
-     *
-     * @return The participant who is requesting to follow the current user
-     */
-    public Participant getParticipant() {
-        return participant;
+    public FollowRequest() {
+        uid = "";
+        username = "";
+        createTimestamp = Timestamp.now();
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     /**
@@ -35,6 +36,7 @@ public class FollowRequest {
         return createTimestamp;
     }
 
-    private Participant participant;
+    private String uid;
+    private String username;
     private Timestamp createTimestamp;
 }

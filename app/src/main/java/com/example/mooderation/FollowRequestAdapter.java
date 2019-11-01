@@ -27,7 +27,7 @@ public class FollowRequestAdapter extends ArrayAdapter<FollowRequest> {
         @NonNull TextView title = convertView.findViewById(R.id.title);
         TextView description = convertView.findViewById(R.id.description);
         title.setText("Follow request");
-        description.setText(request.getParticipant().getUsername() + " wants to follow you");
+        description.setText(request.getUsername() + " wants to follow you");
         return convertView;
     }
 }

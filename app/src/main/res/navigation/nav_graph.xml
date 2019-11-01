@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/moodHistoryFragment">
+
+    <fragment
+        android:id="@+id/moodHistoryFragment"
+        android:name="com.example.mooderation.MoodHistoryFragment"
+        android:label="view_mood_history_fragment"
+        tools:layout="@layout/mood_history_layout">
+        <action
+            android:id="@+id/action_viewMoodHistoryFragment_to_addMoodEventFragment"
+            app:destination="@id/addMoodEventFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addMoodEventFragment"
+        android:name="com.example.mooderation.AddMoodEventFragment"
+        android:label="add_mood_event_fragment"
+        tools:layout="@layout/add_mood_event_layout" />
+</navigation>

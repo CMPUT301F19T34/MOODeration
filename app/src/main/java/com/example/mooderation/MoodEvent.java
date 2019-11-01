@@ -11,14 +11,14 @@ public class MoodEvent {
     public static final DateFormat dateFormat = SimpleDateFormat.getDateInstance();
     public static final DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
 
-    private Calendar dateTime;
+    private Calendar calendar;
     private EmotionalState emotionalState;
     private String reason;
     private SocialSituation socialSituation;
 
     /**
      * MoodEvent Constructor
-     * @param dateTime
+     * @param calendar
      *      A Calendar with the date and time of the MoodEvent.
      * @param emotionalState
      *      The emotional state for this MoodEvent
@@ -27,11 +27,35 @@ public class MoodEvent {
      * @param reason
      *      The reason for this MoodEvent
      */
-    public MoodEvent(Calendar dateTime, EmotionalState emotionalState,
+    public MoodEvent(Calendar calendar, EmotionalState emotionalState,
                      SocialSituation socialSituation, String reason) {
-        this.dateTime = dateTime;
+        this.calendar = calendar;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
         this.reason = reason;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
+    public String getDate() {
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public String getTime() {
+        return timeFormat.format(calendar.getTime());
+    }
+
+    public EmotionalState getEmotionalState() {
+        return emotionalState;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public SocialSituation getSocialSituation() {
+        return socialSituation;
     }
 }

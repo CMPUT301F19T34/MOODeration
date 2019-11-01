@@ -1,5 +1,7 @@
 package com.example.mooderation;
 
+import android.location.Location;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,8 @@ class MoodHistoryRepositoryTest {
                 Calendar.getInstance(),
                 EmotionalState.HAPPY,
                 SocialSituation.NONE,
-                "Reason");
+                "Reason",
+                null);
     }
 
     @BeforeEach

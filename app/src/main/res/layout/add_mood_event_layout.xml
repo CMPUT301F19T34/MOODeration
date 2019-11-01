@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,8 +16,8 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:background="?attr/editTextBackground"
-        android:textSize="16sp"
         android:text="yyyy-mm-dd"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@id/time_picker_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,8 +30,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="?attr/editTextBackground"
-        android:textSize="16sp"
         android:text="hh:mm"
+        android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@id/date_picker_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/date_picker_button"
@@ -71,10 +72,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:inputType="text"
-        android:importantForAutofill="no"
-        android:maxLength="20"
         android:hint="@string/reason_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLength="20"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +83,7 @@
 
     <Button
         android:id="@+id/save_mood_event_button"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
@@ -93,7 +94,34 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reason_edit_text"/>
+        app:layout_constraintTop_toBottomOf="@+id/location_switch" />
+
+    <Switch
+        android:id="@+id/location_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/save_mood_event_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reason_edit_text" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Attach Location"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/save_mood_event_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reason_edit_text" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

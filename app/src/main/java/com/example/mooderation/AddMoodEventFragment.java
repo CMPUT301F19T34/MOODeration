@@ -1,22 +1,33 @@
 package com.example.mooderation;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.Calendar;
 
@@ -29,8 +40,11 @@ public class AddMoodEventFragment extends Fragment {
     private Spinner socialSituationSpinner;
     private EditText reasonEditText;
     private Button saveButton;
+    private Switch locationSwitch;
+    private FusedLocationProviderClient fusedLocationClient;
 
     private Calendar dateTime;
+    private static Location location;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +93,29 @@ public class AddMoodEventFragment extends Fragment {
         // find reasonEditText
         reasonEditText = view.findViewById(R.id.reason_edit_text);
 
+        // find and initialize locationSwitch
+        locationSwitch = view.findViewById(R.id.location_switch);
+        locationSwitch.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+            if(isChecked) {
+                // check that the device is running API level 23 or higher (minimum for permission dialogue box support)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) {
+                    // if permission has not been granted, request permission
+                    checkPermission();
+                    if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+                        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+                            if(location != null) {
+                                AddMoodEventFragment.location = location;
+                            }
+                        });
+                    } else {
+                        locationSwitch.toggle();
+                    }
+                }
+            }
+        });
+
         // find and initialize saveButton
         saveButton = view.findViewById(R.id.save_mood_event_button);
         saveButton.setOnClickListener((View v) -> {
@@ -86,7 +123,8 @@ public class AddMoodEventFragment extends Fragment {
                     dateTime,
                     (EmotionalState) emotionalStateSpinner.getSelectedItem(),
                     (SocialSituation) socialSituationSpinner.getSelectedItem(),
-                    reasonEditText.getText().toString());
+                    reasonEditText.getText().toString(),
+                    location);
             moodHistoryViewModel.addMoodEvent(moodEvent);
 
             // Close the current fragment
@@ -122,6 +160,17 @@ public class AddMoodEventFragment extends Fragment {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             dateTime.set(year, month, dayOfMonth);
             dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
+        }
+    }
+
+    /**
+     * If location permission is not granted, request permission
+     */
+
+    public void checkPermission() {
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
     }
 

@@ -12,4 +12,21 @@
     <string-array name="social_situation_array">
         <item>Not Specified</item>
     </string-array>
+    <string name="title_activity_manual_signin">Sign in</string>
+    <string name="prompt_username">Display name</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_reenter_password">Re-enter password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_up">Create account</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_email">Not a valid email</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password2">Passwords must match</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="signup_failed">"Signup failed"</string>
+    <string name="auth_failed">"Authentication failed"</string>
+    <string name="email_collision">"Email address already belongs to an account"</string>
 </resources>

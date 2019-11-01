@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".backend.TestDatabaseActivity"></activity>
-        <activity android:name=".activity.followrequest.FollowRequestsActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".FollowRequestsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.mooderation.activity.followrequest;
+package com.example.mooderation;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -7,9 +7,6 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mooderation.FollowRequest;
-import com.example.mooderation.FollowRequestAdapter;
-import com.example.mooderation.R;
 import com.example.mooderation.backend.Database;
 
 import java.util.ArrayList;

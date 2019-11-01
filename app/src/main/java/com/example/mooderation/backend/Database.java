@@ -1,27 +1,19 @@
 package com.example.mooderation.backend;
 
-import android.util.Log;
-
 import com.example.mooderation.FollowRequest;
 import com.example.mooderation.Follower;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.functions.FirebaseFunctions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 
 /**
@@ -30,9 +22,6 @@ import java.util.concurrent.TimeoutException;
 public class Database {
     private FirebaseFirestore db;
     private FirebaseUser user;
-    private FirebaseFunctions functions;
-
-    private static String TAG = "Database";
 
     /**
      * Initialize the database by connecting to the firebase and firebase auth singletons
@@ -40,7 +29,6 @@ public class Database {
     public Database() {
         db = FirebaseFirestore.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        functions = FirebaseFunctions.getInstance();
     }
 
     /**
@@ -55,6 +43,7 @@ public class Database {
     /**
      * As the current user, accept a follow request
      * @param request The follow request to accept
+     * @return A task which completes when the request has been accepted
      */
     public Task<Void> acceptFollowRequest(FollowRequest request) {
         return deleteFollowRequest(request)
@@ -64,6 +53,7 @@ public class Database {
     /**
      * As the current user, deny a follow request
      * @param request The follow request to deny
+     * @return A task which completes when the request has been denied
      */
     public Task<Void> denyFollowRequest(FollowRequest request) {
         return deleteFollowRequest(request);
@@ -81,18 +71,34 @@ public class Database {
                 requests.add(doc.toObject(FollowRequest.class));
             }
             listener.onDataChanged(requests);
-            Log.e(TAG, "Notified listener");
         }));
     }
 
+    /**
+     * Adds a follow request to the current user's list of follow requests. This overwrites any
+     * follow requests that already might exist from the potentially following participant.
+     * @param request The follow request to add
+     * @return A task which completes when the request has been added
+     */
     public Task<Void> addFollowRequest(FollowRequest request) {
         return followRequestsPath().document(request.getUid()).set(request);
     }
 
+    /**
+     * Deletes a follow request from the current user's list of follow requests. If the follow
+     * request is not in the user's list of follow requests than nothing happens.
+     * @param request The follow request to delete
+     * @return A task which completes when the request has been deleted
+     */
     public Task<Void> deleteFollowRequest(FollowRequest request) {
         return followRequestsPath().document(request.getUid()).delete();
     }
 
+    /**
+     * Gets all follow requests for the current user
+     * @return A task which has as its result a list of the user's follow requests, in no
+     *      particular order
+     */
     public Task<List<FollowRequest>> getFollowRequests() {
         return followRequestsPath().get().continueWith(task -> {
             List<FollowRequest> requests = new ArrayList<>();
@@ -103,14 +109,31 @@ public class Database {
         });
     }
 
+    /**
+     * Adds a follower to the given user. If the follower already follows the current user,
+     * overwrites information for that follower.
+     * @param follower The follower to add
+     * @return A task which completes once the follower has been added
+     */
     public Task<Void> addFollower(Follower follower) {
         return followersPath().document(follower.getUid()).set(follower);
     }
 
+    /**
+     * Deletes a follower from the given user. If the follower doesn't follow the current user,
+     * nothing happens.
+     * @param follower The follower to delete
+     * @return A task which completes once the follower has been deleted
+     */
     public Task<Void> deleteFollower(Follower follower) {
         return followersPath().document(follower.getUid()).delete();
     }
 
+    /**
+     * Gets all followers for the current user
+     * @return A task which has as its result a list of the user's followers, in no particular
+     *      order
+     */
     public Task<List<Follower>> getFollowers() {
         return followersPath().get().continueWith(task -> {
             List<Follower> followers = new ArrayList<>();
@@ -121,10 +144,12 @@ public class Database {
         });
     }
 
-    public Task<Void> deleteAllUsers() {
-        return deleteCollection("users", "followers", "follow_requests");
-    }
-
+    /**
+     * Adds a user to the main list of app users
+     * @param uid User's id
+     * @param username User's username
+     * @return A task which completes once the user has been added
+     */
     public Task<Void> addUser(String uid, String username) {
         Map<String, Object> data = new HashMap<>();
         data.put("username", username);
@@ -141,28 +166,6 @@ public class Database {
 
     private CollectionReference followersPath() {
         return userPath().collection("followers");
-    }
-
-    private void deleteCollectionImpl(String path, String[] subcollections) throws ExecutionException, InterruptedException, TimeoutException {
-        Log.e("Database", "Deleting path " + path + " impl");
-        QuerySnapshot documents = Tasks.await(db.collection(path).get(), 1, TimeUnit.valueOf("second"));
-        Log.e("Database", "Path " + path + " has " + documents.size() + " documents");
-        for (DocumentSnapshot doc : documents) {
-            for (String subcollection : subcollections) {
-                Log.e("Database", "Deleting path " + doc.getReference().collection(subcollection).getPath());
-                deleteCollectionImpl(doc.getReference().collection(subcollection).getPath(), subcollections);
-            }
-            Log.e("Database", "Deleting document " + doc.getReference().getPath());
-            Tasks.await(doc.getReference().delete());
-        }
-    }
-
-    private Task<Void> deleteCollection(String path, String... subcollections) {
-        Log.e("Database", "Deleting path " + path);
-        return Tasks.call(() -> {
-            deleteCollectionImpl(path, subcollections);
-            return null;
-        });
     }
 
     /**

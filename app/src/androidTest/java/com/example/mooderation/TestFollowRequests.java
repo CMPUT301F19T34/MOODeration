@@ -3,7 +3,6 @@ package com.example.mooderation;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.mooderation.activity.followrequest.FollowRequestsActivity;
 import com.example.mooderation.backend.Database;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
@@ -15,16 +14,15 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.runners.JUnit4;
 
 import java.util.concurrent.ExecutionException;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(JUnit4.class)
 public class TestFollowRequests {
     private Solo solo;
 

@@ -1,25 +1,26 @@
 package com.example.mooderation;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-
-public class MainActivity extends AppCompatActivity implements AddMoodEventFragment.OnFragmentInteractionListener {
-    public static int REQUEST_LOGIN = 0;
-
-    private MoodEventHistory moodEventHistory;
+/**
+ * The applications main activity.
+ * Navigation components are being used keeping most of the UI
+ * implementation in fragments.
+ */
+public class MainActivity extends AppCompatActivity {
+    public final int REQUEST_AUTHENTICATE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,40 +29,28 @@ public class MainActivity extends AppCompatActivity implements AddMoodEventFragm
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
-                Log.d("MainActivity", "addAuthStateListener launching LoginActivity");
-                launchLoginActivity();
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
+                startActivityForResult(intent, REQUEST_AUTHENTICATE);
             } else {
-                Log.d("MainActivity", "addAuthStateListener launching notifyLogin");
-                notifyLogin();
-                // Populate data here
+                String welcome = "Logged in as " + firebaseAuth.getCurrentUser().getEmail();
+                Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
             }
-        });
-
-        final Button logoutButton = findViewById(R.id.logout);
-        logoutButton.setOnClickListener(v -> FirebaseAuth.getInstance().signOut());
-
-        moodEventHistory = new MoodEventHistory();
-
-        final FloatingActionButton addMoodEventButton = findViewById(R.id.add_mood_event_button);
-        addMoodEventButton.setOnClickListener(v -> {
-            AddMoodEventFragment fragment = new AddMoodEventFragment();
-            fragment.show(getSupportFragmentManager(), "ADD_MOOD");
         });
     }
 
     @Override
-    public void onPositiveClick(MoodEvent moodEvent) {
-        moodEventHistory.addMoodEvent(moodEvent);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actionbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    private void launchLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
-        startActivityForResult(intent, REQUEST_LOGIN);
-    }
-
-    private void notifyLogin() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Toast.makeText(getApplicationContext(), "Signed in as " + user.getEmail(), Toast.LENGTH_LONG).show();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.log_out) {
+            FirebaseAuth.getInstance().signOut();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

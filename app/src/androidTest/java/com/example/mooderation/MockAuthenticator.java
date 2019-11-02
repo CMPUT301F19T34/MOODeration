@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
-import com.example.mooderation.auth.base.AuthenticationException;
+import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.AuthenticationResult;
 import com.example.mooderation.auth.base.IAuthentication;
 import com.example.mooderation.auth.base.IAuthenticator;
@@ -20,13 +20,13 @@ class MockAuthenticator implements IAuthenticator {
             };
             listener.onAuthenticateResult(new AuthenticationResult(authentication));
         } else {
-            listener.onAuthenticateResult(new AuthenticationResult(new AuthenticationException()));
+            listener.onAuthenticateResult(new AuthenticationResult(new AuthenticationError()));
         }
     }
 
     @Override
     public void signup(String username, String email, String password, AuthenticationResultListener listener) {
-        listener.onAuthenticateResult(new AuthenticationResult(new AuthenticationException()));
+        listener.onAuthenticateResult(new AuthenticationResult(new AuthenticationError()));
     }
 
     public static final Parcelable.Creator<MockAuthenticator> CREATOR

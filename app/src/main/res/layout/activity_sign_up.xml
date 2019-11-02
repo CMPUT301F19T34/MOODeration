@@ -19,7 +19,7 @@
         android:layout_marginTop="8dp"
 
         android:layout_marginEnd="24dp"
-        android:hint="@string/prompt_email"
+        android:hint="@string/auth_prompt_email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
         android:layout_marginTop="96dp"
         android:layout_marginEnd="24dp"
 
-        android:hint="@string/prompt_username"
+        android:hint="@string/auth_prompt_username"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,9 +49,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
 
-        android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
+        android:hint="@string/auth_prompt_password"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,8 +64,8 @@
         android:layout_marginTop="8dp"
 
         android:layout_marginEnd="24dp"
-        android:hint="@string/prompt_reenter_password"
-        android:imeActionLabel="@string/action_sign_in_short"
+        android:hint="@string/auth_prompt_reenter_password"
+        android:imeActionLabel="@string/auth_action_sign_up"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
@@ -95,7 +93,7 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="220dp"
-        android:text="@string/action_sign_up"
+        android:text="@string/auth_action_sign_up"
         android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

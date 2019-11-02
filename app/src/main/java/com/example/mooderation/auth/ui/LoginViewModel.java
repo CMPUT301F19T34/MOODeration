@@ -1,4 +1,4 @@
-package com.example.mooderation.auth;
+package com.example.mooderation.auth.ui;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -7,14 +7,16 @@ import androidx.lifecycle.ViewModel;
 import android.util.Patterns;
 
 import com.example.mooderation.R;
+import com.example.mooderation.auth.base.AuthenticationResult;
+import com.example.mooderation.auth.base.IAuthenticator;
 
 public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<AuthenticationResult> loginResult = new MutableLiveData<>();
-    private Authenticator authenticator;
+    private IAuthenticator authenticator;
 
-    public LoginViewModel(Authenticator authenticator) {
+    public LoginViewModel(IAuthenticator authenticator) {
         this.authenticator = authenticator;
     }
 
@@ -26,12 +28,12 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
-    Authenticator getAuthenticator() {
+    IAuthenticator getAuthenticator() {
         return authenticator;
     }
 
-    public void login(String username, String password) {
-        authenticator.login(username, password, result -> loginResult.setValue(result));
+    void login(String username, String password) {
+        authenticator.login(username, password, authResult -> loginResult.setValue(authResult));
     }
 
     void loginDataChanged(String email, String password) {

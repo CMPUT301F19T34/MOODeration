@@ -1,15 +1,17 @@
-package com.example.mooderation.auth;
+package com.example.mooderation.auth.ui;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mooderation.auth.base.IAuthenticator;
+
 import java.lang.reflect.InvocationTargetException;
 
 class ViewModelAuthenticationFactory implements ViewModelProvider.Factory {
-    private Authenticator authenticator;
+    private IAuthenticator authenticator;
 
-    ViewModelAuthenticationFactory(Authenticator authenticator) {
+    ViewModelAuthenticationFactory(IAuthenticator authenticator) {
         this.authenticator = authenticator;
     }
 
@@ -17,7 +19,7 @@ class ViewModelAuthenticationFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         try {
-            return modelClass.getConstructor(Authenticator.class)
+            return modelClass.getConstructor(IAuthenticator.class)
                     .newInstance(authenticator);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("Cannot create an instance of " + modelClass, e);

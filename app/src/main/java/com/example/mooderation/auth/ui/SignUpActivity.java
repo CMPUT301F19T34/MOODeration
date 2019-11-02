@@ -1,6 +1,5 @@
-package com.example.mooderation.auth;
+package com.example.mooderation.auth.ui;
 
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -16,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mooderation.R;
+import com.example.mooderation.auth.base.AuthenticationException;
+import com.example.mooderation.auth.base.IAuthenticator;
 
 public class SignUpActivity extends AppCompatActivity {
     private SignUpViewModel signUpViewModel;
@@ -27,7 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         Intent enterItent = getIntent();
-        Authenticator authenticator = enterItent.getParcelableExtra(AUTHENTICATOR);
+        IAuthenticator authenticator = enterItent.getParcelableExtra(AUTHENTICATOR);
 
         ViewModelAuthenticationFactory f = new ViewModelAuthenticationFactory(authenticator);
         this.signUpViewModel = ViewModelProviders.of(this, f).get(SignUpViewModel.class);
@@ -63,8 +64,8 @@ public class SignUpActivity extends AppCompatActivity {
                 return;
             }
             loadingProgressBar.setVisibility(View.GONE);
-            if (signUpResult.getError() != null) {
-                showSignUpFailed(signUpResult.getErrorInt());
+            if (signUpResult.getFailure() != null) {
+                showSignUpFailed(signUpResult.getFailure());
             } else {
                 setResult(RESULT_OK);
                 finish();
@@ -111,7 +112,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void showSignUpFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_LONG).show();
+    private void showSignUpFailed(AuthenticationException exception) {
+        Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
     }
 }

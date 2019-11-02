@@ -1,4 +1,4 @@
-package com.example.mooderation.auth;
+package com.example.mooderation.auth.ui;
 
 
 import androidx.annotation.Nullable;
@@ -18,22 +18,22 @@ class SignUpFormState {
     }
 
     @Nullable
-    public Integer getUsernameError() {
+    Integer getUsernameError() {
         return usernameError;
     }
 
     @Nullable
-    public Integer getEmailError() {
+    Integer getEmailError() {
         return emailError;
     }
 
     @Nullable
-    public Integer getPasswordError() {
+    Integer getPasswordError() {
         return passwordError;
     }
 
     @Nullable
-    public Integer getPassword2Error() {
+    Integer getPassword2Error() {
         return password2Error;
     }
 

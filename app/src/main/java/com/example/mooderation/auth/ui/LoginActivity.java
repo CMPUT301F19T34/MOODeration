@@ -1,7 +1,6 @@
-package com.example.mooderation.auth;
+package com.example.mooderation.auth.ui;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -17,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mooderation.R;
+import com.example.mooderation.auth.base.AuthenticationException;
+import com.example.mooderation.auth.base.IAuthenticator;
 
 public class LoginActivity extends AppCompatActivity {
     public static int REQUEST_SIGNUP = 0;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         this.setContentView(R.layout.activity_login);
 
         Intent enterItent = getIntent();
-        Authenticator authenticator = enterItent.getParcelableExtra(AUTHENTICATOR);
+        IAuthenticator authenticator = enterItent.getParcelableExtra(AUTHENTICATOR);
 
         ViewModelAuthenticationFactory f = new ViewModelAuthenticationFactory(authenticator);
         this.loginViewModel = ViewModelProviders.of(this, f).get(LoginViewModel.class);
@@ -59,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             loadingProgressBar.setVisibility(View.GONE);
-            if (loginResult.getError() != null) {
-                showLoginFailed(loginResult.getErrorInt());
+            if (loginResult.getFailure() != null) {
+                showLoginFailed(loginResult.getFailure());
             }
             else {
                 setResult(RESULT_OK);
@@ -117,8 +118,15 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_LONG).show();
+    @Override
+    public void onBackPressed() {
+        // Prevent the back button from switching activities here
+        this.moveTaskToBack(true);
+    }
+
+    private void showLoginFailed(AuthenticationException exception) {
+        // TODO: implement this properly
+        Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     private void startSignupActivity() {

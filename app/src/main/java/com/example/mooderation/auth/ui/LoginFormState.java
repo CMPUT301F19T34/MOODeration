@@ -1,4 +1,4 @@
-package com.example.mooderation.auth;
+package com.example.mooderation.auth.ui;
 
 import androidx.annotation.Nullable;
 

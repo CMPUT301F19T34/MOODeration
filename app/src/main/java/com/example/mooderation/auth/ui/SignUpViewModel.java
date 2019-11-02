@@ -1,4 +1,4 @@
-package com.example.mooderation.auth;
+package com.example.mooderation.auth.ui;
 
 import android.util.Patterns;
 
@@ -7,25 +7,27 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mooderation.R;
+import com.example.mooderation.auth.base.AuthenticationResult;
+import com.example.mooderation.auth.base.IAuthenticator;
 
 class SignUpViewModel extends ViewModel {
 
     private MutableLiveData<SignUpFormState> signUpFormState = new MutableLiveData<>();
     private MutableLiveData<AuthenticationResult> signUpResult = new MutableLiveData<>();
-    private Authenticator authenticator;
+    private IAuthenticator authenticator;
 
     LiveData<SignUpFormState> getSignUpFormState() {return signUpFormState;}
     LiveData<AuthenticationResult> getsignUpResult() {return signUpResult;}
 
-    public SignUpViewModel(Authenticator authenticator) {
+    public SignUpViewModel(IAuthenticator authenticator) {
         this.authenticator = authenticator;
     }
 
     void signUp(String username, String email, String password) {
-        authenticator.signup(username, email, password, result -> signUpResult.setValue(result));
+        authenticator.signup(username, email, password, authResult -> signUpResult.setValue(authResult));
     }
 
-    public void signUpDataChanged(String username, String email, String password, String password2) {
+    void signUpDataChanged(String username, String email, String password, String password2) {
         signUpFormState.setValue(new SignUpFormState(
                 isUsernameValid(username) ? null : R.string.invalid_username,
                 isEmailValid(email) ? null : R.string.invalid_email,

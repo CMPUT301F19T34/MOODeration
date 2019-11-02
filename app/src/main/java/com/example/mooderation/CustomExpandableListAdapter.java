@@ -2,6 +2,8 @@ package com.example.mooderation;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -18,12 +20,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> expandableListTitle;
-    private HashMap<String, List<String>> expandableListDetail;
+    private TreeMap<String, List<String>> expandableListDetail;
     Button editbutton;
     Button deletebutton;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<String>> expandableListDetail) {
+                                       TreeMap<String, List<String>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
@@ -58,11 +60,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             editbutton.setVisibility(View.VISIBLE);
             deletebutton.setVisibility(View.VISIBLE);
 
-            editbutton.setOnClickListener((View v) -> {
+            /*editbutton.setOnClickListener((View v) -> {
                 NavDirections action = ViewMoodHistoryFragmentDirections
                         .actionViewMoodHistoryFragmentToEditMoodEventFragment();
                 Navigation.findNavController(v).navigate(action);
-            });
+            });*/
         }else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);

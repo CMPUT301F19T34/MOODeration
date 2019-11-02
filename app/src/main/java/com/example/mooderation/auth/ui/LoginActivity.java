@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -16,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mooderation.R;
-import com.example.mooderation.auth.base.AuthenticationException;
+import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.IAuthenticator;
 
 public class LoginActivity extends AppCompatActivity {
@@ -69,25 +67,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        TextWatcher afterTextChangedListener = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // ignore
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ignore
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(emailEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-            }
-        };
+        AfterChangeTextWatcher afterTextChangedListener = s -> loginViewModel.loginDataChanged(
+                emailEditText.getText().toString(), passwordEditText.getText().toString()
+        );
         emailEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
+
         passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
@@ -124,9 +109,9 @@ public class LoginActivity extends AppCompatActivity {
         this.moveTaskToBack(true);
     }
 
-    private void showLoginFailed(AuthenticationException exception) {
+    private void showLoginFailed(AuthenticationError error) {
         // TODO: implement this properly
-        Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
     }
 
     private void startSignupActivity() {

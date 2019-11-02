@@ -29,10 +29,10 @@ class SignUpViewModel extends ViewModel {
 
     void signUpDataChanged(String username, String email, String password, String password2) {
         signUpFormState.setValue(new SignUpFormState(
-                isUsernameValid(username) ? null : R.string.invalid_username,
-                isEmailValid(email) ? null : R.string.invalid_email,
-                isPasswordValid(password) ? null : R.string.invalid_password,
-                password.equals(password2) ? null : R.string.invalid_password2
+                isUsernameValid(username) ? null : R.string.auth_prompt_invalid_username,
+                isEmailValid(email) ? null : R.string.auth_prompt_invalid_email,
+                isPasswordValid(password) ? null : R.string.auth_prompt_invalid_password,
+                password.equals(password2) ? null : R.string.auth_prompt_invalid_password2
             ));
     }
 

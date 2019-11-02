@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -15,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mooderation.R;
-import com.example.mooderation.auth.base.AuthenticationException;
+import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.IAuthenticator;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -72,26 +70,18 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        TextWatcher afterTextChangedListener = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                signUpViewModel.signUpDataChanged(
-                        usernameEditText.getText().toString(),
-                        emailEditText.getText().toString(),
-                        passwordEditText.getText().toString(),
-                        password2EditText.getText().toString());
-            }
-        };
+        AfterChangeTextWatcher afterTextChangedListener = s -> signUpViewModel.signUpDataChanged(
+                usernameEditText.getText().toString(),
+                emailEditText.getText().toString(),
+                passwordEditText.getText().toString(),
+                password2EditText.getText().toString()
+        );
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         emailEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
         password2EditText.addTextChangedListener(afterTextChangedListener);
+
         password2EditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
@@ -112,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void showSignUpFailed(AuthenticationException exception) {
-        Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+    private void showSignUpFailed(AuthenticationError error) {
+        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
     }
 }

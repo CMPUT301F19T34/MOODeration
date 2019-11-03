@@ -1,10 +1,6 @@
 package com.example.mooderation;
 
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
-
 import com.example.mooderation.backend.Database;
-import com.example.mooderation.backend.TestDatabaseActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
@@ -12,11 +8,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.robotium.solo.Solo;
 
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -30,8 +23,6 @@ import static org.junit.Assert.assertFalse;
 
 @RunWith(JUnit4.class)
 public class TestDatabase {
-    private Solo solo;
-
     private FirebaseFirestore db;
     private FirebaseAuth auth;
 
@@ -45,13 +36,8 @@ public class TestDatabase {
     private Follower mockFollowerWithDifferentName;
 
 
-    @Rule
-    public ActivityTestRule<TestDatabaseActivity> rule = new ActivityTestRule<>(TestDatabaseActivity.class, true, true);
-
     @Before
     public void setUp() throws InterruptedException, ExecutionException {
-        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         auth.signOut();
@@ -72,11 +58,6 @@ public class TestDatabase {
 
         Tasks.await(followRequestsPath.document(mockFollowRequest.getUid()).delete());
         Tasks.await(followersPath.document(mockFollower.getUid()).delete());
-    }
-
-    @After
-    public void tearDown() {
-        solo.finishOpenedActivities();
     }
 
 
@@ -235,8 +216,6 @@ public class TestDatabase {
 
     @Test
     public void testAcceptFollowRequest() throws Exception {
-        solo.assertCurrentActivity("Wrong Activity", TestDatabaseActivity.class);
-
         Database database = new Database();
         Task<Void> tasks = database.addFollowRequest(mockFollowRequest)
                 .continueWithTask(task -> database.getFollowers())
@@ -266,8 +245,6 @@ public class TestDatabase {
 
     @Test
     public void testDenyFollowRequest() throws Exception {
-        solo.assertCurrentActivity("Wrong Activity", TestDatabaseActivity.class);
-
         Database database = new Database();
         Task<Void> tasks = database.addFollowRequest(mockFollowRequest)
                 .continueWithTask(task -> database.getFollowers())

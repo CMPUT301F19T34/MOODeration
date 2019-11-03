@@ -29,6 +29,8 @@ dependencies {
     // version definitions
     def nav_version = "2.1.0"
     def recyclerview_version = "1.0.0"
+    def fragment_version = "1.1.0"
+    def testing_version = "1.2.0"
 
     // Dependency on remote binary
     implementation 'com.google.android.material:material:1.0.0'
@@ -44,17 +46,20 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
     testImplementation 'junit:junit:4.12'
 
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation "androidx.test:runner:$testing_version"
+    androidTestImplementation "androidx.test:rules:$testing_version"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
+
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+    debugImplementation "androidx.test:core:$testing_version"
 }
 
 apply plugin: 'com.google.gms.google-services'

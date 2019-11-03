@@ -5,18 +5,17 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -44,7 +43,9 @@ public class AddMoodEventFragment extends Fragment {
     private FusedLocationProviderClient fusedLocationClient;
 
     private Calendar dateTime;
-    private static Location location;
+
+    private Location location;
+    private boolean isToggled = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,30 +96,29 @@ public class AddMoodEventFragment extends Fragment {
 
         // find and initialize locationSwitch
         locationSwitch = view.findViewById(R.id.location_switch);
-        locationSwitch.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
-            if(isChecked) {
-                // check that the device is running API level 23 or higher (minimum for permission dialogue box support)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) {
-                    // if permission has not been granted, request permission
-                    checkPermission();
-                    if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-
-                        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
-                            if(location != null) {
-                                AddMoodEventFragment.location = location;
-                            }
-                        });
-                    } else {
-                        locationSwitch.toggle();
-                    }
-                }
+        locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
+            if(isToggled) {
+                // request location permission
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        1);
             }
         });
 
         // find and initialize saveButton
         saveButton = view.findViewById(R.id.save_mood_event_button);
         saveButton.setOnClickListener((View v) -> {
+            // if location toggle is on
+            if(isToggled) {
+                // get location
+                fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+                fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+                    if(location != null) {
+                        setLocation(location);
+                    }
+                });
+            }
+
+
             MoodEvent moodEvent = new MoodEvent(
                     dateTime,
                     (EmotionalState) emotionalStateSpinner.getSelectedItem(),
@@ -167,11 +167,16 @@ public class AddMoodEventFragment extends Fragment {
      * If location permission is not granted, request permission
      */
 
-    public void checkPermission() {
+    public void requestPermission() {
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
         }
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     /**
@@ -184,6 +189,17 @@ public class AddMoodEventFragment extends Fragment {
             dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             dateTime.set(Calendar.MINUTE, minute);
             timeTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            isToggled = true;
+        } else {
+            isToggled = false;
+            locationSwitch.toggle();
         }
     }
 }

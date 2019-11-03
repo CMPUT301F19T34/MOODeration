@@ -1,5 +1,10 @@
 language: android
 
+env:
+  global:
+    - ANDROID_TARGET=android-22
+    - ANDROID_ABI=armeabi-v7a
+
 jobs:
   include:
     - dist: trusty
@@ -23,12 +28,6 @@ jobs:
           branch: master
 
     - jdk: oraclejdk8
-
-      env:
-        global:
-          - ANDROID_TARGET=android-22
-          - ANDROID_ABI=armeabi-v7a
-
       android:
         components:
           # Uncomment the lines below if you want to

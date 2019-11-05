@@ -12,6 +12,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the main "users" table, and allows adding to and deleting from it.
+ */
 public class ParticipantRepository implements Repository<Participant> {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 

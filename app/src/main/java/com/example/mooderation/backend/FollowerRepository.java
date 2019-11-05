@@ -11,6 +11,9 @@ import com.google.firebase.firestore.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the followers of each participant.
+ */
 public class FollowerRepository implements OwnedRepository<Participant, Follower> {
     private FirebaseFirestore db;
 

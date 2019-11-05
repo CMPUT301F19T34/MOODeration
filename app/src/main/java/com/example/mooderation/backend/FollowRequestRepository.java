@@ -11,6 +11,9 @@ import com.google.firebase.firestore.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the follow requests addressed to each participant.
+ */
 public class FollowRequestRepository implements OwnedRepository<Participant, FollowRequest> {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.mooderation.R;
 import com.example.mooderation.auth.base.AuthenticationError;
+import com.example.mooderation.auth.base.AuthenticationResult;
 import com.example.mooderation.auth.base.IAuthenticator;
 
 /**
@@ -30,8 +31,15 @@ import com.example.mooderation.auth.base.IAuthenticator;
  * </pre>
  */
 public class SignUpActivity extends AppCompatActivity {
-    private SignUpViewModel signUpViewModel;
     public static String AUTHENTICATOR = "com.example.mooderation.signUpAuthenticator";
+
+    private SignUpViewModel signUpViewModel;
+
+    private EditText usernameEditText;
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private EditText password2EditText;
+    private ProgressBar loadingProgressBar;
 
     /**
      * Sets up the Activity, binding the text fields and buttons appropriately.
@@ -41,52 +49,38 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        // Recover the IAuthenticator instance from the Intent
         Intent enterItent = getIntent();
         IAuthenticator authenticator = enterItent.getParcelableExtra(AUTHENTICATOR);
 
+        // Make/recover the view model
         ViewModelAuthenticationFactory f = new ViewModelAuthenticationFactory(authenticator);
         this.signUpViewModel = ViewModelProviders.of(this, f).get(SignUpViewModel.class);
 
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText emailEditText = findViewById(R.id.email);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final EditText password2EditText = findViewById(R.id.password2);
+        // Bind listeners to text, buttons and ViewModel observers
+        usernameEditText = findViewById(R.id.username);
+        emailEditText = findViewById(R.id.email);
+        passwordEditText = findViewById(R.id.password);
+        password2EditText = findViewById(R.id.password2);
+        loadingProgressBar = findViewById(R.id.loading);
         final Button signUpButton = findViewById(R.id.signup);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
+        // Display/hide errors and enable/disable signup button depending on form state
         signUpViewModel.getSignUpFormState().observe(this, signUpFormState -> {
             if (signUpFormState == null) {
                 return;
             }
             signUpButton.setEnabled(signUpFormState.isDataValid());
-            if (signUpFormState.getUsernameError() != null) {
-                usernameEditText.setError(getString(signUpFormState.getUsernameError()));
-            }
-            if (signUpFormState.getEmailError() != null) {
-                emailEditText.setError(getString(signUpFormState.getEmailError()));
-            }
-            if (signUpFormState.getPasswordError() != null) {
-                passwordEditText.setError(getString(signUpFormState.getPasswordError()));
-            }
-            if (signUpFormState.getPassword2Error() != null) {
-                password2EditText.setError(getString(signUpFormState.getPassword2Error()));
-            }
+            usernameEditText.setError(signUpFormState.getUsernameError() == null ? null : getString(signUpFormState.getUsernameError()));
+            emailEditText.setError(signUpFormState.getEmailError() == null ? null : getString(signUpFormState.getEmailError()));
+            passwordEditText.setError(signUpFormState.getPasswordError() == null ? null : getString(signUpFormState.getPasswordError()));
+            password2EditText.setError(signUpFormState.getPassword2Error() == null ? null : getString(signUpFormState.getPassword2Error()));
         });
 
-        signUpViewModel.getsignUpResult().observe(this, signUpResult -> {
-            if (signUpResult == null) {
-                return;
-            }
-            loadingProgressBar.setVisibility(View.GONE);
-            if (signUpResult.getFailure() != null) {
-                showSignUpFailed(signUpResult.getFailure());
-            } else {
-                setResult(RESULT_OK);
-                finish();
-            }
-        });
+        //Display sign-up error / exit activity on different sign-up results
+        signUpViewModel.getsignUpResult().observe(this, this::handleSignUpResult);
 
-
+        // Notify ViewModel of text changes
         AfterChangeTextWatcher afterTextChangedListener = s -> signUpViewModel.signUpDataChanged(
                 usernameEditText.getText().toString(),
                 emailEditText.getText().toString(),
@@ -98,24 +92,16 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText.addTextChangedListener(afterTextChangedListener);
         password2EditText.addTextChangedListener(afterTextChangedListener);
 
+        // Attempt sign-up when user enters IME_ACTION_DONE from the password-verify input
         password2EditText.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                signUpViewModel.signUp(
-                        usernameEditText.getText().toString(),
-                        emailEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+            if (actionId == EditorInfo.IME_ACTION_DONE && isFormValid()) {
+                beginSignUp();
             }
             return false;
         });
 
-        signUpButton.setOnClickListener(v -> {
-            loadingProgressBar.setVisibility(View.VISIBLE);
-            signUpViewModel.signUp(
-                    usernameEditText.getText().toString(),
-                    emailEditText.getText().toString(),
-                    passwordEditText.getText().toString());
-        });
+        // Attempt sign-up when the user presses the sign-up button
+        signUpButton.setOnClickListener(v -> beginSignUp());
     }
 
     /**
@@ -127,6 +113,53 @@ public class SignUpActivity extends AppCompatActivity {
      * @param error the error encountered when attempting to authenticate.
      */
     private void showSignUpFailed(AuthenticationError error) {
-        Toast.makeText(getApplicationContext(), "Error signing up. Do you already have an account?", Toast.LENGTH_LONG).show();
+        int errorText = R.string.auth_error_signup_generic;
+
+        if (error == AuthenticationError.USERNAME_COLLISION) errorText = R.string.auth_error_signup_username_collision;
+        else if (error == AuthenticationError.EMAIL_COLLISION) errorText = R.string.auth_error_signup_email_collision;
+
+        Toast.makeText(getApplicationContext(), errorText, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Query the ViewModel to find out if the form is in a valid state, and ready to be submitted
+     *
+     * @return True iff the sign-up form is in a valid state
+     */
+    private boolean isFormValid() {
+        SignUpFormState signUpFormState = signUpViewModel.getSignUpFormState().getValue();
+        return signUpFormState != null && signUpFormState.isDataValid();
+    }
+
+    /**
+     * Called when the user indicates they are ready to sign up. Starts the progress bar and
+     * initiates the Authenticator.signup process
+     */
+    private void beginSignUp() {
+        loadingProgressBar.setVisibility(View.VISIBLE);
+        signUpViewModel.getAuthenticator().signup(
+                usernameEditText.getText().toString(),
+                emailEditText.getText().toString(),
+                passwordEditText.getText().toString(),
+                authResult -> signUpViewModel.setSignUpResult(authResult));
+    }
+
+    /**
+     * Called when an authentication result is generated. Hides the progress bar and either exits
+     * this activity (if the sign-up succeeded) or displays an error message (if it failed).
+     *
+     * @param signUpResult result of the sign-up attempt
+     */
+    private void handleSignUpResult(AuthenticationResult signUpResult) {
+        if (signUpResult == null)
+            return;
+
+        loadingProgressBar.setVisibility(View.GONE);
+        if (signUpResult.getFailure() != null) {
+            showSignUpFailed(signUpResult.getFailure());
+        } else {
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 }

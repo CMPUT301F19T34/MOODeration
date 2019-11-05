@@ -10,7 +10,12 @@ import com.example.mooderation.auth.base.AuthenticationResult;
 import com.example.mooderation.auth.base.IAuthentication;
 import com.example.mooderation.auth.base.IAuthenticator;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 
 /**
@@ -77,8 +82,14 @@ public class FirebaseAuthenticator implements IAuthenticator {
      */
     private AuthenticationError translateFirebaseException(FirebaseAuthException e) {
         // Convert from generic exceptions to AuthenticationExceptions
-        // TODO: implement this properly
-        return new AuthenticationError();
+        if (e instanceof FirebaseAuthUserCollisionException)
+            return AuthenticationError.EMAIL_COLLISION;
+        if (e instanceof FirebaseAuthInvalidUserException)
+            return AuthenticationError.INVALID_EMAIL;
+        if (e instanceof FirebaseAuthInvalidCredentialsException)
+            return AuthenticationError.INVALID_PASSWORD;
+
+        return AuthenticationError.UNKNOWN;
     }
 
     @NonNull

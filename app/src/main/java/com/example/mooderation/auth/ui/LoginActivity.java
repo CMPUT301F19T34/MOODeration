@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.mooderation.R;
 import com.example.mooderation.auth.base.AuthenticationError;
+import com.example.mooderation.auth.base.AuthenticationResult;
 import com.example.mooderation.auth.base.IAuthenticator;
 
 /**
@@ -42,6 +43,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
 
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private ProgressBar loadingProgressBar;
+
     /**
      * Sets up the Activity, binding the text fields and buttons appropriately.
      */
@@ -50,66 +55,53 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_login);
 
+        // Recover the IAuthenticator instance from the Intent
         Intent enterItent = getIntent();
         IAuthenticator authenticator = enterItent.getParcelableExtra(AUTHENTICATOR);
 
+        // Make/recover the view model
         ViewModelAuthenticationFactory f = new ViewModelAuthenticationFactory(authenticator);
         this.loginViewModel = ViewModelProviders.of(this, f).get(LoginViewModel.class);
 
-        final EditText emailEditText = findViewById(R.id.email);
-        final EditText passwordEditText = findViewById(R.id.password);
+        // Bind listeners to text, buttons and ViewModel observers
+        loadingProgressBar = findViewById(R.id.loading);
+        emailEditText = findViewById(R.id.email);
+        passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final Button signUpButton = findViewById(R.id.signup);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
+        // Display/hide errors and enable/disable login button depending on form state
         loginViewModel.getLoginFormState().observe(this, loginFormState -> {
             if (loginFormState == null) {
                 return;
             }
             loginButton.setEnabled(loginFormState.isDataValid());
-            if (loginFormState.getEmailError() != null) {
-                emailEditText.setError(getString(loginFormState.getEmailError()));
-            }
-            if (loginFormState.getPasswordError() != null) {
-                passwordEditText.setError(getString(loginFormState.getPasswordError()));
-            }
+            emailEditText.setError(loginFormState.getEmailError() == null ? null : getString(loginFormState.getEmailError()));
+            passwordEditText.setError(loginFormState.getPasswordError() == null ? null : getString(loginFormState.getPasswordError()));
         });
 
-        loginViewModel.getLoginResult().observe(this, loginResult -> {
-            if (loginResult == null) {
-                return;
-            }
-            loadingProgressBar.setVisibility(View.GONE);
-            if (loginResult.getFailure() != null) {
-                showLoginFailed(loginResult.getFailure());
-            }
-            else {
-                setResult(RESULT_OK);
-                finish();
-            }
-        });
+        // Display login error / exit activity on different login results
+        loginViewModel.getLoginResult().observe(this, this::handleLoginResult);
 
+
+        // Notify ViewModel of text changes
         AfterChangeTextWatcher afterTextChangedListener = s -> loginViewModel.loginDataChanged(
                 emailEditText.getText().toString(), passwordEditText.getText().toString()
         );
         emailEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
 
+
+        // Attempt login when user enters IME_ACTION_DONE from the password input
         passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(emailEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+            if (actionId == EditorInfo.IME_ACTION_DONE && isFormValid()) {
+                beginLogin();
             }
             return false;
         });
 
-        loginButton.setOnClickListener(v -> {
-            loadingProgressBar.setVisibility(View.VISIBLE);
-            loginViewModel.login(emailEditText.getText().toString(),
-                    passwordEditText.getText().toString());
-        });
-
+        // Handle login and signup buttons
+        loginButton.setOnClickListener(v -> beginLogin());
         signUpButton.setOnClickListener(v -> startSignupActivity());
     }
 
@@ -148,7 +140,12 @@ public class LoginActivity extends AppCompatActivity {
      * @param error the error encountered when attempting to authenticate.
      */
     private void showLoginFailed(AuthenticationError error) {
-        Toast.makeText(getApplicationContext(), "Error logging in. Are your email and password correct?", Toast.LENGTH_LONG).show();
+        int errorText = R.string.auth_error_login_generic;
+
+        if (error == AuthenticationError.INVALID_EMAIL) errorText = R.string.auth_error_login_invalid_email;
+        else if (error == AuthenticationError.INVALID_PASSWORD) errorText = R.string.auth_error_login_invalid_password;
+
+        Toast.makeText(getApplicationContext(), errorText, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -158,5 +155,46 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SignUpActivity.class);
         intent.putExtra(SignUpActivity.AUTHENTICATOR, loginViewModel.getAuthenticator());
         startActivityForResult(intent, REQUEST_SIGNUP);
+    }
+
+    /**
+     * Query the ViewModel to find out if the form is in a valid state, and ready to be submitted
+     *
+     * @return True iff the login form is in a valid state
+     */
+    private boolean isFormValid() {
+        LoginFormState loginFormState = loginViewModel.getLoginFormState().getValue();
+        return loginFormState != null && loginFormState.isDataValid();
+    }
+
+    /**
+     * Called when the user indicates they are ready to log in. Starts the progress bar and
+     * initiates the Authenticator.login process
+     */
+    private void beginLogin() {
+        loadingProgressBar.setVisibility(View.VISIBLE);
+        loginViewModel.getAuthenticator().login(
+                emailEditText.getText().toString(),
+                passwordEditText.getText().toString(),
+                authResult -> loginViewModel.setLoginResult(authResult));
+    }
+
+    /**
+     * Called when an authentication result is generated. Hides the progress bar and either exits
+     * this activity (if the login succeeded) or displays an error message (if the login failed).
+     *
+     * @param loginResult result of the login attempt
+     */
+    private void handleLoginResult(AuthenticationResult loginResult) {
+        if (loginResult == null)
+            return;
+
+        loadingProgressBar.setVisibility(View.GONE);
+        if (loginResult.getFailure() != null) {
+            showLoginFailed(loginResult.getFailure());
+        } else {
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 }

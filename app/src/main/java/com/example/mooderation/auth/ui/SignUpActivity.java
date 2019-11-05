@@ -16,10 +16,26 @@ import com.example.mooderation.R;
 import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.IAuthenticator;
 
+/**
+ * Activity that prompts the user to create an account with a username, email and password,
+ * according to an Authenticator instance given to it in an Intent.
+ * <br />
+ * One may, for example, use this to allow a user to create an account with a FirebaseAuthenticator
+ * instance:
+ *
+ * <pre>
+ *     Intent intent = new Intent(this, SignUpActivity.class);
+ *     intent.putExtra(SignUpActivity.AUTHENTICATOR, new FirebaseAuthenticator());
+ *     startActivityForResult(intent, REQUEST_AUTHENTICATE);
+ * </pre>
+ */
 public class SignUpActivity extends AppCompatActivity {
     private SignUpViewModel signUpViewModel;
     public static String AUTHENTICATOR = "com.example.mooderation.signUpAuthenticator";
 
+    /**
+     * Sets up the Activity, binding the text fields and buttons appropriately.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +118,15 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Given an AuthenticationError, prints out a human-readable representation of the error to the
+     * user in the form of a Toast.
+     * <br />
+     * TODO: This needs to print different errors depending on the argument given to it.
+     *
+     * @param error the error encountered when attempting to authenticate.
+     */
     private void showSignUpFailed(AuthenticationError error) {
-        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Error signing up. Do you already have an account?", Toast.LENGTH_LONG).show();
     }
 }

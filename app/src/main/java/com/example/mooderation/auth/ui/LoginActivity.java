@@ -25,7 +25,7 @@ import com.example.mooderation.auth.base.IAuthenticator;
  * One may, for example, use this to allow a user to authenticate with Firebase:
  *
  * <pre>
- *     FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+ *     FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -&gt; {
  *             if (firebaseAuth.getCurrentUser() == null) {
  *                 Intent intent = new Intent(this, LoginActivity.class);
  *                 intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());

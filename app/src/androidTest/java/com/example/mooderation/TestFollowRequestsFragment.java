@@ -1,17 +1,25 @@
 package com.example.mooderation;
 
+import android.os.Bundle;
+
 import androidx.fragment.app.testing.FragmentScenario;
 
-import com.example.mooderation.backend.Database;
+import com.example.mooderation.backend.FollowRequestRepository;
+import com.example.mooderation.backend.FollowerRepository;
+import com.example.mooderation.backend.OwnedRepository;
+import com.example.mooderation.backend.ParticipantRepository;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static androidx.test.espresso.Espresso.onData;
@@ -25,8 +33,11 @@ import static org.junit.Assert.assertFalse;
 
 @RunWith(JUnit4.class)
 public class TestFollowRequestsFragment {
-    private Database database;
+    private FollowRequestRepository followRequestRepository;
+    private FollowerRepository followerRepository;
+    private ParticipantRepository participantRepository;
 
+    private Participant p;
     private FollowRequest mockFollowRequest1;
     private FollowRequest mockFollowRequest2;
 
@@ -35,35 +46,52 @@ public class TestFollowRequestsFragment {
 
     @Before
     public void setUp() throws ExecutionException, InterruptedException {
+        followerRepository = new FollowerRepository();
+        followRequestRepository = new FollowRequestRepository();
+        participantRepository = new ParticipantRepository();
+
         mockFollowRequest1 = new FollowRequest("uid1", "name1", Timestamp.now());
         Thread.sleep(1);
         mockFollowRequest2 = new FollowRequest("uid2", "name2", Timestamp.now());
 
-        database = new Database();
-
-        FragmentScenario.launchInContainer(FollowRequestsFragment.class);
         Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-        Participant p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
-        Tasks.await(database.deleteUser(p).continueWith(task -> database.addUser(p)));
-        Tasks.await(database.addFollowRequest(mockFollowRequest1)
-                .continueWithTask(task -> database.addFollowRequest(mockFollowRequest2))
-                .continueWith(task -> database.deleteFollower(mockFollower1))
-                .continueWithTask(task -> database.deleteFollower(mockFollower2)));
+
+        p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
+        Bundle args = new Bundle();
+        args.putString("uid", p.getUid());
+        args.putString("username", p.getUsername());
+        FragmentScenario.launchInContainer(FollowRequestsFragment.class, args);
+
+        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.add(p)));
+        Tasks.await(followRequestRepository.add(p, mockFollowRequest1)
+                .continueWithTask(task -> followRequestRepository.add(p, mockFollowRequest2)));
     }
 
     @Test
     public void testAcceptFollower() throws ExecutionException, InterruptedException {
         onData(anything()).inAdapterView(withId(R.id.follow_request_list)).atPosition(0).perform(click());
         onView(withText("Accept")).perform(click());
-        assertTrue(Tasks.await(database.getFollowers()).contains(mockFollower2));
-        assertFalse(Tasks.await(database.getFollowRequests()).contains(mockFollowRequest2));
+
+        assertTrue(contains(followerRepository, p, mockFollower2));
+        assertFalse(contains(followRequestRepository, p, mockFollowRequest2));
     }
 
     @Test
     public void testDenyFollower() throws ExecutionException, InterruptedException {
         onData(anything()).inAdapterView(withId(R.id.follow_request_list)).atPosition(0).perform(click());
         onView(withText("Deny")).perform(click());
-        assertFalse(Tasks.await(database.getFollowers()).contains(mockFollower2));
-        assertFalse(Tasks.await(database.getFollowRequests()).contains(mockFollowRequest2));
+        assertFalse(contains(followerRepository, p, mockFollower2));
+        assertFalse(contains(followRequestRepository, p, mockFollowRequest2));
+    }
+
+    private <Owner, Item> boolean contains(OwnedRepository<Owner, Item> repo, Owner owner, Item item) throws ExecutionException, InterruptedException {
+        TaskCompletionSource<List<Item>> source = new TaskCompletionSource<>();
+        ListenerRegistration reg;
+        reg = repo.addListener(owner, items -> {
+            source.setResult(items);
+        });
+        boolean result = Tasks.await(source.getTask()).contains(item);
+        reg.remove();
+        return result;
     }
 }

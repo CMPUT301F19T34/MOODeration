@@ -72,26 +72,17 @@ public class TestFollowRequestsFragment {
         onData(anything()).inAdapterView(withId(R.id.follow_request_list)).atPosition(0).perform(click());
         onView(withText("Accept")).perform(click());
 
-        assertTrue(contains(followerRepository, p, mockFollower2));
-        assertFalse(contains(followRequestRepository, p, mockFollowRequest2));
+        assertTrue(RepoUtil.contains(followerRepository, p, mockFollower2));
+        assertFalse(RepoUtil.contains(followRequestRepository, p, mockFollowRequest2));
     }
 
     @Test
     public void testDenyFollower() throws ExecutionException, InterruptedException {
         onData(anything()).inAdapterView(withId(R.id.follow_request_list)).atPosition(0).perform(click());
         onView(withText("Deny")).perform(click());
-        assertFalse(contains(followerRepository, p, mockFollower2));
-        assertFalse(contains(followRequestRepository, p, mockFollowRequest2));
+        assertFalse(RepoUtil.contains(followerRepository, p, mockFollower2));
+        assertFalse(RepoUtil.contains(followRequestRepository, p, mockFollowRequest2));
     }
 
-    private <Owner, Item> boolean contains(OwnedRepository<Owner, Item> repo, Owner owner, Item item) throws ExecutionException, InterruptedException {
-        TaskCompletionSource<List<Item>> source = new TaskCompletionSource<>();
-        ListenerRegistration reg;
-        reg = repo.addListener(owner, items -> {
-            source.setResult(items);
-        });
-        boolean result = Tasks.await(source.getTask()).contains(item);
-        reg.remove();
-        return result;
-    }
+
 }

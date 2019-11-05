@@ -2,6 +2,7 @@ package com.example.mooderation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -9,6 +10,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
@@ -26,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MoodHistoryViewModel model = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
+        model.setParticipant(new Participant(
+                FirebaseAuth.getInstance().getUid(),
+                "user"
+        ));
+        Log.e("TAG", "Setting a viewmodel");
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {

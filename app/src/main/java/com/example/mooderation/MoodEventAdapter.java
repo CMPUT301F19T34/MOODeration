@@ -50,8 +50,8 @@ public class MoodEventAdapter extends RecyclerView.Adapter<MoodEventAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MoodEvent moodEvent = moodEventData.get(position);
         holder.moodTextView.setText(moodEvent.getEmotionalState().toString());
-        holder.dateTextView.setText(moodEvent.getDate());
-        holder.timeTextView.setText(moodEvent.getTime());
+        holder.dateTextView.setText(moodEvent.getFormattedDate());
+        holder.timeTextView.setText(moodEvent.getFormattedTime());
     }
 
     @Override

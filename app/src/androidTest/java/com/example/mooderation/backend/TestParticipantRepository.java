@@ -1,8 +1,11 @@
 package com.example.mooderation.backend;
 
+import com.example.mooderation.EmotionalState;
 import com.example.mooderation.FollowRequest;
 import com.example.mooderation.Follower;
+import com.example.mooderation.MoodEvent;
 import com.example.mooderation.Participant;
+import com.example.mooderation.SocialSituation;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import static junit.framework.TestCase.assertTrue;
@@ -66,6 +70,9 @@ public class TestParticipantRepository {
         Tasks.await(followerPath.collection("follow_requests")
                 .document(auth.getUid())
                 .set(new FollowRequest(auth.getUid(), "user", Timestamp.now())));
+        Tasks.await(userPath.collection("mood_history").document().set(new MoodEvent(
+                new Date(), EmotionalState.HAPPY, SocialSituation.ALONE, "No reason"
+        )));
         Tasks.await(followerPath.collection("followers")
                 .document(auth.getUid())
                 .set(new Follower(auth.getUid(), "user")));
@@ -101,5 +108,8 @@ public class TestParticipantRepository {
                         .get()
                         .continueWith(task -> task.getResult().exists())
         ));
+        assertEquals(0,
+                Tasks.await(userPath.collection("mood_history").get()).size()
+        );
     }
 }

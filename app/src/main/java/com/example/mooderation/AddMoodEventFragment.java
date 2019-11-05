@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddMoodEventFragment extends Fragment {
     private MoodHistoryViewModel moodHistoryViewModel;
@@ -30,7 +31,7 @@ public class AddMoodEventFragment extends Fragment {
     private EditText reasonEditText;
     private Button saveButton;
 
-    private Calendar dateTime;
+    private Date dateTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,8 @@ public class AddMoodEventFragment extends Fragment {
         // ViewModel for tracking MoodHistory
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
 
-        // get an Calendar with the current date and time
-        dateTime = Calendar.getInstance();
+        // get a Date with the current date and time
+        dateTime = new Date();
 
         // find and initialize dateTextView
         dateTextView = view.findViewById(R.id.date_picker_button);

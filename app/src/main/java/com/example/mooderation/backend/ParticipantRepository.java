@@ -37,6 +37,9 @@ public class ParticipantRepository implements Repository<Participant> {
                 .continueWithTask(task -> db.collectionGroup("follow_requests").whereEqualTo("uid", participant.getUid()).get())
                 .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))
 
+                .continueWithTask(task -> participantPath(participant).collection("mood_history").get())
+                .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))
+
                 .continueWithTask(task -> participantPath(participant).delete());
     }
 

@@ -1,6 +1,7 @@
 package com.example.mooderation;
 
-import org.jetbrains.annotations.NotNull;
+
+import androidx.annotation.NonNull;
 
 public class Participant {
     private String uid;
@@ -32,7 +33,7 @@ public class Participant {
         return participant.uid.equals(uid) && participant.username.equals(username);
     }
 
-    @NotNull
+    @NonNull
     @Override
     public String toString() {
         return String.format("{uid: %s, username: %s}", getUid(), getUsername());

@@ -42,7 +42,9 @@ public class TestFollowRequestsFragment {
         database = new Database();
 
         FragmentScenario.launchInContainer(FollowRequestsFragment.class);
-        Tasks.await(FirebaseAuth.getInstance().signInWithEmailAndPassword("user@example.com", "password"));
+        Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
+        Participant p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
+        Tasks.await(database.deleteUser(p).continueWith(task -> database.addUser(p)));
         Tasks.await(database.addFollowRequest(mockFollowRequest1)
                 .continueWithTask(task -> database.addFollowRequest(mockFollowRequest2))
                 .continueWith(task -> database.deleteFollower(mockFollower1))

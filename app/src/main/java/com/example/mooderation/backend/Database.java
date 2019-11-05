@@ -1,19 +1,21 @@
 package com.example.mooderation.backend;
 
+
 import com.example.mooderation.FollowRequest;
 import com.example.mooderation.Follower;
+import com.example.mooderation.Participant;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -146,14 +148,67 @@ public class Database {
 
     /**
      * Adds a user to the main list of app users
-     * @param uid User's id
-     * @param username User's username
+     * @param participant User to add
      * @return A task which completes once the user has been added
      */
-    public Task<Void> addUser(String uid, String username) {
-        Map<String, Object> data = new HashMap<>();
-        data.put("username", username);
-        return db.collection("users").document(uid).set(data);
+    public Task<Void> addUser(Participant participant) {
+        return db.collection("users").document(participant.getUid()).set(participant);
+    }
+
+    private Task<Void> deleteAllImmediateDocuments(QuerySnapshot ref) {
+        List<Task<Void>> tasks = new ArrayList<>();
+        for (DocumentSnapshot doc : ref) {
+            tasks.add(doc.getReference().delete());
+        }
+        return Tasks.whenAll(tasks);
+    }
+
+    /**
+     * Deletes a user entirely. This includes information in collections by other users. Slow
+     * and costly. Use only for testing.
+     * @param participant The user to delete.
+     * @return
+     */
+    public Task<Void> deleteUser(Participant participant) {
+        DocumentReference userPath = db.collection("users").document(participant.getUid());
+        return userPath.collection("followers").get()
+                .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))
+
+                .continueWithTask(task -> userPath.collection("follow_requests").get())
+                .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))
+
+                .continueWithTask(task -> db.collectionGroup("followers").whereEqualTo("uid", user.getUid()).get())
+                .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))
+
+                .continueWithTask(task -> db.collectionGroup("follow_requests").whereEqualTo("uid", user.getUid()).get())
+                .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))
+
+                .continueWithTask(task -> userPath.delete());
+    }
+
+    /**
+     * Checks whether or not the current user is following a given participant.
+     * @param other The participant to check
+     * @return A task which evaluates to true if and only if the current user is following the participant
+     */
+    public Task<Boolean> isFollowing(Follower other) {
+        return followersPath().document(other.getUid())
+                              .get()
+                              .continueWith(task -> task.getResult().exists());
+    }
+
+    /**
+     * Checks whether or not the current user is a follower of a given participant.
+     * @param other The participant to check
+     * @return A task which evaluates to true if and only if the current user is a follower of the participant
+     */
+    public Task<Boolean> isFollower(Participant other) {
+        return db.collection("users")
+                 .document(other.getUid())
+                 .collection("followers")
+                 .document(user.getUid())
+                 .get()
+                 .continueWith(task -> task.getResult().exists());
     }
 
     private CollectionReference followRequestsPath() {

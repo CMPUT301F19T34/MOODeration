@@ -1,7 +1,9 @@
 package com.example.mooderation;
 
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 
 import com.example.mooderation.auth.base.AuthenticationError;
@@ -9,24 +11,69 @@ import com.example.mooderation.auth.base.AuthenticationResult;
 import com.example.mooderation.auth.base.IAuthentication;
 import com.example.mooderation.auth.base.IAuthenticator;
 
+import java.util.TimerTask;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 
 class MockAuthenticator implements IAuthenticator {
+    static final String NEW_USERNAME = "new-username";
+    static final String NEW_EMAIL = "new-email@mail.com";
+    static final String NEW_PASSWORD = "new-password";
+    static final String REGISTERED_USERNAME = "registered-username";
+    static final String REGISTERED_EMAIL = "registered-email@mail.com";
+    static final String REGISTERED_PASSWORD = "registered-password";
+    static final String INVALID_USERNAME = "123";
+    static final String INVALID_EMAIL = "invalid-email";
+    static final String INVALID_PASSWORD = "123";
+    static final String WRONG_EMAIL = "wrong-email@mail.com";
+    static final String WRONG_PASSWORD = "wrong-password@mail.com";
+    static final String GENERIC_ERROR_EMAIL = "generic-error@mail.com";
+    static final String DELAY_EMAIL = "delay@email.com";
+
     MockAuthenticator() {}
 
     @Override
     public void login(String email, String password, AuthenticationResultListener listener) {
-        if (email.equals("registered-email@mail.com") && password.equals("registered-password")) {
-            IAuthentication authentication = new IAuthentication() {
-            };
-            listener.onAuthenticateResult(new AuthenticationResult(authentication));
-        } else {
-            listener.onAuthenticateResult(new AuthenticationResult(new AuthenticationError()));
+        if (email.equals(REGISTERED_EMAIL) && password.equals(REGISTERED_PASSWORD)) {
+            listener.onAuthenticateResult(new AuthenticationResult(new IAuthentication() {}));
+        } else if (email.equals(WRONG_EMAIL)) {
+            listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.INVALID_EMAIL));
+        } else if (password.equals(WRONG_PASSWORD)) {
+            listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.INVALID_PASSWORD));
+        } else if (email.equals(GENERIC_ERROR_EMAIL)) {
+            listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.UNKNOWN));
+        } else if (email.equals(DELAY_EMAIL)) {
+            new Handler().postDelayed(
+                    () -> {
+                        Log.d("DELAYED", "DELAY");
+                        listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.UNKNOWN));
+                    },
+                    2000
+            );
         }
     }
 
     @Override
     public void signup(String username, String email, String password, AuthenticationResultListener listener) {
-        listener.onAuthenticateResult(new AuthenticationResult(new AuthenticationError()));
+        if (username.equals(NEW_USERNAME) && email.equals(NEW_EMAIL) && password.equals(NEW_PASSWORD)) {
+            listener.onAuthenticateResult(new AuthenticationResult(new IAuthentication() {}));
+        } else if (email.equals(REGISTERED_EMAIL)) {
+            listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.EMAIL_COLLISION));
+        } else if (username.equals(REGISTERED_USERNAME)) {
+            listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.USERNAME_COLLISION));
+        } else if (email.equals(GENERIC_ERROR_EMAIL)) {
+            listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.UNKNOWN));
+        } else if (email.equals(DELAY_EMAIL)) {
+            new Handler().postDelayed(
+                    () -> listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.UNKNOWN)),
+                    500
+            );
+        }
     }
 
     public static final Parcelable.Creator<MockAuthenticator> CREATOR

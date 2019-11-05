@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private ProgressBar loadingProgressBar;
+    private Button loginButton;
+    private Button signUpButton;
 
     /**
      * Sets up the Activity, binding the text fields and buttons appropriately.
@@ -67,8 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         loadingProgressBar = findViewById(R.id.loading);
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
-        final Button signUpButton = findViewById(R.id.signup);
+        loginButton = findViewById(R.id.login);
+        signUpButton = findViewById(R.id.signup);
 
         // Display/hide errors and enable/disable login button depending on form state
         loginViewModel.getLoginFormState().observe(this, loginFormState -> {
@@ -173,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void beginLogin() {
         loadingProgressBar.setVisibility(View.VISIBLE);
+        enableInput(false);
         loginViewModel.getAuthenticator().login(
                 emailEditText.getText().toString(),
                 passwordEditText.getText().toString(),
@@ -190,11 +193,20 @@ public class LoginActivity extends AppCompatActivity {
             return;
 
         loadingProgressBar.setVisibility(View.GONE);
+        enableInput(true);
+
         if (loginResult.getFailure() != null) {
             showLoginFailed(loginResult.getFailure());
         } else {
             setResult(RESULT_OK);
             finish();
         }
+    }
+
+    private void enableInput(boolean enable) {
+        emailEditText.setEnabled(enable);
+        passwordEditText.setEnabled(enable);
+        loginButton.setEnabled(enable);
+        signUpButton.setEnabled(enable);
     }
 }

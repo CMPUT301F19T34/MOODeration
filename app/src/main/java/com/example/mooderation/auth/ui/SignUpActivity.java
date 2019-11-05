@@ -40,6 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private EditText password2EditText;
     private ProgressBar loadingProgressBar;
+    private Button signUpButton;
 
     /**
      * Sets up the Activity, binding the text fields and buttons appropriately.
@@ -63,7 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         password2EditText = findViewById(R.id.password2);
         loadingProgressBar = findViewById(R.id.loading);
-        final Button signUpButton = findViewById(R.id.signup);
+        signUpButton = findViewById(R.id.signup);
 
         // Display/hide errors and enable/disable signup button depending on form state
         signUpViewModel.getSignUpFormState().observe(this, signUpFormState -> {
@@ -136,6 +137,7 @@ public class SignUpActivity extends AppCompatActivity {
      * initiates the Authenticator.signup process
      */
     private void beginSignUp() {
+        enableInput(false);
         loadingProgressBar.setVisibility(View.VISIBLE);
         signUpViewModel.getAuthenticator().signup(
                 usernameEditText.getText().toString(),
@@ -155,11 +157,20 @@ public class SignUpActivity extends AppCompatActivity {
             return;
 
         loadingProgressBar.setVisibility(View.GONE);
+        enableInput(true);
         if (signUpResult.getFailure() != null) {
             showSignUpFailed(signUpResult.getFailure());
         } else {
             setResult(RESULT_OK);
             finish();
         }
+    }
+
+    private void enableInput(boolean enable) {
+        usernameEditText.setEnabled(enable);
+        emailEditText.setEnabled(enable);
+        passwordEditText.setEnabled(enable);
+        password2EditText.setEnabled(enable);
+        signUpButton.setEnabled(enable);
     }
 }

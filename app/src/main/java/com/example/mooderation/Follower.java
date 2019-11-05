@@ -54,4 +54,8 @@ public class Follower {
         Follower follower = (Follower) other;
         return follower.uid.equals(uid) && follower.username.equals(username);
     }
+
+    public static Follower fromParticipant(Participant participant) {
+        return new Follower(participant.getUid(), participant.getUsername());
+    }
 }

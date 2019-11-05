@@ -1,9 +1,8 @@
-package com.example.mooderation.database;
+package com.example.mooderation.backend;
 
 import com.example.mooderation.FollowRequest;
 import com.example.mooderation.Follower;
 import com.example.mooderation.Participant;
-import com.example.mooderation.backend.Database;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,9 +21,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(JUnit4.class)
-public class TestAddAndDeleteUser {
+public class TestParticipantRepository {
     private FirebaseFirestore db;
     private FirebaseAuth auth;
+    private ParticipantRepository participantRepository;
 
     private DocumentReference userPath;
     private DocumentReference followerPath;
@@ -34,6 +34,7 @@ public class TestAddAndDeleteUser {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         Tasks.await(auth.signInAnonymously());
+        participantRepository = new ParticipantRepository();
 
         userPath = db.collection("users").document(auth.getUid());
         followerPath = db.collection("users").document("follower");
@@ -43,9 +44,11 @@ public class TestAddAndDeleteUser {
     public void testAddUser() throws ExecutionException, InterruptedException {
         Tasks.await(userPath.delete());
         assertFalse(Tasks.await(userPath.get().continueWith(task -> task.getResult().exists())));
-        new Database().addUser(new Participant(auth.getUid(), "user"));
+
+        Participant p = new Participant(auth.getUid(), "user");
+        participantRepository.add(p);
         assertTrue(Tasks.await(userPath.get().continueWith(task -> task.getResult().exists())));
-        assertEquals(new Participant(auth.getUid(), "user"), Tasks.await(
+        assertEquals(p, Tasks.await(
                 userPath.get().continueWith(task -> task.getResult().toObject(Participant.class))
         ));
     }
@@ -67,7 +70,7 @@ public class TestAddAndDeleteUser {
                 .document(auth.getUid())
                 .set(new Follower(auth.getUid(), "user")));
 
-        Tasks.await(new Database().deleteUser(p));
+        Tasks.await(participantRepository.remove(p));
 
         assertFalse(Tasks.await(
                 userPath

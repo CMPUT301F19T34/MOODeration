@@ -39,6 +39,7 @@ public class FollowRequestsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_follow_requests, container, false);
         ListView listView = view.findViewById(R.id.follow_request_list);
         listView.setAdapter(adapter);
+        model.setParticipant(new Participant(getArguments().getString("uid"), getArguments().getString("username")));
 
         listView.setOnItemClickListener((adapterView, itemView, i, l) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -48,8 +49,8 @@ public class FollowRequestsFragment extends Fragment {
             }
             builder.setTitle("Accept " + request.getUsername() + "'s follow request?")
                     .setMessage("The user " + request.getUsername() + " wants to follow your mood history. If you accept, they will be able to see the most recent mood event of your mood history in their feed.")
-                    .setPositiveButton("Accept", (dialogInterface, i1) -> model.getDatabase().acceptFollowRequest(request))
-                    .setNegativeButton("Deny", (dialogInterface, i12) -> model.getDatabase().denyFollowRequest(request))
+                    .setPositiveButton("Accept", (dialogInterface, i1) -> model.acceptRequest(request))
+                    .setNegativeButton("Deny", (dialogInterface, i12) -> model.denyRequest(request))
                     .show();
         });
         return view;

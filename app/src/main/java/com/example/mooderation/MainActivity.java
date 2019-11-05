@@ -26,17 +26,14 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     public final int REQUEST_AUTHENTICATE = 0;
 
+    MoodHistoryViewModel moodHistoryViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MoodHistoryViewModel model = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
-        model.setParticipant(new Participant(
-                FirebaseAuth.getInstance().getUid(),
-                "user"
-        ));
-        Log.e("TAG", "Setting a viewmodel");
+        moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
@@ -46,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 String welcome = "Logged in as " + firebaseAuth.getCurrentUser().getEmail();
                 Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
+
+                moodHistoryViewModel.setParticipant(new Participant(
+                        FirebaseAuth.getInstance().getUid(),
+                        "user"
+                ));
             }
         });
     }

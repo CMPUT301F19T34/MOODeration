@@ -1,6 +1,7 @@
 package com.example.mooderation;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -12,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robotium.solo.Solo;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,7 +25,7 @@ public class MainActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(
-            MainActivity.class, true, true);
+            MainActivity.class, true, false);
 
     @Before
     public void setUp() throws Exception {
@@ -32,6 +34,7 @@ public class MainActivityTest {
         ParticipantRepository participantRepository = new ParticipantRepository();
         Participant p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
         Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.add(p)));
+        rule.launchActivity(new Intent());
     }
 
     @Test
@@ -43,5 +46,10 @@ public class MainActivityTest {
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
         solo.clickOnView(solo.getView((R.id.save_mood_event_button)));
         assertTrue(solo.waitForText("Happy"));
+    }
+
+    @After
+    public void tearDown() {
+        FirebaseAuth.getInstance().signOut();
     }
 }

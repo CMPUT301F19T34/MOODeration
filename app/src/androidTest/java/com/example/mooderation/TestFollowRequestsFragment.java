@@ -14,6 +14,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.ListenerRegistration;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -93,5 +94,10 @@ public class TestFollowRequestsFragment {
         boolean result = Tasks.await(source.getTask()).contains(item);
         reg.remove();
         return result;
+    }
+
+    @After
+    public void tearDown() {
+        FirebaseAuth.getInstance().signOut();
     }
 }

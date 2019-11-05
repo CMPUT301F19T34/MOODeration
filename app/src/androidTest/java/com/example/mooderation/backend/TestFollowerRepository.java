@@ -8,6 +8,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,5 +61,10 @@ public class TestFollowerRepository {
         followerRepository.remove(p, mockFollower);
         assertFalse(Tasks.await(followersPath.document(mockFollower.getUid()).get()
                 .continueWith(task -> task.getResult().exists())));
+    }
+
+    @After
+    public void tearDown() {
+        FirebaseAuth.getInstance().signOut();
     }
 }

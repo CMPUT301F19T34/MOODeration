@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -111,5 +112,10 @@ public class TestParticipantRepository {
         assertEquals(0,
                 Tasks.await(userPath.collection("mood_history").get()).size()
         );
+    }
+
+    @After
+    public void tearDown() {
+        FirebaseAuth.getInstance().signOut();
     }
 }

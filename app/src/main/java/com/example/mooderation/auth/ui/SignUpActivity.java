@@ -20,7 +20,7 @@ import com.example.mooderation.auth.base.IAuthenticator;
 /**
  * Activity that prompts the user to create an account with a username, email and password,
  * according to an Authenticator instance given to it in an Intent.
- * <br />
+ * <br></br>
  * One may, for example, use this to allow a user to create an account with a FirebaseAuthenticator
  * instance:
  *
@@ -107,7 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Given an AuthenticationError, prints out a human-readable representation of the error to the
      * user in the form of a Toast.
-     * <br />
+     * <br></br>
      * TODO: This needs to print different errors depending on the argument given to it.
      *
      * @param error the error encountered when attempting to authenticate.

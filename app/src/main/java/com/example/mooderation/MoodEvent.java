@@ -2,24 +2,24 @@ package com.example.mooderation;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Stores information about a user's mood event
  */
-public class MoodEvent implements Comparable<MoodEvent> {
+public class MoodEvent {
     public static final DateFormat dateFormat = SimpleDateFormat.getDateInstance();
     public static final DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
 
-    private Calendar calendar;
+    private Date date;
     private EmotionalState emotionalState;
     private String reason;
     private SocialSituation socialSituation;
 
     /**
      * MoodEvent Constructor
-     * @param calendar
-     *      A Calendar with the date and time of the MoodEvent.
+     * @param date
+     *      A Date with the date and time of the MoodEvent.
      * @param emotionalState
      *      The emotional state for this MoodEvent
      * @param socialSituation
@@ -27,24 +27,29 @@ public class MoodEvent implements Comparable<MoodEvent> {
      * @param reason
      *      The reason for this MoodEvent
      */
-    public MoodEvent(Calendar calendar, EmotionalState emotionalState,
+    public MoodEvent(Date date, EmotionalState emotionalState,
                      SocialSituation socialSituation, String reason) {
-        this.calendar = calendar;
+        this.date = date;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
         this.reason = reason;
     }
 
-    public Calendar getCalendar() {
-        return calendar;
+    /**
+     * An empty constructor to allow this to be serialized by Firebase
+     */
+    public MoodEvent() {}
+
+    public Date getDate() {
+        return date;
     }
 
-    public String getDate() {
-        return dateFormat.format(calendar.getTime());
+    public String getFormattedDate() {
+        return dateFormat.format(date.getTime());
     }
 
-    public String getTime() {
-        return timeFormat.format(calendar.getTime());
+    public String getFormattedTime() {
+        return timeFormat.format(date.getTime());
     }
 
     public EmotionalState getEmotionalState() {
@@ -60,7 +65,19 @@ public class MoodEvent implements Comparable<MoodEvent> {
     }
 
     @Override
-    public int compareTo(MoodEvent moodEvent) {
-        return -calendar.compareTo(moodEvent.getCalendar());
+    public boolean equals(Object other) {
+        if (other == this) return true;
+        if (other == null) return false;
+        if (other.getClass() != getClass()) return false;
+        MoodEvent moodEvent = (MoodEvent) other;
+        if (!moodEvent.date.equals(date))
+            return false;
+        if (!moodEvent.emotionalState.equals(emotionalState))
+            return false;
+        if (!moodEvent.socialSituation.equals(socialSituation))
+            return false;
+        if (!moodEvent.reason.equals(reason))
+            return false;
+        return true;
     }
 }

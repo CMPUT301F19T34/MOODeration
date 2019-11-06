@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -17,33 +15,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 /**
  * Fragment for viewing the User's own MoodEvents.
  */
 public class MoodHistoryFragment extends Fragment {
-    private MoodHistoryViewModel moodHistoryViewModel;
+    private MoodHistoryViewModel model;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-
-    ExpandableListView expandableListView;
-    ExpandableListAdapter expandableListAdapter;
-    List<String> expandableListTitle;
-    TreeMap<String, List<String>> expandableListDetail;
+    private ArrayList<MoodEvent> moodEventList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        model = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
 
-        moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
-        /*moodHistoryViewModel.getLiveData().observe(this, moodHistory -> {
+        moodEventList = new ArrayList<>();
+        adapter = new MoodEventAdapter(moodEventList);
+        model.getMoodHistory().observe(this, moodHistory -> {
+            moodEventList.clear();
+            moodEventList.addAll(moodHistory);
             adapter.notifyDataSetChanged();
-        });*/
+        });
     }
 
     @Override
@@ -51,15 +47,14 @@ public class MoodHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mood_history_layout,
                 container, false);
-        /*recyclerView = view.findViewById(R.id.mood_event_recycler_view);
+        recyclerView = view.findViewById(R.id.mood_event_recycler_view);
 
         // specify layout manager
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);*/
+        recyclerView.setLayoutManager(layoutManager);
 
         // specify adapter for recycler view
-        /*adapter = new MoodEventAdapter(moodHistoryViewModel.getMoodHistory());
-        recyclerView.setAdapter(adapter);*/
+        recyclerView.setAdapter(adapter);
 
         final FloatingActionButton addMoodEventButton = view.findViewById(R.id.add_mood_event_button);
         addMoodEventButton.setOnClickListener((View v) -> {
@@ -67,11 +62,6 @@ public class MoodHistoryFragment extends Fragment {
                     actionViewMoodHistoryFragmentToAddMoodEventFragment();
             Navigation.findNavController(v).navigate(action);
         });
-        expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-        expandableListDetail = ExpandableListDataPump.getData(moodHistoryViewModel.getMoodHistory());
-        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-        expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
-        expandableListView.setAdapter(expandableListAdapter);
 
         return view;
     }

@@ -1,25 +1,38 @@
 package com.example.mooderation;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.example.mooderation.backend.DateComparator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
+/**
+ * Populates expandable list of mood event history
+ */
 public class ExpandableListDataPump {
-    //private MoodHistoryViewModel moodHistory;
-
-    //private MoodHistoryViewModel moodHistory = ViewModelProviders.of(MainActivity.this).get(MoodHistoryViewModel.class);
-    public static TreeMap<String, List<String>> getData(ArrayList<MoodEvent> moodEventData) {
-        TreeMap<String, List<String>> expandableListDetail = new TreeMap<String, List<String>>();
-        for(int i = 0; i < moodEventData.size(); i++){
-            MoodEvent moodEvent = moodEventData.get(i);
+    /**
+     * Fetches data and populates TreeMap
+     * @param moodEventData
+     *  LiveData List of mood objects representing mood history
+     * @return
+     *  Populated Tree map with mood event history
+     */
+    public static TreeMap<String, List<String>> getData(LiveData<List<MoodEvent>> moodEventData) {
+        List<MoodEvent> moodList = moodEventData.getValue();
+        TreeMap<String, List<String>> expandableListDetail = new TreeMap<String, List<String>>(new DateComparator());
+        for(int i = 0; i < moodList.size(); i++){
+            MoodEvent moodEvent = moodList.get(i);
             List<String> temp = new ArrayList<String>();
             temp.add("Mood: " + moodEvent.getEmotionalState().toString());
-            temp.add("Date: " + moodEvent.getDate());
+            temp.add("Date: " + moodEvent.getFormattedDate());
             temp.add("Time: " + moodEvent.getFormattedTime());
-            expandableListDetail.put(moodEvent.getEmotionalState().toString() + "     " + moodEvent.getDate() + "     " + moodEvent.getFormattedTime(), temp);
+            temp.add("Social situation: " + moodEvent.getSocialSituation());
+            temp.add("Reason: " + moodEvent.getReason());
+            expandableListDetail.put(moodEvent.getEmotionalState().toString() + "     " + moodEvent.getFormattedDate() + "     " + moodEvent.getFormattedTime(), temp);
         }
         return expandableListDetail;
     }

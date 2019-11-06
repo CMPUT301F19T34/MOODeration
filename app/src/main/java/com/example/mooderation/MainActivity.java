@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         MoodHistoryViewModel model = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
         model.setParticipant(new Participant(
-                FirebaseAuth.getInstance().getUid(),
-                "user"
+                "kQ8j15T0habyG4Iq3Dx7mkRT5RM2",
+                "username"
         ));
         Log.e("TAG", "Setting a viewmodel");
     }

@@ -17,10 +17,10 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 /**
- *
+ *Displays mood history with ability to open drop down lists displaying details
  */
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> expandableListTitle;
@@ -28,24 +28,51 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     Button editbutton;
     Button deletebutton;
 
-    public ExpandableListAdapter(Context context, List<String> expandableListTitle,
+    public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
                                        TreeMap<String, List<String>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
     }
 
+    /**
+     *Get Child item of list header
+     * @param listPosition
+     *  Position in the main list which has been selected
+     * @param expandedListPosition
+     *  Position in the expanded list which has been selected
+     * @return
+     *  child item at position listed
+     */
     @Override
     public Object getChild(int listPosition, int expandedListPosition) {
         return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
                 .get(expandedListPosition);
     }
 
+    /**
+     * Get child item ID
+     * @param listPosition
+     *  Position in the main list which has been selected
+     * @param expandedListPosition
+     *   Position in the expanded list which has been selected
+     * @return
+     *   ID of child item at position listed
+     */
     @Override
     public long getChildId(int listPosition, int expandedListPosition) {
         return expandedListPosition;
     }
 
+    /**
+     * Creates view when list is expanded to view details. Adds edit and delete button at end of details
+     * @param listPosition
+     * @param expandedListPosition
+     * @param isLastChild
+     * @param convertView
+     * @param parent
+     * @return View created for expand list details
+     */
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
@@ -63,12 +90,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if(isLastChild){
             editbutton.setVisibility(View.VISIBLE);
             deletebutton.setVisibility(View.VISIBLE);
-
-            /*editbutton.setOnClickListener((View v) -> {
-                NavDirections action = ViewMoodHistoryFragmentDirections
-                        .actionViewMoodHistoryFragmentToEditMoodEventFragment();
-                Navigation.findNavController(v).navigate(action);
-            });*/
         }else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);

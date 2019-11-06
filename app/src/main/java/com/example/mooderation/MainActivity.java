@@ -2,7 +2,9 @@ package com.example.mooderation;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -50,5 +52,27 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                menuItem.setChecked(true);
+                drawerLayout.closeDrawers();
+
+                switch (menuItem.getItemId()) {
+                    case R.id.mood_history_drawer_item:
+                        navController.navigate(R.id.moodHistoryFragment);
+                        break;
+
+                    // currently crashes
+                    // doesn't pass argument to fragment
+//                    case R.id.follow_request_drawer_item:
+//                        navController.navigate(R.id.followRequestsFragment);
+//                        break;
+                }
+
+                return true;
+            }
+        });
     }
 }

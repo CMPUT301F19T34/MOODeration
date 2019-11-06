@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mood_history_drawer_item"
+            android:title="@string/mood_history_label"
+            android:checked="true"/>
+        <item
+            android:id="@+id/follow_request_drawer_item"
+            android:title="@string/follow_request_label" />
+        <item
+            android:id="@+id/placeholder_drawer_item"
+            android:title="Placeholder" />
+    </group>
+</menu>

@@ -24,7 +24,6 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 
@@ -79,6 +78,6 @@ public class TestParticipantProfileFragment {
 
     @Test
     public void testUsernameShown() {
-        onView(withId(R.id.username)).check(matches(equalTo(other.getUsername())));
+        onView(withId(R.id.username)).check(matches(withText(other.getUsername())));
     }
 }

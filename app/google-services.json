@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "787242861498",
+    "firebase_url": "https://mooderation-test.firebaseio.com",
+    "project_id": "mooderation-test",
+    "storage_bucket": "mooderation-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787242861498:android:95d4686bfc3b76c31a5383",
+        "android_client_info": {
+          "package_name": "com.example.mooderation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787242861498-0hkqolbo97d7j7q4denkihnea9mai9qe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsJg0v6fnyKAWlzIV8-UVhEqj7Ebz_Bt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787242861498-0hkqolbo97d7j7q4denkihnea9mai9qe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

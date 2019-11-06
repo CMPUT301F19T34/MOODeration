@@ -25,6 +25,5 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().getUid(),
                 "user"
         ));
-        Log.e("TAG", "Setting a viewmodel");
     }
 }

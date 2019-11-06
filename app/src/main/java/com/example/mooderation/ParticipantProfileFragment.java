@@ -2,11 +2,11 @@ package com.example.mooderation;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -37,7 +37,6 @@ public class ParticipantProfileFragment extends Fragment {
 
         Button followButton = view.findViewById(R.id.follow_button);
         model.getThisFollowingOther().observe(this, isThisFollowingOther -> {
-            Log.e("TAG", "This following other: " + isThisFollowingOther);
             followButton.setEnabled(!isThisFollowingOther);
         });
 

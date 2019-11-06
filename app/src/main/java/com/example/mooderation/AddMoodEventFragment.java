@@ -15,12 +15,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -160,18 +157,6 @@ public class AddMoodEventFragment extends Fragment {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             dateTime.set(year, month, dayOfMonth);
             dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-        }
-    }
-
-    /**
-     * If location permission is not granted, request permission
-     */
-
-    public void requestPermission() {
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1);
         }
     }
 

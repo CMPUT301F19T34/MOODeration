@@ -3,6 +3,9 @@
     <string name="reason_hint">Reason</string>
     <string name="save_mood_event_text">Confirm</string>
 
+    <string name="mood_history_label">Mood History</string>
+    <string name="add_mood_event_label">Add Mood Event</string>
+
     <string name="mood_happy">Happy</string>
     <string name="mood_sad">Sad</string>
     <string name="mood_mad">Mad</string>

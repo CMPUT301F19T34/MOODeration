@@ -43,7 +43,7 @@ public class ParticipantProfileFragment extends Fragment {
 
         followButton.setOnClickListener(view1 -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Send a follow request to " + model.getUsername() + "?")
+            builder.setTitle("Send a follow request to " + model.getUsername().getValue() + "?")
                    .setMessage("If this participant accepts your follow request, you will be able to see their most recent mood event in your feed.")
                    .setPositiveButton("Send request", (d, i) -> model.sendFollowRequest())
                    .setNegativeButton("Cancel", (d, i) -> {})

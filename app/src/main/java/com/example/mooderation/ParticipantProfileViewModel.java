@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mooderation.backend.FollowRequestRepository;
 import com.example.mooderation.backend.FollowerRepository;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.ListenerRegistration;
 
@@ -63,8 +64,8 @@ public class ParticipantProfileViewModel extends ViewModel {
         return username;
     }
 
-    public void sendFollowRequest() {
+    public Task<Void> sendFollowRequest() {
         FollowRequest request = new FollowRequest(user.getUid(), user.getUsername(), Timestamp.now());
-        followRequestRepository.add(other, request);
+        return followRequestRepository.add(other, request);
     }
 }

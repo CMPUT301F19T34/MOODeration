@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -48,7 +49,10 @@ public class ParticipantProfileFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Send a follow request to " + model.getUsername().getValue() + "?")
                    .setMessage("If this participant accepts your follow request, you will be able to see their most recent mood event in your feed.")
-                   .setPositiveButton("Send request", (d, i) -> model.sendFollowRequest())
+                   .setPositiveButton("Send request", (d, i) -> model.sendFollowRequest()
+                           .addOnSuccessListener(aVoid -> Toast.makeText(getContext(), "Follow request sent", Toast.LENGTH_LONG).show())
+                           .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to send follow request", Toast.LENGTH_LONG).show())
+                   )
                    .setNegativeButton("Cancel", (d, i) -> {})
                    .show();
         });

@@ -79,4 +79,10 @@ public class TestParticipantProfileFragment {
     public void testUsernameShown() {
         onView(withId(R.id.username)).check(matches(withText(other.getUsername())));
     }
+
+    @Test
+    public void testSuccessToast() {
+        onView(withId(R.id.follow_button)).perform(click());
+        onView(withText("Follow request sent"));
+    }
 }

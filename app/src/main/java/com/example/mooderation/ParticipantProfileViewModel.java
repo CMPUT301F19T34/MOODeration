@@ -44,10 +44,10 @@ public class ParticipantProfileViewModel extends ViewModel {
 
         username.setValue(other.getUsername());
         listenerRegistrations.add(followerRepository.addListener(user, followers -> {
-            isOtherFollowingThis.setValue(followers.contains(Follower.fromParticipant(user)));
+            isOtherFollowingThis.setValue(followers.contains(Follower.fromParticipant(other)));
         }));
         listenerRegistrations.add(followerRepository.addListener(other, followers -> {
-            isThisFollowingOther.setValue(followers.contains(Follower.fromParticipant(other)));
+            isThisFollowingOther.setValue(followers.contains(Follower.fromParticipant(user)));
         }));
     }
 

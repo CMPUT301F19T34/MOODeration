@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 
+/**
+ * Simple comparator to sort by descending date value
+ */
 public class DateComparator implements Comparator<String> {
     @Override
     public int compare(String s1, String s2){

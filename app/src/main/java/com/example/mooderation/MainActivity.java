@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         MoodHistoryViewModel model = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
         model.setParticipant(new Participant(
-                "kQ8j15T0habyG4Iq3Dx7mkRT5RM2",
-                "username"
+                "BIx4i5XibgYxlUBYsu5Iuzlyy4a2",
+                "asdfsadfafa"
         ));
         Log.e("TAG", "Setting a viewmodel");
     }

@@ -72,7 +72,6 @@ public class TestParticipantProfileFragment {
     public void testDisableButton() throws ExecutionException, InterruptedException {
         onView(withId(R.id.follow_button)).check(matches(isEnabled()));
         Tasks.await(followerRepository.add(other, Follower.fromParticipant(user)));
-        Thread.sleep(5000);
         onView(withId(R.id.follow_button)).check(matches(not(isEnabled())));
     }
 

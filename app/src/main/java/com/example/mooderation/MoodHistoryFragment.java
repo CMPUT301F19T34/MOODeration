@@ -30,7 +30,7 @@ public class MoodHistoryFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<MoodEvent> moodEventList;
-
+  
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
     private List<String> expandableListTitle;
@@ -48,8 +48,8 @@ public class MoodHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mood_history_layout,
                 container, false);
-
-        // Populate expandable list
+      
+      // Populate expandable list
         expandableListDetail = ExpandableListDataPump.getData(model.getMoodHistory());
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
@@ -64,9 +64,6 @@ public class MoodHistoryFragment extends Fragment {
                     actionViewMoodHistoryFragmentToAddMoodEventFragment();
             Navigation.findNavController(v).navigate(action);
         });
-
-
-
         return view;
     }
 }

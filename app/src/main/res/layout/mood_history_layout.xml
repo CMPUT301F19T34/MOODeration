@@ -9,8 +9,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_input_add" />
-
-    <ExpandableListView
+  <ExpandableListView
         android:id="@+id/expandableListView"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -20,5 +19,4 @@
         >
 
     </ExpandableListView>
-
 </FrameLayout>

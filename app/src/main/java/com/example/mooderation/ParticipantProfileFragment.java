@@ -29,6 +29,10 @@ public class ParticipantProfileFragment extends Fragment {
 
         model.setParticipants(user, other);
 
+        model.getUsername().observe(this, username -> {
+            ((TextView) view.findViewById(R.id.username)).setText(username);
+        });
+
         View followingView = view.findViewById(R.id.is_following_you);
         followingView.setVisibility(View.INVISIBLE);
         model.getOtherFollowingThis().observe(this, isOtherFollowingThis -> {

@@ -9,6 +9,16 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 
+import android.os.Bundle;
+
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
+
+import com.example.mooderation.backend.ParticipantRepository;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
@@ -29,11 +39,10 @@ public class MainActivityTest {
     @Before
     public void setUp() throws Exception {
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-    }
-
-    @Test
-    public void start() throws Exception {
-        Activity activity = rule.getActivity();
+        Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
+        ParticipantRepository participantRepository = new ParticipantRepository();
+        Participant p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
+        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.add(p)));
     }
 
     @Test

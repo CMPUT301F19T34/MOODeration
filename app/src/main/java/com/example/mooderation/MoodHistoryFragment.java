@@ -14,22 +14,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Fragment for viewing the User's own MoodEvents.
  */
 public class MoodHistoryFragment extends Fragment {
-    private MoodHistoryViewModel moodHistoryViewModel;
+    private MoodHistoryViewModel model;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<MoodEvent> moodEventList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        model = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
 
-        moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
-        moodHistoryViewModel.getLiveData().observe(this, moodHistory -> {
+        moodEventList = new ArrayList<>();
+        adapter = new MoodEventAdapter(moodEventList);
+        model.getMoodHistory().observe(this, moodHistory -> {
+            moodEventList.clear();
+            moodEventList.addAll(moodHistory);
             adapter.notifyDataSetChanged();
         });
     }
@@ -46,7 +54,6 @@ public class MoodHistoryFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify adapter for recycler view
-        adapter = new MoodEventAdapter(moodHistoryViewModel.getMoodHistory());
         recyclerView.setAdapter(adapter);
 
         final FloatingActionButton addMoodEventButton = view.findViewById(R.id.add_mood_event_button);

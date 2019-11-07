@@ -12,4 +12,22 @@
     <string name="social_one_person">One other person</string>
     <string name="social_several_people">Two to several people</string>
     <string name="social_crowd">Crowd</string>
+
+    <string name="auth_prompt_username">Display name</string>
+    <string name="auth_prompt_email">Email</string>
+    <string name="auth_prompt_password">Password</string>
+    <string name="auth_prompt_reenter_password">Re-enter password</string>
+    <string name="auth_action_sign_in">Sign in</string>
+    <string name="auth_action_sign_up">Create account</string>
+    <string name="auth_action_log_out">Log out</string>
+    <string name="auth_prompt_invalid_username">Not a valid username</string>
+    <string name="auth_prompt_invalid_email">Not a valid email</string>
+    <string name="auth_prompt_invalid_password">Password must be >5 characters</string>
+    <string name="auth_prompt_invalid_password2">Passwords must match</string>
+    <string name="auth_error_login_invalid_email">"Couldn't log in: unrecognized email"</string>
+    <string name="auth_error_login_invalid_password">"Couldn't log in: incorrect password"</string>
+    <string name="auth_error_login_generic">"Couldn't log in. Please check your internet access or try again later"</string>
+    <string name="auth_error_signup_username_collision">"Coudn't sign up: an account already exists with that username"</string>
+    <string name="auth_error_signup_email_collision">"Coudn't sign up: an account already exists with that email"</string>
+    <string name="auth_error_signup_generic">"Couldn't sign up. Please check your internet access or try again later"</string>
 </resources>

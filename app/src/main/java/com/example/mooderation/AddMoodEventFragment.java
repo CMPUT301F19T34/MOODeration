@@ -1,8 +1,10 @@
 package com.example.mooderation;
 
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,7 +24,7 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class AddMoodEventFragment extends Fragment {
     private MoodHistoryViewModel moodHistoryViewModel;
@@ -33,12 +36,12 @@ public class AddMoodEventFragment extends Fragment {
     private EditText reasonEditText;
     private Button saveButton;
     private Switch locationSwitch;
-    private FusedLocationProviderClient fusedLocationClient;
-
-    private Calendar dateTime;
 
     private Location location;
+    private FusedLocationProviderClient fusedLocationClient;
     private boolean isToggled = false;
+
+    private Date dateTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,14 +58,14 @@ public class AddMoodEventFragment extends Fragment {
         // ViewModel for tracking MoodHistory
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
 
-        // get an Calendar with the current date and time
-        dateTime = Calendar.getInstance();
+        // get a Date with the current date and time
+        dateTime = new Date();
 
-        // find and initialize dateTextView and setup DatePicker
+        // find and initialize dateTextView
         dateTextView = view.findViewById(R.id.date_picker_button);
         dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
 
-        // find and initialize timeTextView and setup TimePicker
+        // find and initialize timeTextView
         timeTextView = view.findViewById(R.id.time_picker_button);
         timeTextView.setText(MoodEvent.timeFormat.format(dateTime.getTime()));
 
@@ -77,6 +80,7 @@ public class AddMoodEventFragment extends Fragment {
         // find reasonEditText
         reasonEditText = view.findViewById(R.id.reason_edit_text);
 
+
         // find and initialize locationSwitch
         locationSwitch = view.findViewById(R.id.location_switch);
         locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
@@ -86,6 +90,8 @@ public class AddMoodEventFragment extends Fragment {
                         1);
             }
         });
+
+
 
         // find and initialize saveButton
         saveButton = view.findViewById(R.id.save_mood_event_button);
@@ -106,8 +112,7 @@ public class AddMoodEventFragment extends Fragment {
                     dateTime,
                     (EmotionalState) emotionalStateSpinner.getSelectedItem(),
                     (SocialSituation) socialSituationSpinner.getSelectedItem(),
-                    reasonEditText.getText().toString(),
-                    location);
+                    reasonEditText.getText().toString());
             moodHistoryViewModel.addMoodEvent(moodEvent);
 
             // Close the current fragment
@@ -159,3 +164,4 @@ public class AddMoodEventFragment extends Fragment {
         }
     }
 }
+

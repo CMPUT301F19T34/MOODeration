@@ -1,12 +1,8 @@
 package com.example.mooderation;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.mooderation.backend.DateComparator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 

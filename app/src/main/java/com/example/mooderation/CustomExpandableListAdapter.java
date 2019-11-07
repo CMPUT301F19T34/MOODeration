@@ -1,9 +1,5 @@
 package com.example.mooderation;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
-
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Typeface;
@@ -14,8 +10,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  *Displays mood history with ability to open drop down lists displaying details

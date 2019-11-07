@@ -2,7 +2,6 @@ package com.example.mooderation;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ public class FollowRequestsFragment extends Fragment {
     private FollowRequestAdapter adapter;
     private FollowRequestsViewModel model;
     private List<FollowRequest> followRequestList;
+
+    ParticipantViewModel participantViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,9 @@ public class FollowRequestsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_follow_requests, container, false);
         ListView listView = view.findViewById(R.id.follow_request_list);
         listView.setAdapter(adapter);
-        model.setParticipant(new Participant(getArguments().getString("uid"), getArguments().getString("username")));
+
+        participantViewModel = ViewModelProviders.of(getActivity()).get(ParticipantViewModel.class);
+        model.setParticipant(participantViewModel.getParticipant());
 
         listView.setOnItemClickListener((adapterView, itemView, i, l) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

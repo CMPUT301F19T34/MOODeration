@@ -2,11 +2,9 @@ package com.example.mooderation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
-import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * The applications main activity.
@@ -32,24 +29,18 @@ import com.google.firebase.auth.FirebaseAuth;
  * implementation in fragments.
  */
 public class MainActivity extends AppCompatActivity {
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
-    private NavigationView navigationView;
     public final int REQUEST_AUTHENTICATE = 0;
 
     MoodHistoryViewModel moodHistoryViewModel;
+
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        MoodHistoryViewModel model = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
-        model.setParticipant(new Participant(
-                FirebaseAuth.getInstance().getUid(),
-                "user"
-        ));
-        Log.e("TAG", "Setting a viewmodel");
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -80,11 +71,16 @@ public class MainActivity extends AppCompatActivity {
 //                    case R.id.follow_request_drawer_item:
 //                        navController.navigate(R.id.followRequestsFragment);
 //                        break;
+
+                    case R.id.log_out_drawer_item:
+                        FirebaseAuth.getInstance().signOut();
+                        break;
                 }
 
                 return true;
             }
         });
+
         moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
@@ -102,20 +98,5 @@ public class MainActivity extends AppCompatActivity {
                 ));
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.actionbar_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.log_out) {
-            FirebaseAuth.getInstance().signOut();
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

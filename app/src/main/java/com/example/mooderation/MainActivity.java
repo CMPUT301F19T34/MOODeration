@@ -20,6 +20,9 @@ import com.example.mooderation.auth.ui.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * The applications main activity.
  * Navigation components are being used keeping most of the UI
@@ -28,9 +31,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     public final int REQUEST_AUTHENTICATE = 0;
 
-    private Participant participant;
-
-    MoodHistoryViewModel moodHistoryViewModel;
+    private ParticipantViewModel participantViewModel;
+    private MoodHistoryViewModel moodHistoryViewModel;
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -47,8 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
+        // these are the top level fragments of the application
+        // the top app bar will open the navigation drawer for these fragments
+        // other fragments will show a back button
+        Set<Integer> topLevelFragments = new HashSet<>();
+        topLevelFragments.add(R.id.moodHistoryFragment);
+        topLevelFragments.add(R.id.followRequestsFragment);
+
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(navController.getGraph())
+                new AppBarConfiguration.Builder(topLevelFragments)
                         .setDrawerLayout(drawerLayout)
                         .build();
 
@@ -62,15 +71,17 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
 
                 switch (menuItem.getItemId()) {
+                    // navigate to mood history
                     case R.id.mood_history_drawer_item:
                         navController.navigate(R.id.moodHistoryFragment);
                         break;
 
-                    // currently crashes doesn't pass argument to fragment
-//                    case R.id.follow_request_drawer_item:
-//                        navController.navigate(R.id.followRequestsFragment);
-//                        break;
+                    // navigate to follow requests
+                    case R.id.follow_request_drawer_item:
+                        navController.navigate(R.id.followRequestsFragment);
+                        break;
 
+                    // log out of the app
                     case R.id.log_out_drawer_item:
                         FirebaseAuth.getInstance().signOut();
                         break;
@@ -80,38 +91,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        participantViewModel = ViewModelProviders.of(this).get(ParticipantViewModel.class);
         moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
-                // invalidate the current participant object
-                participant = null;
-
                 // go to login screen
                 Intent intent = new Intent(this, LoginActivity.class);
                 intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
                 startActivityForResult(intent, REQUEST_AUTHENTICATE);
             } else {
-                // TODO fetch username for message here?
-                participant = new Participant(FirebaseAuth.getInstance().getUid(), "user");
+                // initialize the user object and store in ViewModel
+                Participant participant = new Participant(FirebaseAuth.getInstance().getUid(), "user");
+                participantViewModel.setParticipant(participant);
                 moodHistoryViewModel.setParticipant(participant);
 
                 // successfully logged in
+                // TODO fetch username for message for toast here?
                 String welcome = "Logged in as " + firebaseAuth.getCurrentUser().getEmail();
                 Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    /**
-     * Gets participant currently logged in
-     * @return The current participant reference
-     */
-    public Participant getParticipant() {
-        if (participant == null) {
-            throw new RuntimeException("No participant logged in.");
-        }
-        
-        return participant;
     }
 }

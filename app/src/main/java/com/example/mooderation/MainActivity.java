@@ -55,15 +55,19 @@ public class MainActivity extends AppCompatActivity {
         Set<Integer> topLevelFragments = new HashSet<>();
         topLevelFragments.add(R.id.moodHistoryFragment);
         topLevelFragments.add(R.id.followRequestsFragment);
+        // TODO add other top level fragments here
 
+        // configures the top app bar
         AppBarConfiguration appBarConfiguration =
                 new AppBarConfiguration.Builder(topLevelFragments)
                         .setDrawerLayout(drawerLayout)
                         .build();
 
+        // configure the navigation drawer
         NavigationView navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
+        // navigation listener
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -91,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // initialize view models
         participantViewModel = ViewModelProviders.of(this).get(ParticipantViewModel.class);
         moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
 

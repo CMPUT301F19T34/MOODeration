@@ -64,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         navController.navigate(R.id.moodHistoryFragment);
                         break;
 
-                    // currently crashes
-                    // doesn't pass argument to fragment
+                    // currently crashes doesn't pass argument to fragment
 //                    case R.id.follow_request_drawer_item:
 //                        navController.navigate(R.id.followRequestsFragment);
 //                        break;

@@ -28,6 +28,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     public final int REQUEST_AUTHENTICATE = 0;
 
+    private Participant participant;
+
     MoodHistoryViewModel moodHistoryViewModel;
 
     private DrawerLayout drawerLayout;
@@ -82,18 +84,34 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
+                // invalidate the current participant object
+                participant = null;
+
+                // go to login screen
                 Intent intent = new Intent(this, LoginActivity.class);
                 intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
                 startActivityForResult(intent, REQUEST_AUTHENTICATE);
             } else {
+                // TODO fetch username for message here?
+                participant = new Participant(FirebaseAuth.getInstance().getUid(), "user");
+                moodHistoryViewModel.setParticipant(participant);
+
+                // successfully logged in
                 String welcome = "Logged in as " + firebaseAuth.getCurrentUser().getEmail();
                 Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
-
-                moodHistoryViewModel.setParticipant(new Participant(
-                        FirebaseAuth.getInstance().getUid(),
-                        "user"
-                ));
             }
         });
+    }
+
+    /**
+     * Gets participant currently logged in
+     * @return The current participant reference
+     */
+    public Participant getParticipant() {
+        if (participant == null) {
+            throw new RuntimeException("No participant logged in.");
+        }
+        
+        return participant;
     }
 }

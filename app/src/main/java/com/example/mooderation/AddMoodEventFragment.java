@@ -1,8 +1,6 @@
 package com.example.mooderation;
 
 import android.Manifest;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -11,12 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -65,20 +61,10 @@ public class AddMoodEventFragment extends Fragment {
         // find and initialize dateTextView and setup DatePicker
         dateTextView = view.findViewById(R.id.date_picker_button);
         dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-//        dateTextView.setOnClickListener((View v) ->
-//            new DatePickerDialog(getActivity(), new DateSetListener(),
-//                    dateTime.get(Calendar.YEAR),
-//                    dateTime.get(Calendar.MONTH),
-//                    dateTime.get(Calendar.DAY_OF_MONTH)).show());
 
         // find and initialize timeTextView and setup TimePicker
         timeTextView = view.findViewById(R.id.time_picker_button);
         timeTextView.setText(MoodEvent.timeFormat.format(dateTime.getTime()));
-//        timeTextView.setOnClickListener((View v) ->
-//            new TimePickerDialog(getActivity(), new TimeSetListener(),
-//                    dateTime.get(Calendar.HOUR_OF_DAY),
-//                    dateTime.get(Calendar.MINUTE),
-//                    false).show());
 
         // find and initialize emotionalStateSpinner
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);
@@ -149,34 +135,19 @@ public class AddMoodEventFragment extends Fragment {
     }
 
     /**
-     * Listens for the date to be set by a DatePickerDialog
+     * Sets the location variable
+     * @param location the current position taken from GPS
      */
-    private class DateSetListener implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            dateTime.set(year, month, dayOfMonth);
-            dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-        }
-    }
-
     public void setLocation(Location location) {
         this.location = location;
     }
 
     /**
-     * Listens for the time to be set by a TimePickerDialog
+     * Processes the result of the permission request
+     * @param requestCode the request code indicates the permission that was requested
+     * @param permissions the permissions that were requested
+     * @param grantResults the result of the permission request
      */
-    private class TimeSetListener implements TimePickerDialog.OnTimeSetListener {
-
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            dateTime.set(Calendar.MINUTE, minute);
-            timeTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults.length > 0

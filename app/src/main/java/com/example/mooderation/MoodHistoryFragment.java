@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
@@ -39,8 +41,8 @@ public class MoodHistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        moodEventList = new ArrayList<>();
         model = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
-
     }
 
     @Override
@@ -48,15 +50,6 @@ public class MoodHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mood_history_layout,
                 container, false);
-      
-      // Populate expandable list
-        expandableListDetail = ExpandableListDataPump.getData(model.getMoodHistory());
-        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-        expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
-
-        // Specify adapter for expandable list
-        expandableListView = view.findViewById(R.id.expandableListView);
-        expandableListView.setAdapter(expandableListAdapter);
 
         final FloatingActionButton addMoodEventButton = view.findViewById(R.id.add_mood_event_button);
         addMoodEventButton.setOnClickListener((View v) -> {
@@ -64,6 +57,26 @@ public class MoodHistoryFragment extends Fragment {
                     actionViewMoodHistoryFragmentToAddMoodEventFragment();
             Navigation.findNavController(v).navigate(action);
         });
+
+        // Populate expandable list
+        expandableListDetail = ExpandableListDataPump.getData(moodEventList);
+        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
+
+        model.getMoodHistory().observe(this, moodHistory -> {
+            moodEventList.clear();
+            moodEventList.addAll(moodHistory);
+            ((BaseExpandableListAdapter)expandableListAdapter).notifyDataSetChanged();
+            // Populate expandable list with new data
+            expandableListDetail = ExpandableListDataPump.getData(moodEventList);
+            expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+            expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
+
+            // Specify adapter for expandable list
+            expandableListView = view.findViewById(R.id.expandableListView);
+            expandableListView.setAdapter(expandableListAdapter);
+        });
+
         return view;
     }
 }

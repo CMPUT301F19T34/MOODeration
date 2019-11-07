@@ -21,11 +21,11 @@ public class ExpandableListDataPump {
      * @return
      *  Populated Tree map with mood event history
      */
-    public static TreeMap<String, List<String>> getData(LiveData<List<MoodEvent>> moodEventData) {
-        List<MoodEvent> moodList = moodEventData.getValue();
+    public static TreeMap<String, List<String>> getData(ArrayList<MoodEvent> moodEventData) {
+        //List<MoodEvent> moodList = moodEventData.getValue();
         TreeMap<String, List<String>> expandableListDetail = new TreeMap<String, List<String>>(new DateComparator());
-        for(int i = 0; i < moodList.size(); i++){
-            MoodEvent moodEvent = moodList.get(i);
+        for(int i = 0; i < moodEventData.size(); i++){
+            MoodEvent moodEvent = moodEventData.get(i);
             List<String> temp = new ArrayList<String>();
             temp.add("Mood: " + moodEvent.getEmotionalState().toString());
             temp.add("Date: " + moodEvent.getFormattedDate());

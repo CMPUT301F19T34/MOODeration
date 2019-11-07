@@ -63,6 +63,7 @@ public class MoodHistoryFragment extends Fragment {
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
 
+        //When new mood is added refresh expandable list
         model.getMoodHistory().observe(this, moodHistory -> {
             moodEventList.clear();
             moodEventList.addAll(moodHistory);

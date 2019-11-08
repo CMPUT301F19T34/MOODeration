@@ -106,6 +106,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 //action.getArguments(listPosition);
                 Navigation.findNavController(v).navigate(action);
             });
+
+            deletebutton.setOnClickListener((View v) -> {
+                expandableListTitle.remove(listPosition);
+                this.notifyDataSetChanged();
+
+            });
         }else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);

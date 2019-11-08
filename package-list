@@ -3,3 +3,4 @@ com.example.mooderation.auth.base
 com.example.mooderation.auth.firebase
 com.example.mooderation.auth.ui
 com.example.mooderation.backend
+com.example.mooderation.viewmodel

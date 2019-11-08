@@ -63,6 +63,10 @@ public class MoodHistoryViewModel extends ViewModel {
         return moodHistoryRepository.add(participant, moodEvent);
     }
 
+    public Task<Void> removeMoodEvent(MoodEvent moodEvent) {
+        return moodHistoryRepository.remove(participant, moodEvent);
+    }
+
     public LiveData<List<MoodEvent>> getMoodHistory() {
         return moodHistory;
     }

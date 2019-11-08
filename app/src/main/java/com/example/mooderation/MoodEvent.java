@@ -11,7 +11,6 @@ public class MoodEvent {
     public static final DateFormat dateFormat = SimpleDateFormat.getDateInstance();
     public static final DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
 
-    private String moodEventId;
     private Date date;
     private EmotionalState emotionalState;
     private String reason;
@@ -30,7 +29,6 @@ public class MoodEvent {
      */
     public MoodEvent(Date date, EmotionalState emotionalState,
                      SocialSituation socialSituation, String reason) {
-        moodEventId = null;
         this.date = date;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
@@ -39,7 +37,6 @@ public class MoodEvent {
 
     public MoodEvent(String moodEventId, Date date, EmotionalState emotionalState,
                      SocialSituation socialSituation, String reason) {
-        this.moodEventId = moodEventId;
         this.date = date;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
@@ -50,18 +47,6 @@ public class MoodEvent {
      * An empty constructor to allow this to be serialized by Firebase
      */
     public MoodEvent() {}
-
-    public void setMoodEventId(String moodEventId) {
-        this.moodEventId = moodEventId;
-    }
-
-    public String getMoodEventId() {
-        if (moodEventId == null) {
-            throw new RuntimeException("moodEventId not set!");
-        }
-
-        return moodEventId;
-    }
 
     public Date getDate() {
         return date;

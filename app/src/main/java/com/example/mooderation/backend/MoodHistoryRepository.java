@@ -16,12 +16,13 @@ public class MoodHistoryRepository implements OwnedRepository<Participant, MoodE
 
     @Override
     public Task<Void> add(Participant participant, MoodEvent moodEvent) {
-        return moodHistoryPath(participant).document().set(moodEvent);
+        return moodHistoryPath(participant).document(String.valueOf(moodEvent.getDate().getTime())).set(moodEvent);
     }
 
     @Override
     public Task<Void> remove(Participant participant, MoodEvent moodEvent) {
-        return moodHistoryPath(participant).document().delete();
+        //throw new RuntimeException("Not implemented");
+        return moodHistoryPath(participant).document(String.valueOf(moodEvent.getDate().getTime())).delete();
     }
 
     @Override
@@ -29,9 +30,7 @@ public class MoodHistoryRepository implements OwnedRepository<Participant, MoodE
         return moodHistoryPath(participant).addSnapshotListener(((queryDocumentSnapshots, e) -> {
             List<MoodEvent> events = new ArrayList<>();
             for (DocumentSnapshot doc : queryDocumentSnapshots) {
-                MoodEvent moodEvent = doc.toObject(MoodEvent.class);
-                moodEvent.setMoodEventId(doc.getId());
-                events.add(moodEvent);
+                events.add(doc.toObject(MoodEvent.class));
             }
             listener.onDataChanged(events);
         }));

@@ -16,10 +16,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
-
 
 @RunWith(JUnit4.class)
 public class TestMoodHistoryRepository {
@@ -29,6 +29,8 @@ public class TestMoodHistoryRepository {
     private CollectionReference moodHistoryPath;
     private MoodEvent mockMoodEvent;
     private Participant p;
+
+    private List<MoodEvent> moodEventList;
 
     @Before
     public void setUp() throws InterruptedException, ExecutionException {
@@ -64,8 +66,7 @@ public class TestMoodHistoryRepository {
         moodHistoryRepository.add(p, mockMoodEvent);
         assertEquals(1, Tasks.await(moodHistoryPath.get()).size());
 
-        MoodEvent moodEvent = Tasks.await(moodHistoryPath.get()).iterator().next().toObject(MoodEvent.class);
-        moodHistoryRepository.remove(p, moodEvent);
-        assertEquals(1, Tasks.await(moodHistoryPath.get()).size());
+        moodHistoryRepository.remove(p, mockMoodEvent);
+        assertEquals(0, Tasks.await(moodHistoryPath.get()).size());
     }
 }

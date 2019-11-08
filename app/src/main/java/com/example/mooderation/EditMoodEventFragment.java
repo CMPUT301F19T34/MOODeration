@@ -67,12 +67,12 @@ public class EditMoodEventFragment extends Fragment {
         editButton = view.findViewById(R.id.edit_mood_event_button);
         editButton.setOnClickListener((View v) -> {
 
-            MoodEvent moodEvent = new MoodEvent(
+            /*MoodEvent moodEvent = new MoodEvent(
                     dateTime,
                     (EmotionalState) emotionalStateSpinner.getSelectedItem(),
                     (SocialSituation) socialSituationSpinner.getSelectedItem(),
                     reasonEditText.getText().toString());
-            moodHistoryViewModel.addMoodEvent(moodEvent);
+            moodHistoryViewModel.addMoodEvent(moodEvent);*/
 
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();

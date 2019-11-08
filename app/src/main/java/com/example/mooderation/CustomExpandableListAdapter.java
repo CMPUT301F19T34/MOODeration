@@ -3,6 +3,7 @@ package com.example.mooderation;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.navigation.NavArgument;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -94,9 +96,14 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             editbutton.setOnClickListener((View v) -> {
                 NavDirections action = MoodHistoryFragmentDirections
                         .actionViewMoodHistoryFragmentToEditMoodEventFragment();
-                //NavDirections actionDetail = action.ActionDetail();
-                //int moodPosition = action.edi
-                //action.moodPosition(listPosition);
+                //Bundle args = new Bundle();
+                //args.putInt("moodPosition", listPosition);
+                //NavArgument arg = EditMoodEventFragmentArgs.Builder("mood_position").build().toBundle();
+
+                //Bundle args = EditMoodEventFragmentArgs.Builder("mood_position").build().toBundle()
+                //navController?.navigate(R.id.EditMoodEventFragment, args);
+                //action.setArguments();
+                //action.getArguments(listPosition);
                 Navigation.findNavController(v).navigate(action);
             });
         }else{

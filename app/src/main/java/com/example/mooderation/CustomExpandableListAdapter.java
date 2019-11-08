@@ -87,6 +87,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         if(isLastChild){
             editbutton.setVisibility(View.VISIBLE);
             deletebutton.setVisibility(View.VISIBLE);
+            deletebutton.setOnClickListener((View v) -> {
+                expandableListTitle.remove(listPosition);
+                this.notifyDataSetChanged();
+
+            });
         }else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);

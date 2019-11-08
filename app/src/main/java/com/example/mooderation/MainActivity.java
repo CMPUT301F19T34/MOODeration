@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * The applications main activity.
@@ -41,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
                 startActivityForResult(intent, REQUEST_AUTHENTICATE);
             } else {
-                String welcome = "Logged in as " + firebaseAuth.getCurrentUser().getEmail();
+                String welcome = "Logged in as " + firebaseAuth.getCurrentUser().getDisplayName();
                 Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
 
                 moodHistoryViewModel.setParticipant(new Participant(
-                        FirebaseAuth.getInstance().getUid(),
-                        "user"
+                        firebaseAuth.getCurrentUser().getUid(),
+                        firebaseAuth.getCurrentUser().getDisplayName()
                 ));
             }
         });

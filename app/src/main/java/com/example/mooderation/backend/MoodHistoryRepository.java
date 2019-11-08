@@ -21,7 +21,7 @@ public class MoodHistoryRepository implements OwnedRepository<Participant, MoodE
 
     @Override
     public Task<Void> remove(Participant participant, MoodEvent moodEvent) {
-        throw new UnsupportedOperationException("Deleting mood events is not yet supported.");
+        return moodHistoryPath(participant).document().delete();
     }
 
     @Override
@@ -29,7 +29,9 @@ public class MoodHistoryRepository implements OwnedRepository<Participant, MoodE
         return moodHistoryPath(participant).addSnapshotListener(((queryDocumentSnapshots, e) -> {
             List<MoodEvent> events = new ArrayList<>();
             for (DocumentSnapshot doc : queryDocumentSnapshots) {
-                events.add(doc.toObject(MoodEvent.class));
+                MoodEvent moodEvent = doc.toObject(MoodEvent.class);
+                moodEvent.setMoodEventId(doc.getId());
+                events.add(moodEvent);
             }
             listener.onDataChanged(events);
         }));

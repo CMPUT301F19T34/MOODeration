@@ -10,6 +10,8 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.auth.ui.SignUpActivity;
+import com.example.mooderation.viewmodel.MoodHistoryViewModel;
+import com.example.mooderation.viewmodel.ParticipantViewModel;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,7 +22,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static junit.framework.TestCase.assertEquals;

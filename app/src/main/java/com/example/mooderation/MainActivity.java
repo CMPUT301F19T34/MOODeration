@@ -17,6 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
+import com.example.mooderation.viewmodel.MoodHistoryViewModel;
+import com.example.mooderation.viewmodel.ParticipantViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 

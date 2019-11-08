@@ -1,6 +1,8 @@
-package com.example.mooderation;
+package com.example.mooderation.viewmodel;
 
 import androidx.lifecycle.ViewModel;
+
+import com.example.mooderation.Participant;
 
 /**
  * Stores a participant object to be shared across fragments

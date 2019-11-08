@@ -1,9 +1,11 @@
-package com.example.mooderation;
+package com.example.mooderation.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mooderation.MoodEvent;
+import com.example.mooderation.Participant;
 import com.example.mooderation.backend.MoodHistoryRepository;
 import com.google.firebase.firestore.ListenerRegistration;
 
@@ -23,12 +25,20 @@ public class MoodHistoryViewModel extends ViewModel {
     private Participant participant;
 
     /**
-     * Constructor
-     * Used by ViewModelProviders
-     * TODO take MoodHistoryRepository as argument
+     * Default Constructor
+     * TODO remove this and implement ViewModelFactory for this class
      */
     public MoodHistoryViewModel() {
-        moodHistoryRepository = new MoodHistoryRepository();
+        this.moodHistoryRepository = new MoodHistoryRepository();
+        moodHistory = new MutableLiveData<>(new ArrayList<>());
+    }
+
+    /**
+     * Constructor
+     * @param moodHistoryRepository Database access object to associate with this view model
+     */
+    public MoodHistoryViewModel(MoodHistoryRepository moodHistoryRepository) {
+        this.moodHistoryRepository = moodHistoryRepository;
         moodHistory = new MutableLiveData<>(new ArrayList<>());
     }
 

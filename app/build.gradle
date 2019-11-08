@@ -32,6 +32,8 @@ dependencies {
     def fragment_version = "1.1.0"
     def testing_version = "1.2.0"
 
+    implementation 'javax.inject:javax.inject:1@jar'
+
     // Dependency on remote binary
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -57,6 +59,7 @@ dependencies {
     androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
 
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
     debugImplementation "androidx.test:core:$testing_version"

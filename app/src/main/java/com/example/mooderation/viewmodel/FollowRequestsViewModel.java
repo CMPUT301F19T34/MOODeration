@@ -1,9 +1,12 @@
-package com.example.mooderation;
+package com.example.mooderation.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mooderation.FollowRequest;
+import com.example.mooderation.Follower;
+import com.example.mooderation.Participant;
 import com.example.mooderation.backend.FollowRequestRepository;
 import com.example.mooderation.backend.FollowerRepository;
 import com.google.firebase.firestore.ListenerRegistration;

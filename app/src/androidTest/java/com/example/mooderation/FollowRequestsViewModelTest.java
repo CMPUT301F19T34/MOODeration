@@ -59,12 +59,35 @@ public class FollowRequestsViewModelTest {
     }
 
     @Test
-    public void testAddFollowRequest() throws ExecutionException, InterruptedException {
-        FollowRequest followRequest = mockFollowRequest("uid1");
+    public void testAcceptFollowRequest() throws ExecutionException, InterruptedException {
+        FollowRequest followRequest = mockFollowRequest("uid");
         Tasks.await(followRequestRepository.add(participant, followRequest));
 
         // check mood event was added
-        assertEquals(followRequest, followRequestsViewModel.getFollowRequests().getValue().get(0));
+        assertEquals(1, followRequestsViewModel.getFollowRequests().getValue().size());
+        followRequestsViewModel.acceptRequest(followRequest);
+
+        // TODO fix this hack
+        Thread.sleep(1000);
+
+        // check mood event was removed
+        assertEquals(0, followRequestsViewModel.getFollowRequests().getValue().size());
+    }
+
+    @Test
+    public void testDenyFollowRequest() throws ExecutionException, InterruptedException {
+        FollowRequest followRequest = mockFollowRequest("uid");
+        Tasks.await(followRequestRepository.add(participant, followRequest));
+
+        // check mood event was added
+        assertEquals(1, followRequestsViewModel.getFollowRequests().getValue().size());
+        followRequestsViewModel.denyRequest(followRequest);
+
+        // TODO fix this hack
+        Thread.sleep(1000);
+
+        // check mood event was removed
+        assertEquals(0, followRequestsViewModel.getFollowRequests().getValue().size());
     }
 
     @Test

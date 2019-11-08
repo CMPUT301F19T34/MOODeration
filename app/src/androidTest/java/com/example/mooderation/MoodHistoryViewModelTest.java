@@ -63,7 +63,10 @@ public class MoodHistoryViewModelTest {
     @Test
     public void testAddMoodEvent() throws ExecutionException, InterruptedException {
         MoodEvent moodEvent = mockMoodEvent();
-        Tasks.await(moodHistoryRepository.add(participant, moodEvent));
+        moodHistoryViewModel.addMoodEvent(moodEvent);
+
+        // TODO fix this hack
+        Thread.sleep(1000);
 
         // check mood event was added
         assertEquals(moodEvent, moodHistoryViewModel.getMoodHistory().getValue().get(0));

@@ -11,6 +11,7 @@ import com.example.mooderation.backend.FollowRequestRepository;
 import com.example.mooderation.backend.FollowerRepository;
 import com.example.mooderation.backend.OwnedRepository;
 import com.example.mooderation.backend.ParticipantRepository;
+import com.example.mooderation.viewmodel.ParticipantViewModel;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;

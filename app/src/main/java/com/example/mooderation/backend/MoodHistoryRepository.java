@@ -16,12 +16,13 @@ public class MoodHistoryRepository implements OwnedRepository<Participant, MoodE
 
     @Override
     public Task<Void> add(Participant participant, MoodEvent moodEvent) {
-        return moodHistoryPath(participant).document().set(moodEvent);
+        return moodHistoryPath(participant).document(String.valueOf(moodEvent.getDate().getTime())).set(moodEvent);
     }
 
     @Override
     public Task<Void> remove(Participant participant, MoodEvent moodEvent) {
-        throw new UnsupportedOperationException("Deleting mood events is not yet supported.");
+        //throw new RuntimeException("Not implemented");
+        return moodHistoryPath(participant).document(String.valueOf(moodEvent.getDate().getTime())).delete();
     }
 
     @Override

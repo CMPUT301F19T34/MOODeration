@@ -16,7 +16,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -24,6 +26,7 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.security.Permission;
 import java.util.Date;
 
 public class AddMoodEventFragment extends Fragment {
@@ -85,9 +88,8 @@ public class AddMoodEventFragment extends Fragment {
         locationSwitch = view.findViewById(R.id.location_switch);
         locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
             if(isToggled) {
-                // request location permission
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                        1);
+                    1);
             }
         });
 
@@ -161,7 +163,19 @@ public class AddMoodEventFragment extends Fragment {
         } else {
             isToggled = false;
             locationSwitch.toggle();
+            if(!shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                openDialog();
+            }
         }
+    }
+
+    /**
+     * Displays a dialog box instructing the user how to turn on location permission if they
+     * selected "deny and never show again"
+     */
+    public void openDialog() {
+        LocaionDeniedDialog locationDeniedDialog = new LocaionDeniedDialog();
+        locationDeniedDialog.show(getFragmentManager(), "Location Denied");
     }
 }
 

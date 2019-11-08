@@ -7,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -26,7 +25,7 @@ public class FindParticipantFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = ViewModelProviders.of(this).get(FindParticipantViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(FindParticipantViewModel.class);
         adapter = new ParticipantAdapter(getContext());
         model.getSearchResults().observe(this, participants -> adapter.update(participants));
         setHasOptionsMenu(true);
@@ -43,25 +42,16 @@ public class FindParticipantFragment extends Fragment {
         ListView listView = view.findViewById(R.id.search_results);
         listView.setAdapter(adapter);
 
-        String uid = getArguments().getString("uid");
-        String username = getArguments().getString("username");
-        model.setParticipant(new Participant(uid, username));
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Participant p = adapter.getItem(i);
-
-                NavDirections action = FindParticipantFragmentDirections
-                        .actionFindParticipantFragmentToParticipantProfileFragment(
-                                model.getCurrentParticipant().getUid(),
-                                model.getCurrentParticipant().getUsername(),
-                                p.getUid(),
-                                p.getUsername()
-                        );
-                Navigation.findNavController(view).navigate(action);
-            }
+        listView.setOnItemClickListener((adapterView, view1, i, l) -> {
+            Participant p = adapter.getItem(i);
+            NavDirections action = FindParticipantFragmentDirections
+                    .actionFindParticipantFragmentToParticipantProfileFragment(
+                            p.getUid(),
+                            p.getUsername()
+                    );
+            Navigation.findNavController(view1).navigate(action);
         });
+        model.filter("");
     }
 
     @Override

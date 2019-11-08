@@ -19,7 +19,7 @@ public class ParticipantProfileViewModel extends ViewModel {
     private List<ListenerRegistration> listenerRegistrations;
 
     private MutableLiveData<Boolean> isThisFollowingOther;
-    private MutableLiveData<Boolean> isOtherFollowingThis;
+    private MutableLiveData<Boolean> isFollowRequestSent;
     private MutableLiveData<String> username;
     private Participant user;
     private Participant other;
@@ -30,12 +30,15 @@ public class ParticipantProfileViewModel extends ViewModel {
         listenerRegistrations = new ArrayList<>();
 
         isThisFollowingOther = new MutableLiveData<>();
-        isOtherFollowingThis = new MutableLiveData<>();
+        isFollowRequestSent = new MutableLiveData<>();
         username = new MutableLiveData<>();
     }
 
-    public void setParticipants(Participant user, Participant other) {
+    public void setParticipant(Participant user) {
         this.user = user;
+    }
+
+    public void setViewingParticipant(Participant other) {
         this.other = other;
 
         for (ListenerRegistration reg : listenerRegistrations) {
@@ -44,20 +47,26 @@ public class ParticipantProfileViewModel extends ViewModel {
         listenerRegistrations.clear();
 
         username.setValue(other.getUsername());
-        listenerRegistrations.add(followerRepository.addListener(user, followers -> {
-            isOtherFollowingThis.setValue(followers.contains(Follower.fromParticipant(other)));
-        }));
-        listenerRegistrations.add(followerRepository.addListener(other, followers -> {
-            isThisFollowingOther.setValue(followers.contains(Follower.fromParticipant(user)));
-        }));
+        listenerRegistrations.add(followRequestRepository.addListener(other, requests -> {
+                    // TODO: don't just load everything and search it -- search the database
+                    for (FollowRequest r : requests) {
+                        if (r.getUid().equals(user.getUid())) {
+                            isFollowRequestSent.setValue(true);
+                            return;
+                        }
+                    }
+                    isFollowRequestSent.setValue(false);
+                }));
+        listenerRegistrations.add(followerRepository.addListener(other, followers ->
+                isThisFollowingOther.setValue(followers.contains(Follower.fromParticipant(user)))));
+    }
+
+    public LiveData<Boolean> getFollowRequestSent() {
+        return isFollowRequestSent;
     }
 
     public LiveData<Boolean> getThisFollowingOther() {
         return isThisFollowingOther;
-    }
-
-    public LiveData<Boolean> getOtherFollowingThis() {
-        return isOtherFollowingThis;
     }
 
     public LiveData<String> getUsername() {

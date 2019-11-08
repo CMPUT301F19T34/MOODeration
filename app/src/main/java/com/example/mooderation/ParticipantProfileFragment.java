@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -25,19 +24,17 @@ public class ParticipantProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_participant_profile, container, false);
         Bundle args = getArguments();
-        Participant user = new Participant(args.getString("user_uid"), args.getString("user_username"));
-        Participant other = new Participant(args.getString("other_uid"), args.getString("other_username"));
-
-        model.setParticipants(user, other);
+        Participant other = new Participant(args.getString("uid"), args.getString("username"));
+        model.setViewingParticipant(other);
 
         model.getUsername().observe(this, username -> {
             ((TextView) view.findViewById(R.id.username)).setText(username);
         });
 
-        View followingView = view.findViewById(R.id.is_following_you);
-        followingView.setVisibility(View.INVISIBLE);
-        model.getOtherFollowingThis().observe(this, isOtherFollowingThis -> {
-            followingView.setVisibility(isOtherFollowingThis ? View.VISIBLE : View.INVISIBLE);
+        View requestSentView = view.findViewById(R.id.request_sent);
+        requestSentView.setVisibility(View.INVISIBLE);
+        model.getFollowRequestSent().observe(this, isFollowRequestSent -> {
+            requestSentView.setVisibility(isFollowRequestSent ? View.VISIBLE : View.INVISIBLE);
         });
 
         Button followButton = view.findViewById(R.id.follow_button);
@@ -48,12 +45,9 @@ public class ParticipantProfileFragment extends Fragment {
         followButton.setOnClickListener(view1 -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Send a follow request to " + model.getUsername().getValue() + "?")
-                   .setMessage("If this participant accepts your follow request, you will be able to see their most recent mood event in your feed.")
-                   .setPositiveButton("Send request", (d, i) -> model.sendFollowRequest()
-                           .addOnSuccessListener(aVoid -> Toast.makeText(getContext(), "Follow request sent", Toast.LENGTH_LONG).show())
-                           .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to send follow request", Toast.LENGTH_LONG).show())
-                   )
-                   .setNegativeButton("Cancel", (d, i) -> {})
+                   .setMessage(R.string.send_follow_request_menu_message)
+                   .setPositiveButton(R.string.send_follow_request_menu_send, (d, i) -> model.sendFollowRequest())
+                   .setNegativeButton(R.string.send_follow_request_menu_cancel, (d, i) -> {})
                    .show();
         });
 

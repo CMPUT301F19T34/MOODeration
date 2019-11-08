@@ -4,6 +4,7 @@
     <string name="mood_history_label">My Mood History</string>
     <string name="add_mood_event_label">Add Mood Event</string>
     <string name="follow_request_label">My Follow Requests</string>
+    <string name="find_participant_label">Find a Person</string>
 
     <string name="mood_happy">Happy</string>
     <string name="mood_sad">Sad</string>
@@ -36,4 +37,10 @@
     <string name="auth_error_signup_email_collision">"Coudn't sign up: an account already exists with that email"</string>
     <string name="auth_error_signup_generic">"Couldn't sign up. Please check your internet access or try again later"</string>
 
+    <string name="follow_button">Follow</string>
+    <string name="follow_request_sent">Follow request sent.</string>
+    <string name="search_bar_text">Find a person</string>
+    <string name="send_follow_request_menu_send">Send request</string>
+    <string name="send_follow_request_menu_cancel">Cancel</string>
+    <string name="send_follow_request_menu_message">If this participant accepts your follow request, you will be able to see their most recent mood event in your feed.</string>
 </resources>

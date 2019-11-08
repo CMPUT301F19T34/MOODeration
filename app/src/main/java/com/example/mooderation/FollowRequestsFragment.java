@@ -41,9 +41,6 @@ public class FollowRequestsFragment extends Fragment {
         ListView listView = view.findViewById(R.id.follow_request_list);
         listView.setAdapter(adapter);
 
-        participantViewModel = ViewModelProviders.of(getActivity()).get(ParticipantViewModel.class);
-        model.setParticipant(participantViewModel.getParticipant());
-
         listView.setOnItemClickListener((adapterView, itemView, i, l) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             FollowRequest request = adapter.getItem(i);

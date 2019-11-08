@@ -64,8 +64,4 @@ public class FindParticipantViewModel extends ViewModel {
         filter = s;
         allParticipants.setValue(allParticipants.getValue());
     }
-
-    public Participant getCurrentParticipant() {
-        return currentParticipant;
-    }
 }

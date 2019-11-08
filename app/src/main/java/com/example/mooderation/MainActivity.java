@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ParticipantViewModel participantViewModel;
     private MoodHistoryViewModel moodHistoryViewModel;
+    private FindParticipantViewModel findParticipantViewModel;
+    private ParticipantProfileViewModel participantProfileViewModel;
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         Set<Integer> topLevelFragments = new HashSet<>();
         topLevelFragments.add(R.id.moodHistoryFragment);
         topLevelFragments.add(R.id.followRequestsFragment);
+        topLevelFragments.add(R.id.findParticipantFragment);
         // TODO add other top level fragments here
 
         // configures the top app bar
@@ -85,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
                         navController.navigate(R.id.followRequestsFragment);
                         break;
 
+                    // navigate to participant search
+                    case R.id.find_participant_drawer_item:
+                        navController.navigate((R.id.findParticipantFragment));
+                        break;
+
                     // log out of the app
                     case R.id.log_out_drawer_item:
                         FirebaseAuth.getInstance().signOut();
@@ -98,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
         // initialize view models
         participantViewModel = ViewModelProviders.of(this).get(ParticipantViewModel.class);
         moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
+        findParticipantViewModel = ViewModelProviders.of(this).get(FindParticipantViewModel.class);
+        participantProfileViewModel = ViewModelProviders.of(this).get(ParticipantProfileViewModel.class);
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
@@ -110,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
                 Participant participant = new Participant(FirebaseAuth.getInstance().getUid(), "user");
                 participantViewModel.setParticipant(participant);
                 moodHistoryViewModel.setParticipant(participant);
+                findParticipantViewModel.setParticipant(participant);
+                participantProfileViewModel.setParticipant(participant);
 
                 // successfully logged in
                 // TODO fetch username for message for toast here?

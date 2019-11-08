@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="127cm" height="95cm" viewBox="-1608 57 2521 1898" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="-811.409" y="691.612" width="156.3" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-811.409" y="691.612" width="156.3" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-733.259" y="706.812">&lt;&lt;enum&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-733.259" y="727.612">AuthenticationError</text>
+    <rect style="fill: #ffffff" x="-811.409" y="735.612" width="156.3" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-811.409" y="735.612" width="156.3" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-809.409" y="748.812">+INVALID_EMAIL</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-809.409" y="764.812">+INVALID_PASSWORD</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-809.409" y="780.812">+EMAIL_COLLISION</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-809.409" y="796.812">+USERNAME_COLLISION</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-809.409" y="812.812">+UNKNOWN</text>
+    <rect style="fill: #ffffff" x="-811.409" y="819.612" width="156.3" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-811.409" y="819.612" width="156.3" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-1016.52" y="455.647" width="395" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1016.52" y="455.647" width="395" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-819.017" y="475.647">AuthenticationResult</text>
+    <rect style="fill: #ffffff" x="-1016.52" y="483.647" width="395" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1016.52" y="483.647" width="395" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1014.52" y="496.847">-success: IAuthentication</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1014.52" y="512.847">-failure: AuthenticationError</text>
+    <rect style="fill: #ffffff" x="-1016.52" y="519.647" width="395" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1016.52" y="519.647" width="395" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1014.52" y="532.847">+AuthenticationResult(success:IAuthentication)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1014.52" y="548.847">+AuthenticationResult(failure:AuthenticationError)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1014.52" y="564.847">+getSuccess(): IAuthentication</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1014.52" y="580.847">+getFailure(): AuthenticationError</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-311.207" y="429.702" width="117.4" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-311.207" y="429.702" width="117.4" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-252.507" y="444.902">&lt;&lt;interface&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-252.507" y="465.702">IAuthentication</text>
+    <rect style="fill: #ffffff" x="-311.207" y="473.702" width="117.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-311.207" y="473.702" width="117.4" height="8"/>
+    <rect style="fill: #ffffff" x="-311.207" y="481.702" width="117.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-311.207" y="481.702" width="117.4" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-227.927" y="260.058" width="110.1" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-227.927" y="260.058" width="110.1" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-172.877" y="275.258">&lt;&lt;interface&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-172.877" y="296.058">Parcelable</text>
+    <rect style="fill: #ffffff" x="-227.927" y="304.058" width="110.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-227.927" y="304.058" width="110.1" height="8"/>
+    <rect style="fill: #ffffff" x="-227.927" y="312.058" width="110.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-227.927" y="312.058" width="110.1" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-817.085" y="57.7674" width="695.3" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-817.085" y="57.7674" width="695.3" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-469.435" y="72.9674">&lt;&lt;interface&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-469.435" y="93.7674">IAuthenticator</text>
+    <rect style="fill: #ffffff" x="-817.085" y="101.767" width="695.3" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-817.085" y="101.767" width="695.3" height="8"/>
+    <rect style="fill: #ffffff" x="-817.085" y="109.767" width="695.3" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-817.085" y="109.767" width="695.3" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-815.085" y="122.967">+login(email:String,password:String,listener:IAuthenticator.AuthenticationResultListener)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-815.085" y="138.967">+signup(username:String,email:String,password:String,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-815.085" y="154.967">        listener:IAuthenticator.AuthenticationResultListener)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-1031.01" y="290.004" width="425.8" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1031.01" y="290.004" width="425.8" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-818.113" y="305.204">&lt;&lt;interface&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-818.113" y="326.004">IAuthenticator.AuthenticationResultListener</text>
+    <rect style="fill: #ffffff" x="-1031.01" y="334.004" width="425.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1031.01" y="334.004" width="425.8" height="8"/>
+    <rect style="fill: #ffffff" x="-1031.01" y="342.004" width="425.8" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1031.01" y="342.004" width="425.8" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1029.01" y="355.204">+onAuthenticateResult(authResult:AuthenticationResult)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-306.393" y="616.822" width="333.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-306.393" y="616.822" width="333.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-139.693" y="636.822">FirebaseAuthentication</text>
+    <rect style="fill: #ffffff" x="-306.393" y="644.822" width="333.4" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-306.393" y="644.822" width="333.4" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-304.393" y="658.022">-firebaseUser: FirebaseUser</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-304.393" y="674.022">-username: String</text>
+    <rect style="fill: #ffffff" x="-306.393" y="680.822" width="333.4" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-306.393" y="680.822" width="333.4" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-304.393" y="694.022">+FirebaseAuthentication(user:FirebaseUser,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-304.393" y="710.022">                        username:String)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-304.393" y="726.022">+getUser(): FirebaseUser</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-304.393" y="742.022">+getUsername(): String</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="-252.507,507.945 -252.507,561.261 -139.693,561.261 -139.693,616.814 "/>
+    <polygon style="fill: #ffffff" points="-244.507,507.945 -252.507,491.945 -260.507,507.945 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-244.507,507.945 -252.507,491.945 -260.507,507.945 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-172.877,338.302 -172.877,382.88 -252.507,382.88 -252.507,429.694 "/>
+    <polygon style="fill: #ffffff" points="-164.877,338.302 -172.877,322.302 -180.877,338.302 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-164.877,338.302 -172.877,322.302 -180.877,338.302 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-172.877,241.815 -172.877,202.912 -469.435,202.912 -469.435,161.774 "/>
+    <polygon style="fill: #ffffff" points="-180.877,241.815 -172.877,257.815 -164.877,241.815 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-180.877,241.815 -172.877,257.815 -164.877,241.815 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="11.0694" y="200.21" width="695.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="11.0694" y="200.21" width="695.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="358.719" y="220.21">FirebaseAuthenticator</text>
+    <rect style="fill: #ffffff" x="11.0694" y="228.21" width="695.3" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="11.0694" y="228.21" width="695.3" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="13.0694" y="241.41">-firebaseAuth: FirebaseAuth</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="13.0694" y="257.41">-db: FirebaseFirestore</text>
+    <rect style="fill: #ffffff" x="11.0694" y="264.21" width="695.3" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="11.0694" y="264.21" width="695.3" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="13.0694" y="277.41">+login(email:String,password:String,listener:IAuthenticator.AuthenticationResultListener)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="13.0694" y="293.41">+signup(username:String,email:String,password:String,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="13.0694" y="309.41">        listener:IAuthenticator.AuthenticationResultListener)</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="-103.543,109.767 -47.3575,109.767 -47.3575,258.21 11.0641,258.21 "/>
+    <polygon style="fill: #ffffff" points="-103.543,101.767 -119.543,109.767 -103.543,117.767 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-103.543,101.767 -119.543,109.767 -103.543,117.767 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-596.356,521.647 -356.548,521.647 -356.548,459.702 -311.195,459.702 "/>
+    <polygon style="fill: #ffffff" points="-621.528,521.647 -607.528,516.847 -593.528,521.647 -607.528,526.447 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-621.528,521.647 -607.528,516.847 -593.528,521.647 -607.528,526.447 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-589.528" y="517.647">0..1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-315.195" y="455.702">0..1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-819.017,612.789 -819.017,650.258 -733.259,650.258 -733.259,691.606 "/>
+    <polygon style="fill: #ffffff" points="-819.017,587.617 -814.217,601.617 -819.017,615.617 -823.817,601.617 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-819.017,587.617 -814.217,601.617 -819.017,615.617 -823.817,601.617 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-808.017" y="599.617">*</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-729.259" y="687.606">0..1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-53.6515" y="1615.2" width="556.7" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-53.6515" y="1615.2" width="556.7" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="224.699" y="1635.2">LoginActivity</text>
+    <rect style="fill: #ffffff" x="-53.6515" y="1643.2" width="556.7" height="148"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-53.6515" y="1643.2" width="556.7" height="148"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1656.4">+REQUEST_SIGNUP: int = 0</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1672.4">+AUTHENTICATOR: String = "com.example.mooderation.loginAuthenticator"</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1688.4">+AUTHENTICATION: String = "com.example.mooderation.loginAuthentication"</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1704.4">-loginViewModel: LoginViewModel</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1720.4">-emailEditText: EditText</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1736.4">-passwordEditText: EditText</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1752.4">-loadingProgressBar: ProgressBar</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1768.4">-loginButton: Button</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1784.4">-signUpButton: Button</text>
+    <rect style="fill: #ffffff" x="-53.6515" y="1791.2" width="556.7" height="164"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-53.6515" y="1791.2" width="556.7" height="164"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1804.4">+onCreate(savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1820.4">+onActivityResult(requestCode:int,resultCode:int,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1836.4">                  data:Intent)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1852.4">+onBackPressed()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1868.4">+showLoginFailed(error:AuthenticationError)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1884.4">+startSignupActivity()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1900.4">+isFormValid()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1916.4">+beginLogin()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1932.4">+handleLoginResult(loginResult:AuthenticationResult)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-51.6515" y="1948.4">+enableInput(enable:boolean)</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-469.435,161.774 -469.435,225.884 -818.113,225.884 -818.113,289.995 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-643.774" y="221.884">Calls listener when login succeeds/fails</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-818.113,362.012 -818.113,408.826 -819.017,408.826 -819.017,455.639 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-818.565" y="404.826">Yields AuthenticationResult</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="358.719,316.217 358.719,504.772 -139.693,504.772 -139.693,616.825 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="109.513" y="500.772">Yields FirebaseAuthentication through its AuthenticationResult</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-257.247" y="1362.16" width="117.4" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-257.247" y="1362.16" width="117.4" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-198.547" y="1377.36">&lt;&lt;interface&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-198.547" y="1398.16">IAuthentication</text>
+    <rect style="fill: #ffffff" x="-257.247" y="1406.16" width="117.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-257.247" y="1406.16" width="117.4" height="8"/>
+    <rect style="fill: #ffffff" x="-257.247" y="1414.16" width="117.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-257.247" y="1414.16" width="117.4" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-53.6515,1717.2 -96.7454,1717.2 -96.7454,1392.16 -139.839,1392.16 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-94.7454" y="1550.68">Returns an IAuthentiction instance</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-872.44" y="1532.33" width="602.9" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-872.44" y="1532.33" width="602.9" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-570.99" y="1552.33">LoginViewModel</text>
+    <rect style="fill: #ffffff" x="-872.44" y="1560.33" width="602.9" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-872.44" y="1560.33" width="602.9" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1573.53">-loginFormState: MutableLiveData&lt;LoginFormState&gt; = new MutableLiveData&lt;&gt;()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1589.53">-loginResult: MutableLiveData&lt;AuthenticationResult&gt; = new MutableLiveData&lt;&gt;()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1605.53">-authenticator: IAuthenticator</text>
+    <rect style="fill: #ffffff" x="-872.44" y="1612.33" width="602.9" height="132"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-872.44" y="1612.33" width="602.9" height="132"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1625.53">+LoginViewModel(authenticator:IAuthenticator)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1641.53">+getLoginFormState(): LiveData&lt;LoginFormState&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1657.53">+getLoginResult(): LiveData&lt;AuthenticationResult&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1673.53">+getAuthenticator(): IAuthenticator</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1689.53">+setLoginResult(loginResult:AuthenticationResult)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1705.53">+loginDataChanged(email:String,password:String)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1721.53">-isEmailValid(email:String): boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-870.44" y="1737.53">-isPasswordValid(password:String): boolean</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-78.8315,1785.2 -168.596,1785.2 -168.596,1638.33 -269.531,1638.33 "/>
+    <polygon style="fill: #ffffff" points="-53.66,1785.2 -67.66,1790 -81.66,1785.2 -67.66,1780.4 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-53.66,1785.2 -67.66,1790 -81.66,1785.2 -67.66,1780.4 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-85.66" y="1781.2">0..1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-265.531" y="1634.33">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-495.658" y="1352.75" width="110.6" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-495.658" y="1352.75" width="110.6" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-440.358" y="1367.95">&lt;&lt;interface&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-440.358" y="1388.75">IAuthenticator</text>
+    <rect style="fill: #ffffff" x="-495.658" y="1396.75" width="110.6" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-495.658" y="1396.75" width="110.6" height="8"/>
+    <rect style="fill: #ffffff" x="-495.658" y="1404.75" width="110.6" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-495.658" y="1404.75" width="110.6" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-570.99,1507.15 -570.99,1465.54 -495.658,1465.54 -495.658,1412.75 "/>
+    <polygon style="fill: #ffffff" points="-570.99,1532.32 -575.79,1518.32 -570.99,1504.32 -566.19,1518.32 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-570.99,1532.32 -575.79,1518.32 -570.99,1504.32 -566.19,1518.32 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-559.99" y="1528.32">0..1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-491.658" y="1424.75">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-842.15" y="1358.25" width="180.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-842.15" y="1358.25" width="180.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-752" y="1378.25">AuthenticationResult</text>
+    <rect style="fill: #ffffff" x="-842.15" y="1386.25" width="180.3" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-842.15" y="1386.25" width="180.3" height="8"/>
+    <rect style="fill: #ffffff" x="-842.15" y="1394.25" width="180.3" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-842.15" y="1394.25" width="180.3" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-872.44,1507.16 -872.44,1460.29 -752,1460.29 -752,1402.26 "/>
+    <polygon style="fill: #ffffff" points="-872.44,1532.33 -877.24,1518.33 -872.44,1504.33 -867.64,1518.33 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-872.44,1532.33 -877.24,1518.33 -872.44,1504.33 -867.64,1518.33 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-861.44" y="1528.33">0..1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-748" y="1414.26">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-1607.8" y="1575.21" width="479.7" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1607.8" y="1575.21" width="479.7" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1367.95" y="1595.21">LoginFormState</text>
+    <rect style="fill: #ffffff" x="-1607.8" y="1603.21" width="479.7" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1607.8" y="1603.21" width="479.7" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1605.8" y="1616.41">-emailError: StringRes</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1605.8" y="1632.41">-passwordError: StringRes</text>
+    <rect style="fill: #ffffff" x="-1607.8" y="1639.21" width="479.7" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1607.8" y="1639.21" width="479.7" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1605.8" y="1652.41">+LoginFormState(emailError:StringRes,passwordError:StringRes)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1605.8" y="1668.41">+getEmailError(): StringRes</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1605.8" y="1684.41">+getPasswordError(): StringRes</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1605.8" y="1700.41">+isDataValid(): boolean</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-897.621,1638.33 -1007.27,1638.33 -1007.27,1641.21 -1128.1,1641.21 "/>
+    <polygon style="fill: #ffffff" points="-872.45,1638.33 -886.45,1643.13 -900.45,1638.33 -886.45,1633.53 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-872.45,1638.33 -886.45,1643.13 -900.45,1638.33 -886.45,1633.53 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-904.45" y="1634.33">1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1124.1" y="1637.21">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-24.8098" y="918.008" width="541.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-24.8098" y="918.008" width="541.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="245.84" y="938.008">SignUpActivity</text>
+    <rect style="fill: #ffffff" x="-24.8098" y="946.008" width="541.3" height="132"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-24.8098" y="946.008" width="541.3" height="132"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="959.208">+AUTHENTICATOR: String = "com.example.mooderation.loginAuthenticator"</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="975.208">-signUpViewModel: SIgnUpViewModel</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="991.208">+usernameEditText: EditText</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1007.21">-emailEditText: EditText</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1023.21">-passwordEditText: EditText</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1039.21">+password2EditText: EditText</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1055.21">-loadingProgressBar: ProgressBar</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1071.21">-signUpButton: Button</text>
+    <rect style="fill: #ffffff" x="-24.8098" y="1078.01" width="541.3" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-24.8098" y="1078.01" width="541.3" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1091.21">+onCreate(savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1107.21">+showSignUpFailed(error:AuthenticationError)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1123.21">+isFormValid()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1139.21">+beginSignup()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1155.21">+handleSignUpResult(signUpResult:AuthenticationResult)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-22.8098" y="1171.21">+enableInput(enable:boolean)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-884.806" y="978.008" width="610.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-884.806" y="978.008" width="610.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-579.506" y="998.008">SignUpViewModel</text>
+    <rect style="fill: #ffffff" x="-884.806" y="1006.01" width="610.6" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-884.806" y="1006.01" width="610.6" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1019.21">-signUpFormState: MutableLiveData&lt;SignUpFormState&gt; = new MutableLiveData&lt;&gt;()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1035.21">-signUpResult: MutableLiveData&lt;AuthenticationResult&gt; = new MutableLiveData&lt;&gt;()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1051.21">-authenticator: IAuthenticator</text>
+    <rect style="fill: #ffffff" x="-884.806" y="1058.01" width="610.6" height="164"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-884.806" y="1058.01" width="610.6" height="164"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1071.21">+SignUpViewModel(authenticator:IAuthenticator)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1087.21">+getSignUpFormState(): LiveData&lt;LoginFormState&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1103.21">+getSignUpResult(): LiveData&lt;AuthenticationResult&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1119.21">+getAuthenticator(): IAuthenticator</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1135.21">+setSignUpResult(loginResult:AuthenticationResult)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1151.21">+signUpDataChanged(username:String,email:String,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1167.21">                   password:String,password2:String)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1183.21">+isUsernameValid(username:String)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1199.21">-isEmailValid(email:String): boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-882.806" y="1215.21">-isPasswordValid(password:String): boolean</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-1580.8" y="984.008" width="487.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1580.8" y="984.008" width="487.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1337.1" y="1004.01">SignUpFormState</text>
+    <rect style="fill: #ffffff" x="-1580.8" y="1012.01" width="487.4" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1580.8" y="1012.01" width="487.4" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1025.21">-usernameError: StringRes</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1041.21">-emailError: StringRes</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1057.21">-passwordError: StringRes</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1073.21">-password2Error: StringRes</text>
+    <rect style="fill: #ffffff" x="-1580.8" y="1080.01" width="487.4" height="132"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1580.8" y="1080.01" width="487.4" height="132"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1093.21">+SignUpFormState(usernameError:StringRes,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1109.21">                 emailError:StringRes,passwordError:StringRes,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1125.21">                 password2Error:StringRes)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1141.21">+getUsernameError(): StringRes</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1157.21">+getEmailError(): StringRes</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1173.21">+getPasswordError(): StringRes</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1189.21">+isDataValid(): boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1578.8" y="1205.21">+getPassword2Error(): StringRes</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-24.8098,1168.01 -82.3246,1168.01 -82.3246,1392.16 -139.839,1392.16 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-80.3246" y="1276.08">Returns IAuthentication from intent</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="245.84,1178.02 245.84,1265.38 -440.358,1265.38 -440.358,1352.74 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-97.259" y="1261.38">Requires as input from intent</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="224.699,1615.2 224.699,1513.98 -440.358,1513.98 -440.358,1412.76 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-107.83" y="1509.98">Requires as input from intent</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="224.699,1615.2 224.699,1396.61 245.84,1396.61 245.84,1178.02 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="235.269" y="1392.61">LoginActivity calls SignUpActivity to make new accounts</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-49.9896,1048.01 -156.507,1048.01 -156.507,1100.01 -274.197,1100.01 "/>
+    <polygon style="fill: #ffffff" points="-24.818,1048.01 -38.818,1052.81 -52.818,1048.01 -38.818,1043.21 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-24.818,1048.01 -38.818,1052.81 -52.818,1048.01 -38.818,1043.21 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-56.818" y="1044.01">0..1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-270.197" y="1096.01">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-909.987,1100.01 -996.106,1100.01 -996.106,1098.01 -1093.4,1098.01 "/>
+    <polygon style="fill: #ffffff" points="-884.815,1100.01 -898.815,1104.81 -912.815,1100.01 -898.815,1095.21 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-884.815,1100.01 -898.815,1104.81 -912.815,1100.01 -898.815,1095.21 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-916.815" y="1096.01">1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1089.4" y="1094.01">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="748.158" y="1256.13" width="164.25" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="748.158" y="1256.13" width="164.25" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="830.283" y="1276.13">AppCompatActivity</text>
+    <rect style="fill: #ffffff" x="748.158" y="1284.13" width="164.25" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="748.158" y="1284.13" width="164.25" height="8"/>
+    <rect style="fill: #ffffff" x="748.158" y="1292.13" width="164.25" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="748.158" y="1292.13" width="164.25" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="830.283,1237.89 830.283,1209.07 245.84,1209.07 245.84,1178.02 "/>
+    <polygon style="fill: #ffffff" points="822.283,1237.89 830.283,1253.89 838.283,1237.89 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="822.283,1237.89 830.283,1253.89 838.283,1237.89 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="729.917,1278.13 617.605,1278.13 617.605,1785.2 503.057,1785.2 "/>
+    <polygon style="fill: #ffffff" points="729.917,1286.13 745.917,1278.13 729.917,1270.13 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="729.917,1286.13 745.917,1278.13 729.917,1270.13 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-884.806,1247.18 -884.806,1297.13 -752,1297.13 -752,1358.25 "/>
+    <polygon style="fill: #ffffff" points="-884.806,1222.01 -880.006,1236.01 -884.806,1250.01 -889.606,1236.01 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-884.806,1222.01 -880.006,1236.01 -884.806,1250.01 -889.606,1236.01 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-873.806" y="1234.01">0..1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-748" y="1354.25">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-532.87,1252.07 -532.87,1296.82 -495.658,1296.82 -495.658,1352.75 "/>
+    <polygon style="fill: #ffffff" points="-532.87,1226.9 -528.07,1240.9 -532.87,1254.9 -537.67,1240.9 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-532.87,1226.9 -528.07,1240.9 -532.87,1254.9 -537.67,1240.9 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-521.87" y="1238.9">0..1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-491.658" y="1348.75">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-1117.58" y="1376.98" width="98" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1117.58" y="1376.98" width="98" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1068.58" y="1396.98">ViewModel</text>
+    <rect style="fill: #ffffff" x="-1117.58" y="1404.98" width="98" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1117.58" y="1404.98" width="98" height="8"/>
+    <rect style="fill: #ffffff" x="-1117.58" y="1412.98" width="98" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" x="-1117.58" y="1412.98" width="98" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1001.34,1398.98 -944.19,1398.98 -944.19,1180.01 -884.806,1180.01 "/>
+    <polygon style="fill: #ffffff" points="-1001.34,1390.98 -1017.34,1398.98 -1001.34,1406.98 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1001.34,1390.98 -1017.34,1398.98 -1001.34,1406.98 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1001.34,1398.98 -938.007,1398.98 -938.007,1586.33 -872.44,1586.33 "/>
+    <polygon style="fill: #ffffff" points="-1001.34,1390.98 -1017.34,1398.98 -1001.34,1406.98 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1001.34,1390.98 -1017.34,1398.98 -1001.34,1406.98 "/>
+  </g>
+</svg>

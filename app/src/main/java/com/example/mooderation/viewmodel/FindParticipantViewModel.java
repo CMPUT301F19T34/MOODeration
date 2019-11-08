@@ -1,10 +1,11 @@
-package com.example.mooderation;
+package com.example.mooderation.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mooderation.Participant;
 import com.example.mooderation.backend.ParticipantRepository;
 import com.google.firebase.firestore.ListenerRegistration;
 

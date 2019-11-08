@@ -55,4 +55,8 @@ public class FollowRequestsViewModel extends ViewModel {
     public LiveData<List<FollowRequest>> getFollowRequests() {
         return followRequests;
     }
+
+    public void forceUpdate() {
+        followRequests.setValue(followRequests.getValue());
+    }
 }

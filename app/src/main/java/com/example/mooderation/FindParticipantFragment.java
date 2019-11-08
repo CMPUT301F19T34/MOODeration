@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.viewmodel.FindParticipantViewModel;
+
 public class FindParticipantFragment extends Fragment {
 
     private FindParticipantViewModel model;

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -27,18 +29,20 @@ public class FollowRequestsFragment extends Fragment {
         model = ViewModelProviders.of(getActivity()).get(FollowRequestsViewModel.class);
 
         followRequestList = new ArrayList<>();
-        adapter = new FollowRequestAdapter(getContext(), followRequestList);
+        adapter = new FollowRequestAdapter(getContext());
         model.getFollowRequests().observe(this, requests -> {
-            followRequestList.clear();
-            followRequestList.addAll(requests);
-            adapter.notifyDataSetChanged();
+            adapter.update(requests);
         });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_follow_requests, container, false);
+        return inflater.inflate(R.layout.fragment_follow_requests, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ListView listView = view.findViewById(R.id.follow_request_list);
         listView.setAdapter(adapter);
 
@@ -54,6 +58,6 @@ public class FollowRequestsFragment extends Fragment {
                     .setNegativeButton("Deny", (dialogInterface, i12) -> model.denyRequest(request))
                     .show();
         });
-        return view;
+        model.forceUpdate();
     }
 }

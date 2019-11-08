@@ -2,10 +2,12 @@ package com.example.mooderation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -15,10 +17,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.mooderation.auth.firebase.FirebaseAuthentication;
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
+
+    private boolean paused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,31 +74,29 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
         // navigation listener
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
+        navView.setNavigationItemSelectedListener(menuItem -> {
+            drawerLayout.closeDrawers();
 
-                switch (menuItem.getItemId()) {
-                    // navigate to mood history
-                    case R.id.mood_history_drawer_item:
-                        navController.navigate(R.id.moodHistoryFragment);
-                        break;
+            switch (menuItem.getItemId()) {
+                // navigate to mood history
+                case R.id.mood_history_drawer_item:
+                    menuItem.setChecked(true);
+                    navController.navigate(R.id.moodHistoryFragment);
+                    break;
 
-                    // navigate to follow requests
-                    case R.id.follow_request_drawer_item:
-                        navController.navigate(R.id.followRequestsFragment);
-                        break;
+                // navigate to follow requests
+                case R.id.follow_request_drawer_item:
+                    menuItem.setChecked(true);
+                    navController.navigate(R.id.followRequestsFragment);
+                    break;
 
-                    // log out of the app
-                    case R.id.log_out_drawer_item:
-                        FirebaseAuth.getInstance().signOut();
-                        break;
-                }
-
-                return true;
+                // log out of the app
+                case R.id.log_out_drawer_item:
+                    FirebaseAuth.getInstance().signOut();
+                    break;
             }
+
+            return true;
         });
 
         // initialize view models
@@ -102,21 +106,47 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
                 // go to login screen
+                paused = true;
                 Intent intent = new Intent(this, LoginActivity.class);
                 intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
                 startActivityForResult(intent, REQUEST_AUTHENTICATE);
             } else {
+                if (!paused) {
+                    FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(documentSnapshot -> {
+                        Participant participant = new Participant(
+                                FirebaseAuth.getInstance().getUid(),
+                                (String) documentSnapshot.get("username"));
+                        participantViewModel.setParticipant(participant);
+                        moodHistoryViewModel.setParticipant(participant);
+
+                        // successfully logged in
+                        String welcome = "Logged in as " + participant.getUsername();
+                        Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
+                    });
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == REQUEST_AUTHENTICATE) {
+            paused = false;
+            if (resultCode == RESULT_OK) {
+                FirebaseAuthentication auth = (FirebaseAuthentication)data.getParcelableExtra(LoginActivity.AUTHENTICATION);
                 // initialize the user object and store in ViewModel
                 Participant participant = new Participant(
-                        firebaseAuth.getCurrentUser().getUid(),
-                        firebaseAuth.getCurrentUser().getDisplayName());
+                        auth.getUser().getUid(),
+                        auth.getUsername());
                 participantViewModel.setParticipant(participant);
                 moodHistoryViewModel.setParticipant(participant);
 
                 // successfully logged in
-                String welcome = "Logged in as " + firebaseAuth.getCurrentUser().getDisplayName();
+                String welcome = "Logged in as " + participant.getUsername();
                 Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
             }
-        });
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

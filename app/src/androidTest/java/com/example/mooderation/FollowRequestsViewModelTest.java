@@ -65,10 +65,7 @@ public class FollowRequestsViewModelTest {
 
         // check mood event was added
         assertEquals(1, followRequestsViewModel.getFollowRequests().getValue().size());
-        followRequestsViewModel.acceptRequest(followRequest);
-
-        // TODO fix this hack
-        Thread.sleep(1000);
+        Tasks.await(followRequestsViewModel.acceptRequest(followRequest));
 
         // check mood event was removed
         assertEquals(0, followRequestsViewModel.getFollowRequests().getValue().size());
@@ -81,10 +78,7 @@ public class FollowRequestsViewModelTest {
 
         // check mood event was added
         assertEquals(1, followRequestsViewModel.getFollowRequests().getValue().size());
-        followRequestsViewModel.denyRequest(followRequest);
-
-        // TODO fix this hack
-        Thread.sleep(1000);
+        Tasks.await(followRequestsViewModel.denyRequest(followRequest));
 
         // check mood event was removed
         assertEquals(0, followRequestsViewModel.getFollowRequests().getValue().size());

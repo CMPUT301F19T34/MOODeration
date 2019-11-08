@@ -3,7 +3,6 @@ package com.example.mooderation;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 
-import com.example.mooderation.backend.MoodHistoryRepository;
 import com.example.mooderation.backend.ParticipantRepository;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import com.google.android.gms.tasks.Tasks;
@@ -25,11 +24,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JUnit4.class)
 public class MoodHistoryViewModelTest {
     private boolean observed = false;
-
-    private Participant participant;
-    private ParticipantRepository participantRepository;
-    private MoodHistoryRepository moodHistoryRepository;
-
     private MoodHistoryViewModel moodHistoryViewModel;
 
     // forces tasks to execute synchronously
@@ -48,14 +42,13 @@ public class MoodHistoryViewModelTest {
     public void setUp() throws ExecutionException, InterruptedException {
         // sign in as an anonymous user
         Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-        participant = new Participant(FirebaseAuth.getInstance().getUid(), "user");
-
-        participantRepository = new ParticipantRepository();
-        moodHistoryRepository = new MoodHistoryRepository();
+        Participant participant = new Participant(FirebaseAuth.getInstance().getUid(), "user");
 
         // add the participant to the view model
         moodHistoryViewModel = new MoodHistoryViewModel();
         moodHistoryViewModel.setParticipant(participant);
+
+        ParticipantRepository participantRepository = new ParticipantRepository();
 
         Tasks.await(participantRepository.remove(participant).continueWith(task -> participantRepository.add(participant)));
     }
@@ -63,10 +56,7 @@ public class MoodHistoryViewModelTest {
     @Test
     public void testAddMoodEvent() throws ExecutionException, InterruptedException {
         MoodEvent moodEvent = mockMoodEvent();
-        moodHistoryViewModel.addMoodEvent(moodEvent);
-
-        // TODO fix this hack
-        Thread.sleep(1000);
+        Tasks.await(moodHistoryViewModel.addMoodEvent(moodEvent));
 
         // check mood event was added
         assertEquals(moodEvent, moodHistoryViewModel.getMoodHistory().getValue().get(0));
@@ -75,9 +65,9 @@ public class MoodHistoryViewModelTest {
     @Test
     public void testOrder() throws ExecutionException, InterruptedException {
         // add mood events in chronological order
-        Tasks.await(moodHistoryRepository.add(participant, mockMoodEvent()));
+        Tasks.await(moodHistoryViewModel.addMoodEvent(mockMoodEvent()));
         Thread.sleep(10);
-        Tasks.await(moodHistoryRepository.add(participant, mockMoodEvent()));
+        Tasks.await(moodHistoryViewModel.addMoodEvent(mockMoodEvent()));
 
         // check for reverse chronological order
         MoodEvent l = moodHistoryViewModel.getMoodHistory().getValue().get(0);
@@ -94,7 +84,7 @@ public class MoodHistoryViewModelTest {
             }
         });
 
-        Tasks.await(moodHistoryRepository.add(participant, mockMoodEvent()));
+        Tasks.await(moodHistoryViewModel.addMoodEvent(mockMoodEvent()));
         assertTrue(observed);
     }
 }

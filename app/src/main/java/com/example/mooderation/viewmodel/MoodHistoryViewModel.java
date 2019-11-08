@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.mooderation.MoodEvent;
 import com.example.mooderation.Participant;
 import com.example.mooderation.backend.MoodHistoryRepository;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
@@ -58,8 +59,8 @@ public class MoodHistoryViewModel extends ViewModel {
      * Add a new MoodEvent to the MoodHistory
      * @param moodEvent The MoodEvent to add
      */
-    public void addMoodEvent(MoodEvent moodEvent) {
-        moodHistoryRepository.add(participant, moodEvent);
+    public Task<Void> addMoodEvent(MoodEvent moodEvent) {
+        return moodHistoryRepository.add(participant, moodEvent);
     }
 
     public LiveData<List<MoodEvent>> getMoodHistory() {

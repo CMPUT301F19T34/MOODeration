@@ -18,8 +18,6 @@ public class FollowRequestsFragment extends Fragment {
     private FollowRequestsViewModel model;
     private List<FollowRequest> followRequestList;
 
-    ParticipantViewModel participantViewModel;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

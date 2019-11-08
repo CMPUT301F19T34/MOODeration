@@ -1,12 +1,10 @@
 package com.example.mooderation.backend;
 
 import com.example.mooderation.EmotionalState;
-import com.example.mooderation.FollowRequest;
 import com.example.mooderation.MoodEvent;
 import com.example.mooderation.Participant;
 import com.example.mooderation.SocialSituation;
 import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -17,13 +15,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 
 @RunWith(JUnit4.class)
 public class TestMoodHistoryRepository {
@@ -33,6 +29,8 @@ public class TestMoodHistoryRepository {
     private CollectionReference moodHistoryPath;
     private MoodEvent mockMoodEvent;
     private Participant p;
+
+    private List<MoodEvent> moodEventList;
 
     @Before
     public void setUp() throws InterruptedException, ExecutionException {
@@ -61,5 +59,14 @@ public class TestMoodHistoryRepository {
         moodHistoryRepository.add(p, mockMoodEvent);
         assertEquals(mockMoodEvent,
                 Tasks.await(moodHistoryPath.get()).iterator().next().toObject(MoodEvent.class));
+    }
+
+    @Test
+    public void testRemove() throws ExecutionException, InterruptedException {
+        moodHistoryRepository.add(p, mockMoodEvent);
+        assertEquals(1, Tasks.await(moodHistoryPath.get()).size());
+
+        moodHistoryRepository.remove(p, mockMoodEvent);
+        assertEquals(0, Tasks.await(moodHistoryPath.get()).size());
     }
 }

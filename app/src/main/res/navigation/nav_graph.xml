@@ -38,8 +38,29 @@
     <fragment
         android:id="@+id/followRequestsFragment"
         android:name="com.example.mooderation.FollowRequestsFragment"
-        android:label="fragment_follow_requests"
+        android:label="@string/follow_request_label"
         tools:layout="@layout/fragment_follow_requests" />
+    <fragment
+        android:id="@+id/findParticipantFragment"
+        android:name="com.example.mooderation.FindParticipantFragment"
+        android:label="@string/find_participant_label"
+        tools:layout="@layout/fragment_find_participant" >
+        <action
+            android:id="@+id/action_findParticipantFragment_to_participantProfileFragment"
+            app:destination="@id/participantProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/participantProfileFragment"
+        android:name="com.example.mooderation.ParticipantProfileFragment"
+        android:label="fragment_participant_profile"
+        tools:layout="@layout/fragment_participant_profile" >
+        <argument
+            android:name="uid"
+            app:argType="string" />
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/editMoodEventFragment"
         android:name="com.example.mooderation.EditMoodEventFragment"

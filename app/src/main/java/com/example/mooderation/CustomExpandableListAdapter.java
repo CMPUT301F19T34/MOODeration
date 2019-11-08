@@ -16,6 +16,8 @@ import androidx.navigation.NavArgument;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.viewmodel.MoodHistoryViewModel;
+
 import java.util.List;
 import java.util.TreeMap;
 

@@ -2,6 +2,7 @@ package com.example.mooderation.auth.firebase;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.SuccessContinuation;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
@@ -30,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firestore.v1.StructuredQuery;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -56,12 +59,11 @@ public class FirebaseAuthenticator implements IAuthenticator {
                     db.collection("users").document(firebaseUser.getUid()).get()
                         .addOnSuccessListener(documentSnapshot -> {
                             String username = (String) documentSnapshot.get("username");
-                            firebaseUser.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(username).build());
-                            FirebaseAuthentication auth = new FirebaseAuthentication(firebaseUser);
+                            FirebaseAuthentication auth = new FirebaseAuthentication(firebaseAuth.getCurrentUser(), username);
                             listener.onAuthenticateResult(new AuthenticationResult(auth));
                         })
                         .addOnFailureListener(authException -> {
-                            AuthenticationError e = translateFirebaseException((FirebaseAuthException) authException);
+                            AuthenticationError e = translateFirebaseException(authException);
                             listener.onAuthenticateResult(new AuthenticationResult(e));
                         })
                     ;
@@ -103,14 +105,15 @@ public class FirebaseAuthenticator implements IAuthenticator {
                 db.collection("users").document(user.getUid()).set(new HashMap<String, String>() {{
                     put("uid", user.getUid());
                     put("username", username);
-                }}).addOnCompleteListener(setTask -> {
+                }})
+                .addOnCompleteListener(setTask -> {
                     if (setTask.getException() != null) {
                         user.delete();
                         listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.UNKNOWN));
                         return;
                     }
 
-                    listener.onAuthenticateResult(new AuthenticationResult(new FirebaseAuthentication(user)));
+                    listener.onAuthenticateResult(new AuthenticationResult(new FirebaseAuthentication(user, username)));
                 });
             });
         });

@@ -1,24 +1,30 @@
 package com.example.mooderation;
-
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
-import java.util.Calendar;
+import java.security.Permission;
+
+import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import java.util.Date;
 
 public class AddMoodEventFragment extends Fragment {
@@ -30,6 +36,11 @@ public class AddMoodEventFragment extends Fragment {
     private Spinner socialSituationSpinner;
     private EditText reasonEditText;
     private Button saveButton;
+    private Switch locationSwitch;
+
+    private Location location;
+    private FusedLocationProviderClient fusedLocationClient;
+    private boolean isToggled = false;
 
     private Date dateTime;
 
@@ -71,10 +82,32 @@ public class AddMoodEventFragment extends Fragment {
         reasonEditText = view.findViewById(R.id.reason_edit_text);
 
 
+        // find and initialize locationSwitch
+        locationSwitch = view.findViewById(R.id.location_switch);
+        locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
+            if(isToggled) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+            }
+        });
+
+
 
         // find and initialize saveButton
         saveButton = view.findViewById(R.id.save_mood_event_button);
         saveButton.setOnClickListener((View v) -> {
+            // if location toggle is on
+            if(isToggled) {
+                // get location
+                fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+                fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+                    if(location != null) {
+                        setLocation(location);
+                    }
+                });
+            }
+
+
             MoodEvent moodEvent = new MoodEvent(
                     dateTime,
                     (EmotionalState) emotionalStateSpinner.getSelectedItem(),
@@ -105,4 +138,42 @@ public class AddMoodEventFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
+
+    /**
+     * Sets the location variable
+     * @param location the current position taken from GPS
+     */
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    /**
+     * Processes the result of the permission request
+     * @param requestCode the request code indicates the permission that was requested
+     * @param permissions the permissions that were requested
+     * @param grantResults the result of the permission request
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            isToggled = true;
+        } else {
+            isToggled = false;
+            locationSwitch.toggle();
+            if(!shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                openDialog();
+            }
+        }
+    }
+
+    /**
+     * Displays a dialog box instructing the user how to turn on location permission if they
+     * selected "deny and never show again"
+     */
+    public void openDialog() {
+        LocaionDeniedDialog locationDeniedDialog = new LocaionDeniedDialog();
+        locationDeniedDialog.show(getFragmentManager(), "Location Denied");
+    }
 }
+

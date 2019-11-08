@@ -26,11 +26,6 @@ public class FindParticipantViewModel extends ViewModel {
         allParticipants = new MutableLiveData<>(new ArrayList<>());
         searchResults = new MutableLiveData<>(new ArrayList<>());
 
-        registration = participantRepository.addListener(participants -> {
-            Collections.sort(participants, (l, r) ->
-                    l.getUsername().compareTo(r.getUsername()));
-            allParticipants.setValue(participants);
-        });
         searchResults = Transformations.map(allParticipants, (List<Participant> input) -> {
             List<Participant> results = new ArrayList<>();
             for (Participant participant : input) {
@@ -59,6 +54,15 @@ public class FindParticipantViewModel extends ViewModel {
 
     public void setParticipant(Participant participant) {
         currentParticipant = participant;
+
+        if (registration != null)
+            registration.remove();
+
+        registration = participantRepository.addListener(participants -> {
+            Collections.sort(participants, (l, r) ->
+                    l.getUsername().compareTo(r.getUsername()));
+            allParticipants.setValue(participants);
+        });
     }
 
     public void filter(String s) {

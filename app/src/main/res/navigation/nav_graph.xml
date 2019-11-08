@@ -26,12 +26,12 @@
     <fragment
         android:id="@+id/followRequestsFragment"
         android:name="com.example.mooderation.FollowRequestsFragment"
-        android:label="fragment_follow_requests"
+        android:label="@string/follow_request_label"
         tools:layout="@layout/fragment_follow_requests" />
     <fragment
         android:id="@+id/findParticipantFragment"
         android:name="com.example.mooderation.FindParticipantFragment"
-        android:label="fragment_find_participant"
+        android:label="@string/find_participant_label"
         tools:layout="@layout/fragment_find_participant" >
         <action
             android:id="@+id/action_findParticipantFragment_to_participantProfileFragment"

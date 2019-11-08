@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                                 (String) documentSnapshot.get("username"));
                         participantViewModel.setParticipant(participant);
                         moodHistoryViewModel.setParticipant(participant);
+                        followRequestsViewModel.setParticipant(participant);
                         findParticipantViewModel.setParticipant(participant);
                         participantProfileViewModel.setParticipant(participant);
 

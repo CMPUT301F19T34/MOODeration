@@ -21,18 +21,11 @@ import java.util.List;
 public class FollowRequestsFragment extends Fragment {
     private FollowRequestAdapter adapter;
     private FollowRequestsViewModel model;
-    private List<FollowRequest> followRequestList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(FollowRequestsViewModel.class);
-
-        followRequestList = new ArrayList<>();
-        adapter = new FollowRequestAdapter(getContext());
-        model.getFollowRequests().observe(this, requests -> {
-            adapter.update(requests);
-        });
     }
 
     @Override
@@ -44,6 +37,12 @@ public class FollowRequestsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ListView listView = view.findViewById(R.id.follow_request_list);
+
+        adapter = new FollowRequestAdapter(getContext());
+        model.getFollowRequests().observe(this, requests -> {
+            adapter.update(requests);
+        });
+
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener((adapterView, itemView, i, l) -> {

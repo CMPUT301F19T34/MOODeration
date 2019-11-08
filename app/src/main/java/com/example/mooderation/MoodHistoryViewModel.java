@@ -23,9 +23,9 @@ public class MoodHistoryViewModel extends ViewModel {
     private Participant participant;
 
     /**
-     * Default constructor
+     * Constructor
      * Used by ViewModelProviders
-     * TODO implement dependency injection in the future
+     * TODO take MoodHistoryRepository as argument
      */
     public MoodHistoryViewModel() {
         moodHistoryRepository = new MoodHistoryRepository();

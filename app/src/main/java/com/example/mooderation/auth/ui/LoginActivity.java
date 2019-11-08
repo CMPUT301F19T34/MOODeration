@@ -38,9 +38,9 @@ import com.example.mooderation.auth.base.IAuthenticator;
  * </pre>
  */
 public class LoginActivity extends AppCompatActivity {
-    public static int REQUEST_SIGNUP = 0;
-    public static String AUTHENTICATOR = "com.example.mooderation.loginAuthenticator";
-    public static String AUTHENTICATION = "com.example.mooderation.loginAuthentication";
+    public static final int REQUEST_SIGNUP = 0;
+    public static final String AUTHENTICATOR = "com.example.mooderation.loginAuthenticator";
+    public static final String AUTHENTICATION = "com.example.mooderation.loginAuthentication";
 
     private LoginViewModel loginViewModel;
 

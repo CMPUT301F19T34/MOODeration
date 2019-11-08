@@ -11,6 +11,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavArgument;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -29,6 +30,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private TreeMap<String, List<String>> expandableListDetail;
     Button editbutton;
     Button deletebutton;
+    private MoodHistoryViewModel moodHistoryViewModel;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
                                        TreeMap<String, List<String>> expandableListDetail) {
@@ -102,10 +104,17 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
                 //Bundle args = EditMoodEventFragmentArgs.Builder("mood_position").build().toBundle()
                 //navController?.navigate(R.id.EditMoodEventFragment, args);
-                //action.setArguments();
+                //action.setArguments(listPosition);
+                Fragment editFragment = new Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("position", listPosition);
+                editFragment.setArguments(bundle);
                 //action.getArguments(listPosition);
-                Navigation.findNavController(v).navigate(action);
-            });
+                action.getArguments();
+                //Navigation.findNavController(v).navigate(action);
+
+                Navigation.findNavController(v).navigate(R.id.editMoodEventFragment, bundle);
+                });
         }else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);

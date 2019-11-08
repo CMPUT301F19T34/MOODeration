@@ -15,12 +15,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class EditMoodEventFragment extends Fragment {
     private MoodHistoryViewModel moodHistoryViewModel;
@@ -30,12 +32,17 @@ public class EditMoodEventFragment extends Fragment {
     private Spinner socialSituationSpinner;
     private EditText reasonEditText;
     private Button editButton;
-
-    private Date dateTime;
+    private ArrayList<MoodEvent> moodEventList;
+    private int listPosition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
+        moodEventList = new ArrayList<>();
+        LiveData<List<MoodEvent>> moodHistory = moodHistoryViewModel.getMoodHistory();
+            moodEventList.clear();
+            moodEventList.addAll(moodHistory.getValue());
     }
 
     @Override
@@ -44,13 +51,12 @@ public class EditMoodEventFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.edit_mood_event_layout,
                 container, false);
+        // Retrieve location of moodEvent from bundle
+        Bundle bundle = getArguments();
+        listPosition = bundle.getInt("position");
 
-        //int position = ConfirmationFragmentArgs.fromBundle(getArguments()).getmoodPosition();
         // ViewModel for tracking MoodHistory
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
-
-        // get a Date with the current date and time
-        dateTime = new Date();
 
         // find and initialize emotionalStateSpinner
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);
@@ -66,13 +72,15 @@ public class EditMoodEventFragment extends Fragment {
         // find and initialize editButton
         editButton = view.findViewById(R.id.edit_mood_event_button);
         editButton.setOnClickListener((View v) -> {
-
-            /*MoodEvent moodEvent = new MoodEvent(
-                    dateTime,
+            MoodEvent moodEvent = moodEventList.get(listPosition);
+            MoodEvent newMoodEvent = new MoodEvent(
+                    moodEvent.getDate(),
                     (EmotionalState) emotionalStateSpinner.getSelectedItem(),
                     (SocialSituation) socialSituationSpinner.getSelectedItem(),
                     reasonEditText.getText().toString());
-            moodHistoryViewModel.addMoodEvent(moodEvent);*/
+
+            moodHistoryViewModel.removeMoodEvent(moodEvent);
+            moodHistoryViewModel.addMoodEvent(newMoodEvent);
 
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();

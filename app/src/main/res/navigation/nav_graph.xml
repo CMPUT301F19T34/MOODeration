@@ -17,6 +17,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_enter_anim"
             app:popExitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_moodHistoryFragment_to_findParticipantFragment"
+            app:destination="@id/findParticipantFragment" />
     </fragment>
 
     <fragment
@@ -24,4 +27,31 @@
         android:name="com.example.mooderation.AddMoodEventFragment"
         android:label="add_mood_event_fragment"
         tools:layout="@layout/add_mood_event_layout" />
+    <fragment
+        android:id="@+id/findParticipantFragment"
+        android:name="com.example.mooderation.FindParticipantFragment"
+        android:label="fragment_find_participant"
+        tools:layout="@layout/fragment_find_participant" >
+        <action
+            android:id="@+id/action_findParticipantFragment_to_participantProfileFragment"
+            app:destination="@id/participantProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/participantProfileFragment"
+        android:name="com.example.mooderation.ParticipantProfileFragment"
+        android:label="fragment_participant_profile"
+        tools:layout="@layout/fragment_participant_profile" >
+        <argument
+            android:name="user_uid"
+            app:argType="string" />
+        <argument
+            android:name="user_username"
+            app:argType="string" />
+        <argument
+            android:name="other_uid"
+            app:argType="string" />
+        <argument
+            android:name="other_username"
+            app:argType="string" />
+    </fragment>
 </navigation>

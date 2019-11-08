@@ -1,11 +1,15 @@
-package com.example.mooderation;
+package com.example.mooderation.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mooderation.FollowRequest;
+import com.example.mooderation.Follower;
+import com.example.mooderation.Participant;
 import com.example.mooderation.backend.FollowRequestRepository;
 import com.example.mooderation.backend.FollowerRepository;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
@@ -38,14 +42,14 @@ public class FollowRequestsViewModel extends ViewModel {
         });
     }
 
-    public void acceptRequest(FollowRequest request) {
+    public Task<Void> acceptRequest(FollowRequest request) {
         Follower follower = new Follower(request.getUid(), request.getUsername());
         followRequestRepository.remove(participant, request);
-        followerRepository.add(participant, follower);
+        return followerRepository.add(participant, follower);
     }
 
-    public void denyRequest(FollowRequest request) {
-        followRequestRepository.remove(participant, request);
+    public Task<Void> denyRequest(FollowRequest request) {
+        return followRequestRepository.remove(participant, request);
     }
 
     public LiveData<List<FollowRequest>> getFollowRequests() {

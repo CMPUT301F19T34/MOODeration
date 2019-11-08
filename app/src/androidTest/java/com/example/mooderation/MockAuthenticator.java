@@ -6,10 +6,13 @@ import android.os.Parcelable;
 import android.util.Log;
 
 
+import androidx.annotation.NonNull;
+
 import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.AuthenticationResult;
 import com.example.mooderation.auth.base.IAuthentication;
 import com.example.mooderation.auth.base.IAuthenticator;
+import com.example.mooderation.auth.firebase.FirebaseAuthentication;
 
 import java.util.TimerTask;
 import java.util.concurrent.Executor;
@@ -18,6 +21,34 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
+
+class MockAuthenticationResult implements IAuthentication {
+    MockAuthenticationResult() {}
+
+    @NonNull
+    static final Parcelable.Creator<MockAuthenticationResult> CREATOR
+            = new Parcelable.Creator<MockAuthenticationResult>() {
+        public MockAuthenticationResult createFromParcel(Parcel in) {
+            return new MockAuthenticationResult();
+        }
+
+        @Override
+        public MockAuthenticationResult[] newArray(int size) {
+            return new MockAuthenticationResult[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+}
 
 
 class MockAuthenticator implements IAuthenticator {
@@ -40,7 +71,7 @@ class MockAuthenticator implements IAuthenticator {
     @Override
     public void login(String email, String password, AuthenticationResultListener listener) {
         if (email.equals(REGISTERED_EMAIL) && password.equals(REGISTERED_PASSWORD)) {
-            listener.onAuthenticateResult(new AuthenticationResult(new IAuthentication() {}));
+            listener.onAuthenticateResult(new AuthenticationResult(new MockAuthenticationResult()));
         } else if (email.equals(WRONG_EMAIL)) {
             listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.INVALID_EMAIL));
         } else if (password.equals(WRONG_PASSWORD)) {
@@ -61,7 +92,7 @@ class MockAuthenticator implements IAuthenticator {
     @Override
     public void signup(String username, String email, String password, AuthenticationResultListener listener) {
         if (username.equals(NEW_USERNAME) && email.equals(NEW_EMAIL) && password.equals(NEW_PASSWORD)) {
-            listener.onAuthenticateResult(new AuthenticationResult(new IAuthentication() {}));
+            listener.onAuthenticateResult(new AuthenticationResult(new MockAuthenticationResult()));
         } else if (email.equals(REGISTERED_EMAIL)) {
             listener.onAuthenticateResult(new AuthenticationResult(AuthenticationError.EMAIL_COLLISION));
         } else if (username.equals(REGISTERED_USERNAME)) {

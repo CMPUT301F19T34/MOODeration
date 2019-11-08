@@ -40,6 +40,7 @@ import com.example.mooderation.auth.base.IAuthenticator;
 public class LoginActivity extends AppCompatActivity {
     public static int REQUEST_SIGNUP = 0;
     public static String AUTHENTICATOR = "com.example.mooderation.loginAuthenticator";
+    public static String AUTHENTICATION = "com.example.mooderation.loginAuthentication";
 
     private LoginViewModel loginViewModel;
 
@@ -117,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-                setResult(RESULT_OK);
+                setResult(RESULT_OK, data);
                 finish();
             }
         }
@@ -198,7 +199,9 @@ public class LoginActivity extends AppCompatActivity {
         if (loginResult.getFailure() != null) {
             showLoginFailed(loginResult.getFailure());
         } else {
-            setResult(RESULT_OK);
+            Intent intent = new Intent();
+            intent.putExtra(AUTHENTICATION, loginResult.getSuccess());
+            setResult(RESULT_OK, intent);
             finish();
         }
     }

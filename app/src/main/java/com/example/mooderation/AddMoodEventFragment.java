@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.viewmodel.MoodHistoryViewModel;
+
 import java.util.Date;
 
 public class AddMoodEventFragment extends Fragment {

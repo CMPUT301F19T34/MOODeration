@@ -3,12 +3,20 @@ package com.example.mooderation;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavArgument;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+
+import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 
 import java.util.List;
 import java.util.TreeMap;
@@ -24,6 +32,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private TreeMap<String, List<String>> expandableListDetail;
     Button editbutton;
     Button deletebutton;
+    private MoodHistoryViewModel moodHistoryViewModel;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
                                        TreeMap<String, List<String>> expandableListDetail) {
@@ -84,9 +93,25 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         expandedListTextView.setText(expandedListText);
         editbutton = convertView.findViewById(R.id.EditButton);
         deletebutton = convertView.findViewById(R.id.DeleteButton);
+
         if(isLastChild){
             editbutton.setVisibility(View.VISIBLE);
             deletebutton.setVisibility(View.VISIBLE);
+            editbutton.setOnClickListener((View v) -> {
+                NavDirections action = MoodHistoryFragmentDirections
+                        .actionViewMoodHistoryFragmentToEditMoodEventFragment();
+                Fragment editFragment = new Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("position", listPosition);
+                editFragment.setArguments(bundle);
+                action.getArguments();
+                Navigation.findNavController(v).navigate(R.id.editMoodEventFragment, bundle);
+            });
+            deletebutton.setOnClickListener((View v) -> {
+                expandableListTitle.remove(listPosition);
+                this.notifyDataSetChanged();
+
+            });
         }else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);

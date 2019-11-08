@@ -70,6 +70,8 @@ public class AddMoodEventFragment extends Fragment {
         // find reasonEditText
         reasonEditText = view.findViewById(R.id.reason_edit_text);
 
+
+
         // find and initialize saveButton
         saveButton = view.findViewById(R.id.save_mood_event_button);
         saveButton.setOnClickListener((View v) -> {

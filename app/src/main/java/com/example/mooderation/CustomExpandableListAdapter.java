@@ -98,23 +98,18 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             editbutton.setOnClickListener((View v) -> {
                 NavDirections action = MoodHistoryFragmentDirections
                         .actionViewMoodHistoryFragmentToEditMoodEventFragment();
-                //Bundle args = new Bundle();
-                //args.putInt("moodPosition", listPosition);
-                //NavArgument arg = EditMoodEventFragmentArgs.Builder("mood_position").build().toBundle();
-
-                //Bundle args = EditMoodEventFragmentArgs.Builder("mood_position").build().toBundle()
-                //navController?.navigate(R.id.EditMoodEventFragment, args);
-                //action.setArguments(listPosition);
                 Fragment editFragment = new Fragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("position", listPosition);
                 editFragment.setArguments(bundle);
-                //action.getArguments(listPosition);
                 action.getArguments();
-                //Navigation.findNavController(v).navigate(action);
-
                 Navigation.findNavController(v).navigate(R.id.editMoodEventFragment, bundle);
-                });
+            });
+            deletebutton.setOnClickListener((View v) -> {
+                expandableListTitle.remove(listPosition);
+                this.notifyDataSetChanged();
+
+            });
         }else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);

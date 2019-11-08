@@ -161,7 +161,9 @@ public class SignUpActivity extends AppCompatActivity {
         if (signUpResult.getFailure() != null) {
             showSignUpFailed(signUpResult.getFailure());
         } else {
-            setResult(RESULT_OK);
+            Intent intent = new Intent();
+            intent.putExtra(LoginActivity.AUTHENTICATION, signUpResult.getSuccess());
+            setResult(RESULT_OK, intent);
             finish();
         }
     }

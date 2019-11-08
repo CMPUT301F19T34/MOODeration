@@ -35,6 +35,14 @@ public class MoodEvent {
         this.reason = reason;
     }
 
+    public MoodEvent(String moodEventId, Date date, EmotionalState emotionalState,
+                     SocialSituation socialSituation, String reason) {
+        this.date = date;
+        this.emotionalState = emotionalState;
+        this.socialSituation = socialSituation;
+        this.reason = reason;
+    }
+
     /**
      * An empty constructor to allow this to be serialized by Firebase
      */

@@ -1,5 +1,7 @@
 package com.example.mooderation.auth.base;
 
+import android.os.Parcelable;
+
 /**
  * Interface for authentication credentials returned by successfully logging in with an
  * IAuthenticator. Because we don't know what type of credentials any specific IAuthenticator
@@ -7,6 +9,6 @@ package com.example.mooderation.auth.base;
  *
  * TODO: a completely empty interface seems like bad design -- it's really no better than using an Object. Is there a better way?
  */
-public interface IAuthentication {
+public interface IAuthentication extends Parcelable {
 
 }

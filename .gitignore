@@ -12,3 +12,6 @@
 */captures
 .externalNativeBuild
 .cxx
+
+# firebase information
+google-services.json

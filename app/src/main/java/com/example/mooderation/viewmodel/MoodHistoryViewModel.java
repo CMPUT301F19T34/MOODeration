@@ -1,10 +1,13 @@
-package com.example.mooderation;
+package com.example.mooderation.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mooderation.MoodEvent;
+import com.example.mooderation.Participant;
 import com.example.mooderation.backend.MoodHistoryRepository;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
@@ -23,12 +26,20 @@ public class MoodHistoryViewModel extends ViewModel {
     private Participant participant;
 
     /**
-     * Default constructor
-     * Used by ViewModelProviders
-     * TODO implement dependency injection in the future
+     * Default Constructor
+     * TODO remove this and implement ViewModelFactory for this class
      */
     public MoodHistoryViewModel() {
-        moodHistoryRepository = new MoodHistoryRepository();
+        this.moodHistoryRepository = new MoodHistoryRepository();
+        moodHistory = new MutableLiveData<>(new ArrayList<>());
+    }
+
+    /**
+     * Constructor
+     * @param moodHistoryRepository Database access object to associate with this view model
+     */
+    public MoodHistoryViewModel(MoodHistoryRepository moodHistoryRepository) {
+        this.moodHistoryRepository = moodHistoryRepository;
         moodHistory = new MutableLiveData<>(new ArrayList<>());
     }
 
@@ -48,8 +59,12 @@ public class MoodHistoryViewModel extends ViewModel {
      * Add a new MoodEvent to the MoodHistory
      * @param moodEvent The MoodEvent to add
      */
-    public void addMoodEvent(MoodEvent moodEvent) {
-        moodHistoryRepository.add(participant, moodEvent);
+    public Task<Void> addMoodEvent(MoodEvent moodEvent) {
+        return moodHistoryRepository.add(participant, moodEvent);
+    }
+
+    public Task<Void> removeMoodEvent(MoodEvent moodEvent) {
+        return moodHistoryRepository.remove(participant, moodEvent);
     }
 
     public LiveData<List<MoodEvent>> getMoodHistory() {

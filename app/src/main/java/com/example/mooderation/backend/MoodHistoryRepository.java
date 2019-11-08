@@ -1,6 +1,7 @@
 package com.example.mooderation.backend;
 
 import com.example.mooderation.MoodEvent;
+import com.example.mooderation.MoodHistoryViewModel;
 import com.example.mooderation.Participant;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -17,6 +18,11 @@ public class MoodHistoryRepository implements OwnedRepository<Participant, MoodE
     @Override
     public Task<Void> add(Participant participant, MoodEvent moodEvent) {
         return moodHistoryPath(participant).document().set(moodEvent);
+    }
+
+
+    public Task<Void> edit(Participant participant, MoodEvent moodEvent, MoodEvent newMoodEvent) {
+        return moodHistoryPath(participant).document().set(newMoodEvent);
     }
 
     @Override

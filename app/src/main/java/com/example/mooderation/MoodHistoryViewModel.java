@@ -52,6 +52,14 @@ public class MoodHistoryViewModel extends ViewModel {
         moodHistoryRepository.add(participant, moodEvent);
     }
 
+    /**
+     * Edit existing MoodEvent in the MoodHistory
+     * @param moodEvent The MoodEvent to add
+     */
+    public void editMoodEvent(MoodEvent moodEvent, MoodEvent newMoodEvent) {
+        moodHistoryRepository.edit(participant, moodEvent, newMoodEvent);
+    }
+
     public LiveData<List<MoodEvent>> getMoodHistory() {
         return moodHistory;
     }

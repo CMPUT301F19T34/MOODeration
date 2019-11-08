@@ -18,6 +18,8 @@
     <string name="reason_hint">Reason</string>
     <string name="save_mood_event_text">Confirm</string>
 
+    <string name="edit_mood_label">Edit Mood Event</string>
+
     <string name="auth_prompt_username">Display name</string>
     <string name="auth_prompt_email">Email</string>
     <string name="auth_prompt_password">Password</string>

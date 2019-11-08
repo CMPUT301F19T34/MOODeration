@@ -10,6 +10,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+
 import java.util.List;
 import java.util.TreeMap;
 
@@ -84,9 +87,18 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         expandedListTextView.setText(expandedListText);
         editbutton = convertView.findViewById(R.id.EditButton);
         deletebutton = convertView.findViewById(R.id.DeleteButton);
+
         if(isLastChild){
             editbutton.setVisibility(View.VISIBLE);
             deletebutton.setVisibility(View.VISIBLE);
+            editbutton.setOnClickListener((View v) -> {
+                NavDirections action = MoodHistoryFragmentDirections
+                        .actionViewMoodHistoryFragmentToEditMoodEventFragment();
+                //NavDirections actionDetail = action.ActionDetail();
+                //int moodPosition = action.edi
+                //action.moodPosition(listPosition);
+                Navigation.findNavController(v).navigate(action);
+            });
         }else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);

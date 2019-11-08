@@ -1,6 +1,7 @@
 package com.example.mooderation;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Gravity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -54,7 +55,7 @@ public class TestFollowRequestsFragment {
 
     @Rule
     public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+            new ActivityTestRule<>(MainActivity.class, true, false);
 
     @Before
     public void setUp() throws ExecutionException, InterruptedException {
@@ -69,17 +70,19 @@ public class TestFollowRequestsFragment {
         mockFollowRequest2 = new FollowRequest("uid2", "name2", Timestamp.now());
 
         Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
+        rule.launchActivity(new Intent());
 
         // create mock participant
         p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
 
         // add the participant to the view model
-        participantViewModel = ViewModelProviders.of(rule.getActivity()).get(ParticipantViewModel.class);
-        participantViewModel.setParticipant(p);
+        //participantViewModel = ViewModelProviders.of(rule.getActivity()).get(ParticipantViewModel.class);
+        //participantViewModel.setParticipant(p);
 
         Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.add(p)));
         Tasks.await(followRequestRepository.add(p, mockFollowRequest1)
                 .continueWithTask(task -> followRequestRepository.add(p, mockFollowRequest2)));
+
     }
 
     @Test

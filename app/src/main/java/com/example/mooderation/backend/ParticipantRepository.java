@@ -7,6 +7,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -41,6 +42,17 @@ public class ParticipantRepository implements Repository<Participant> {
                 .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))
 
                 .continueWithTask(task -> participantPath(participant).delete());
+    }
+
+    @Override
+    public ListenerRegistration addListener(Listener<Participant> listener) {
+        return participantsPath().addSnapshotListener((queryDocumentSnapshots, e) -> {
+            List<Participant> participants = new ArrayList<>();
+            for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                participants.add(doc.toObject(Participant.class));
+            }
+            listener.onDataChanged(participants);
+        });
     }
 
     private Task<Void> deleteAllImmediateDocuments(QuerySnapshot ref) {

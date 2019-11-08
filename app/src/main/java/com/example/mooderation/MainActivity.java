@@ -2,11 +2,8 @@ package com.example.mooderation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.mooderation.auth.firebase.FirebaseAuthentication;
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
+import com.example.mooderation.viewmodel.FindParticipantViewModel;
+import com.example.mooderation.viewmodel.FollowRequestsViewModel;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import com.example.mooderation.viewmodel.ParticipantViewModel;
 import com.google.android.material.navigation.NavigationView;
@@ -39,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ParticipantViewModel participantViewModel;
     private MoodHistoryViewModel moodHistoryViewModel;
+    private FollowRequestsViewModel followRequestsViewModel;
+    private FindParticipantViewModel findParticipantViewModel;
+    private ParticipantProfileViewModel participantProfileViewModel;
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         Set<Integer> topLevelFragments = new HashSet<>();
         topLevelFragments.add(R.id.moodHistoryFragment);
         topLevelFragments.add(R.id.followRequestsFragment);
+        topLevelFragments.add(R.id.findParticipantFragment);
         // TODO add other top level fragments here
 
         // configures the top app bar
@@ -92,6 +95,11 @@ public class MainActivity extends AppCompatActivity {
                     navController.navigate(R.id.followRequestsFragment);
                     break;
 
+                // navigate to participant search
+                case R.id.find_participant_drawer_item:
+                    navController.navigate((R.id.findParticipantFragment));
+                    break;
+
                 // log out of the app
                 case R.id.log_out_drawer_item:
                     FirebaseAuth.getInstance().signOut();
@@ -104,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
         // initialize view models
         participantViewModel = ViewModelProviders.of(this).get(ParticipantViewModel.class);
         moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
+        followRequestsViewModel = ViewModelProviders.of(this).get(FollowRequestsViewModel.class);
+        findParticipantViewModel = ViewModelProviders.of(this).get(FindParticipantViewModel.class);
+        participantProfileViewModel = ViewModelProviders.of(this).get(ParticipantProfileViewModel.class);
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
@@ -120,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
                                 (String) documentSnapshot.get("username"));
                         participantViewModel.setParticipant(participant);
                         moodHistoryViewModel.setParticipant(participant);
+                        followRequestsViewModel.setParticipant(participant);
+                        findParticipantViewModel.setParticipant(participant);
+                        participantProfileViewModel.setParticipant(participant);
 
                         // successfully logged in
                         String welcome = "Logged in as " + participant.getUsername();
@@ -142,6 +156,9 @@ public class MainActivity extends AppCompatActivity {
                         auth.getUsername());
                 participantViewModel.setParticipant(participant);
                 moodHistoryViewModel.setParticipant(participant);
+                followRequestsViewModel.setParticipant(participant);
+                findParticipantViewModel.setParticipant(participant);
+                participantProfileViewModel.setParticipant(participant);
 
                 // successfully logged in
                 String welcome = "Logged in as " + participant.getUsername();

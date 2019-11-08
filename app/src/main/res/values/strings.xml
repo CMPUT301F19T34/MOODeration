@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">MOODeration</string>
-    <string name="reason_hint">Reason</string>
-    <string name="save_mood_event_text">Confirm</string>
+
+    <string name="mood_history_label">My Mood History</string>
+    <string name="add_mood_event_label">Add Mood Event</string>
+    <string name="follow_request_label">My Follow Requests</string>
 
     <string name="mood_happy">Happy</string>
     <string name="mood_sad">Sad</string>
@@ -12,6 +14,9 @@
     <string name="social_one_person">One other person</string>
     <string name="social_several_people">Two to several people</string>
     <string name="social_crowd">Crowd</string>
+
+    <string name="reason_hint">Reason</string>
+    <string name="save_mood_event_text">Confirm</string>
 
     <string name="auth_prompt_username">Display name</string>
     <string name="auth_prompt_email">Email</string>
@@ -30,4 +35,5 @@
     <string name="auth_error_signup_username_collision">"Coudn't sign up: an account already exists with that username"</string>
     <string name="auth_error_signup_email_collision">"Coudn't sign up: an account already exists with that email"</string>
     <string name="auth_error_signup_generic">"Couldn't sign up. Please check your internet access or try again later"</string>
+
 </resources>

@@ -53,6 +53,5 @@ public class FollowRequestsFragment extends Fragment {
                     .setNegativeButton("Deny", (dialogInterface, i12) -> model.denyRequest(request))
                     .show();
         });
-        model.forceUpdate();
     }
 }

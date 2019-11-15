@@ -64,8 +64,4 @@ public class FollowRequestsViewModel extends ViewModel {
         updateListener();
         return followRequests;
     }
-
-    public void forceUpdate() {
-        followRequests.setValue(followRequests.getValue());
-    }
 }

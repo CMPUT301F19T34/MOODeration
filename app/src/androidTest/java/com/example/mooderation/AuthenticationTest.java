@@ -53,6 +53,7 @@ public class AuthenticationTest {
         MainActivity mainActivity = (MainActivity)solo.getCurrentActivity();
         ParticipantViewModel participantViewModel = ViewModelProviders.of(mainActivity).get(ParticipantViewModel.class);
 
+        // TODO does this really test anything?
         assertEquals(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                      participantViewModel.getParticipant().getUid());
         assertEquals("login-username",
@@ -89,6 +90,7 @@ public class AuthenticationTest {
             MainActivity mainActivity = (MainActivity) solo.getCurrentActivity();
             ParticipantViewModel participantViewModel = ViewModelProviders.of(mainActivity).get(ParticipantViewModel.class);
 
+            // TODO does this really test anything?
             assertEquals(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                     participantViewModel.getParticipant().getUid());
             assertEquals("signup-username",

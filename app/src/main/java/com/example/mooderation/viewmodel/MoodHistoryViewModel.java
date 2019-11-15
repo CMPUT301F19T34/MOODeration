@@ -22,11 +22,10 @@ import java.util.List;
 public class MoodHistoryViewModel extends ViewModel {
     private MoodHistoryRepository moodHistoryRepository = new MoodHistoryRepository();
 
+    private ListenerRegistration listenerRegistration;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    private ListenerRegistration listenerRegistration;
     private MutableLiveData<List<MoodEvent>> moodHistory = new MutableLiveData<>(new ArrayList<>());
-
 
     public MoodHistoryViewModel() {
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {

@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mooderation.Participant;
 import com.example.mooderation.backend.ParticipantRepository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
@@ -15,10 +17,14 @@ import java.util.List;
 
 public class FindParticipantViewModel extends ViewModel {
     private ParticipantRepository participantRepository;
+
+    private ListenerRegistration listenerRegistration;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private Participant dummyParticipant; // TODO remove
+
     private MutableLiveData<List<Participant>> allParticipants;
     private LiveData<List<Participant>> searchResults;
-    private ListenerRegistration registration;
-    private Participant currentParticipant;
+
     private String filter = "";
 
     public FindParticipantViewModel() {
@@ -26,12 +32,15 @@ public class FindParticipantViewModel extends ViewModel {
         allParticipants = new MutableLiveData<>(new ArrayList<>());
         searchResults = new MutableLiveData<>(new ArrayList<>());
 
+        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+            user = firebaseAuth.getCurrentUser();
+            updateListener();
+        });
+//
         searchResults = Transformations.map(allParticipants, (List<Participant> input) -> {
             List<Participant> results = new ArrayList<>();
             for (Participant participant : input) {
-                if (participant == currentParticipant) {
-                    continue;
-                }
+                if (participant.getUid().equals(dummyParticipant.getUid())) continue;
                 if (participant.getUsername().toLowerCase().startsWith(filter.toLowerCase())) {
                     results.add(participant);
                 }
@@ -40,32 +49,34 @@ public class FindParticipantViewModel extends ViewModel {
         });
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        if (registration != null) {
-            registration.remove();
-        }
-    }
+    private void updateListener() {
+        if (listenerRegistration != null) listenerRegistration.remove();
+        if (user == null) return;
 
-    public LiveData<List<Participant>> getSearchResults() {
-        return searchResults;
-    }
+        // TODO remove
+        dummyParticipant = new Participant(user.getUid(), "dummy");
 
-    public void setParticipant(Participant participant) {
-        currentParticipant = participant;
-
-        if (registration != null)
-            registration.remove();
-
-        registration = participantRepository.addListener(participants -> {
-            Collections.sort(participants, (l, r) ->
-                    l.getUsername().compareTo(r.getUsername()));
+        listenerRegistration = participantRepository.addListener(participants -> {
+            Collections.sort(participants, (l, r) -> l.getUsername().compareTo(r.getUsername()));
             allParticipants.setValue(participants);
         });
     }
 
-    public void filter(String s) {
+    // TODO is this necessary?
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        if (listenerRegistration != null) {
+            listenerRegistration.remove();
+        }
+    }
+
+    public LiveData<List<Participant>> getSearchResults() {
+        updateListener();
+        return searchResults;
+    }
+
+    public void setFilter(String s) {
         filter = s;
         allParticipants.setValue(allParticipants.getValue());
     }

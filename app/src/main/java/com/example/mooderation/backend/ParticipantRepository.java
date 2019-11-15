@@ -44,6 +44,7 @@ public class ParticipantRepository implements Repository<Participant> {
                 .continueWithTask(task -> participantPath(participant).delete());
     }
 
+    // TODO this has a different interface than the other repos
     @Override
     public ListenerRegistration addListener(Listener<Participant> listener) {
         return participantsPath().addSnapshotListener((queryDocumentSnapshots, e) -> {

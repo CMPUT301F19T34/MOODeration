@@ -53,7 +53,7 @@ public class FindParticipantFragment extends Fragment {
                     );
             Navigation.findNavController(view1).navigate(action);
         });
-        model.filter("");
+        model.setFilter("");
     }
 
     @Override
@@ -66,13 +66,13 @@ public class FindParticipantFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                model.filter(s);
+                model.setFilter(s);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                model.filter(s);
+                model.setFilter(s);
                 return true;
             }
         });

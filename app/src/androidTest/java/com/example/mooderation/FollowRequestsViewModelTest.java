@@ -50,7 +50,7 @@ public class FollowRequestsViewModelTest {
 
         // add the participant to the view model
         followRequestsViewModel = new FollowRequestsViewModel();
-        followRequestsViewModel.setParticipant(participant);
+        //followRequestsViewModel.setParticipant(participant);
 
         participantRepository = new ParticipantRepository();
         followRequestRepository = new FollowRequestRepository();

@@ -11,7 +11,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoodHistoryRepository {
+public class MoodHistoryRepository implements OwnedRepository<FirebaseUser, MoodEvent> {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public Task<Void> add(FirebaseUser user, MoodEvent moodEvent) {
@@ -24,7 +24,7 @@ public class MoodHistoryRepository {
         return moodHistoryPath(user).document(moodEventId).delete();
     }
 
-    public ListenerRegistration addListener(FirebaseUser user, OwnedRepository.Listener<MoodEvent> listener) {
+    public ListenerRegistration addListener(FirebaseUser user, Listener<MoodEvent> listener) {
         return moodHistoryPath(user).addSnapshotListener(((queryDocumentSnapshots, e) -> {
             List<MoodEvent> events = new ArrayList<>();
             for (DocumentSnapshot doc : queryDocumentSnapshots) {

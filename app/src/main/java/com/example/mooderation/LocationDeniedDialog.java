@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class LocaionDeniedDialog extends AppCompatDialogFragment {
+public class LocationDeniedDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Location Permission Denied").setMessage("To enable location permission go to Settings -> Apps -> MOODeration -> Permissions -> Location").setPositiveButton("ok", new DialogInterface.OnClickListener() {

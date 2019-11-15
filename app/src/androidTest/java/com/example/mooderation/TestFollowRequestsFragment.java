@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.view.Gravity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.mooderation.backend.FollowRequestRepository;
 import com.example.mooderation.backend.FollowerRepository;
 import com.example.mooderation.backend.OwnedRepository;
 import com.example.mooderation.backend.ParticipantRepository;
-import com.example.mooderation.viewmodel.ParticipantViewModel;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
@@ -37,6 +35,8 @@ import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.Matchers.anything;
 import static org.junit.Assert.assertFalse;
 
+//import com.example.mooderation.viewmodel.ParticipantViewModel;
+
 public class TestFollowRequestsFragment {
     private Solo solo;
 
@@ -45,7 +45,7 @@ public class TestFollowRequestsFragment {
     private ParticipantRepository participantRepository;
 
     private Participant p;
-    ParticipantViewModel participantViewModel;
+    //ParticipantViewModel participantViewModel;
 
     private FollowRequest mockFollowRequest1;
     private FollowRequest mockFollowRequest2;

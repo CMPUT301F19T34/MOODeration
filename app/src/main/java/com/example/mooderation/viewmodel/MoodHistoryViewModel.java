@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class MoodHistoryViewModel extends ViewModel {
     private MoodHistoryRepository moodHistoryRepository = new MoodHistoryRepository();
+
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private ListenerRegistration listenerRegistration;

@@ -1,4 +1,5 @@
 package com.example.mooderation;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -9,22 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+
+import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
-import java.security.Permission;
-
-import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import java.util.Date;
 
 public class AddMoodEventFragment extends Fragment {
@@ -172,7 +169,7 @@ public class AddMoodEventFragment extends Fragment {
      * selected "deny and never show again"
      */
     public void openDialog() {
-        LocaionDeniedDialog locationDeniedDialog = new LocaionDeniedDialog();
+        LocationDeniedDialog locationDeniedDialog = new LocationDeniedDialog();
         locationDeniedDialog.show(getFragmentManager(), "Location Denied");
     }
 }

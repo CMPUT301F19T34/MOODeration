@@ -13,10 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mooderation.viewmodel.FollowRequestsViewModel;
-import com.example.mooderation.viewmodel.ParticipantViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FollowRequestsFragment extends Fragment {
     private FollowRequestAdapter adapter;

@@ -10,7 +10,6 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.auth.ui.SignUpActivity;
-import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import com.example.mooderation.viewmodel.ParticipantViewModel;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,7 +52,6 @@ public class AuthenticationTest {
 
         MainActivity mainActivity = (MainActivity)solo.getCurrentActivity();
         ParticipantViewModel participantViewModel = ViewModelProviders.of(mainActivity).get(ParticipantViewModel.class);
-        MoodHistoryViewModel moodHistoryViewModel = ViewModelProviders.of(mainActivity).get(MoodHistoryViewModel.class);
 
         assertEquals(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                      participantViewModel.getParticipant().getUid());
@@ -90,7 +88,6 @@ public class AuthenticationTest {
 
             MainActivity mainActivity = (MainActivity) solo.getCurrentActivity();
             ParticipantViewModel participantViewModel = ViewModelProviders.of(mainActivity).get(ParticipantViewModel.class);
-            MoodHistoryViewModel moodHistoryViewModel = ViewModelProviders.of(mainActivity).get(MoodHistoryViewModel.class);
 
             assertEquals(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                     participantViewModel.getParticipant().getUid());

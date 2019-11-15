@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private FindParticipantViewModel findParticipantViewModel;
     private ParticipantProfileViewModel participantProfileViewModel;
 
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
-    private NavigationView navigationView;
-
     private boolean paused = false;
 
     @Override
@@ -58,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        // these are the top level fragments of the application
-        // the top app bar will open the navigation drawer for these fragments
-        // other fragments will show a back button
+        // these fragments will have the navigation drawer
         Set<Integer> topLevelFragments = new HashSet<>();
         topLevelFragments.add(R.id.moodHistoryFragment);
         topLevelFragments.add(R.id.followRequestsFragment);
@@ -130,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                                 (String) documentSnapshot.get("username"));
                         participantViewModel.setParticipant(participant);
                         //moodHistoryViewModel.setParticipant(participant);
-                        followRequestsViewModel.setParticipant(participant);
+                        //followRequestsViewModel.setParticipant(participant);
                         findParticipantViewModel.setParticipant(participant);
                         participantProfileViewModel.setParticipant(participant);
 
@@ -155,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                         auth.getUsername());
                 participantViewModel.setParticipant(participant);
                 //moodHistoryViewModel.setParticipant(participant);
-                followRequestsViewModel.setParticipant(participant);
+                //followRequestsViewModel.setParticipant(participant);
                 findParticipantViewModel.setParticipant(participant);
                 participantProfileViewModel.setParticipant(participant);
 

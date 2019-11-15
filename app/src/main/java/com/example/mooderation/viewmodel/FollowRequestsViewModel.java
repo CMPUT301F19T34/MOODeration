@@ -10,6 +10,8 @@ import com.example.mooderation.Participant;
 import com.example.mooderation.backend.FollowRequestRepository;
 import com.example.mooderation.backend.FollowerRepository;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
@@ -17,25 +19,31 @@ import java.util.Collections;
 import java.util.List;
 
 public class FollowRequestsViewModel extends ViewModel {
-    private FollowerRepository followerRepository;
-    private FollowRequestRepository followRequestRepository;
-    private ListenerRegistration listenerRegistration;
-    private Participant participant;
+    private FollowerRepository followerRepository = new FollowerRepository();
+    private FollowRequestRepository followRequestRepository = new FollowRequestRepository();
 
-    private MutableLiveData<List<FollowRequest>> followRequests;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    // TODO remove
+    private Participant dummyParticipant;
+
+    private ListenerRegistration listenerRegistration;
+    private MutableLiveData<List<FollowRequest>> followRequests =
+            new MutableLiveData<>(new ArrayList<>());
 
     public FollowRequestsViewModel() {
-        followerRepository = new FollowerRepository();
-        followRequestRepository = new FollowRequestRepository();
-        followRequests = new MutableLiveData<>(new ArrayList<>());
+        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+            user = firebaseAuth.getCurrentUser();
+            updateListener();
+        });
     }
 
-    public void setParticipant(Participant participant) {
-        this.participant = participant;
-        if (listenerRegistration != null) {
-            listenerRegistration.remove();
-        }
-        listenerRegistration = followRequestRepository.addListener(participant, requests -> {
+    private void updateListener() {
+        if (listenerRegistration != null) listenerRegistration.remove();
+        if (user == null) return;
+
+        dummyParticipant = new Participant(user.getUid(), "dummy"); // TODO remove
+
+        listenerRegistration = followRequestRepository.addListener(dummyParticipant, requests -> {
             Collections.sort(requests, (l, r) ->
                     -l.getCreateTimestamp().compareTo(r.getCreateTimestamp()));
             followRequests.setValue(requests);
@@ -44,15 +52,16 @@ public class FollowRequestsViewModel extends ViewModel {
 
     public Task<Void> acceptRequest(FollowRequest request) {
         Follower follower = new Follower(request.getUid(), request.getUsername());
-        followRequestRepository.remove(participant, request);
-        return followerRepository.add(participant, follower);
+        followRequestRepository.remove(dummyParticipant, request);
+        return followerRepository.add(dummyParticipant, follower);
     }
 
     public Task<Void> denyRequest(FollowRequest request) {
-        return followRequestRepository.remove(participant, request);
+        return followRequestRepository.remove(dummyParticipant, request);
     }
 
     public LiveData<List<FollowRequest>> getFollowRequests() {
+        updateListener();
         return followRequests;
     }
 

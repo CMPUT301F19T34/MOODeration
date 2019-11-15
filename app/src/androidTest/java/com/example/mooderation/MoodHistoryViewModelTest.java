@@ -42,15 +42,15 @@ public class MoodHistoryViewModelTest {
     public void setUp() throws ExecutionException, InterruptedException {
         // sign in as an anonymous user
         Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-        Participant participant = new Participant(FirebaseAuth.getInstance().getUid(), "user");
+        Participant participant = new Participant(
+                FirebaseAuth.getInstance().getUid(), "user");
 
         // add the participant to the view model
         moodHistoryViewModel = new MoodHistoryViewModel();
-        moodHistoryViewModel.setParticipant(participant);
 
         ParticipantRepository participantRepository = new ParticipantRepository();
-
-        Tasks.await(participantRepository.remove(participant).continueWith(task -> participantRepository.add(participant)));
+        Tasks.await(participantRepository.remove(participant).continueWith(
+                task -> participantRepository.add(participant)));
     }
 
     @Test

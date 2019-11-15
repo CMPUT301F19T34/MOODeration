@@ -1,8 +1,8 @@
 package com.example.mooderation.backend;
 
 import com.example.mooderation.MoodEvent;
-import com.example.mooderation.Participant;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -11,23 +11,21 @@ import com.google.firebase.firestore.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoodHistoryRepository implements OwnedRepository<Participant, MoodEvent> {
+public class MoodHistoryRepository {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    @Override
-    public Task<Void> add(Participant participant, MoodEvent moodEvent) {
-        return moodHistoryPath(participant).document(String.valueOf(moodEvent.getDate().getTime())).set(moodEvent);
+    public Task<Void> add(FirebaseUser user, MoodEvent moodEvent) {
+        String moodEventId = String.valueOf(moodEvent.getDate().getTime());
+        return moodHistoryPath(user).document(moodEventId).set(moodEvent);
     }
 
-    @Override
-    public Task<Void> remove(Participant participant, MoodEvent moodEvent) {
-        //throw new RuntimeException("Not implemented");
-        return moodHistoryPath(participant).document(String.valueOf(moodEvent.getDate().getTime())).delete();
+    public Task<Void> remove(FirebaseUser user, MoodEvent moodEvent) {
+        String moodEventId = String.valueOf(moodEvent.getDate().getTime());
+        return moodHistoryPath(user).document(moodEventId).delete();
     }
 
-    @Override
-    public ListenerRegistration addListener(Participant participant, Listener<MoodEvent> listener) {
-        return moodHistoryPath(participant).addSnapshotListener(((queryDocumentSnapshots, e) -> {
+    public ListenerRegistration addListener(FirebaseUser user, OwnedRepository.Listener<MoodEvent> listener) {
+        return moodHistoryPath(user).addSnapshotListener(((queryDocumentSnapshots, e) -> {
             List<MoodEvent> events = new ArrayList<>();
             for (DocumentSnapshot doc : queryDocumentSnapshots) {
                 events.add(doc.toObject(MoodEvent.class));
@@ -36,9 +34,9 @@ public class MoodHistoryRepository implements OwnedRepository<Participant, MoodE
         }));
     }
 
-    private CollectionReference moodHistoryPath(Participant participant) {
+    private CollectionReference moodHistoryPath(FirebaseUser user) {
         return db.collection("users")
-                .document(participant.getUid())
+                .document(user.getUid())
                 .collection("mood_history");
     }
 }

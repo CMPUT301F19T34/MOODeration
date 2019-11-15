@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mooderation.MoodEvent;
-import com.example.mooderation.Participant;
 import com.example.mooderation.backend.MoodHistoryRepository;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
@@ -19,55 +20,41 @@ import java.util.List;
  * and the AddMoodEventFragment
  */
 public class MoodHistoryViewModel extends ViewModel {
-    private MoodHistoryRepository moodHistoryRepository;
+    private MoodHistoryRepository moodHistoryRepository = new MoodHistoryRepository();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     private ListenerRegistration listenerRegistration;
+    private MutableLiveData<List<MoodEvent>> moodHistory = new MutableLiveData<>(new ArrayList<>());
 
-    private MutableLiveData<List<MoodEvent>> moodHistory;
-    private Participant participant;
 
-    /**
-     * Default Constructor
-     * TODO remove this and implement ViewModelFactory for this class
-     */
     public MoodHistoryViewModel() {
-        this.moodHistoryRepository = new MoodHistoryRepository();
-        moodHistory = new MutableLiveData<>(new ArrayList<>());
+        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+            user = firebaseAuth.getCurrentUser();
+            updateListener();
+        });
     }
 
-    /**
-     * Constructor
-     * @param moodHistoryRepository Database access object to associate with this view model
-     */
-    public MoodHistoryViewModel(MoodHistoryRepository moodHistoryRepository) {
-        this.moodHistoryRepository = moodHistoryRepository;
-        moodHistory = new MutableLiveData<>(new ArrayList<>());
-    }
+    private void updateListener() {
+        if (listenerRegistration != null) listenerRegistration.remove();
+        if (user == null) return;
 
-    public void setParticipant(Participant participant) {
-        this.participant = participant;
-        if (listenerRegistration != null) {
-            listenerRegistration.remove();
-        }
-        listenerRegistration = moodHistoryRepository.addListener(participant, moodEvents -> {
-            Collections.sort(moodEvents, (l, r) ->
-                    -l.getDate().compareTo(r.getDate()));
+        listenerRegistration = moodHistoryRepository.addListener(user, moodEvents -> {
+            Collections.sort(moodEvents, (l, r) -> -l.getDate().compareTo(r.getDate()));
             moodHistory.setValue(moodEvents);
         });
     }
 
-    /**
-     * Add a new MoodEvent to the MoodHistory
-     * @param moodEvent The MoodEvent to add
-     */
     public Task<Void> addMoodEvent(MoodEvent moodEvent) {
-        return moodHistoryRepository.add(participant, moodEvent);
+        return moodHistoryRepository.add(user, moodEvent);
     }
 
     public Task<Void> removeMoodEvent(MoodEvent moodEvent) {
-        return moodHistoryRepository.remove(participant, moodEvent);
+        return moodHistoryRepository.remove(user, moodEvent);
     }
 
     public LiveData<List<MoodEvent>> getMoodHistory() {
+        updateListener();
         return moodHistory;
     }
+
 }

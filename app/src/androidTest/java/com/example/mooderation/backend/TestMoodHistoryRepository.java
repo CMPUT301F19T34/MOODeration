@@ -56,17 +56,17 @@ public class TestMoodHistoryRepository {
     @Test
     public void testAdd() throws ExecutionException, InterruptedException {
         assertEquals(0, Tasks.await(moodHistoryPath.get()).size());
-        moodHistoryRepository.add(p, mockMoodEvent);
+        moodHistoryRepository.add(FirebaseAuth.getInstance().getCurrentUser(), mockMoodEvent);
         assertEquals(mockMoodEvent,
                 Tasks.await(moodHistoryPath.get()).iterator().next().toObject(MoodEvent.class));
     }
 
     @Test
     public void testRemove() throws ExecutionException, InterruptedException {
-        moodHistoryRepository.add(p, mockMoodEvent);
+        moodHistoryRepository.add(FirebaseAuth.getInstance().getCurrentUser(), mockMoodEvent);
         assertEquals(1, Tasks.await(moodHistoryPath.get()).size());
 
-        moodHistoryRepository.remove(p, mockMoodEvent);
+        moodHistoryRepository.remove(FirebaseAuth.getInstance().getCurrentUser(), mockMoodEvent);
         assertEquals(0, Tasks.await(moodHistoryPath.get()).size());
     }
 }

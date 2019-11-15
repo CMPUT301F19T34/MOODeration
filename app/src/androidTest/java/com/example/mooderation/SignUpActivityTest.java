@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.auth.ui.SignUpActivity;
 import com.robotium.solo.Solo;
 
@@ -19,9 +18,9 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
-import static junit.framework.TestCase.assertFalse;
 
 public class SignUpActivityTest {
     private Solo solo;
@@ -46,6 +45,7 @@ public class SignUpActivityTest {
         assertEquals(Activity.RESULT_OK, rule.getActivityResult().getResultCode());
     }
 
+    // TODO sometimes fails
     @Test
     public void testProgressBar() {
         final ProgressBar pbar = (ProgressBar)solo.getView(R.id.loading);

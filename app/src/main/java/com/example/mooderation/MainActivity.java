@@ -19,7 +19,6 @@ import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.viewmodel.FindParticipantViewModel;
 import com.example.mooderation.viewmodel.FollowRequestsViewModel;
-import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import com.example.mooderation.viewmodel.ParticipantViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public final int REQUEST_AUTHENTICATE = 0;
 
     private ParticipantViewModel participantViewModel;
-    private MoodHistoryViewModel moodHistoryViewModel;
+    //private MoodHistoryViewModel moodHistoryViewModel;
     private FollowRequestsViewModel followRequestsViewModel;
     private FindParticipantViewModel findParticipantViewModel;
     private ParticipantProfileViewModel participantProfileViewModel;
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         // initialize view models
         participantViewModel = ViewModelProviders.of(this).get(ParticipantViewModel.class);
-        moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
+        //moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
         followRequestsViewModel = ViewModelProviders.of(this).get(FollowRequestsViewModel.class);
         findParticipantViewModel = ViewModelProviders.of(this).get(FindParticipantViewModel.class);
         participantProfileViewModel = ViewModelProviders.of(this).get(ParticipantProfileViewModel.class);
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                                 FirebaseAuth.getInstance().getUid(),
                                 (String) documentSnapshot.get("username"));
                         participantViewModel.setParticipant(participant);
-                        moodHistoryViewModel.setParticipant(participant);
+                        //moodHistoryViewModel.setParticipant(participant);
                         followRequestsViewModel.setParticipant(participant);
                         findParticipantViewModel.setParticipant(participant);
                         participantProfileViewModel.setParticipant(participant);
@@ -155,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                         auth.getUser().getUid(),
                         auth.getUsername());
                 participantViewModel.setParticipant(participant);
-                moodHistoryViewModel.setParticipant(participant);
+                //moodHistoryViewModel.setParticipant(participant);
                 followRequestsViewModel.setParticipant(participant);
                 findParticipantViewModel.setParticipant(participant);
                 participantProfileViewModel.setParticipant(participant);

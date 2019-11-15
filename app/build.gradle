@@ -67,6 +67,9 @@ dependencies {
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
     debugImplementation "androidx.test:core:$testing_version"
 
+    def mockito_version = '2.18.3'
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
 }
 
 apply plugin: 'com.google.gms.google-services'

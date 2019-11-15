@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * ViewModel for sharing the MoodHistory data between the MoodHistoryFragment
- * and the AddMoodEventFragment
+ * and the MoodEventFragment
  */
 public class MoodHistoryViewModel extends ViewModel {
     private MoodHistoryRepository moodHistoryRepository = new MoodHistoryRepository();

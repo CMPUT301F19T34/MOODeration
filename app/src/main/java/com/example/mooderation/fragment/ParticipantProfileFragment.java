@@ -1,4 +1,4 @@
-package com.example.mooderation;
+package com.example.mooderation.fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.example.mooderation.Participant;
+import com.example.mooderation.R;
+import com.example.mooderation.viewmodel.ParticipantProfileViewModel;
 
 public class ParticipantProfileFragment extends Fragment {
     private ParticipantProfileViewModel model;

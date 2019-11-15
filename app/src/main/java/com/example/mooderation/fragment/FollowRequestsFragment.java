@@ -1,4 +1,4 @@
-package com.example.mooderation;
+package com.example.mooderation.fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.mooderation.FollowRequest;
+import com.example.mooderation.FollowRequestAdapter;
+import com.example.mooderation.R;
 import com.example.mooderation.viewmodel.FollowRequestsViewModel;
 
 public class FollowRequestsFragment extends Fragment {

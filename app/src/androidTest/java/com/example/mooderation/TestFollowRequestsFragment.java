@@ -35,7 +35,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.Matchers.anything;
 import static org.junit.Assert.assertFalse;
 
-//import com.example.mooderation.viewmodel.ParticipantViewModel;
+//import com.example.mooderation.ParticipantViewModel;
 
 public class TestFollowRequestsFragment {
     private Solo solo;

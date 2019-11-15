@@ -1,4 +1,4 @@
-package com.example.mooderation;
+package com.example.mooderation.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,8 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mooderation.CustomExpandableListAdapter;
+import com.example.mooderation.ExpandableListDataPump;
+import com.example.mooderation.MoodEvent;
+import com.example.mooderation.R;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,9 +30,6 @@ import java.util.TreeMap;
 public class MoodHistoryFragment extends Fragment {
     private MoodHistoryViewModel model;
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private ArrayList<MoodEvent> moodEventList;
   
     private ExpandableListView expandableListView;

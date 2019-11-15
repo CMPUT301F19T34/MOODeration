@@ -1,4 +1,4 @@
-package com.example.mooderation;
+package com.example.mooderation.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -18,13 +18,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.EmotionalState;
+import com.example.mooderation.LocationDeniedDialog;
+import com.example.mooderation.MoodEvent;
+import com.example.mooderation.R;
+import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
 import java.util.Date;
 
-public class AddMoodEventFragment extends Fragment {
+public class MoodEventFragment extends Fragment {
     private MoodHistoryViewModel moodHistoryViewModel;
 
     private TextView dateTextView;

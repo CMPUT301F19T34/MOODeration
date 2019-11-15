@@ -1,7 +1,5 @@
 package com.example.mooderation;
 
-import com.example.mooderation.viewmodel.ParticipantViewModel;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

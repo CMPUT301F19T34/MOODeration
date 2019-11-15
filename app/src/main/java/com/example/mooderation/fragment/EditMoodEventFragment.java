@@ -1,29 +1,26 @@
-package com.example.mooderation;
+package com.example.mooderation.fragment;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.EmotionalState;
+import com.example.mooderation.MoodEvent;
+import com.example.mooderation.R;
+import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class EditMoodEventFragment extends Fragment {

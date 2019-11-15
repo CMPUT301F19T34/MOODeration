@@ -1,13 +1,12 @@
 package com.example.mooderation;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import androidx.lifecycle.Observer;
 
 import com.example.mooderation.backend.FollowRequestRepository;
 import com.example.mooderation.backend.FollowerRepository;
 import com.example.mooderation.backend.ParticipantRepository;
+import com.example.mooderation.viewmodel.ParticipantProfileViewModel;
 import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.Before;
@@ -19,10 +18,6 @@ import org.junit.runners.JUnit4;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 

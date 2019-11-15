@@ -2,7 +2,7 @@ package com.example.mooderation;
 
 /**
  * Enum of the possible Social Situations for a MoodEvent
- * Used to populate spinners in AddMoodEventFragment
+ * Used to populate spinners in MoodEventFragment
  * See: https://stackoverflow.com/questions/5469629
  */
 public enum SocialSituation {

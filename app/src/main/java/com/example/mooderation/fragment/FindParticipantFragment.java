@@ -1,4 +1,4 @@
-package com.example.mooderation;
+package com.example.mooderation.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +17,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.Participant;
+import com.example.mooderation.ParticipantAdapter;
+import com.example.mooderation.R;
 import com.example.mooderation.viewmodel.FindParticipantViewModel;
 
 public class FindParticipantFragment extends Fragment {

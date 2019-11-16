@@ -19,6 +19,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.viewmodel.MoodHistoryViewModel;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

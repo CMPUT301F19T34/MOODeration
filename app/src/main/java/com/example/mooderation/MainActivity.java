@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -14,7 +13,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.mooderation.auth.firebase.FirebaseAuthentication;
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.viewmodel.ParticipantProfileViewModel;
@@ -34,12 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public final int REQUEST_AUTHENTICATE = 0;
 
     private ParticipantViewModel participantViewModel;
-    //private MoodHistoryViewModel moodHistoryViewModel;
-    //private FollowRequestsViewModel followRequestsViewModel;
-    //private FindParticipantViewModel findParticipantViewModel;
     private ParticipantProfileViewModel participantProfileViewModel;
-
-    private boolean paused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,61 +95,32 @@ public class MainActivity extends AppCompatActivity {
 
         // initialize view models
         participantViewModel = ViewModelProviders.of(this).get(ParticipantViewModel.class);
-        //moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
-        //followRequestsViewModel = ViewModelProviders.of(this).get(FollowRequestsViewModel.class);
-        //findParticipantViewModel = ViewModelProviders.of(this).get(FindParticipantViewModel.class);
         participantProfileViewModel = ViewModelProviders.of(this).get(ParticipantProfileViewModel.class);
 
+        // TODO is this listener necessary?
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
                 // go to login screen
-                paused = true;
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
-                startActivityForResult(intent, REQUEST_AUTHENTICATE);
-            } else {
-                if (!paused) {
-                    FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(documentSnapshot -> {
-                        Participant participant = new Participant(
-                                FirebaseAuth.getInstance().getUid(),
-                                (String) documentSnapshot.get("username"));
-                        participantViewModel.setParticipant(participant);
-                        //moodHistoryViewModel.setParticipant(participant);
-                        //followRequestsViewModel.setParticipant(participant);
-                        //findParticipantViewModel.setParticipant(participant);
-                        participantProfileViewModel.setParticipant(participant);
 
-                        // successfully logged in
-                        String welcome = "Logged in as " + participant.getUsername();
-                        Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
-                    });
-                }
+                // restarts the main activity
+                // refresh view models, etc
+                finish();
+                startActivity(intent);
             }
         });
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_AUTHENTICATE) {
-            paused = false;
-            if (resultCode == RESULT_OK) {
-                FirebaseAuthentication auth = (FirebaseAuthentication)data.getParcelableExtra(LoginActivity.AUTHENTICATION);
-                // initialize the user object and store in ViewModel
-                Participant participant = new Participant(
-                        auth.getUser().getUid(),
-                        auth.getUsername());
-                participantViewModel.setParticipant(participant);
-                //moodHistoryViewModel.setParticipant(participant);
-                //followRequestsViewModel.setParticipant(participant);
-                //findParticipantViewModel.setParticipant(participant);
-                participantProfileViewModel.setParticipant(participant);
+        FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(documentSnapshot -> {
+            Participant participant = new Participant(
+                    FirebaseAuth.getInstance().getUid(),
+                    (String) documentSnapshot.get("username"));
+            participantViewModel.setParticipant(participant);
+            participantProfileViewModel.setParticipant(participant);
 
-                // successfully logged in
-                String welcome = "Logged in as " + participant.getUsername();
-                Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
-            }
-        }
-
-        super.onActivityResult(requestCode, resultCode, data);
+            // successfully logged in
+            String welcome = "Logged in as " + participant.getUsername();
+            Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
+        });
     }
 }

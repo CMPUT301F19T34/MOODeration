@@ -2,6 +2,7 @@ package com.example.mooderation;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 
 import androidx.core.content.ContextCompat;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -11,18 +12,9 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
-
 import com.example.mooderation.backend.ParticipantRepository;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import com.robotium.solo.Solo;
 
 import org.junit.Before;

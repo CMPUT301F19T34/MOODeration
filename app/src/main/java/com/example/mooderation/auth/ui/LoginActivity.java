@@ -1,9 +1,5 @@
 package com.example.mooderation.auth.ui;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +9,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.example.mooderation.MainActivity;
 import com.example.mooderation.R;
 import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.AuthenticationResult;
@@ -118,7 +119,9 @@ public class LoginActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-                setResult(RESULT_OK, data);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                setResult(RESULT_OK, intent);
+                startActivity(intent);
                 finish();
             }
         }
@@ -199,9 +202,11 @@ public class LoginActivity extends AppCompatActivity {
         if (loginResult.getFailure() != null) {
             showLoginFailed(loginResult.getFailure());
         } else {
-            Intent intent = new Intent();
-            intent.putExtra(AUTHENTICATION, loginResult.getSuccess());
+//            Intent intent = new Intent();
+//            intent.putExtra(AUTHENTICATION, loginResult.getSuccess());
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             setResult(RESULT_OK, intent);
+            startActivity(intent);
             finish();
         }
     }

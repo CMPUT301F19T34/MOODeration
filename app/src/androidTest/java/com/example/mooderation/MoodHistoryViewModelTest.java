@@ -13,6 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Date;
 import java.util.List;
@@ -23,10 +25,9 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnit4.class)
 public class MoodHistoryViewModelTest {
-    private boolean observed = false;
     private MoodHistoryViewModel moodHistoryViewModel;
+    @Mock Observer<List<MoodEvent>> observer;
 
-    // forces tasks to execute synchronously
     @Rule
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
@@ -45,8 +46,11 @@ public class MoodHistoryViewModelTest {
         Participant participant = new Participant(
                 FirebaseAuth.getInstance().getUid(), "user");
 
+        MockitoAnnotations.initMocks(this);
+
         // add the participant to the view model
         moodHistoryViewModel = new MoodHistoryViewModel();
+        moodHistoryViewModel.getMoodHistory().observeForever(observer);
 
         ParticipantRepository participantRepository = new ParticipantRepository();
         Tasks.await(participantRepository.remove(participant).continueWith(
@@ -56,10 +60,20 @@ public class MoodHistoryViewModelTest {
     @Test
     public void testAddMoodEvent() throws ExecutionException, InterruptedException {
         MoodEvent moodEvent = mockMoodEvent();
-        Tasks.await(moodHistoryViewModel.addMoodEvent(moodEvent));
 
-        // check mood event was added
+        Tasks.await(moodHistoryViewModel.addMoodEvent(moodEvent));
         assertEquals(moodEvent, moodHistoryViewModel.getMoodHistory().getValue().get(0));
+    }
+
+    @Test
+    public void testDeleteMoodEvent() throws ExecutionException, InterruptedException {
+        MoodEvent moodEvent = mockMoodEvent();
+
+        Tasks.await(moodHistoryViewModel.addMoodEvent(moodEvent));
+        assertEquals(1, moodHistoryViewModel.getMoodHistory().getValue().size());
+
+        Tasks.await(moodHistoryViewModel.removeMoodEvent(moodEvent));
+        assertEquals(0, moodHistoryViewModel.getMoodHistory().getValue().size());
     }
 
     @Test
@@ -73,18 +87,5 @@ public class MoodHistoryViewModelTest {
         MoodEvent l = moodHistoryViewModel.getMoodHistory().getValue().get(0);
         MoodEvent r = moodHistoryViewModel.getMoodHistory().getValue().get(1);
         assertTrue(l.getDate().compareTo(r.getDate()) > 0);
-    }
-
-    @Test
-    public void testObserver() throws ExecutionException, InterruptedException {
-        moodHistoryViewModel.getMoodHistory().observeForever(new Observer<List<MoodEvent>>() {
-            @Override
-            public void onChanged(List<MoodEvent> moodEvents) {
-                observed = true;
-            }
-        });
-
-        Tasks.await(moodHistoryViewModel.addMoodEvent(mockMoodEvent()));
-        assertTrue(observed);
     }
 }

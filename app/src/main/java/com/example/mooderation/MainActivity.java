@@ -111,16 +111,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(documentSnapshot -> {
-            Participant participant = new Participant(
-                    FirebaseAuth.getInstance().getUid(),
-                    (String) documentSnapshot.get("username"));
-            participantViewModel.setParticipant(participant);
-            participantProfileViewModel.setParticipant(participant);
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            // go to login screen
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
 
-            // successfully logged in
-            String welcome = "Logged in as " + participant.getUsername();
-            Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
-        });
+            // restarts the main activity
+            // refresh view models, etc
+            finish();
+            startActivity(intent);
+        }
+        else {
+            FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(documentSnapshot -> {
+                Participant participant = new Participant(
+                        FirebaseAuth.getInstance().getUid(),
+                        (String) documentSnapshot.get("username"));
+                participantViewModel.setParticipant(participant);
+                participantProfileViewModel.setParticipant(participant);
+
+                // successfully logged in
+                String welcome = "Logged in as " + participant.getUsername();
+                Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
+            });
+        }
     }
 }

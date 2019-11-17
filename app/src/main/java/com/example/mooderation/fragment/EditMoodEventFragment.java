@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -21,7 +20,6 @@ import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EditMoodEventFragment extends Fragment {
     private MoodHistoryViewModel moodHistoryViewModel;
@@ -39,9 +37,6 @@ public class EditMoodEventFragment extends Fragment {
         super.onCreate(savedInstanceState);
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
         moodEventList = new ArrayList<>();
-        LiveData<List<MoodEvent>> moodHistory = moodHistoryViewModel.getMoodHistory();
-            moodEventList.clear();
-            moodEventList.addAll(moodHistory.getValue());
     }
 
     @Override
@@ -84,6 +79,13 @@ public class EditMoodEventFragment extends Fragment {
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();
         });
+
+        moodHistoryViewModel.getMoodHistory().observe(getViewLifecycleOwner(), moodEvents -> {
+            // TODO this is redundant
+            moodEventList.clear();
+            moodEventList.addAll(moodEvents);
+        });
+
         return view;
     }
 

@@ -16,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
@@ -30,15 +29,15 @@ public class TestMoodHistoryRepository {
     private MoodEvent mockMoodEvent;
     private Participant p;
 
-    private List<MoodEvent> moodEventList;
 
     @Before
     public void setUp() throws InterruptedException, ExecutionException {
-        moodHistoryRepository = new MoodHistoryRepository();
-        participantRepository = new ParticipantRepository();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         Tasks.await(auth.signInAnonymously());
+
+        moodHistoryRepository = new MoodHistoryRepository();
+        participantRepository = new ParticipantRepository();
 
         DocumentReference userPath = db.collection("users").document(auth.getUid());
         moodHistoryPath = userPath.collection("mood_history");
@@ -56,17 +55,17 @@ public class TestMoodHistoryRepository {
     @Test
     public void testAdd() throws ExecutionException, InterruptedException {
         assertEquals(0, Tasks.await(moodHistoryPath.get()).size());
-        moodHistoryRepository.add(FirebaseAuth.getInstance().getCurrentUser(), mockMoodEvent);
+        moodHistoryRepository.add(mockMoodEvent);
         assertEquals(mockMoodEvent,
                 Tasks.await(moodHistoryPath.get()).iterator().next().toObject(MoodEvent.class));
     }
 
     @Test
     public void testRemove() throws ExecutionException, InterruptedException {
-        moodHistoryRepository.add(FirebaseAuth.getInstance().getCurrentUser(), mockMoodEvent);
+        moodHistoryRepository.add(mockMoodEvent);
         assertEquals(1, Tasks.await(moodHistoryPath.get()).size());
 
-        moodHistoryRepository.remove(FirebaseAuth.getInstance().getCurrentUser(), mockMoodEvent);
+        moodHistoryRepository.remove(mockMoodEvent);
         assertEquals(0, Tasks.await(moodHistoryPath.get()).size());
     }
 }

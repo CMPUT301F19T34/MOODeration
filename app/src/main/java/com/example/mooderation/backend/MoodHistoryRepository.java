@@ -1,41 +1,54 @@
 package com.example.mooderation.backend;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.mooderation.MoodEvent;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class MoodHistoryRepository implements OwnedRepository<FirebaseUser, MoodEvent> {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+public class MoodHistoryRepository {
+    private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    public Task<Void> add(FirebaseUser user, MoodEvent moodEvent) {
-        String moodEventId = String.valueOf(moodEvent.getDate().getTime());
-        return moodHistoryPath(user).document(moodEventId).set(moodEvent);
+    private MutableLiveData<List<MoodEvent>> moodHistory = new MutableLiveData<>();
+
+    public Task<Void> add(MoodEvent moodEvent) {
+        return getCollectionReference().document(moodEvent.getId()).set(moodEvent);
     }
 
-    public Task<Void> remove(FirebaseUser user, MoodEvent moodEvent) {
-        String moodEventId = String.valueOf(moodEvent.getDate().getTime());
-        return moodHistoryPath(user).document(moodEventId).delete();
+    public Task<Void> remove(MoodEvent moodEvent) {
+        return getCollectionReference().document(moodEvent.getId()).delete();
     }
 
-    public ListenerRegistration addListener(FirebaseUser user, Listener<MoodEvent> listener) {
-        return moodHistoryPath(user).addSnapshotListener(((queryDocumentSnapshots, e) -> {
-            List<MoodEvent> events = new ArrayList<>();
-            for (DocumentSnapshot doc : queryDocumentSnapshots) {
-                events.add(doc.toObject(MoodEvent.class));
+    public LiveData<List<MoodEvent>> getMoodHistory() {
+        getCollectionReference().addSnapshotListener(((queryDocumentSnapshots, e) -> {
+            if (queryDocumentSnapshots != null) {
+                List<MoodEvent> moodEvents = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    moodEvents.add(doc.toObject(MoodEvent.class));
+                }
+                Collections.sort(moodEvents, (l, r) -> -l.getDate().compareTo(r.getDate()));
+                moodHistory.setValue(moodEvents);
             }
-            listener.onDataChanged(events);
+            else if (e != null) {
+                // TODO exception handle
+            }
         }));
+
+        return moodHistory;
     }
 
-    private CollectionReference moodHistoryPath(FirebaseUser user) {
-        return db.collection("users")
+    private CollectionReference getCollectionReference() {
+        return firestore.collection("users")
                 .document(user.getUid())
                 .collection("mood_history");
     }

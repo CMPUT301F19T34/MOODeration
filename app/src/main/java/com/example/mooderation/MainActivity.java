@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
+import com.example.mooderation.backend.LoginRepository;
 import com.example.mooderation.viewmodel.ParticipantProfileViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,8 +30,6 @@ import java.util.Set;
  * implementation in fragments.
  */
 public class MainActivity extends AppCompatActivity {
-    public final int REQUEST_AUTHENTICATE = 0;
-
     private ParticipantViewModel participantViewModel;
     private ParticipantProfileViewModel participantProfileViewModel;
 
@@ -111,28 +110,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(documentSnapshot -> {
+            Participant participant = new Participant(
+                    FirebaseAuth.getInstance().getUid(),
+                    (String) documentSnapshot.get("username"));
+
+            // TODO participant should be passed as an arg from LoginActivity
+            LoginRepository.getInstance().setParticipant(participant);
+
+            // TODO remove
+            participantViewModel.setParticipant(participant);
+            participantProfileViewModel.setParticipant(participant);
+
+            // successfully logged in
+            String welcome = "Logged in as " + participant.getUsername();
+            Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            // go to login screen
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
-
-            // restarts the main activity
-            // refresh view models, etc
-            finish();
-            startActivity(intent);
+            signOut();
         }
-        else {
-            FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(documentSnapshot -> {
-                Participant participant = new Participant(
-                        FirebaseAuth.getInstance().getUid(),
-                        (String) documentSnapshot.get("username"));
-                participantViewModel.setParticipant(participant);
-                participantProfileViewModel.setParticipant(participant);
+    }
 
-                // successfully logged in
-                String welcome = "Logged in as " + participant.getUsername();
-                Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
-            });
-        }
+    // TODO find a better way to do this
+    private void signOut() {
+        // go to login screen
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
+
+        // restarts the main activity
+        // refresh view models, etc
+        finish();
+        startActivity(intent);
     }
 }

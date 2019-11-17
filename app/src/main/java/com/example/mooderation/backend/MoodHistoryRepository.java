@@ -19,7 +19,7 @@ public class MoodHistoryRepository {
     private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    private MutableLiveData<List<MoodEvent>> moodHistory = new MutableLiveData<>();
+    private MutableLiveData<List<MoodEvent>> moodHistory;
 
     public Task<Void> add(MoodEvent moodEvent) {
         return getCollectionReference().document(moodEvent.getId()).set(moodEvent);
@@ -30,6 +30,12 @@ public class MoodHistoryRepository {
     }
 
     public LiveData<List<MoodEvent>> getMoodHistory() {
+        if (moodHistory != null) {
+            return moodHistory;
+        }
+
+        moodHistory = new MutableLiveData<>();
+
         getCollectionReference().addSnapshotListener(((queryDocumentSnapshots, e) -> {
             if (queryDocumentSnapshots != null) {
                 List<MoodEvent> moodEvents = new ArrayList<>();

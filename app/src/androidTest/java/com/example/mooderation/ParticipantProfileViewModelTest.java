@@ -2,8 +2,8 @@ package com.example.mooderation;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
+import com.example.mooderation.backend.FollowRepository;
 import com.example.mooderation.backend.FollowRequestRepository;
-import com.example.mooderation.backend.FollowerRepository;
 import com.example.mooderation.backend.ParticipantRepository;
 import com.example.mooderation.viewmodel.ParticipantProfileViewModel;
 import com.google.android.gms.tasks.Tasks;
@@ -29,7 +29,7 @@ public class ParticipantProfileViewModelTest {
     private Participant other;
 
     private ParticipantRepository participantRepository;
-    private FollowerRepository followerRepository;
+    private FollowRepository followRepository;
     private FollowRequestRepository followRequestRepository;
 
     private ParticipantProfileViewModel participantProfileViewModel;
@@ -52,7 +52,7 @@ public class ParticipantProfileViewModelTest {
 
         participantRepository = new ParticipantRepository();
         followRequestRepository = new FollowRequestRepository();
-        followerRepository = new FollowerRepository();
+        followRepository = new FollowRepository();
 
         Tasks.await(participantRepository.remove(user).continueWith(task -> participantRepository.add(user)));
         Tasks.await(participantRepository.remove(other).continueWith(task -> participantRepository.add(other)));
@@ -76,7 +76,7 @@ public class ParticipantProfileViewModelTest {
 
     @Test
     public void testIsFollowing() throws InterruptedException {
-        followerRepository.add(other, Follower.fromParticipant(user));
+        followRepository.add(other, Follower.fromParticipant(user));
         Thread.sleep(1000);
         assertTrue(participantProfileViewModel.getThisFollowingOther().getValue());
     }

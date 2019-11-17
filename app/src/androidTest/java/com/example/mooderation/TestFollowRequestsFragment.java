@@ -7,8 +7,8 @@ import android.view.Gravity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.mooderation.backend.FollowRepository;
 import com.example.mooderation.backend.FollowRequestRepository;
-import com.example.mooderation.backend.FollowerRepository;
 import com.example.mooderation.backend.OwnedRepository;
 import com.example.mooderation.backend.ParticipantRepository;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -41,7 +41,7 @@ public class TestFollowRequestsFragment {
     private Solo solo;
 
     private FollowRequestRepository followRequestRepository;
-    private FollowerRepository followerRepository;
+    private FollowRepository followRepository;
     private ParticipantRepository participantRepository;
 
     private Participant p;
@@ -61,7 +61,7 @@ public class TestFollowRequestsFragment {
     public void setUp() throws ExecutionException, InterruptedException {
         solo = new Solo(getInstrumentation(), rule.getActivity());
 
-        followerRepository = new FollowerRepository();
+        followRepository = new FollowRepository();
         followRequestRepository = new FollowRequestRepository();
         participantRepository = new ParticipantRepository();
 
@@ -98,7 +98,7 @@ public class TestFollowRequestsFragment {
 
         onData(anything()).inAdapterView(withId(R.id.follow_request_list)).atPosition(0).perform(click());
         onView(withText("Accept")).perform(click());
-        assertTrue(contains(followerRepository, p, mockFollower2));
+        assertTrue(contains(followRepository, p, mockFollower2));
         assertFalse(contains(followRequestRepository, p, mockFollowRequest2));
     }
 
@@ -110,7 +110,7 @@ public class TestFollowRequestsFragment {
 
         onData(anything()).inAdapterView(withId(R.id.follow_request_list)).atPosition(0).perform(click());
         onView(withText("Deny")).perform(click());
-        assertFalse(contains(followerRepository, p, mockFollower2));
+        assertFalse(contains(followRepository, p, mockFollower2));
         assertFalse(contains(followRequestRepository, p, mockFollowRequest2));
     }
 

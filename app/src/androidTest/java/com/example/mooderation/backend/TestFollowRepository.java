@@ -19,8 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(JUnit4.class)
-public class TestFollowerRepository {
-    private FollowerRepository followerRepository;
+public class TestFollowRepository {
+    private FollowRepository followRepository;
     private ParticipantRepository participantRepository;
 
     private CollectionReference followersPath;
@@ -29,7 +29,7 @@ public class TestFollowerRepository {
 
     @Before
     public void setUp() throws InterruptedException, ExecutionException {
-        followerRepository = new FollowerRepository();
+        followRepository = new FollowRepository();
         participantRepository = new ParticipantRepository();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -47,7 +47,7 @@ public class TestFollowerRepository {
     public void testAdd() throws ExecutionException, InterruptedException {
         assertFalse(Tasks.await(followersPath.document(mockFollower.getUid()).get()
                 .continueWith(task -> task.getResult().exists())));
-        followerRepository.add(p, mockFollower);
+        followRepository.add(p, mockFollower);
         assertEquals(mockFollower, Tasks.await(followersPath.document(mockFollower.getUid()).get()
                 .continueWith(task -> task.getResult().toObject(Follower.class))));
     }
@@ -57,7 +57,7 @@ public class TestFollowerRepository {
         Tasks.await(followersPath.document(mockFollower.getUid()).set(mockFollower));
         assertEquals(mockFollower, Tasks.await(followersPath.document(mockFollower.getUid()).get()
                 .continueWith(task -> task.getResult().toObject(Follower.class))));
-        followerRepository.remove(p, mockFollower);
+        followRepository.remove(p, mockFollower);
         assertFalse(Tasks.await(followersPath.document(mockFollower.getUid()).get()
                 .continueWith(task -> task.getResult().exists())));
     }

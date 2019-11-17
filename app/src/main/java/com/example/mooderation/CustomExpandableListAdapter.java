@@ -153,7 +153,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
 
-        // Set colors based on mood
+        // Set colors and emoticons based on mood
         if(listTitle.substring(0,5).equals("Happy")){
             String happyEmot = new String(Character.toChars(0x1F60A)); // Happy emoticon
             listTitleTextView.setText(happyEmot + " " + listTitle);

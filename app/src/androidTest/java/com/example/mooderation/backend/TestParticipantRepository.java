@@ -50,7 +50,7 @@ public class TestParticipantRepository {
         assertFalse(Tasks.await(userPath.get().continueWith(task -> task.getResult().exists())));
 
         Participant p = new Participant(auth.getUid(), "user");
-        participantRepository.add(p);
+        participantRepository.register(p);
         assertTrue(Tasks.await(userPath.get().continueWith(task -> task.getResult().exists())));
         assertEquals(p, Tasks.await(
                 userPath.get().continueWith(task -> task.getResult().toObject(Participant.class))

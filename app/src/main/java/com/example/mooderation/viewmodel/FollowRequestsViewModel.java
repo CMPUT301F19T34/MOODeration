@@ -14,14 +14,10 @@ public class FollowRequestsViewModel extends ViewModel {
 
     public Task<Void> acceptRequest(FollowRequest request) {
         return followRepository.acceptRequest(request);
-//        Follower follower = new Follower(request.getUid(), request.getUsername());
-//        followRequestRepository.remove(dummyParticipant, request);
-//        return followRepository.add(follower);
     }
 
     public Task<Void> denyRequest(FollowRequest request) {
         return followRepository.denyRequest(request);
-        //return followRequestRepository.remove(dummyParticipant, request);
     }
 
     public LiveData<List<FollowRequest>> getFollowRequests() {

@@ -24,15 +24,18 @@ import com.example.mooderation.viewmodel.FindParticipantViewModel;
 
 public class FindParticipantFragment extends Fragment {
 
-    private FindParticipantViewModel model;
+    private FindParticipantViewModel findParticipantViewModel;
     private ParticipantAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = ViewModelProviders.of(getActivity()).get(FindParticipantViewModel.class);
         adapter = new ParticipantAdapter(getContext());
-        model.getSearchResults().observe(this, participants -> adapter.update(participants));
+
+        findParticipantViewModel = ViewModelProviders.of(this).get(FindParticipantViewModel.class);
+        findParticipantViewModel.getSearchResults().observe(this,
+                participants -> adapter.update(participants));
+
         setHasOptionsMenu(true);
     }
 
@@ -40,6 +43,7 @@ public class FindParticipantFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_find_participant, container, false);
+
     }
 
     @Override
@@ -56,26 +60,29 @@ public class FindParticipantFragment extends Fragment {
                     );
             Navigation.findNavController(view1).navigate(action);
         });
-        model.setFilter("");
+        findParticipantViewModel.searchFor("");
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search, menu);
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint("Find a participant");
         searchView.setIconified(false);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String s) {
-                model.setFilter(s);
+                findParticipantViewModel.searchFor(s);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                model.setFilter(s);
+                findParticipantViewModel.searchFor(s);
                 return true;
             }
         });

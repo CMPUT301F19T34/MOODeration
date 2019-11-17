@@ -48,14 +48,14 @@ public class FollowRequestsViewModelTest {
         Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
         participant = new Participant(FirebaseAuth.getInstance().getUid(), "user");
 
-        // add the participant to the view model
+        // register the participant to the view model
         followRequestsViewModel = new FollowRequestsViewModel();
         //followRequestsViewModel.setParticipant(participant);
 
         participantRepository = new ParticipantRepository();
         followRequestRepository = new FollowRequestRepository();
 
-        Tasks.await(participantRepository.remove(participant).continueWith(task -> participantRepository.add(participant)));
+        Tasks.await(participantRepository.remove(participant).continueWith(task -> participantRepository.register(participant)));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class FollowRequestsViewModelTest {
 
     @Test
     public void testFollowRequestOrder() throws ExecutionException, InterruptedException {
-        // add mood events in chronological order
+        // register mood events in chronological order
         Tasks.await(followRequestRepository.add(participant, mockFollowRequest("uid1")));
         Thread.sleep(10);
         Tasks.await(followRequestRepository.add(participant, mockFollowRequest("uid2")));

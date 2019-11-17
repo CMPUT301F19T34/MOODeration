@@ -13,7 +13,7 @@ import java.util.List;
 public interface Repository<Item> {
     /**
      * Adds an item to the repository. This should be idempotent.
-     * @param item The item to add.
+     * @param item The item to register.
      * @return A task which completes once the item has been added.
      */
     Task<Void> add(Item item);

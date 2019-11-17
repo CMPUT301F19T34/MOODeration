@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         topLevelFragments.add(R.id.moodHistoryFragment);
         topLevelFragments.add(R.id.followRequestsFragment);
         topLevelFragments.add(R.id.findParticipantFragment);
-        // TODO add other top level fragments here
+        // TODO register other top level fragments here
 
         // configures the top app bar
         AppBarConfiguration appBarConfiguration =

@@ -75,11 +75,11 @@ public class TestFollowRequestsFragment {
         // create mock participant
         p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
 
-        // add the participant to the view model
+        // register the participant to the view model
         //participantViewModel = ViewModelProviders.of(rule.getActivity()).get(ParticipantViewModel.class);
         //participantViewModel.setParticipant(p);
 
-        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.add(p)));
+        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.register(p)));
         Tasks.await(followRequestRepository.add(p, mockFollowRequest1)
                 .continueWithTask(task -> followRequestRepository.add(p, mockFollowRequest2)));
 

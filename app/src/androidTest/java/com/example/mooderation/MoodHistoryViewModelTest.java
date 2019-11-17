@@ -48,13 +48,13 @@ public class MoodHistoryViewModelTest {
 
         MockitoAnnotations.initMocks(this);
 
-        // add the participant to the view model
+        // register the participant to the view model
         moodHistoryViewModel = new MoodHistoryViewModel();
         moodHistoryViewModel.getMoodHistory().observeForever(observer);
 
         ParticipantRepository participantRepository = new ParticipantRepository();
         Tasks.await(participantRepository.remove(participant).continueWith(
-                task -> participantRepository.add(participant)));
+                task -> participantRepository.register(participant)));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class MoodHistoryViewModelTest {
 
     @Test
     public void testOrder() throws ExecutionException, InterruptedException {
-        // add mood events in chronological order
+        // register mood events in chronological order
         Tasks.await(moodHistoryViewModel.addMoodEvent(mockMoodEvent()));
         Thread.sleep(10);
         Tasks.await(moodHistoryViewModel.addMoodEvent(mockMoodEvent()));

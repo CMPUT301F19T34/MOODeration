@@ -49,7 +49,7 @@ public class TestMoodHistoryRepository {
                 "No reason"
         );
         p = new Participant(auth.getUid(), "user");
-        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.add(p)));
+        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.register(p)));
     }
 
     @Test

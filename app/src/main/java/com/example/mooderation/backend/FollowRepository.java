@@ -35,7 +35,7 @@ public class FollowRepository {
 
     public Task<Void> acceptRequest(FollowRequest request) {
         Participant follower = new Participant(request.getUid(), request.getUsername());
-        followRequestRef().document(request.getUid()).delete();; // TODO fix race condition here!
+        followRequestRef().document(request.getUid()).delete(); // TODO fix race condition
         return followersRef().document(follower.getUid()).set(follower);
     }
 

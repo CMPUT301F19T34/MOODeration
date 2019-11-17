@@ -37,6 +37,7 @@ public class ParticipantProfileViewModel extends ViewModel {
         this.user = user;
     }
 
+    // TODO refactor
     public void setViewingParticipant(Participant other) {
         this.other = other;
 
@@ -75,6 +76,6 @@ public class ParticipantProfileViewModel extends ViewModel {
     public Task<Void> sendFollowRequest() {
         return followRepository.follow(other);
 //        FollowRequest request = new FollowRequest(user.getUid(), user.getUsername(), Timestamp.now());
-//        return followRequestRepository.add(other, request);
+//        return followRequestRepository.register(other, request);
     }
 }

@@ -28,7 +28,7 @@ public class TestExpandableList {
         Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
         ParticipantRepository participantRepository = new ParticipantRepository();
         Participant p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
-        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.add(p)));
+        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.register(p)));
     }
 
     @Test

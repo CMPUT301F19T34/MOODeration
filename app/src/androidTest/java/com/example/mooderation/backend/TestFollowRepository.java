@@ -29,18 +29,25 @@ public class TestFollowRepository {
 
     @Before
     public void setUp() throws InterruptedException, ExecutionException {
-        followRepository = new FollowRepository();
-        participantRepository = new ParticipantRepository();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         Tasks.await(auth.signInAnonymously());
+
+        followRepository = new FollowRepository();
+        participantRepository = new ParticipantRepository();
 
         DocumentReference userPath = db.collection("users").document(auth.getUid());
         followersPath = userPath.collection("followers");
 
         mockFollower = new Follower("follower", "follower_name");
         p = new Participant(auth.getUid(), "user");
-        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.add(p)));
+        Tasks.await(participantRepository.remove(p).continueWith(
+                task -> participantRepository.register(p)));
+    }
+
+    @Test
+    public void testFollow() {
+
     }
 
     @Test

@@ -1,8 +1,6 @@
 package com.example.mooderation.backend;
 
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.List;
@@ -16,8 +14,8 @@ import java.util.List;
 public interface OwnedRepository<Owner, Item> {
     /**
      * Adds an item to the repository of some owner. This should be idempotent.
-     * @param owner Owner of repository to add to.
-     * @param item Item to add.
+     * @param owner Owner of repository to register to.
+     * @param item Item to register.
      * @return A task which completes once the item has been added.
      */
     Task<Void> add(Owner owner, Item item);

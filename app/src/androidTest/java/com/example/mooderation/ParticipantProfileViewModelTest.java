@@ -45,7 +45,7 @@ public class ParticipantProfileViewModelTest {
         user = new Participant(FirebaseAuth.getInstance().getUid(), "user");
         other = new Participant("other_id", "other_name");
 
-        // add the user to the view model
+        // register the user to the view model
         participantProfileViewModel = new ParticipantProfileViewModel();
         participantProfileViewModel.setParticipant(user);
         participantProfileViewModel.setViewingParticipant(other);
@@ -54,8 +54,8 @@ public class ParticipantProfileViewModelTest {
         followRequestRepository = new FollowRequestRepository();
         followRepository = new FollowRepository();
 
-        Tasks.await(participantRepository.remove(user).continueWith(task -> participantRepository.add(user)));
-        Tasks.await(participantRepository.remove(other).continueWith(task -> participantRepository.add(other)));
+        Tasks.await(participantRepository.remove(user).continueWith(task -> participantRepository.register(user)));
+        Tasks.await(participantRepository.remove(other).continueWith(task -> participantRepository.register(other)));
     }
 
     @Test

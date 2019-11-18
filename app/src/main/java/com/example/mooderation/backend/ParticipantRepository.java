@@ -59,7 +59,7 @@ public class ParticipantRepository {
         return participants;
     }
 
-    // TODO this is only used for testing, is it really needed?
+    // TODO remove -- this is only used for testing
     public Task<Void> remove(Participant participant) {
         return participantsPath().document(participant.getUid()).get()
                 // delete from other user's followers

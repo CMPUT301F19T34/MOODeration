@@ -8,6 +8,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.example.mooderation.backend.ParticipantRepository;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class EditMoodTest {
     public void setUp() throws Exception {
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
         Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-        ParticipantRepository participantRepository = new ParticipantRepository();
+        ParticipantRepository participantRepository = new ParticipantRepository(FirebaseFirestore.getInstance());
         Participant p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
         Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.register(p)));
     }

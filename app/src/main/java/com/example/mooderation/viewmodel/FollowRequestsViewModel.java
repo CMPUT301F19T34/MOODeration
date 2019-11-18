@@ -6,12 +6,20 @@ import androidx.lifecycle.ViewModel;
 import com.example.mooderation.FollowRequest;
 import com.example.mooderation.backend.FollowRepository;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
 public class FollowRequestsViewModel extends ViewModel {
-    private FollowRepository followRepository = new FollowRepository(FirebaseFirestore.getInstance()); // TODO temp
+    private FollowRepository followRepository;
+
+    public FollowRequestsViewModel() {
+        this.followRepository = new FollowRepository();
+    }
+
+    // TODO implement real dependency injection
+    public FollowRequestsViewModel(FollowRepository followRepository) {
+        this.followRepository = followRepository;
+    }
 
     public Task<Void> acceptRequest(FollowRequest request) {
         return followRepository.accept(request);

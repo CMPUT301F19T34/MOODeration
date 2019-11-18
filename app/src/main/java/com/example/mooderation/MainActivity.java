@@ -89,13 +89,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        // TODO is this listener necessary?
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
                 signOut();
             }
         });
-
 
         FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(documentSnapshot -> {
             Participant participant = new Participant(
@@ -109,14 +107,6 @@ public class MainActivity extends AppCompatActivity {
             String welcome = "Logged in as " + participant.getUsername();
             Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            signOut();
-        }
     }
 
     // TODO find a better way to do this

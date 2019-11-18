@@ -15,22 +15,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 /**
  * Represents the main "users" table, and allows adding to and deleting from it.
  */
-@Singleton
 public class ParticipantRepository {
-    private final FirebaseFirestore firestore;// = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore firestore;
+
     private MutableLiveData<List<Participant>> participants;
 
-    @Inject
+    public ParticipantRepository() {
+        this.firestore = FirebaseFirestore.getInstance();
+    }
+
+    // TODO implement real dependency injection
     public ParticipantRepository(FirebaseFirestore firestore) {
         this.firestore = firestore;
     }
 
+    // TODO remove -- this is only used in tests
     public Task<Void> register(Participant participant) {
         return firestore.collection("users").document(participant.getUid()).set(participant);
     }

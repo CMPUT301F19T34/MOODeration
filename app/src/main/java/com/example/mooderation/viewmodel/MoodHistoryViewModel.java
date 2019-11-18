@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.mooderation.MoodEvent;
 import com.example.mooderation.backend.MoodHistoryRepository;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -15,9 +14,18 @@ import java.util.List;
  * and the MoodEventFragment
  */
 public class MoodHistoryViewModel extends ViewModel {
-    private MoodHistoryRepository moodHistoryRepository = new MoodHistoryRepository(FirebaseFirestore.getInstance()); // TODO temp
+    private MoodHistoryRepository moodHistoryRepository = new MoodHistoryRepository();
 
-    // TODO implemement filter
+    public MoodHistoryViewModel() {
+        this.moodHistoryRepository = new MoodHistoryRepository();
+    }
+
+    // TODO implement real dependency injection
+    public MoodHistoryViewModel(MoodHistoryRepository moodHistoryRepository) {
+        this.moodHistoryRepository = moodHistoryRepository;
+    }
+
+    // TODO implement filter
 
     public LiveData<List<MoodEvent>> getMoodHistory() {
         return moodHistoryRepository.getMoodHistory();

@@ -4,6 +4,7 @@ import com.example.mooderation.FollowRequest;
 import com.example.mooderation.Participant;
 import com.google.firebase.Timestamp;
 
+// TODO merge with participant repository?
 // TODO probably could be named better
 public class LoginRepository {
     private static volatile LoginRepository instance = null;

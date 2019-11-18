@@ -8,16 +8,24 @@ import androidx.lifecycle.ViewModel;
 import com.example.mooderation.Participant;
 import com.example.mooderation.backend.FollowRepository;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ParticipantProfileViewModel extends ViewModel {
-    private FollowRepository followRepository = new FollowRepository(FirebaseFirestore.getInstance());
+    private FollowRepository followRepository;
 
     private Participant viewing;
     private MutableLiveData<String> username = new MutableLiveData<>();
 
     private LiveData<Boolean> requestSent;
     private LiveData<Boolean> following;
+
+    public ParticipantProfileViewModel() {
+        this.followRepository = new FollowRepository();
+    }
+
+    // TODO implement real dependency injection
+    public ParticipantProfileViewModel(FollowRepository followRepository) {
+        this.followRepository = followRepository;
+    }
 
     public void setViewingParticipant(Participant viewing) {
         this.viewing = viewing;

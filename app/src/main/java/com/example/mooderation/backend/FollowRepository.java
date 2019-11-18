@@ -13,19 +13,21 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 /**
  * Represents the followers of each participant.
  */
-@Singleton
 public class FollowRepository {
-    private final FirebaseFirestore firestore;// = FirebaseFirestore.getInstance();
-    private final Participant currentParticipant = LoginRepository.getInstance().getParticipant();
+    private final FirebaseFirestore firestore;
+    private final Participant currentUser;
 
-    @Inject
-    public FollowRepository(FirebaseFirestore firestore) {
+    public FollowRepository() {
+        this.firestore = FirebaseFirestore.getInstance();
+        this.currentUser = LoginRepository.getInstance().getParticipant();
+    }
+
+    // TODO implement real dependency injection
+    public FollowRepository(Participant participant, FirebaseFirestore firestore) {
+        this.currentUser = participant;
         this.firestore = firestore;
     }
 
@@ -33,25 +35,25 @@ public class FollowRepository {
 
     public Task<Void> follow(Participant participant) {
         FollowRequest request = LoginRepository.getInstance().getfollowRequest();
-        return followRequestOf(participant).document(currentParticipant.getUid()).set(request);
+        return followRequestOf(participant).document(currentUser.getUid()).set(request);
     }
 
     public Task<Void> accept(FollowRequest request) {
         Participant follower = new Participant(request.getUid(), request.getUsername());
         // TODO fix race condition
-        followRequestOf(currentParticipant).document(request.getUid()).delete();
-        return followersOf(currentParticipant).document(follower.getUid()).set(follower);
+        followRequestOf(currentUser).document(request.getUid()).delete();
+        return followersOf(currentUser).document(follower.getUid()).set(follower);
     }
 
     public Task<Void> deny(FollowRequest request) {
-        return followRequestOf(currentParticipant).document(request.getUid()).delete();
+        return followRequestOf(currentUser).document(request.getUid()).delete();
     }
 
 
     public LiveData<Boolean> isFollowing(Participant participant) {
         MutableLiveData<Boolean> following = new MutableLiveData<>(false);
 
-        followersOf(participant).document(currentParticipant.getUid()).addSnapshotListener(((queryDocumentSnapshots, e) -> {
+        followersOf(participant).document(currentUser.getUid()).addSnapshotListener(((queryDocumentSnapshots, e) -> {
             if (queryDocumentSnapshots != null) {
                 following.setValue(queryDocumentSnapshots.exists());
             }
@@ -66,7 +68,7 @@ public class FollowRepository {
     public LiveData<Boolean> isRequestSent(Participant participant) {
         MutableLiveData<Boolean> sent = new MutableLiveData<>(false);
 
-        followRequestOf(participant).document(currentParticipant.getUid()).addSnapshotListener(((queryDocumentSnapshots, e) -> {
+        followRequestOf(participant).document(currentUser.getUid()).addSnapshotListener(((queryDocumentSnapshots, e) -> {
             if (queryDocumentSnapshots != null) {
                 sent.setValue(queryDocumentSnapshots.exists());
             }
@@ -82,7 +84,7 @@ public class FollowRepository {
         if (requests == null) {
             requests = new MutableLiveData<>();
 
-            followRequestOf(currentParticipant).addSnapshotListener(((queryDocumentSnapshots, e) -> {
+            followRequestOf(currentUser).addSnapshotListener(((queryDocumentSnapshots, e) -> {
                 if (queryDocumentSnapshots != null) {
                     List<FollowRequest> requestList = new ArrayList<>();
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {

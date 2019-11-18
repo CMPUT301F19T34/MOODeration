@@ -50,13 +50,13 @@ public class TestFollowRequestsFragment {
 //        mockFollowRequest2 = new FollowRequest("uid2", "name2", Timestamp.now());
 //
 //        Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-//        rule.launchActivity(new Intent());
+//        instantTaskExecutorRule.launchActivity(new Intent());
 //
 //        // create mock participant
 //        p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
 
         // register the participant to the view model
-        //participantViewModel = ViewModelProviders.of(rule.getActivity()).get(ParticipantViewModel.class);
+        //participantViewModel = ViewModelProviders.of(instantTaskExecutorRule.getActivity()).get(ParticipantViewModel.class);
         //participantViewModel.setParticipant(p);
 
 //        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.register(p)));
@@ -127,7 +127,7 @@ public class TestFollowRequestsFragment {
 //        openNavigationDrawer();
 //
 //        // get follow request item
-//        String followRequestLabel = rule.getActivity().getString(R.string.follow_request_label);
+//        String followRequestLabel = instantTaskExecutorRule.getActivity().getString(R.string.follow_request_label);
 //
 //        // navigate to follow request
 //        assertTrue(solo.waitForText(followRequestLabel, 1, 2000));

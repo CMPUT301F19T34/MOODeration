@@ -23,7 +23,8 @@ public class FollowRepository {
     private final FirebaseFirestore firestore;
     private final FirebaseUser user;
 
-    MutableLiveData<List<FollowRequest>> requests;
+    private MutableLiveData<List<Participant>> followers;
+    private MutableLiveData<List<FollowRequest>> requests;
 
     public FollowRepository() {
         this.firestore = FirebaseFirestore.getInstance();
@@ -46,7 +47,7 @@ public class FollowRepository {
 
     public Task<Void> accept(FollowRequest request) {
         Participant follower = new Participant(request.getUid(), request.getUsername());
-        return followRequestOf(user.getUid()).document(request.getUid()).delete().continueWithTask(
+        return followRequestOf(user.getUid()).document(follower.getUid()).delete().continueWithTask(
                 task -> followersOf(user.getUid()).document(follower.getUid()).set(follower));
     }
 
@@ -55,10 +56,10 @@ public class FollowRepository {
     }
 
 
-    public LiveData<Boolean> isFollowing(Participant otherUser) {
+    public LiveData<Boolean> isFollowing(Participant other) {
         MutableLiveData<Boolean> following = new MutableLiveData<>(false);
 
-        followersOf(otherUser.getUid()).document(user.getUid()).addSnapshotListener(((queryDocumentSnapshots, e) -> {
+        followersOf(other.getUid()).document(user.getUid()).addSnapshotListener(((queryDocumentSnapshots, e) -> {
             if (queryDocumentSnapshots != null) {
                 following.setValue(queryDocumentSnapshots.exists());
             }
@@ -70,10 +71,10 @@ public class FollowRepository {
         return following;
     }
 
-    public LiveData<Boolean> isRequestSent(Participant otherUser) {
+    public LiveData<Boolean> isRequestSent(Participant other) {
         MutableLiveData<Boolean> sent = new MutableLiveData<>(false);
 
-        followRequestOf(otherUser.getUid()).document(user.getUid()).addSnapshotListener(((queryDocumentSnapshots, e) -> {
+        followRequestOf(other.getUid()).document(user.getUid()).addSnapshotListener(((queryDocumentSnapshots, e) -> {
             if (queryDocumentSnapshots != null) {
                 sent.setValue(queryDocumentSnapshots.exists());
             }
@@ -104,6 +105,27 @@ public class FollowRepository {
         }
 
         return requests;
+    }
+
+    public LiveData<List<Participant>> getFollowers() {
+        if (followers == null) {
+            followers = new MutableLiveData<>();
+
+            followersOf(user.getUid()).addSnapshotListener(((queryDocumentSnapshots, e) -> {
+                if (queryDocumentSnapshots != null) {
+                    List<Participant> followerList = new ArrayList<>();
+                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                        followerList.add(doc.toObject(Participant.class));
+                    }
+                    followers.setValue(followerList);
+                }
+                else if (e != null) {
+                    // TODO
+                }
+            }));
+        }
+
+        return followers;
     }
 
     private CollectionReference followersOf(String userId) {

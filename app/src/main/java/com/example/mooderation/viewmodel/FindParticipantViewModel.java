@@ -6,27 +6,28 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mooderation.Participant;
-import com.example.mooderation.backend.LoginRepository;
 import com.example.mooderation.backend.ParticipantRepository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FindParticipantViewModel extends ViewModel {
     private ParticipantRepository participantRepository;
-    private Participant currentUser;
+    private FirebaseUser user;
 
     private MutableLiveData<String> searchQuery = new MutableLiveData<>();
 
     public FindParticipantViewModel() {
         this.participantRepository = new ParticipantRepository();
-        this.currentUser = LoginRepository.getInstance().getParticipant();
+        this.user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     // TODO implement real dependency injection
-    public FindParticipantViewModel(ParticipantRepository participantRepository, Participant user) {
+    public FindParticipantViewModel(ParticipantRepository participantRepository, FirebaseUser user) {
         this.participantRepository = participantRepository;
-        this.currentUser = user;
+        this.user = user;
     }
 
     public LiveData<List<Participant>> getSearchResults() {
@@ -34,7 +35,7 @@ public class FindParticipantViewModel extends ViewModel {
             List<Participant> results = new ArrayList<>();
             for (Participant participant : participants) {
                 // don't show current participant in results
-                if (participant.getUid().equals(currentUser.getUid()))
+                if (participant.getUid().equals(user.getUid()))
                     continue;
                 // only get participant that match searchQuery that match searchQuery
                 if (participant.getUsername().toLowerCase().startsWith(query.toLowerCase()))

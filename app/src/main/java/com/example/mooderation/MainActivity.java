@@ -14,9 +14,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
-import com.example.mooderation.backend.LoginRepository;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashSet;
@@ -95,18 +95,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(documentSnapshot -> {
-            Participant participant = new Participant(
-                    FirebaseAuth.getInstance().getUid(),
-                    (String) documentSnapshot.get("username"));
-
-            // TODO participant should be passed as an arg from LoginActivity
-            LoginRepository.getInstance().setParticipant(participant);
-
-            // successfully logged in
-            String welcome = "Logged in as " + participant.getUsername();
-            Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
-        });
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            signOut();
+        }
+        else {
+            FirebaseFirestore.getInstance().collection("users").document(user.getUid()).get().addOnSuccessListener(documentSnapshot -> {
+                String welcome = "Logged in as " + (String) documentSnapshot.get("username");
+                Toast.makeText(this, welcome, Toast.LENGTH_LONG).show();
+            });
+        }
     }
 
     // TODO find a better way to do this

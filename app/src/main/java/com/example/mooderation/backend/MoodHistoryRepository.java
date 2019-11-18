@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.mooderation.MoodEvent;
-import com.example.mooderation.Participant;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -17,24 +17,19 @@ import java.util.List;
 
 public class MoodHistoryRepository {
     private final FirebaseFirestore firestore;
-    private final Participant currentUser;
+    private final FirebaseUser user;
 
     private MutableLiveData<List<MoodEvent>> moodHistory;
 
     public MoodHistoryRepository() {
         this.firestore = FirebaseFirestore.getInstance();
-
-        // TODO temporary fix -- the user will not be retrieved from the database by the time
-        // this repository is initialized. A proper solution would be to get the user in the
-        // login activity. The problem occurs here since mood history is the default fragment.
-        this.currentUser = new Participant(FirebaseAuth.getInstance().getUid(), "username");
-        //this.currentUser = LoginRepository.getInstance().getParticipant();
+        this.user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     // TODO implement real dependency injection
-    public MoodHistoryRepository(Participant user, FirebaseFirestore firestore) {
+    public MoodHistoryRepository(FirebaseUser user, FirebaseFirestore firestore) {
         this.firestore = firestore;
-        this.currentUser = user;
+        this.user = user;
     }
 
     public Task<Void> add(MoodEvent moodEvent) {
@@ -69,7 +64,7 @@ public class MoodHistoryRepository {
 
     private CollectionReference getCollectionReference() {
         return firestore.collection("users")
-                .document(currentUser.getUid())
+                .document(user.getUid())
                 .collection("mood_history");
     }
 }

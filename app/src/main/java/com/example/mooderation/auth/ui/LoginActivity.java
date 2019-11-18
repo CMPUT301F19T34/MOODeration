@@ -18,6 +18,8 @@ import com.example.mooderation.R;
 import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.AuthenticationResult;
 import com.example.mooderation.auth.base.IAuthenticator;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Activity that prompts the user to log in using an email and password, or create with a username,
@@ -119,10 +121,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                setResult(RESULT_OK, intent);
-                startActivity(intent);
-                finish();
+                signIn();
             }
         }
     }
@@ -202,12 +201,7 @@ public class LoginActivity extends AppCompatActivity {
         if (loginResult.getFailure() != null) {
             showLoginFailed(loginResult.getFailure());
         } else {
-//            Intent intent = new Intent();
-//            intent.putExtra(AUTHENTICATION, loginResult.getSuccess());
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            setResult(RESULT_OK, intent);
-            startActivity(intent);
-            finish();
+            signIn();
         }
     }
 
@@ -216,5 +210,18 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText.setEnabled(enable);
         loginButton.setEnabled(enable);
         signUpButton.setEnabled(enable);
+    }
+
+    private void signIn() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            throw new IllegalStateException("User cannot be null when signing in!");
+        }
+
+        // start main activity
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        setResult(RESULT_OK, intent); // TODO -- still necessary?
+        startActivity(intent);
+        finish();
     }
 }

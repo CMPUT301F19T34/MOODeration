@@ -1,10 +1,13 @@
-package com.example.mooderation;
+package com.example.mooderation.viewmodel;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 
+import com.example.mooderation.EmotionalState;
+import com.example.mooderation.MoodEvent;
+import com.example.mooderation.Participant;
+import com.example.mooderation.SocialSituation;
 import com.example.mooderation.backend.ParticipantRepository;
-import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 

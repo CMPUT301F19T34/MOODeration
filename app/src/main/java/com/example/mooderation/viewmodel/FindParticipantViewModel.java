@@ -8,12 +8,13 @@ import androidx.lifecycle.ViewModel;
 import com.example.mooderation.Participant;
 import com.example.mooderation.backend.LoginRepository;
 import com.example.mooderation.backend.ParticipantRepository;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FindParticipantViewModel extends ViewModel {
-    private ParticipantRepository participantRepository = new ParticipantRepository();
+    private ParticipantRepository participantRepository = new ParticipantRepository(FirebaseFirestore.getInstance()); // TODO temp
     private Participant currentParticipant = LoginRepository.getInstance().getParticipant();
 
     private MutableLiveData<String> searchQuery = new MutableLiveData<>();

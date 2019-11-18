@@ -2,7 +2,6 @@ package com.example.mooderation.backend;
 
 import com.example.mooderation.EmotionalState;
 import com.example.mooderation.FollowRequest;
-import com.example.mooderation.Follower;
 import com.example.mooderation.MoodEvent;
 import com.example.mooderation.Participant;
 import com.example.mooderation.SocialSituation;

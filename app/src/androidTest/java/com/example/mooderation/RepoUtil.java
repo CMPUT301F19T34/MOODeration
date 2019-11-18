@@ -1,6 +1,5 @@
 package com.example.mooderation;
 
-import com.example.mooderation.backend.OwnedRepository;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.ListenerRegistration;

@@ -35,12 +35,14 @@ public class ParticipantProfileFragment extends Fragment {
             ((TextView) view.findViewById(R.id.username)).setText(username);
         });
 
+        // TODO this should also display a message
         View requestSentView = view.findViewById(R.id.request_sent);
         requestSentView.setVisibility(View.INVISIBLE);
         model.getFollowRequestSent().observe(this, isFollowRequestSent -> {
             requestSentView.setVisibility(isFollowRequestSent ? View.VISIBLE : View.INVISIBLE);
         });
 
+        // TODO this should be disabled when request is sent as well
         Button followButton = view.findViewById(R.id.follow_button);
         model.getThisFollowingOther().observe(this, isThisFollowingOther -> {
             followButton.setEnabled(!isThisFollowingOther);

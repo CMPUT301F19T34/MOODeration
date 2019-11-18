@@ -1,11 +1,12 @@
-package com.example.mooderation;
+package com.example.mooderation.viewmodel;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
+import com.example.mooderation.FollowRequest;
+import com.example.mooderation.Participant;
+import com.example.mooderation.RepoUtil;
 import com.example.mooderation.backend.FollowRepository;
-import com.example.mooderation.backend.FollowRequestRepository;
 import com.example.mooderation.backend.ParticipantRepository;
-import com.example.mooderation.viewmodel.ParticipantProfileViewModel;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 

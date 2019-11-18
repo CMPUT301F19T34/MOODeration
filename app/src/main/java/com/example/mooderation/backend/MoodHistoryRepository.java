@@ -15,11 +15,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class MoodHistoryRepository {
-    private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore firestore;// = FirebaseFirestore.getInstance();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private MutableLiveData<List<MoodEvent>> moodHistory;
+
+    @Inject
+    public MoodHistoryRepository(FirebaseFirestore firestore) {
+        this.firestore = firestore;
+    }
 
     public Task<Void> add(MoodEvent moodEvent) {
         return getCollectionReference().document(moodEvent.getId()).set(moodEvent);

@@ -7,7 +7,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,7 +15,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.backend.LoginRepository;
-import com.example.mooderation.viewmodel.ParticipantProfileViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,8 +28,6 @@ import java.util.Set;
  * implementation in fragments.
  */
 public class MainActivity extends AppCompatActivity {
-    private ParticipantViewModel participantViewModel;
-    private ParticipantProfileViewModel participantProfileViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,27 +82,17 @@ public class MainActivity extends AppCompatActivity {
                 // log out of the app
                 case R.id.log_out_drawer_item:
                     FirebaseAuth.getInstance().signOut();
+                    signOut();
                     break;
             }
 
             return true;
         });
 
-        // initialize view models
-        participantViewModel = ViewModelProviders.of(this).get(ParticipantViewModel.class);
-        participantProfileViewModel = ViewModelProviders.of(this).get(ParticipantProfileViewModel.class);
-
         // TODO is this listener necessary?
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() == null) {
-                // go to login screen
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
-
-                // restarts the main activity
-                // refresh view models, etc
-                finish();
-                startActivity(intent);
+                signOut();
             }
         });
 
@@ -118,10 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
             // TODO participant should be passed as an arg from LoginActivity
             LoginRepository.getInstance().setParticipant(participant);
-
-            // TODO remove
-            participantViewModel.setParticipant(participant);
-            participantProfileViewModel.setParticipant(participant);
 
             // successfully logged in
             String welcome = "Logged in as " + participant.getUsername();

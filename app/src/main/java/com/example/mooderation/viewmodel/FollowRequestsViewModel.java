@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mooderation.FollowRequest;
 import com.example.mooderation.backend.FollowRepository;
-import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
@@ -21,12 +20,12 @@ public class FollowRequestsViewModel extends ViewModel {
         this.followRepository = followRepository;
     }
 
-    public Task<Void> acceptRequest(FollowRequest request) {
-        return followRepository.accept(request);
+    public void acceptRequest(FollowRequest request) {
+        followRepository.accept(request);
     }
 
-    public Task<Void> denyRequest(FollowRequest request) {
-        return followRepository.deny(request);
+    public void denyRequest(FollowRequest request) {
+        followRepository.deny(request);
     }
 
     public LiveData<List<FollowRequest>> getFollowRequests() {

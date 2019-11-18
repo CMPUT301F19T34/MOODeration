@@ -74,6 +74,7 @@ public class ParticipantRepository {
                 .continueWithTask(task -> participantsPath().document(participant.getUid()).delete());
     }
 
+    // TODO remove -- only used for tests
     private Task<Void> deleteAllImmediateDocuments(QuerySnapshot ref) {
         List<Task<Void>> tasks = new ArrayList<>();
         for (DocumentSnapshot doc : ref) {

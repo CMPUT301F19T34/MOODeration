@@ -1,5 +1,7 @@
 package com.example.mooderation;
 
+import android.location.Location;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,6 +17,7 @@ public class MoodEvent {
     private EmotionalState emotionalState;
     private String reason;
     private SocialSituation socialSituation;
+    private Location location;
 
     /**
      * MoodEvent Constructor
@@ -26,21 +29,25 @@ public class MoodEvent {
      *      The social situation for this MoodEvent
      * @param reason
      *      The reason for this MoodEvent
+     * @param location
+     *      The location of this MoodEvent
      */
     public MoodEvent(Date date, EmotionalState emotionalState,
-                     SocialSituation socialSituation, String reason) {
+                     SocialSituation socialSituation, String reason, Location location) {
         this.date = date;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
         this.reason = reason;
+        this.location = location;
     }
 
     public MoodEvent(String moodEventId, Date date, EmotionalState emotionalState,
-                     SocialSituation socialSituation, String reason) {
+                     SocialSituation socialSituation, String reason, Location location) {
         this.date = date;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
         this.reason = reason;
+        this.location = location;
     }
 
     /**
@@ -72,6 +79,10 @@ public class MoodEvent {
         return socialSituation;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) return true;
@@ -85,6 +96,8 @@ public class MoodEvent {
         if (!moodEvent.socialSituation.equals(socialSituation))
             return false;
         if (!moodEvent.reason.equals(reason))
+            return false;
+        if (!moodEvent.location.equals(location))
             return false;
         return true;
     }

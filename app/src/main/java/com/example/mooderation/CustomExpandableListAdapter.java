@@ -152,7 +152,22 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
-        listTitleTextView.setText(listTitle);
+
+        // Set colors and emoticons based on mood
+        if(listTitle.substring(0,5).equals("Happy")){
+            String happyEmot = new String(Character.toChars(0x1F60A)); // Happy emoticon
+            listTitleTextView.setText(happyEmot + " " + listTitle);
+            listTitleTextView.setTextColor(-16729344); // Green
+        }else if(listTitle.substring(0,3).equals("Sad")){
+            String sadEmot = new String(Character.toChars(0x1F622)); // Sad emoticon
+            listTitleTextView.setText(sadEmot + " " + listTitle);
+            listTitleTextView.setTextColor(-16776961); // Blue
+        }else if(listTitle.substring(0,3).equals("Mad")){
+            String madEmot = new String(Character.toChars(0x1F620)); // Mad emoticon
+            listTitleTextView.setText(madEmot + " " + listTitle);
+            listTitleTextView.setTextColor(-65536); // Red
+        }else{listTitleTextView.setText(listTitle);}
+        
         return convertView;
     }
 

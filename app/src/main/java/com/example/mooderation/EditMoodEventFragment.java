@@ -2,10 +2,12 @@ package com.example.mooderation;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -84,6 +86,11 @@ public class EditMoodEventFragment extends Fragment {
             moodHistoryViewModel.removeMoodEvent(moodEvent);
             moodHistoryViewModel.addMoodEvent(newMoodEvent);
 
+            // Close keyboard
+            if (view != null) {
+                InputMethodManager inputManager = (InputMethodManager) this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();
         });

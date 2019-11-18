@@ -1,18 +1,10 @@
 package com.example.mooderation.fragment;
 
 import android.app.Activity;
-import android.content.Intent;
 
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.mooderation.FollowRequest;
 import com.example.mooderation.MainActivity;
-import com.example.mooderation.Participant;
-import com.example.mooderation.backend.FollowRepository;
-import com.example.mooderation.backend.ParticipantRepository;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
@@ -28,18 +20,18 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 public class TestFollowRequestsFragment {
     private Solo solo;
 
-    private FollowRequestRepository followRequestRepository;
-    private FollowRepository followRepository;
-    private ParticipantRepository participantRepository;
-
-    private Participant p;
-    //ParticipantViewModel participantViewModel;
-
-    private FollowRequest mockFollowRequest1;
-    private FollowRequest mockFollowRequest2;
-
-    private Follower mockFollower1 = new Follower("uid1", "name1");
-    private Follower mockFollower2 = new Follower("uid2", "name2");
+//    private FollowRequestRepository followRequestRepository;
+//    private FollowRepository followRepository;
+//    private ParticipantRepository participantRepository;
+//
+//    private Participant p;
+//    //ParticipantViewModel participantViewModel;
+//
+//    private FollowRequest mockFollowRequest1;
+//    private FollowRequest mockFollowRequest2;
+//
+//    private Follower mockFollower1 = new Follower("uid1", "name1");
+//    private Follower mockFollower2 = new Follower("uid2", "name2");
 
     @Rule
     public ActivityTestRule<MainActivity> rule =
@@ -48,20 +40,20 @@ public class TestFollowRequestsFragment {
     @Before
     public void setUp() throws ExecutionException, InterruptedException {
         solo = new Solo(getInstrumentation(), rule.getActivity());
-
-        followRepository = new FollowRepository();
-        followRequestRepository = new FollowRequestRepository();
-        participantRepository = new ParticipantRepository();
-
-        mockFollowRequest1 = new FollowRequest("uid1", "name1", Timestamp.now());
-        Thread.sleep(1);
-        mockFollowRequest2 = new FollowRequest("uid2", "name2", Timestamp.now());
-
-        Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-        rule.launchActivity(new Intent());
-
-        // create mock participant
-        p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
+//
+//        followRepository = new FollowRepository();
+//        followRequestRepository = new FollowRequestRepository();
+//        participantRepository = new ParticipantRepository();
+//
+//        mockFollowRequest1 = new FollowRequest("uid1", "name1", Timestamp.now());
+//        Thread.sleep(1);
+//        mockFollowRequest2 = new FollowRequest("uid2", "name2", Timestamp.now());
+//
+//        Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
+//        rule.launchActivity(new Intent());
+//
+//        // create mock participant
+//        p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
 
         // register the participant to the view model
         //participantViewModel = ViewModelProviders.of(rule.getActivity()).get(ParticipantViewModel.class);

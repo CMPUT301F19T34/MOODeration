@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.mooderation.FollowRequest;
 import com.example.mooderation.Participant;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -20,6 +21,8 @@ public class FollowRepository {
     private final FirebaseFirestore firestore;
     private final Participant currentUser;
 
+    MutableLiveData<List<FollowRequest>> requests;
+
     public FollowRepository() {
         this.firestore = FirebaseFirestore.getInstance();
         this.currentUser = LoginRepository.getInstance().getParticipant();
@@ -31,10 +34,8 @@ public class FollowRepository {
         this.firestore = firestore;
     }
 
-    MutableLiveData<List<FollowRequest>> requests;
-
     public Task<Void> follow(Participant participant) {
-        FollowRequest request = LoginRepository.getInstance().getfollowRequest();
+        FollowRequest request = new FollowRequest(currentUser.getUid(), currentUser.getUsername(), Timestamp.now());
         return followRequestOf(participant).document(currentUser.getUid()).set(request);
     }
 

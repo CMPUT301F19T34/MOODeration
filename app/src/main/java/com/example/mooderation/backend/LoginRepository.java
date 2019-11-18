@@ -1,8 +1,6 @@
 package com.example.mooderation.backend;
 
-import com.example.mooderation.FollowRequest;
 import com.example.mooderation.Participant;
-import com.google.firebase.Timestamp;
 
 // TODO merge with participant repository?
 // TODO probably could be named better
@@ -27,11 +25,5 @@ public class LoginRepository {
 
     public Participant getParticipant(){
         return participant;
-    }
-
-    // TODO temporary until follow request is refactored
-    // gets a follow request from the currently logged in user
-    public FollowRequest getfollowRequest() {
-        return new FollowRequest(participant.getUid(), participant.getUsername(), Timestamp.now());
     }
 }

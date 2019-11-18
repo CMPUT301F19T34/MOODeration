@@ -24,7 +24,7 @@ import javax.inject.Singleton;
 @Singleton
 public class ParticipantRepository {
     private final FirebaseFirestore firestore;// = FirebaseFirestore.getInstance();
-    MutableLiveData<List<Participant>> participants;
+    private MutableLiveData<List<Participant>> participants;
 
     @Inject
     public ParticipantRepository(FirebaseFirestore firestore) {

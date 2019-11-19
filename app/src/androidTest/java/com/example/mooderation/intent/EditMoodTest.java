@@ -5,7 +5,7 @@ import android.app.Activity;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.mooderation.MainActivity;
+import com.example.mooderation.HomeActivity;
 import com.example.mooderation.Participant;
 import com.example.mooderation.R;
 import com.example.mooderation.backend.ParticipantRepository;
@@ -23,8 +23,8 @@ import static org.junit.Assert.assertTrue;
 public class EditMoodTest {
     private Solo solo;
     @Rule
-    public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(
-            MainActivity.class, true, true);
+    public ActivityTestRule<HomeActivity> rule = new ActivityTestRule<>(
+            HomeActivity.class, true, true);
 
     @Before
     public void setUp() throws Exception {
@@ -37,7 +37,7 @@ public class EditMoodTest {
 
     @Test
     public void testEditMood() {
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
         Activity activity = rule.getActivity();
 
         // click the floating action button and add happy mood event
@@ -57,7 +57,7 @@ public class EditMoodTest {
 
     @Test
     public void testEditSituation() {
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
         Activity activity = rule.getActivity();
 
         // click the floating action button and add happy mood event
@@ -78,7 +78,7 @@ public class EditMoodTest {
 
     @Test
     public void testEditReason() {
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
         Activity activity = rule.getActivity();
 
         // click the floating action button and add happy mood event

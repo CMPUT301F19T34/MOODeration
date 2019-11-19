@@ -27,7 +27,7 @@ import java.util.Set;
  * Navigation components are being used keeping most of the UI
  * implementation in fragments.
  */
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO find a better way to do this
     private void signOut() {
         // go to login screen
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
         intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
 
         // restarts the main activity

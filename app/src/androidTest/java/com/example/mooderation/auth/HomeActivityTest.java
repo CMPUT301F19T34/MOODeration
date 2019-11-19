@@ -12,7 +12,7 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 
-import com.example.mooderation.MainActivity;
+import com.example.mooderation.HomeActivity;
 import com.example.mooderation.Participant;
 import com.example.mooderation.R;
 import com.example.mooderation.backend.ParticipantRepository;
@@ -27,13 +27,13 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class MainActivityTest {
+public class HomeActivityTest {
     private Solo solo;
     private UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
     @Rule
-    public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(
-            MainActivity.class, true, true);
+    public ActivityTestRule<HomeActivity> rule = new ActivityTestRule<>(
+            HomeActivity.class, true, true);
 
     @Before
     public void setUp() throws Exception {
@@ -46,7 +46,7 @@ public class MainActivityTest {
 
     @Test
     public void testAddMoodEvent() {
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
         Activity activity = rule.getActivity();
 
         // click the floating action button
@@ -57,7 +57,7 @@ public class MainActivityTest {
 
     @Test
     public void testToggleLocation() {
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
         Activity activity = rule.getActivity();
 
         // click the floating action button

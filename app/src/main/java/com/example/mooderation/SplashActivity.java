@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
             intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
             startActivity(intent);
         } else {
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
             startActivity(intent);
         }
         // TODO finish splash activity?

@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.mooderation.MainActivity;
+import com.example.mooderation.HomeActivity;
 import com.example.mooderation.R;
 import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.AuthenticationResult;
@@ -219,7 +219,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // start main activity
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         setResult(RESULT_OK, intent); // TODO -- still necessary?
         startActivity(intent);
         finish();

@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.mooderation.MainActivity;
+import com.example.mooderation.HomeActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
@@ -34,8 +34,8 @@ public class TestFollowRequestsFragment {
 //    private Follower mockFollower2 = new Follower("uid2", "name2");
 
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, false);
+    public ActivityTestRule<HomeActivity> rule =
+            new ActivityTestRule<>(HomeActivity.class, true, false);
 
     @Before
     public void setUp() throws ExecutionException, InterruptedException {
@@ -72,7 +72,7 @@ public class TestFollowRequestsFragment {
 
 //    @Test
 //    public void testAcceptFollower() throws ExecutionException, InterruptedException {
-//        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+//        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
 //
 //        navigateToFollowRequestFragment();
 //
@@ -84,7 +84,7 @@ public class TestFollowRequestsFragment {
 //
 //    @Test
 //    public void testDenyFollower() throws ExecutionException, InterruptedException {
-//        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+//        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
 //
 //        navigateToFollowRequestFragment();
 //

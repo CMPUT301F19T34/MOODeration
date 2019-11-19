@@ -1,4 +1,4 @@
-package com.example.mooderation.fragment;
+package com.example.mooderation.intent;
 
 import android.app.Activity;
 

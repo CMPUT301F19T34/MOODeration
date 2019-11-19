@@ -1,10 +1,9 @@
-package com.example.mooderation;
+package com.example.mooderation.auth;
 
 import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-
 
 import androidx.annotation.NonNull;
 
@@ -12,15 +11,6 @@ import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.AuthenticationResult;
 import com.example.mooderation.auth.base.IAuthentication;
 import com.example.mooderation.auth.base.IAuthenticator;
-import com.example.mooderation.auth.firebase.FirebaseAuthentication;
-
-import java.util.TimerTask;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 
 class MockAuthenticationResult implements IAuthentication {

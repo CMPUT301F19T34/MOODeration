@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mooderation.MoodEvent;
-import com.example.mooderation.backend.MoodHistoryRepository;
-import com.google.android.gms.tasks.Task;
+import com.example.mooderation.backend.MoodRepository;
 
 import java.util.List;
 
@@ -14,28 +13,28 @@ import java.util.List;
  * and the MoodEventFragment
  */
 public class MoodHistoryViewModel extends ViewModel {
-    private MoodHistoryRepository moodHistoryRepository = new MoodHistoryRepository();
+    private MoodRepository moodRepository = new MoodRepository();
 
     public MoodHistoryViewModel() {
-        this.moodHistoryRepository = new MoodHistoryRepository();
+        this.moodRepository = new MoodRepository();
     }
 
     // TODO implement real dependency injection
-    public MoodHistoryViewModel(MoodHistoryRepository moodHistoryRepository) {
-        this.moodHistoryRepository = moodHistoryRepository;
+    public MoodHistoryViewModel(MoodRepository moodRepository) {
+        this.moodRepository = moodRepository;
     }
 
     // TODO implement filter
 
     public LiveData<List<MoodEvent>> getMoodHistory() {
-        return moodHistoryRepository.getMoodHistory();
+        return moodRepository.getMoodHistory();
     }
 
-    public Task<Void> addMoodEvent(MoodEvent moodEvent) {
-        return moodHistoryRepository.add(moodEvent);
+    public void addMoodEvent(MoodEvent moodEvent) {
+        moodRepository.add(moodEvent);
     }
 
-    public Task<Void> removeMoodEvent(MoodEvent moodEvent) {
-        return moodHistoryRepository.remove(moodEvent);
+    public void removeMoodEvent(MoodEvent moodEvent) {
+        moodRepository.remove(moodEvent);
     }
 }

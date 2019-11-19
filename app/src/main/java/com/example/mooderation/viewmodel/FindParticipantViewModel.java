@@ -17,7 +17,8 @@ public class FindParticipantViewModel extends ViewModel {
     private ParticipantRepository participantRepository;
     private FirebaseUser user;
 
-    private MutableLiveData<String> searchQuery = new MutableLiveData<>();
+    private LiveData<List<Participant>> searchResults;
+    private MutableLiveData<String> searchQuery = new MutableLiveData<>("");
 
     public FindParticipantViewModel() {
         this.participantRepository = new ParticipantRepository();
@@ -31,18 +32,22 @@ public class FindParticipantViewModel extends ViewModel {
     }
 
     public LiveData<List<Participant>> getSearchResults() {
-        return Transformations.switchMap(searchQuery, query -> Transformations.map(participantRepository.getParticipants(), participants -> {
-            List<Participant> results = new ArrayList<>();
-            for (Participant participant : participants) {
-                // don't show current participant in results
-                if (participant.getUid().equals(user.getUid()))
-                    continue;
-                // only get participant that match searchQuery that match searchQuery
-                if (participant.getUsername().toLowerCase().startsWith(query.toLowerCase()))
-                    results.add(participant);
-            }
-            return results;
-        }));
+        if (searchResults == null) {
+            searchResults = Transformations.switchMap(searchQuery, query -> Transformations.map(participantRepository.getParticipants(), participants -> {
+                List<Participant> results = new ArrayList<>();
+                for (Participant participant : participants) {
+                    // don't show current participant in results
+                    if (participant.getUid().equals(user.getUid()))
+                        continue;
+                    // only get participant that match searchQuery that match searchQuery
+                    if (participant.getUsername().toLowerCase().startsWith(query.toLowerCase()))
+                        results.add(participant);
+                }
+                return results;
+            }));
+        }
+
+        return searchResults;
     }
 
     public void searchFor(String query) {

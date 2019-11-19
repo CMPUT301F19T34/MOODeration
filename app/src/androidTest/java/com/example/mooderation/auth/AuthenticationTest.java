@@ -1,4 +1,4 @@
-package com.example.mooderation;
+package com.example.mooderation.auth;
 
 import android.content.Intent;
 import android.widget.Button;
@@ -7,6 +7,8 @@ import android.widget.EditText;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.mooderation.MainActivity;
+import com.example.mooderation.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.robotium.solo.Solo;
 

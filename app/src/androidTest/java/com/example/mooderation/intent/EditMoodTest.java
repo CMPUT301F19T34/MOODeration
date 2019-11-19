@@ -1,10 +1,13 @@
-package com.example.mooderation;
+package com.example.mooderation.intent;
 
 import android.app.Activity;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.mooderation.MainActivity;
+import com.example.mooderation.Participant;
+import com.example.mooderation.R;
 import com.example.mooderation.backend.ParticipantRepository;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;

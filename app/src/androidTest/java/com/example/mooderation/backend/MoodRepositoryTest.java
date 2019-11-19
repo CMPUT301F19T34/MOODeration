@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
-public class MoodHistoryRepositoryTest {
+public class MoodRepositoryTest {
     private static FirebaseFirestore firestore;
 
     // mock participants used for testing
@@ -42,7 +42,7 @@ public class MoodHistoryRepositoryTest {
     Observer<List<MoodEvent>> moodHistoryObserver;
 
     // repositories for testing
-    private MoodHistoryRepository myMoodHistoryRepository;
+    private MoodRepository myMoodRepository;
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -70,17 +70,17 @@ public class MoodHistoryRepositoryTest {
         when(myUser.getUid()).thenReturn(myParticipant.getUid());
 
         // set up myParticipant follow repository
-        myMoodHistoryRepository = new MoodHistoryRepository(myUser, firestore);
-        myMoodHistoryRepository.getMoodHistory().observeForever(moodHistoryObserver);
+        myMoodRepository = new MoodRepository(myUser, firestore);
+        myMoodRepository.getMoodHistory().observeForever(moodHistoryObserver);
     }
 
     @Test
     public void testAdd() throws ExecutionException, InterruptedException {
         MoodEvent moodEvent = mockMoodEvent();
-        Tasks.await(myMoodHistoryRepository.add(moodEvent));
+        Tasks.await(myMoodRepository.add(moodEvent));
 
         // assert the mood event has been added
-        LiveData<List<MoodEvent>> moodHistory = myMoodHistoryRepository.getMoodHistory();
+        LiveData<List<MoodEvent>> moodHistory = myMoodRepository.getMoodHistory();
         assertNotNull(moodHistory);
         assertEquals(1, moodHistory.getValue().size());
         assertEquals(moodEvent, moodHistory.getValue().get(0));
@@ -89,10 +89,10 @@ public class MoodHistoryRepositoryTest {
     @Test
     public void testRemove() throws ExecutionException, InterruptedException {
         MoodEvent moodEvent = mockMoodEvent();
-        Tasks.await(myMoodHistoryRepository.add(moodEvent));
-        Tasks.await(myMoodHistoryRepository.remove(moodEvent));
+        Tasks.await(myMoodRepository.add(moodEvent));
+        Tasks.await(myMoodRepository.remove(moodEvent));
 
-        assertNotNull(myMoodHistoryRepository.getMoodHistory());
-        assertEquals(0, myMoodHistoryRepository.getMoodHistory().getValue().size());
+        assertNotNull(myMoodRepository.getMoodHistory());
+        assertEquals(0, myMoodRepository.getMoodHistory().getValue().size());
     }
 }

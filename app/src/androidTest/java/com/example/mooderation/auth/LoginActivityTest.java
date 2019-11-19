@@ -1,4 +1,4 @@
-package com.example.mooderation;
+package com.example.mooderation.auth;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.mooderation.R;
 import com.example.mooderation.auth.base.IAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.auth.ui.SignUpActivity;
@@ -19,7 +20,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.assertTrue;
 
 public class LoginActivityTest {
     private Solo solo;

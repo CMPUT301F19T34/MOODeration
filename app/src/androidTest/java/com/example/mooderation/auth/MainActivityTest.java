@@ -1,4 +1,4 @@
-package com.example.mooderation;
+package com.example.mooderation.auth;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,6 +12,9 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 
+import com.example.mooderation.MainActivity;
+import com.example.mooderation.Participant;
+import com.example.mooderation.R;
 import com.example.mooderation.backend.ParticipantRepository;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;

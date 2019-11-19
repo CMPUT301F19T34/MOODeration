@@ -1,4 +1,4 @@
-package com.example.mooderation;
+package com.example.mooderation.auth;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.mooderation.R;
 import com.example.mooderation.auth.ui.SignUpActivity;
 import com.robotium.solo.Solo;
 

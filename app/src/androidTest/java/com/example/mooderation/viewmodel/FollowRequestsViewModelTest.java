@@ -46,6 +46,8 @@ public class FollowRequestsViewModelTest {
         followRequestsViewModel.getFollowRequests().observeForever(followRequestObserver);
     }
 
+    // TODO these tests are extremely superficial -- they don't really need to be tested.
+
     @Test
     public void testAcceptFollowRequest() throws ExecutionException, InterruptedException {
         when(followRepository.accept(any())).then(invocation -> {

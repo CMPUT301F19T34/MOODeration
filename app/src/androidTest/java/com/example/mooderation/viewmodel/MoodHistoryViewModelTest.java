@@ -1,15 +1,11 @@
 package com.example.mooderation.viewmodel;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.example.mooderation.EmotionalState;
 import com.example.mooderation.MoodEvent;
-import com.example.mooderation.Participant;
-import com.example.mooderation.SocialSituation;
-import com.example.mooderation.backend.ParticipantRepository;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.mooderation.backend.MoodRepository;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,76 +15,61 @@ import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(JUnit4.class)
 public class MoodHistoryViewModelTest {
-    private MoodHistoryViewModel moodHistoryViewModel;
-    @Mock Observer<List<MoodEvent>> observer;
+    @Mock
+    MoodRepository moodRepository;
+    @Mock
+    MoodEvent moodEvent;
+    @Mock
+    Observer<List<MoodEvent>> moodHistoryObserver;
 
+    private MoodHistoryViewModel moodHistoryViewModel;
+    private MutableLiveData<List<MoodEvent>> moodHistory = new MutableLiveData<>();
+
+    // forces tasks to execute synchronously
     @Rule
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
-    private MoodEvent mockMoodEvent() {
-        return new MoodEvent(
-                new Date(),
-                EmotionalState.HAPPY,
-                SocialSituation.NONE,
-                "Reason");
-    }
-
     @Before
     public void setUp() throws ExecutionException, InterruptedException {
-        // sign in as an anonymous user
-        Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-        Participant participant = new Participant(
-                FirebaseAuth.getInstance().getUid(), "user");
-
         MockitoAnnotations.initMocks(this);
 
-        // register the participant to the view model
-        moodHistoryViewModel = new MoodHistoryViewModel();
-        moodHistoryViewModel.getMoodHistory().observeForever(observer);
+        moodHistoryViewModel = new MoodHistoryViewModel(moodRepository);
+        when(moodRepository.getMoodHistory()).thenReturn(moodHistory);
 
-        ParticipantRepository participantRepository = new ParticipantRepository();
-        Tasks.await(participantRepository.remove(participant).continueWith(
-                task -> participantRepository.register(participant)));
+        moodHistoryViewModel.getMoodHistory().observeForever(moodHistoryObserver);
     }
+
+    // TODO these tests are extremely superficial -- they don't really need to be tested.
 
     @Test
     public void testAddMoodEvent() throws ExecutionException, InterruptedException {
-        MoodEvent moodEvent = mockMoodEvent();
+        when(moodRepository.add(any())).then(invocation -> {
+            moodHistory.setValue(new ArrayList<>());
+            return null;
+        });
 
-        Tasks.await(moodHistoryViewModel.addMoodEvent(moodEvent));
-        assertEquals(moodEvent, moodHistoryViewModel.getMoodHistory().getValue().get(0));
+        moodHistoryViewModel.addMoodEvent(moodEvent);
+        verify(moodHistoryObserver).onChanged(new ArrayList<>());
     }
 
     @Test
     public void testDeleteMoodEvent() throws ExecutionException, InterruptedException {
-        MoodEvent moodEvent = mockMoodEvent();
+        when(moodRepository.remove(any())).then(invocation -> {
+            moodHistory.setValue(new ArrayList<>());
+            return null;
+        });
 
-        Tasks.await(moodHistoryViewModel.addMoodEvent(moodEvent));
-        assertEquals(1, moodHistoryViewModel.getMoodHistory().getValue().size());
-
-        Tasks.await(moodHistoryViewModel.removeMoodEvent(moodEvent));
-        assertEquals(0, moodHistoryViewModel.getMoodHistory().getValue().size());
-    }
-
-    @Test
-    public void testOrder() throws ExecutionException, InterruptedException {
-        // register mood events in chronological order
-        Tasks.await(moodHistoryViewModel.addMoodEvent(mockMoodEvent()));
-        Thread.sleep(10);
-        Tasks.await(moodHistoryViewModel.addMoodEvent(mockMoodEvent()));
-
-        // check for reverse chronological order
-        MoodEvent l = moodHistoryViewModel.getMoodHistory().getValue().get(0);
-        MoodEvent r = moodHistoryViewModel.getMoodHistory().getValue().get(1);
-        assertTrue(l.getDate().compareTo(r.getDate()) > 0);
+        moodHistoryViewModel.removeMoodEvent(moodEvent);
+        verify(moodHistoryObserver).onChanged(new ArrayList<>());
     }
 }

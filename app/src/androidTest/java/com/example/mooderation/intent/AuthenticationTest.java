@@ -55,10 +55,8 @@ public class AuthenticationTest {
 
         //
         assertTrue(solo.searchText("Logged in as " + getTestUsername()));
-
-        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        assertNotNull(email);
-        assertEquals(getTestEmail(), email);
+        assertNotNull(FirebaseAuth.getInstance().getCurrentUser());
+        assertEquals(getTestEmail(), FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         // refactor into logout
         logout(solo);
@@ -76,9 +74,8 @@ public class AuthenticationTest {
             solo.waitForActivity(HomeActivity.class);
 
             assertTrue(solo.searchText("Logged in as signup-username"));
+            assertNotNull(FirebaseAuth.getInstance().getCurrentUser());
             assertEquals("signup@email.com", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-
-            logout(solo);
         }
         finally {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -91,7 +88,7 @@ public class AuthenticationTest {
             }
         }
 
-        solo.waitForActivity(LoginActivity.class);
+        logout(solo);
         assertNull(FirebaseAuth.getInstance().getCurrentUser());
     }
 

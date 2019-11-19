@@ -49,7 +49,7 @@ public class MoodHistoryViewModelTest {
         moodHistoryViewModel.getMoodHistory().observeForever(moodHistoryObserver);
     }
 
-    // TODO these tests are extremely superficial -- they don't really need to be tested.
+    // TODO replace with better tests
 
     @Test
     public void testAddMoodEvent() throws ExecutionException, InterruptedException {

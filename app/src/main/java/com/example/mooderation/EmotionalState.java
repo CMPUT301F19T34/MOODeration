@@ -15,6 +15,9 @@ public enum EmotionalState {
     HAPPY("Happy"),
     SAD("Sad"),
     MAD("Mad");
+    // TODO use string resources here
+
+    // TODO define mood colors here
 
     public String externalName;
 

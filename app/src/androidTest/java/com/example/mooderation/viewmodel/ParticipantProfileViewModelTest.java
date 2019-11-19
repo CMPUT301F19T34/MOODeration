@@ -1,30 +1,34 @@
 package com.example.mooderation.viewmodel;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.mooderation.Participant;
 import com.example.mooderation.backend.FollowRepository;
-import com.example.mooderation.backend.ParticipantRepository;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.util.concurrent.ExecutionException;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(JUnit4.class)
 public class ParticipantProfileViewModelTest {
-    private boolean observed = false;
+    @Mock
+    FollowRepository followRepository;
+    @Mock
+    Observer<Boolean> booleanObserver;
 
-    private Participant user;
-    private Participant other;
+    private MutableLiveData<Boolean> booleanResult = new MutableLiveData<>(true);
 
-    private ParticipantRepository participantRepository;
-    private FollowRepository followRepository;
-    //private FollowRequestRepository followRequestRepository;
-
+    private Participant viewingParticipant = new Participant("viewing-uid", "username");
     private ParticipantProfileViewModel participantProfileViewModel;
 
     @Rule
@@ -32,50 +36,43 @@ public class ParticipantProfileViewModelTest {
 
 
     @Before
-    public void setUp() throws ExecutionException, InterruptedException {
-//        // sign in as an anonymous user
-//        Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-//        user = new Participant(FirebaseAuth.getInstance().getUid(), "user");
-//        other = new Participant("other_id", "other_name");
-//
-//        // register the user to the view model
-//        participantProfileViewModel = new ParticipantProfileViewModel();
-//        participantProfileViewModel.setParticipant(user);
-//        participantProfileViewModel.setViewingParticipant(other);
-//
-//        participantRepository = new ParticipantRepository();
-//        followRequestRepository = new FollowRequestRepository();
-//        followRepository = new FollowRepository();
-//
-//        Tasks.await(participantRepository.remove(user).continueWith(task -> participantRepository.register(user)));
-//        Tasks.await(participantRepository.remove(other).continueWith(task -> participantRepository.register(other)));
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        when(followRepository.isFollowing(any())).thenReturn(booleanResult);
+        when(followRepository.isRequestSent(any())).thenReturn(booleanResult);
+
+        participantProfileViewModel = new ParticipantProfileViewModel(followRepository);
+        participantProfileViewModel.setViewingParticipant(viewingParticipant);
+        participantProfileViewModel.getFollowRequestSent().observeForever(booleanObserver);
+        participantProfileViewModel.getThisFollowingOther().observeForever(booleanObserver);
     }
 
     @Test
-    public void testAcceptRequest() throws ExecutionException, InterruptedException {
-//        participantProfileViewModel.sendFollowRequest();
-//        List<FollowRequest> requests = RepoUtil.get(followRequestRepository, other);
-//        assertEquals(1, requests.size());
-//        assertEquals(user.getUid(), requests.get(0).getUid());
-//        assertEquals(user.getUsername(), requests.get(0).getUsername());
+    public void testGetFollowRequestSent() {
+        booleanResult.setValue(true);
+        assertTrue(participantProfileViewModel.getFollowRequestSent().getValue());
+
+        booleanResult.setValue(false);
+        assertFalse(participantProfileViewModel.getFollowRequestSent().getValue());
     }
-//
-//    @Test
-//    public void testRequestSent() throws InterruptedException {
-//        participantProfileViewModel.sendFollowRequest();
-//        Thread.sleep(1000);
-//        assertTrue(participantProfileViewModel.getFollowRequestSent().getValue());
-//    }
-//
-//    @Test
-//    public void testIsFollowing() throws InterruptedException {
-//        followRepository.add(other, Follower.fromParticipant(user));
-//        Thread.sleep(1000);
-//        assertTrue(participantProfileViewModel.getThisFollowingOther().getValue());
-//    }
-//
-//    @Test
-//    public void testUsername() {
-//        assertEquals("other_name", participantProfileViewModel.getUsername().getValue());
-//    }
+
+    @Test
+    public void testGetThisFollowingOther() {
+        booleanResult.setValue(true);
+        assertTrue(participantProfileViewModel.getThisFollowingOther().getValue());
+
+        booleanResult.setValue(false);
+        assertFalse(participantProfileViewModel.getThisFollowingOther().getValue());
+    }
+
+    @Test
+    public void testGetUsername() {
+        assertEquals(viewingParticipant.getUsername(), participantProfileViewModel.getUsername().getValue());
+    }
+
+    @Test
+    public void testSendFollowRequest() {
+        participantProfileViewModel.sendFollowRequest();
+        verify(followRepository).follow(viewingParticipant);
+    }
 }

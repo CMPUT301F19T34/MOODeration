@@ -17,6 +17,7 @@ public enum SocialSituation {
     ONE_PERSON("One other person"),
     SEVERAL_PEOPLE("Several people"),
     CROWD("Crowd");
+    // TODO use string resources here
 
     public String externalName;
 

@@ -21,12 +21,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@Ignore("These should be refactored into their own test classes")
 public class HomeActivityTest {
     private Solo solo;
     private UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -44,6 +46,7 @@ public class HomeActivityTest {
         Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.register(p)));
     }
 
+    // TODO remove from main activity test
     @Test
     public void testAddMoodEvent() {
         solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
@@ -119,9 +122,6 @@ public class HomeActivityTest {
             solo.clickOnView(solo.getView(R.id.location_switch));
             assertEquals(false, solo.isTextChecked("Attach location"));
         }
-
-
-
 
         // Test turning off switch while permissions are allowed
         if(solo.isTextChecked("Attach Location")) {

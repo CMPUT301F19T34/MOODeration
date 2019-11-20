@@ -215,7 +215,7 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
-            throw new IllegalStateException("User cannot be null when signing in!");
+            throw new IllegalStateException("User cannot be null at this point!");
         }
 
         // start main activity

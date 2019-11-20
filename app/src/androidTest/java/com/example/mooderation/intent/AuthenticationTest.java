@@ -50,15 +50,14 @@ public class AuthenticationTest {
 
     @Test
     public void testLogin() {
-        solo.waitForActivity(LoginActivity.class);
+        assertTrue(solo.waitForActivity(SplashActivity.class, 1000));
+        assertTrue(solo.waitForActivity(LoginActivity.class, 1000));
         login(solo);
 
-        //
         assertTrue(solo.searchText("Logged in as " + getTestUsername()));
         assertNotNull(FirebaseAuth.getInstance().getCurrentUser());
         assertEquals(getTestEmail(), FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
-        // refactor into logout
         logout(solo);
         assertNull(FirebaseAuth.getInstance().getCurrentUser());
     }

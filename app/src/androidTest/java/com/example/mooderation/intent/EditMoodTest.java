@@ -6,33 +6,34 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.mooderation.HomeActivity;
-import com.example.mooderation.Participant;
 import com.example.mooderation.R;
-import com.example.mooderation.backend.ParticipantRepository;
-import com.google.android.gms.tasks.Tasks;
+import com.example.mooderation.SplashActivity;
+import com.example.mooderation.auth.ui.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static com.example.mooderation.intent.AuthUtils.login;
 import static org.junit.Assert.assertTrue;
 
 public class EditMoodTest {
     private Solo solo;
+
     @Rule
-    public ActivityTestRule<HomeActivity> rule = new ActivityTestRule<>(
-            HomeActivity.class, true, true);
+    public ActivityTestRule<SplashActivity> rule = new ActivityTestRule<>(
+            SplashActivity.class, true, true);
 
     @Before
     public void setUp() throws Exception {
+        FirebaseAuth.getInstance().signOut();
+
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-        ParticipantRepository participantRepository = new ParticipantRepository(FirebaseFirestore.getInstance());
-        Participant p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
-        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.register(p)));
+        solo.waitForActivity(LoginActivity.class, 1000);
+        login(solo);
+        solo.waitForActivity(HomeActivity.class, 1000);
     }
 
     @Test

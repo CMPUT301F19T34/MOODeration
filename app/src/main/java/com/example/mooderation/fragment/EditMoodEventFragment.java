@@ -61,12 +61,12 @@ public class EditMoodEventFragment extends Fragment {
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
 
         // find and initialize dateTextView
-        TextView dateTextView = view.findViewById(R.id.date_picker_button);
-        dateTextView.setText(moodEvent.getFormattedTime());
+        TextView dateTextView = view.findViewById(R.id.date_text_view);
+        dateTextView.setText(moodEvent.getFormattedDate());
 
         // find and initialize timeTextView
-        TextView timeTextView = view.findViewById(R.id.time_picker_button);
-        timeTextView.setText(moodEvent.getFormattedDate());
+        TextView timeTextView = view.findViewById(R.id.time_text_view);
+        timeTextView.setText(moodEvent.getFormattedTime());
 
         // find and initialize emotionalStateSpinner
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);

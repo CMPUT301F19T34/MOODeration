@@ -110,11 +110,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 Navigation.findNavController(v).navigate(R.id.editMoodEventFragment, bundle);
             });
             deletebutton.setOnClickListener((View v) -> {
-                //DialogFragment deleteMenu = new DeleteMoodDialog();
-                //Bundle bundle = new Bundle();
-                //bundle.putInt("position", listPosition);
-                //deleteMenu.setArguments(bundle);
-                //deleteMenu.show(getFragmentManager(), "DELETE");
                 MoodHistoryFragment.deleteMood(listPosition);
                 //expandableListTitle.remove(listPosition);
                 //this.notifyDataSetChanged();

@@ -89,8 +89,6 @@ public class MoodHistoryFragment extends Fragment {
         bundle.putInt("position", position);
         deleteMenu.setArguments(bundle);
         deleteMenu.show(fm, "DELETE");
-        //MoodEvent moodEvent = moodEventList.get(position);
-        //model.removeMoodEvent(moodEvent);
     }
 
 }

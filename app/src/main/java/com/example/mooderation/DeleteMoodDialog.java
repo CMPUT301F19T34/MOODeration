@@ -23,7 +23,6 @@ public class DeleteMoodDialog extends DialogFragment {
     private MoodHistoryViewModel moodHistoryViewModel;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //View view = LayoutInflater.from(getActivity()).inflate(R.layout.delete_dialog, null);
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel .class);
         moodEventList = new ArrayList<>();
         LiveData<List<MoodEvent>> moodHistory = moodHistoryViewModel.getMoodHistory();

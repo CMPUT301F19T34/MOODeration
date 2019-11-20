@@ -2,7 +2,7 @@ package com.example.mooderation;
 
 /**
  * Enum of the possible Emotional States for a MoodEvent
- * Used to populate spinners in AddMoodEventFragment
+ * Used to populate spinners in MoodEventFragment
  * See: https://stackoverflow.com/questions/5469629
  */
 public enum EmotionalState {
@@ -15,6 +15,9 @@ public enum EmotionalState {
     HAPPY("Happy"),
     SAD("Sad"),
     MAD("Mad");
+    // TODO use string resources here
+
+    // TODO define mood colors here
 
     public String externalName;
 

@@ -13,11 +13,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavArgument;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.fragment.MoodHistoryFragmentDirections;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 
 import java.util.List;
@@ -170,7 +169,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             listTitleTextView.setText(madEmot + " " + listTitle);
             listTitleTextView.setTextColor(-65536); // Red
         }else{listTitleTextView.setText(listTitle);}
-        
+
         return convertView;
     }
 
@@ -189,4 +188,3 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
 }
-

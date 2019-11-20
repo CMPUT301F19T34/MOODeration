@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-class ParticipantAdapter extends ArrayAdapter<Participant> {
+public class ParticipantAdapter extends ArrayAdapter<Participant> {
     private List<Participant> participantList;
 
     public ParticipantAdapter(@NonNull Context context) {

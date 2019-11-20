@@ -1,9 +1,5 @@
 package com.example.mooderation.auth.ui;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,10 +9,17 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.example.mooderation.HomeActivity;
 import com.example.mooderation.R;
 import com.example.mooderation.auth.base.AuthenticationError;
 import com.example.mooderation.auth.base.AuthenticationResult;
 import com.example.mooderation.auth.base.IAuthenticator;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Activity that prompts the user to log in using an email and password, or create with a username,
@@ -118,8 +121,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-                setResult(RESULT_OK, data);
-                finish();
+                signIn();
             }
         }
     }
@@ -199,10 +201,7 @@ public class LoginActivity extends AppCompatActivity {
         if (loginResult.getFailure() != null) {
             showLoginFailed(loginResult.getFailure());
         } else {
-            Intent intent = new Intent();
-            intent.putExtra(AUTHENTICATION, loginResult.getSuccess());
-            setResult(RESULT_OK, intent);
-            finish();
+            signIn();
         }
     }
 
@@ -211,5 +210,18 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText.setEnabled(enable);
         loginButton.setEnabled(enable);
         signUpButton.setEnabled(enable);
+    }
+
+    private void signIn() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            throw new IllegalStateException("User cannot be null at this point!");
+        }
+
+        // start main activity
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        setResult(RESULT_OK, intent); // TODO -- still necessary?
+        startActivity(intent);
+        finish();
     }
 }

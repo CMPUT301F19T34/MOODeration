@@ -16,7 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
-import com.example.mooderation.fragment.MoodHistoryFragmentDirections;
+import com.example.mooderation.fragment.MoodHistoryFragment;
+//import com.example.mooderation.fragment.MoodHistoryFragmentDirections;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 
 import java.util.List;

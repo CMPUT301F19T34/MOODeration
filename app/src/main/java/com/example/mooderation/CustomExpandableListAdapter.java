@@ -11,10 +11,12 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.fragment.MoodHistoryFragment;
 import com.example.mooderation.fragment.MoodHistoryFragmentDirections;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 
@@ -30,8 +32,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;
     private TreeMap<String, List<String>> expandableListDetail;
-    Button editbutton;
-    Button deletebutton;
+    private Button editbutton;
+    private Button deletebutton;
     private MoodHistoryViewModel moodHistoryViewModel;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
@@ -94,9 +96,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         editbutton = convertView.findViewById(R.id.EditButton);
         deletebutton = convertView.findViewById(R.id.DeleteButton);
 
+        // Set buttons at end of expanded view
         if(isLastChild){
             editbutton.setVisibility(View.VISIBLE);
             deletebutton.setVisibility(View.VISIBLE);
+            // Edit pressed
             editbutton.setOnClickListener((View v) -> {
                 NavDirections action = MoodHistoryFragmentDirections
                         .actionViewMoodHistoryFragmentToEditMoodEventFragment();
@@ -107,12 +111,13 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 action.getArguments();
                 Navigation.findNavController(v).navigate(R.id.editMoodEventFragment, bundle);
             });
+            // Delete pressed
             deletebutton.setOnClickListener((View v) -> {
-                expandableListTitle.remove(listPosition);
-                this.notifyDataSetChanged();
-
+                MoodHistoryFragment.deleteMood(listPosition);
             });
-        }else{
+        }
+        // Not end of expanded list, no buttons needed
+        else{
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);
         }
@@ -140,6 +145,14 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         return listPosition;
     }
 
+    /**
+     * Creates view with list headers and color codes them with emoticons based on mood
+     * @param listPosition
+     * @param isExpanded
+     * @param convertView
+     * @param parent
+     * @return view with expandable list of mood events
+     */
     @Override
     public View getGroupView(int listPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
@@ -167,7 +180,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             listTitleTextView.setText(madEmot + " " + listTitle);
             listTitleTextView.setTextColor(-65536); // Red
         }else{listTitleTextView.setText(listTitle);}
-        
+
         return convertView;
     }
 
@@ -186,4 +199,3 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
 }
-

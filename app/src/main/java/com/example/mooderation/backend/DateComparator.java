@@ -13,7 +13,7 @@ public class DateComparator implements Comparator<String> {
     public int compare(String s1, String s2){
         String[] st1 = s1.split("     ");
         String[] st2 = s2.split("     ");
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss aa");
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aa");
         Date date1 = new Date();
         Date date2 = new Date();
         try {

@@ -55,6 +55,11 @@ public class MoodEvent {
      */
     public MoodEvent() {}
 
+    // TODO this will not work if date or time can be changed
+    public String getId() {
+        return String.valueOf(getDate().getTime());
+    }
+
     public Date getDate() {
         return date;
     }

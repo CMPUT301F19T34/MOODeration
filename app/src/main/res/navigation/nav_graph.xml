@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/moodHistoryFragment"
-        android:name="com.example.mooderation.MoodHistoryFragment"
+        android:name="com.example.mooderation.fragment.MoodHistoryFragment"
         android:label="@string/mood_history_label"
         tools:layout="@layout/mood_history_layout">
         <action
@@ -17,20 +17,32 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_enter_anim"
             app:popExitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_viewMoodHistoryFragment_to_editMoodEventFragment"
+            app:destination="@id/editMoodEventFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim">
+            <argument
+                android:name="Argument"
+                app:argType="integer"
+                android:defaultValue="0"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/addMoodEventFragment"
-        android:name="com.example.mooderation.AddMoodEventFragment"
+        android:name="com.example.mooderation.fragment.MoodEventFragment"
         android:label="@string/add_mood_event_label"
         tools:layout="@layout/add_mood_event_layout" />
     <fragment
         android:id="@+id/followRequestsFragment"
-        android:name="com.example.mooderation.FollowRequestsFragment"
+        android:name="com.example.mooderation.fragment.FollowRequestsFragment"
         android:label="@string/follow_request_label"
         tools:layout="@layout/fragment_follow_requests" />
     <fragment
         android:id="@+id/findParticipantFragment"
-        android:name="com.example.mooderation.FindParticipantFragment"
+        android:name="com.example.mooderation.fragment.FindParticipantFragment"
         android:label="@string/find_participant_label"
         tools:layout="@layout/fragment_find_participant" >
         <action
@@ -39,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/participantProfileFragment"
-        android:name="com.example.mooderation.ParticipantProfileFragment"
+        android:name="com.example.mooderation.fragment.ParticipantProfileFragment"
         android:label="fragment_participant_profile"
         tools:layout="@layout/fragment_participant_profile" >
         <argument
@@ -48,5 +60,15 @@
         <argument
             android:name="username"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/editMoodEventFragment"
+        android:name="com.example.mooderation.fragment.EditMoodEventFragment"
+        android:label="@string/edit_mood_label"
+        tools:layout="@layout/edit_mood_event_layout">
+        <argument
+            android:name="Argument"
+            app:argType="integer"
+            android:defaultValue="0"/>
     </fragment>
 </navigation>

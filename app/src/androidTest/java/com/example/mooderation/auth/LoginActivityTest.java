@@ -16,6 +16,7 @@ import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.auth.ui.SignUpActivity;
 import com.robotium.solo.Solo;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -39,6 +40,11 @@ public class LoginActivityTest {
         intent.putExtra(LoginActivity.AUTHENTICATOR, new MockAuthenticator());
         rule.launchActivity(intent);
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
+    }
+
+    @After
+    public void tearDown() {
+        solo.finishOpenedActivities();
     }
 
     @Test

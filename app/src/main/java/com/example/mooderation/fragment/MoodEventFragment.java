@@ -85,7 +85,8 @@ public class MoodEventFragment extends Fragment {
         moodEventViewModel.getMoodEvent().observe(getViewLifecycleOwner(), moodEvent -> {
             dateTextView.setText(moodEvent.getFormattedDate());
             timeTextView.setText(moodEvent.getFormattedTime());
-            emotionalStateSpinner.setSelection(0); // TODO fix -- set to mood events settings
+            emotionalStateSpinner.setSelection(moodEvent.getEmotionalState().ordinal());
+            socialSituationSpinner.setSelection(moodEvent.getSocialSituation().ordinal());
             socialSituationSpinner.setSelection(0);
             reasonEditText.setText(moodEvent.getReason());
         });

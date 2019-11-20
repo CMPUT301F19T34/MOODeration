@@ -17,18 +17,6 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_enter_anim"
             app:popExitAnim="@anim/nav_default_exit_anim" />
-        <action
-            android:id="@+id/action_viewMoodHistoryFragment_to_editMoodEventFragment"
-            app:destination="@id/editMoodEventFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_enter_anim"
-            app:popExitAnim="@anim/nav_default_exit_anim">
-            <argument
-                android:name="Argument"
-                app:argType="integer"
-                android:defaultValue="0"/>
-        </action>
     </fragment>
     <fragment
         android:id="@+id/addMoodEventFragment"
@@ -60,15 +48,5 @@
         <argument
             android:name="username"
             app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/editMoodEventFragment"
-        android:name="com.example.mooderation.fragment.EditMoodEventFragment"
-        android:label="@string/edit_mood_label"
-        tools:layout="@layout/edit_mood_event_layout">
-        <argument
-            android:name="Argument"
-            app:argType="integer"
-            android:defaultValue="0"/>
     </fragment>
 </navigation>

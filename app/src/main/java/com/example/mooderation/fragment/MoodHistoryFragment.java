@@ -7,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
@@ -64,17 +63,17 @@ public class MoodHistoryFragment extends Fragment {
         });
 
         // Populate expandable list
-        expandableListDetail = ExpandableListDataPump.getData(moodEventList);
-        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-        expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
+//        expandableListDetail = ExpandableListDataPump.getData(getContext() ,moodEventList);
+//        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+//        expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
 
         //When new mood is added refresh expandable list
         moodHistoryViewModel.getMoodHistory().observe(this, moodHistory -> {
             moodEventList.clear();
             moodEventList.addAll(moodHistory);
-            ((BaseExpandableListAdapter)expandableListAdapter).notifyDataSetChanged();
+            //((BaseExpandableListAdapter)expandableListAdapter).notifyDataSetChanged();
             // Populate expandable list with new data
-            expandableListDetail = ExpandableListDataPump.getData(moodEventList);
+            expandableListDetail = ExpandableListDataPump.getData(getContext(), moodEventList);
             expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
             expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
 
@@ -110,7 +109,13 @@ public class MoodHistoryFragment extends Fragment {
                 moodHistoryViewModel.setFilter(EmotionalState.MAD);
                 break;
 
-            // TODO other mood types
+            case R.id.fear_filter:
+                moodHistoryViewModel.setFilter(EmotionalState.FEAR);
+                break;
+
+            case R.id.disgust_filter:
+                moodHistoryViewModel.setFilter(EmotionalState.DISGUST);
+                break;
 
             default:
         }

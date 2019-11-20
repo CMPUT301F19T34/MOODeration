@@ -31,8 +31,6 @@ public class MoodHistoryViewModel extends ViewModel {
         this.moodEventRepository = moodEventRepository;
     }
 
-    // TODO implement filter
-
     public LiveData<List<MoodEvent>> getMoodHistory() {
         if (moodHistory == null) {
             moodHistory = Transformations.switchMap(moodFilter, filter ->

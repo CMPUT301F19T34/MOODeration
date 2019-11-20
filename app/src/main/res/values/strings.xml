@@ -9,8 +9,8 @@
     <string name="mood_happy">&#x1f60a; Happy</string>
     <string name="mood_sad">&#x1f622; Sad</string>
     <string name="mood_mad">&#x1f620; Mad</string>
-    <string name="mood_fear">&#x1f60a; Afraid</string>
-    <string name="mood_disgust">&#x1f60a; Disgusted</string>
+    <string name="mood_fear">&#x1f631; Afraid</string>
+    <string name="mood_disgust">&#x1f922; Disgusted</string>
 
     <string name="social_none">Not specified</string>
     <string name="social_alone">Alone</string>

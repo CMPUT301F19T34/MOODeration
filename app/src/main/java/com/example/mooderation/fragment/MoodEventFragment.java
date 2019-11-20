@@ -206,6 +206,11 @@ public class MoodEventFragment extends Fragment {
         public int getCount() {
             return enumConstants.length;
         }
+
+        @Override
+        public E getItem(int position) {
+            return enumConstants[position];
+        }
     }
 }
 

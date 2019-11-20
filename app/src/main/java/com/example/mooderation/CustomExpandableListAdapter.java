@@ -12,10 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavArgument;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.example.mooderation.fragment.MoodHistoryFragmentDirections;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 
 import java.util.List;

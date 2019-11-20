@@ -7,66 +7,50 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mooderation.Participant;
 import com.example.mooderation.backend.ParticipantRepository;
-import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class FindParticipantViewModel extends ViewModel {
     private ParticipantRepository participantRepository;
-    private MutableLiveData<List<Participant>> allParticipants;
+    private FirebaseUser user;
+
     private LiveData<List<Participant>> searchResults;
-    private ListenerRegistration registration;
-    private Participant currentParticipant;
-    private String filter = "";
+    private MutableLiveData<String> searchQuery = new MutableLiveData<>("");
 
     public FindParticipantViewModel() {
-        participantRepository = new ParticipantRepository();
-        allParticipants = new MutableLiveData<>(new ArrayList<>());
-        searchResults = new MutableLiveData<>(new ArrayList<>());
-
-        searchResults = Transformations.map(allParticipants, (List<Participant> input) -> {
-            List<Participant> results = new ArrayList<>();
-            for (Participant participant : input) {
-                if (participant == currentParticipant) {
-                    continue;
-                }
-                if (participant.getUsername().toLowerCase().startsWith(filter.toLowerCase())) {
-                    results.add(participant);
-                }
-            }
-            return results;
-        });
+        this.participantRepository = new ParticipantRepository();
+        this.user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        if (registration != null) {
-            registration.remove();
-        }
+    // TODO implement real dependency injection
+    public FindParticipantViewModel(ParticipantRepository participantRepository, FirebaseUser user) {
+        this.participantRepository = participantRepository;
+        this.user = user;
     }
 
     public LiveData<List<Participant>> getSearchResults() {
+        if (searchResults == null) {
+            searchResults = Transformations.switchMap(searchQuery, query -> Transformations.map(participantRepository.getParticipants(), participants -> {
+                List<Participant> results = new ArrayList<>();
+                for (Participant participant : participants) {
+                    // don't show current participant in results
+                    if (participant.getUid().equals(user.getUid()))
+                        continue;
+                    // only get participant that match searchQuery that match searchQuery
+                    if (participant.getUsername().toLowerCase().startsWith(query.toLowerCase()))
+                        results.add(participant);
+                }
+                return results;
+            }));
+        }
+
         return searchResults;
     }
 
-    public void setParticipant(Participant participant) {
-        currentParticipant = participant;
-
-        if (registration != null)
-            registration.remove();
-
-        registration = participantRepository.addListener(participants -> {
-            Collections.sort(participants, (l, r) ->
-                    l.getUsername().compareTo(r.getUsername()));
-            allParticipants.setValue(participants);
-        });
-    }
-
-    public void filter(String s) {
-        filter = s;
-        allParticipants.setValue(allParticipants.getValue());
+    public void searchFor(String query) {
+        searchQuery.setValue(query);
     }
 }

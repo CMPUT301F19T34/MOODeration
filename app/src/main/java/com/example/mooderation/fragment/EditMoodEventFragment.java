@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -27,7 +28,6 @@ import java.util.List;
 
 public class EditMoodEventFragment extends Fragment {
     private MoodHistoryViewModel moodHistoryViewModel;
-
 
     private Spinner emotionalStateSpinner;
     private Spinner socialSituationSpinner;
@@ -55,25 +55,36 @@ public class EditMoodEventFragment extends Fragment {
         // Retrieve location of moodEvent from bundle
         Bundle bundle = getArguments();
         listPosition = bundle.getInt("position");
+        final MoodEvent moodEvent = moodEventList.get(listPosition);
 
         // ViewModel for tracking MoodHistory
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
 
+        // find and initialize dateTextView
+        TextView dateTextView = view.findViewById(R.id.date_picker_button);
+        dateTextView.setText(moodEvent.getFormattedTime());
+
+        // find and initialize timeTextView
+        TextView timeTextView = view.findViewById(R.id.time_picker_button);
+        timeTextView.setText(moodEvent.getFormattedDate());
+
         // find and initialize emotionalStateSpinner
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);
         emotionalStateSpinner.setAdapter(createAdapter(EmotionalState.class));
+        emotionalStateSpinner.setSelection(moodEvent.getEmotionalState().ordinal());
 
         // find and initialize socialSituationSpinner
         socialSituationSpinner = view.findViewById(R.id.social_situation_spinner);
         socialSituationSpinner.setAdapter(createAdapter(SocialSituation.class));
+        socialSituationSpinner.setSelection(moodEvent.getSocialSituation().ordinal());
 
-        // find reasonEditText
+        // find and initialize reasonEditText
         reasonEditText = view.findViewById(R.id.reason_edit_text);
+        reasonEditText.setText(moodEventList.get(listPosition).getReason());
 
         // find and initialize editButton
         editButton = view.findViewById(R.id.edit_mood_event_button);
         editButton.setOnClickListener((View v) -> {
-            MoodEvent moodEvent = moodEventList.get(listPosition);
             MoodEvent newMoodEvent = new MoodEvent(
                     moodEvent.getDate(),
                     (EmotionalState) emotionalStateSpinner.getSelectedItem(),

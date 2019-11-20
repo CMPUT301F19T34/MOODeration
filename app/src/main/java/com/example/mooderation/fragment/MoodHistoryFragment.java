@@ -21,31 +21,33 @@ import com.example.mooderation.EmotionalState;
 import com.example.mooderation.ExpandableListDataPump;
 import com.example.mooderation.MoodEvent;
 import com.example.mooderation.R;
+import com.example.mooderation.viewmodel.MoodEventViewModel;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Map;
 
 /**
  * Fragment for viewing the User's own MoodEvents.
  */
 public class MoodHistoryFragment extends Fragment {
     private MoodHistoryViewModel moodHistoryViewModel;
+    private MoodEventViewModel moodEventViewModel;
 
     private ArrayList<MoodEvent> moodEventList = new ArrayList<>();
   
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
     private List<String> expandableListTitle;
-    private TreeMap<String, List<String>> expandableListDetail;
+    private Map<String, List<String>> expandableListDetail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        moodHistoryViewModel = ViewModelProviders.of(this).get(MoodHistoryViewModel.class);
-
+        moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
+        moodEventViewModel = ViewModelProviders.of(getActivity()).get(MoodEventViewModel.class);
         setHasOptionsMenu(true);
     }
 
@@ -57,28 +59,33 @@ public class MoodHistoryFragment extends Fragment {
 
         final FloatingActionButton addMoodEventButton = view.findViewById(R.id.add_mood_event_button);
         addMoodEventButton.setOnClickListener((View v) -> {
-            NavDirections action = MoodHistoryFragmentDirections.
-                    actionViewMoodHistoryFragmentToAddMoodEventFragment();
+            moodEventViewModel.setMoodEvent(new MoodEvent());
+            NavDirections action = MoodHistoryFragmentDirections.actionViewMoodHistoryFragmentToAddMoodEventFragment();
             Navigation.findNavController(v).navigate(action);
         });
 
-        // Populate expandable list
-//        expandableListDetail = ExpandableListDataPump.getData(getContext() ,moodEventList);
-//        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-//        expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
+        expandableListView = view.findViewById(R.id.expandableListView);
 
         //When new mood is added refresh expandable list
         moodHistoryViewModel.getMoodHistory().observe(this, moodHistory -> {
             moodEventList.clear();
             moodEventList.addAll(moodHistory);
-            //((BaseExpandableListAdapter)expandableListAdapter).notifyDataSetChanged();
             // Populate expandable list with new data
             expandableListDetail = ExpandableListDataPump.getData(getContext(), moodEventList);
             expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-            expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail);
+            expandableListAdapter = new CustomExpandableListAdapter(
+                    this.getContext(), expandableListTitle, expandableListDetail,
+                    // on edit button pressed listener
+                    position -> {
+                        moodEventViewModel.setMoodEvent(moodEventList.get(position));
+                        Navigation.findNavController(view).navigate(R.id.addMoodEventFragment);
+                    },
+                    // on delete button pressed listener
+                    position -> {
+                        // TODO
+                    });
 
             // Specify adapter for expandable list
-            expandableListView = view.findViewById(R.id.expandableListView);
             expandableListView.setAdapter(expandableListAdapter);
         });
 
@@ -119,7 +126,6 @@ public class MoodHistoryFragment extends Fragment {
 
             default:
         }
-
         return true;
     }
 }

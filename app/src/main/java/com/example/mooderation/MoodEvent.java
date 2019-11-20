@@ -38,7 +38,12 @@ public class MoodEvent {
     /**
      * An empty constructor to allow this to be serialized by Firebase
      */
-    public MoodEvent() {}
+    public MoodEvent() {
+        this.date = new Date();
+        this.emotionalState = EmotionalState.HAPPY;
+        this.socialSituation = SocialSituation.NONE;
+        this.reason = "";
+    }
 
     // TODO this will not work if date or time can be changed
     public String getId() {
@@ -47,6 +52,10 @@ public class MoodEvent {
 
     public Date getDate() {
         return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getFormattedDate() {
@@ -61,12 +70,24 @@ public class MoodEvent {
         return emotionalState;
     }
 
-    public String getReason() {
-        return reason;
+    public void setEmotionalState(EmotionalState emotionalState) {
+        this.emotionalState = emotionalState;
     }
 
     public SocialSituation getSocialSituation() {
         return socialSituation;
+    }
+
+    public void setSocialSituation(SocialSituation socialSituation) {
+        this.socialSituation = socialSituation;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     @Override

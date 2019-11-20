@@ -3,7 +3,6 @@ package com.example.mooderation.fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,33 +26,29 @@ import com.example.mooderation.MoodEvent;
 import com.example.mooderation.MoodEventConstants;
 import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
-import com.example.mooderation.viewmodel.MoodHistoryViewModel;
+import com.example.mooderation.viewmodel.MoodEventViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
-import java.util.Date;
-
 public class MoodEventFragment extends Fragment {
-    private MoodHistoryViewModel moodHistoryViewModel;
+    private MoodEventViewModel moodEventViewModel;
 
     private TextView dateTextView;
     private TextView timeTextView;
     private Spinner emotionalStateSpinner;
     private Spinner socialSituationSpinner;
     private EditText reasonEditText;
-    private Button saveButton;
     private Switch locationSwitch;
 
-    private Location location;
+    private Button saveButton;
+
     private FusedLocationProviderClient fusedLocationClient;
     private boolean isToggled = false;
-
-    private Date dateTime;
-    //private Object ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        moodEventViewModel = ViewModelProviders.of(getActivity()).get(MoodEventViewModel.class);
     }
 
     @Override
@@ -63,19 +58,9 @@ public class MoodEventFragment extends Fragment {
         View view = inflater.inflate(R.layout.add_mood_event_layout,
                 container, false);
 
-        // ViewModel for tracking MoodHistory
-        moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
-
-        // get a Date with the current date and time
-        dateTime = new Date();
-
-        // find and initialize dateTextView
+        // find and initialize TextViews
         dateTextView = view.findViewById(R.id.date_picker_button);
-        dateTextView.setText(MoodEvent.dateFormat.format(dateTime.getTime()));
-
-        // find and initialize timeTextView
         timeTextView = view.findViewById(R.id.time_picker_button);
-        timeTextView.setText(MoodEvent.timeFormat.format(dateTime.getTime()));
 
         // find and initialize emotionalStateSpinner
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);
@@ -97,6 +82,14 @@ public class MoodEventFragment extends Fragment {
             }
         });
 
+        moodEventViewModel.getMoodEvent().observe(getViewLifecycleOwner(), moodEvent -> {
+            dateTextView.setText(moodEvent.getFormattedDate());
+            timeTextView.setText(moodEvent.getFormattedTime());
+            emotionalStateSpinner.setSelection(0); // TODO fix -- set to mood events settings
+            socialSituationSpinner.setSelection(0);
+            reasonEditText.setText(moodEvent.getReason());
+        });
+
         // find and initialize saveButton
         saveButton = view.findViewById(R.id.save_mood_event_button);
         saveButton.setOnClickListener((View v) -> {
@@ -106,36 +99,27 @@ public class MoodEventFragment extends Fragment {
                 fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
                 fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
                     if(location != null) {
-                        setLocation(location);
+                        // TODO set location field of mood event
                     }
                 });
             }
 
-            MoodEvent moodEvent = new MoodEvent(
-                    dateTime,
-                    (EmotionalState) emotionalStateSpinner.getSelectedItem(),
-                    (SocialSituation) socialSituationSpinner.getSelectedItem(),
-                    reasonEditText.getText().toString());
-            moodHistoryViewModel.addMoodEvent(moodEvent);
+            // TODO better utilize the view model
+            MoodEvent moodEvent = moodEventViewModel.getMoodEvent().getValue();
+            moodEvent.setEmotionalState((EmotionalState) emotionalStateSpinner.getSelectedItem());
+            moodEvent.setSocialSituation((SocialSituation) socialSituationSpinner.getSelectedItem());
+            moodEvent.setReason(reasonEditText.getText().toString());
+            moodEventViewModel.setMoodEvent(moodEvent);
+            moodEventViewModel.saveChanges();
 
             // Close keyboard
-            if (view != null) {
-                InputMethodManager inputManager = (InputMethodManager) this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
+            InputMethodManager inputManager = (InputMethodManager) this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();
         });
 
         return view;
-    }
-
-    /**
-     * Sets the location variable
-     * @param location the current position taken from GPS
-     */
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     /**

@@ -3,7 +3,6 @@ package com.example.mooderation;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +10,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-
-import com.example.mooderation.fragment.MoodHistoryFragmentDirections;
-import com.example.mooderation.viewmodel.MoodHistoryViewModel;
-
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Map;
 
 /**
  *Displays mood history with ability to open drop down lists displaying details
@@ -29,16 +21,24 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> expandableListTitle;
-    private TreeMap<String, List<String>> expandableListDetail;
-    Button editbutton;
-    Button deletebutton;
-    private MoodHistoryViewModel moodHistoryViewModel;
+    private Map<String, List<String>> expandableListDetail;
+
+    public interface ButtonPressListener {
+        public void onButtonPress(int position);
+    }
+
+    private ButtonPressListener editListener;
+    private ButtonPressListener deleteListener;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       TreeMap<String, List<String>> expandableListDetail) {
+                                       Map<String, List<String>> expandableListDetail,
+                                       ButtonPressListener editListener,
+                                       ButtonPressListener deleteListener) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
+        this.editListener = editListener;
+        this.deleteListener = deleteListener;
     }
 
     /**
@@ -83,36 +83,27 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
         final String expandedListText = (String) getChild(listPosition, expandedListPosition);
+
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_item, null);
         }
-        TextView expandedListTextView = (TextView) convertView
-                .findViewById(R.id.expandedListItem);
+
+        TextView expandedListTextView = (TextView) convertView.findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText);
-        editbutton = convertView.findViewById(R.id.EditButton);
-        deletebutton = convertView.findViewById(R.id.DeleteButton);
+
+        Button editbutton = convertView.findViewById(R.id.EditButton);
+        Button deletebutton = convertView.findViewById(R.id.DeleteButton);
 
         if(isLastChild){
             editbutton.setVisibility(View.VISIBLE);
             deletebutton.setVisibility(View.VISIBLE);
-            editbutton.setOnClickListener((View v) -> {
-                NavDirections action = MoodHistoryFragmentDirections
-                        .actionViewMoodHistoryFragmentToEditMoodEventFragment();
-                Fragment editFragment = new Fragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("position", listPosition);
-                editFragment.setArguments(bundle);
-                action.getArguments();
-                Navigation.findNavController(v).navigate(R.id.editMoodEventFragment, bundle);
-            });
-            deletebutton.setOnClickListener((View v) -> {
-                expandableListTitle.remove(listPosition);
-                this.notifyDataSetChanged();
 
-            });
-        }else{
+            editbutton.setOnClickListener((View v) -> editListener.onButtonPress(listPosition));
+            deletebutton.setOnClickListener((View v) -> deleteListener.onButtonPress(listPosition));
+        }
+        else {
             editbutton.setVisibility(View.GONE);
             deletebutton.setVisibility(View.GONE);
         }
@@ -121,8 +112,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int listPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                .size();
+        return expandableListDetail.get(this.expandableListTitle.get(listPosition)).size();
     }
 
     @Override
@@ -153,22 +143,19 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView listTitleTextView = (TextView) convertView.findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
+        listTitleTextView.setText(listTitle);
 
         // Set colors and emoticons based on mood
-        if(listTitle.substring(0,5).equals("Happy")){
-            String happyEmot = new String(Character.toChars(0x1F60A)); // Happy emoticon
-            listTitleTextView.setText(happyEmot + " " + listTitle);
+        if(listTitle.contains("Happy")) {
             listTitleTextView.setTextColor(-16729344); // Green
-        }else if(listTitle.substring(0,3).equals("Sad")){
-            String sadEmot = new String(Character.toChars(0x1F622)); // Sad emoticon
-            listTitleTextView.setText(sadEmot + " " + listTitle);
+        }
+        else if (listTitle.contains("Sad")) {
             listTitleTextView.setTextColor(-16776961); // Blue
-        }else if(listTitle.substring(0,3).equals("Mad")){
-            String madEmot = new String(Character.toChars(0x1F620)); // Mad emoticon
-            listTitleTextView.setText(madEmot + " " + listTitle);
+        }
+        else if(listTitle.contains("Mad")) {
             listTitleTextView.setTextColor(-65536); // Red
-        }else{listTitleTextView.setText(listTitle);}
-        
+        }
+
         return convertView;
     }
 
@@ -181,10 +168,10 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
     }
+
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
         super.registerDataSetObserver(observer);
     }
-
 }
 

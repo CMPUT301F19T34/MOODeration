@@ -1,6 +1,9 @@
 com.example.mooderation
+com.example.mooderation.auth
 com.example.mooderation.auth.base
 com.example.mooderation.auth.firebase
 com.example.mooderation.auth.ui
 com.example.mooderation.backend
+com.example.mooderation.fragment
+com.example.mooderation.intent
 com.example.mooderation.viewmodel

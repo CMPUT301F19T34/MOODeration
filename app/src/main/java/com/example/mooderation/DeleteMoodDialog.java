@@ -33,7 +33,7 @@ public class DeleteMoodDialog extends DialogFragment {
         final int listPosition = bundle.getInt("position");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Confirm Delete");
+        builder.setTitle("Delete mood?");
         builder.setNegativeButton("Cancel", null);
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override

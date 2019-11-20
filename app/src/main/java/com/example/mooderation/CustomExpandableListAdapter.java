@@ -32,8 +32,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;
     private TreeMap<String, List<String>> expandableListDetail;
-    Button editbutton;
-    Button deletebutton;
+    private Button editbutton;
+    private Button deletebutton;
     private MoodHistoryViewModel moodHistoryViewModel;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,

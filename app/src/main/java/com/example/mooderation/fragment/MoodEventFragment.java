@@ -87,7 +87,6 @@ public class MoodEventFragment extends Fragment {
             timeTextView.setText(moodEvent.getFormattedTime());
             emotionalStateSpinner.setSelection(moodEvent.getEmotionalState().ordinal());
             socialSituationSpinner.setSelection(moodEvent.getSocialSituation().ordinal());
-            socialSituationSpinner.setSelection(0);
             reasonEditText.setText(moodEvent.getReason());
         });
 

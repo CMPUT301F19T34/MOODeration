@@ -63,7 +63,7 @@ public class EditMoodTest {
         // Change mood to sad and commit change
         solo.clickOnView(solo.getView((R.id.emotional_state_spinner)));
         solo.clickInList(2);
-        solo.clickOnView(solo.getView(R.id.edit_mood_event_button));
+        solo.clickOnView(solo.getView(R.id.save_mood_event_button));
         // Confirm mood changed to Sad
         assertTrue((solo.waitForText("Sad")));
     }
@@ -83,7 +83,7 @@ public class EditMoodTest {
         // Change social situation to One other person and commit change
         solo.clickOnView(solo.getView((R.id.social_situation_spinner)));
         solo.clickInList(3);
-        solo.clickOnView(solo.getView(R.id.edit_mood_event_button));
+        solo.clickOnView(solo.getView(R.id.save_mood_event_button));
         // Expand list for details and verify social situation changed
         solo.clickInList(0);
         assertTrue((solo.waitForText("One other person")));
@@ -105,7 +105,7 @@ public class EditMoodTest {
         // Change reason to Reason test and commit change
         solo.clickOnView(solo.getView((R.id.reason_edit_text)));
         solo.typeText(0,"Reason test");
-        solo.clickOnView(solo.getView(R.id.edit_mood_event_button));
+        solo.clickOnView(solo.getView(R.id.save_mood_event_button));
         // Expand list for details and verify reason changed
         solo.clickInList(0);
         assertTrue(solo.waitForText("Reason test"));

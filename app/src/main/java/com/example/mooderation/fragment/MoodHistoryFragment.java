@@ -84,6 +84,8 @@ public class MoodHistoryFragment extends Fragment {
 
         return view;
     }
+
+    // Create dialog when delete is selected to confirm users intention
     public static void deleteMood(int position){
         DialogFragment deleteMenu = new DeleteMoodDialog();
         Bundle bundle = new Bundle();
@@ -91,5 +93,4 @@ public class MoodHistoryFragment extends Fragment {
         deleteMenu.setArguments(bundle);
         deleteMenu.show(fm, "DELETE");
     }
-
 }

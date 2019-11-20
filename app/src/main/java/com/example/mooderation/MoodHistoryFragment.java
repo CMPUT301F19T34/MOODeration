@@ -8,7 +8,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -36,12 +38,14 @@ public class MoodHistoryFragment extends Fragment {
     private ExpandableListAdapter expandableListAdapter;
     private List<String> expandableListTitle;
     private TreeMap<String, List<String>> expandableListDetail;
+    private static FragmentManager fm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         moodEventList = new ArrayList<>();
         model = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
+        fm = getFragmentManager();
     }
 
     @Override
@@ -79,4 +83,14 @@ public class MoodHistoryFragment extends Fragment {
 
         return view;
     }
+    public static void deleteMood(int position){
+        DialogFragment deleteMenu = new DeleteMoodDialog();
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        deleteMenu.setArguments(bundle);
+        deleteMenu.show(fm, "DELETE");
+        //MoodEvent moodEvent = moodEventList.get(position);
+        //model.removeMoodEvent(moodEvent);
+    }
+
 }

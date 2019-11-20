@@ -11,7 +11,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavArgument;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -108,8 +110,14 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 Navigation.findNavController(v).navigate(R.id.editMoodEventFragment, bundle);
             });
             deletebutton.setOnClickListener((View v) -> {
-                expandableListTitle.remove(listPosition);
-                this.notifyDataSetChanged();
+                //DialogFragment deleteMenu = new DeleteMoodDialog();
+                //Bundle bundle = new Bundle();
+                //bundle.putInt("position", listPosition);
+                //deleteMenu.setArguments(bundle);
+                //deleteMenu.show(getFragmentManager(), "DELETE");
+                MoodHistoryFragment.deleteMood(listPosition);
+                //expandableListTitle.remove(listPosition);
+                //this.notifyDataSetChanged();
 
             });
         }else{

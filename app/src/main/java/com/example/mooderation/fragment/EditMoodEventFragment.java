@@ -1,15 +1,18 @@
 package com.example.mooderation.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -20,6 +23,7 @@ import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EditMoodEventFragment extends Fragment {
     private MoodHistoryViewModel moodHistoryViewModel;
@@ -37,6 +41,9 @@ public class EditMoodEventFragment extends Fragment {
         super.onCreate(savedInstanceState);
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
         moodEventList = new ArrayList<>();
+        LiveData<List<MoodEvent>> moodHistory = moodHistoryViewModel.getMoodHistory();
+            moodEventList.clear();
+            moodEventList.addAll(moodHistory.getValue());
     }
 
     @Override
@@ -76,16 +83,14 @@ public class EditMoodEventFragment extends Fragment {
             moodHistoryViewModel.removeMoodEvent(moodEvent);
             moodHistoryViewModel.addMoodEvent(newMoodEvent);
 
+            // Close keyboard
+            if (view != null) {
+                InputMethodManager inputManager = (InputMethodManager) this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();
         });
-
-        moodHistoryViewModel.getMoodHistory().observe(getViewLifecycleOwner(), moodEvents -> {
-            // TODO this is redundant
-            moodEventList.clear();
-            moodEventList.addAll(moodEvents);
-        });
-
         return view;
     }
 

@@ -1,12 +1,14 @@
 package com.example.mooderation.fragment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -117,6 +119,11 @@ public class MoodEventFragment extends Fragment {
                     reasonEditText.getText().toString());
             moodHistoryViewModel.addMoodEvent(moodEvent);
 
+            // Close keyboard
+            if (view != null) {
+                InputMethodManager inputManager = (InputMethodManager) this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();
         });

@@ -3,7 +3,7 @@ package com.example.mooderation.viewmodel;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.example.mooderation.MoodEvent;
-import com.example.mooderation.backend.MoodRepository;
+import com.example.mooderation.backend.MoodEventRepository;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 @RunWith(JUnit4.class)
 public class MoodHistoryViewModelTest {
     @Mock
-    MoodRepository moodRepository;
+    MoodEventRepository moodEventRepository;
     @Mock
     MoodEvent moodEvent;
 
@@ -33,18 +33,18 @@ public class MoodHistoryViewModelTest {
     @Before
     public void setUp() throws ExecutionException, InterruptedException {
         MockitoAnnotations.initMocks(this);
-        moodHistoryViewModel = new MoodHistoryViewModel(moodRepository);
+        moodHistoryViewModel = new MoodHistoryViewModel(moodEventRepository);
     }
 
     @Test
     public void testAddMoodEvent() {
         moodHistoryViewModel.addMoodEvent(moodEvent);
-        verify(moodRepository).add(moodEvent);
+        verify(moodEventRepository).add(moodEvent);
     }
 
     @Test
     public void testDeleteMoodEvent() {
         moodHistoryViewModel.removeMoodEvent(moodEvent);
-        verify(moodRepository).remove(moodEvent);
+        verify(moodEventRepository).remove(moodEvent);
     }
 }

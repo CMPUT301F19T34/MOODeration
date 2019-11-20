@@ -2,31 +2,22 @@ package com.example.mooderation;
 
 /**
  * Enum of the possible Social Situations for a MoodEvent
- * Used to populate spinners in MoodEventFragment
- * See: https://stackoverflow.com/questions/5469629
  */
-public enum SocialSituation {
-    /**
-     * TODO
-     * Should be updated to used Android string resources in the future
-     * There is probably a better way to implement this and it should be looked
-     * at again in the future.
-     */
-    NONE("Not Specified"),
-    ALONE("Alone"),
-    ONE_PERSON("One other person"),
-    SEVERAL_PEOPLE("Several people"),
-    CROWD("Crowd");
-    // TODO use string resources here
+public enum SocialSituation implements MoodEventConstants {
+    NONE(R.string.social_none),
+    ALONE(R.string.social_alone),
+    ONE_PERSON(R.string.social_one_person),
+    SEVERAL_PEOPLE(R.string.social_several_people),
+    CROWD(R.string.social_crowd);
 
-    public String externalName;
+    private int stringResource;
 
-    SocialSituation(String externalName) {
-        this.externalName = externalName;
+    SocialSituation(int stringResource) {
+        this.stringResource = stringResource;
     }
 
     @Override
-    public String toString() {
-        return externalName;
+    public int getStringResource() {
+        return stringResource;
     }
 }

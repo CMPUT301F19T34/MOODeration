@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -23,6 +24,7 @@ import androidx.navigation.Navigation;
 import com.example.mooderation.EmotionalState;
 import com.example.mooderation.LocationDeniedDialog;
 import com.example.mooderation.MoodEvent;
+import com.example.mooderation.MoodEventConstants;
 import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodHistoryViewModel;
@@ -47,6 +49,7 @@ public class MoodEventFragment extends Fragment {
     private boolean isToggled = false;
 
     private Date dateTime;
+    //private Object ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,15 +79,14 @@ public class MoodEventFragment extends Fragment {
 
         // find and initialize emotionalStateSpinner
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);
-        emotionalStateSpinner.setAdapter(createAdapter(EmotionalState.class));
+        emotionalStateSpinner.setAdapter(new MoodConstantAdapter<>(getContext(), EmotionalState.class.getEnumConstants()));
 
         // find and initialize socialSituationSpinner
         socialSituationSpinner = view.findViewById(R.id.social_situation_spinner);
-        socialSituationSpinner.setAdapter(createAdapter(SocialSituation.class));
+        socialSituationSpinner.setAdapter(new MoodConstantAdapter<>(getContext(), SocialSituation.class.getEnumConstants()));
 
         // find reasonEditText
         reasonEditText = view.findViewById(R.id.reason_edit_text);
-
 
         // find and initialize locationSwitch
         locationSwitch = view.findViewById(R.id.location_switch);
@@ -94,8 +96,6 @@ public class MoodEventFragment extends Fragment {
                     1);
             }
         });
-
-
 
         // find and initialize saveButton
         saveButton = view.findViewById(R.id.save_mood_event_button);
@@ -110,7 +110,6 @@ public class MoodEventFragment extends Fragment {
                     }
                 });
             }
-
 
             MoodEvent moodEvent = new MoodEvent(
                     dateTime,
@@ -129,23 +128,6 @@ public class MoodEventFragment extends Fragment {
         });
 
         return view;
-    }
-
-    /**
-     * Create a spinner adapter from an enum type
-     * Probably should be done a different way in the future
-     * @param enumType Class of the enum to create an Adapter for
-     * @param <E> The type of the Enum passed to createAdapter
-     * @return A spinner adapter populated using Enum values
-     */
-    private <E extends Enum<E>> ArrayAdapter<E> createAdapter(Class<E> enumType) {
-        // see StackOverFlow https://stackoverflow.com/questions/5469629
-        ArrayAdapter<E> adapter = new ArrayAdapter<>(
-                getActivity(),
-                android.R.layout.simple_spinner_item,
-                enumType.getEnumConstants());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        return adapter;
     }
 
     /**
@@ -183,6 +165,47 @@ public class MoodEventFragment extends Fragment {
     public void openDialog() {
         LocationDeniedDialog locationDeniedDialog = new LocationDeniedDialog();
         locationDeniedDialog.show(getFragmentManager(), "Location Denied");
+    }
+
+    /**
+     * Array adapter used to populate the spinners in MoodEventFragment
+     * @param <E>
+     *      Enum extending MoodEventConstants
+     */
+    private class MoodConstantAdapter<E extends MoodEventConstants> extends ArrayAdapter {
+        private LayoutInflater inflater = getLayoutInflater();
+        private E[] enumConstants;
+
+        MoodConstantAdapter(@NonNull Context context, E[] enumConstants) {
+            super(context, android.R.layout.simple_spinner_item);
+            this.enumConstants = enumConstants;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+            return createView(position, convertView, parent);
+        }
+
+        @NonNull
+        @Override
+        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
+            return createView(position, convertView, parent);
+        }
+
+        private View createView(int position, View convertView, @NonNull ViewGroup parent) {
+            if(convertView == null){
+                convertView = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+            }
+            TextView textView = convertView.findViewById(android.R.id.text1);
+            textView.setText(getString(enumConstants[position].getStringResource()));
+            return convertView;
+        }
+
+        @Override
+        public int getCount() {
+            return enumConstants.length;
+        }
     }
 }
 

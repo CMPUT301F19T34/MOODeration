@@ -2,31 +2,24 @@ package com.example.mooderation;
 
 /**
  * Enum of the possible Emotional States for a MoodEvent
- * Used to populate spinners in MoodEventFragment
- * See: https://stackoverflow.com/questions/5469629
  */
-public enum EmotionalState {
-    /**
-     * TODO
-     * Should be updated to used Android string resources in the future
-     * There is probably a better way to implement this and it should be looked
-     * at again in the future.
-     */
-    HAPPY("Happy"),
-    SAD("Sad"),
-    MAD("Mad");
-    // TODO use string resources here
+public enum EmotionalState implements MoodEventConstants {
+    HAPPY(R.string.mood_happy),
+    SAD(R.string.mood_sad),
+    MAD(R.string.mood_mad),
+    FEAR(R.string.mood_fear),
+    DISGUST(R.string.mood_disgust);
 
-    // TODO define mood colors here
+    // TODO define mood colors here?
 
-    public String externalName;
+    private int stringResource;
 
-    EmotionalState(String externalName) {
-        this.externalName = externalName;
+    EmotionalState(int stringResource) {
+        this.stringResource = stringResource;
     }
 
     @Override
-    public String toString() {
-        return externalName;
+    public int getStringResource() {
+        return stringResource;
     }
 }

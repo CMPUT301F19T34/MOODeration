@@ -15,19 +15,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MoodRepository {
+public class MoodEventRepository {
     private final FirebaseFirestore firestore;
     private final FirebaseUser user;
 
     private MutableLiveData<List<MoodEvent>> moodHistory;
 
-    public MoodRepository() {
+    public MoodEventRepository() {
         this.firestore = FirebaseFirestore.getInstance();
         this.user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     // TODO implement real dependency injection
-    public MoodRepository(FirebaseUser user, FirebaseFirestore firestore) {
+    public MoodEventRepository(FirebaseUser user, FirebaseFirestore firestore) {
         this.firestore = firestore;
         this.user = user;
     }

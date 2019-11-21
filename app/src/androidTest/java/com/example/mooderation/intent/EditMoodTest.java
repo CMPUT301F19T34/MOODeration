@@ -14,7 +14,6 @@ import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
 import com.example.mooderation.SplashActivity;
 import com.example.mooderation.auth.ui.LoginActivity;
-import com.example.mooderation.backend.MoodRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.robotium.solo.Solo;
 
@@ -22,14 +21,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static com.example.mooderation.intent.AuthUtils.login;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EditMoodTest {
     private Solo solo;
@@ -68,7 +63,7 @@ public class EditMoodTest {
         // Change mood to sad and commit change
         solo.clickOnView(solo.getView((R.id.emotional_state_spinner)));
         solo.clickInList(2);
-        solo.clickOnView(solo.getView(R.id.edit_mood_event_button));
+        solo.clickOnView(solo.getView(R.id.save_mood_event_button));
         // Confirm mood changed to Sad
         assertTrue((solo.waitForText("Sad")));
     }
@@ -88,7 +83,7 @@ public class EditMoodTest {
         // Change social situation to One other person and commit change
         solo.clickOnView(solo.getView((R.id.social_situation_spinner)));
         solo.clickInList(3);
-        solo.clickOnView(solo.getView(R.id.edit_mood_event_button));
+        solo.clickOnView(solo.getView(R.id.save_mood_event_button));
         // Expand list for details and verify social situation changed
         solo.clickInList(0);
         assertTrue((solo.waitForText("One other person")));
@@ -110,7 +105,7 @@ public class EditMoodTest {
         // Change reason to Reason test and commit change
         solo.clickOnView(solo.getView((R.id.reason_edit_text)));
         solo.typeText(0,"Reason test");
-        solo.clickOnView(solo.getView(R.id.edit_mood_event_button));
+        solo.clickOnView(solo.getView(R.id.save_mood_event_button));
         // Expand list for details and verify reason changed
         solo.clickInList(0);
         assertTrue(solo.waitForText("Reason test"));
@@ -118,8 +113,8 @@ public class EditMoodTest {
 
     @Test
     public void testInitialValues() {
-        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-        Activity activity = rule.getActivity();
+        //solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
+        //Activity activity = rule.getActivity();
 
         // Add mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
@@ -141,8 +136,8 @@ public class EditMoodTest {
         Spinner emotionalStateSpinner = (Spinner) solo.getView(R.id.emotional_state_spinner);
         Spinner socialSituationSpinner = (Spinner) solo.getView(R.id.social_situation_spinner);
         EditText reasonText = (EditText) solo.getView(R.id.reason_edit_text);
-        TextView dateText = (TextView) solo.getView(R.id.date_text_view);
-        TextView timeText = (TextView) solo.getView(R.id.time_text_view);
+        TextView dateText = (TextView) solo.getView(R.id.date_picker_button);
+        TextView timeText = (TextView) solo.getView(R.id.time_picker_button);
 
         assertEquals(emotionalStateSpinner.getSelectedItem(), EmotionalState.SAD);
         assertEquals(socialSituationSpinner.getSelectedItem(), SocialSituation.ALONE);

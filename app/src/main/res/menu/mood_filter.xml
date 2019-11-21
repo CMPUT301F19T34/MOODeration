@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/no_filter"
+        android:title="@string/mood_no_filter"/>
+
+    <item
+        android:id="@+id/happy_filter"
+        android:title="@string/mood_happy"/>
+
+    <item
+        android:id="@+id/sad_filter"
+        android:title="@string/mood_sad"/>
+
+    <item
+        android:id="@+id/mad_filter"
+        android:title="@string/mood_mad"/>
+
+    <item
+        android:id="@+id/fear_filter"
+        android:title="@string/mood_fear"/>
+
+    <item
+        android:id="@+id/disgust_filter"
+        android:title="@string/mood_disgust"/>
+
+    <!-- TODO add additional moods here -->
+</menu>

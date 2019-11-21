@@ -6,15 +6,19 @@
     <string name="follow_request_label">My Follow Requests</string>
     <string name="find_participant_label">Find a Person</string>
 
-    <string name="mood_happy">Happy</string>
-    <string name="mood_sad">Sad</string>
-    <string name="mood_mad">Mad</string>
+    <string name="mood_happy">&#x1f60a; Happy</string>
+    <string name="mood_sad">&#x1f622; Sad</string>
+    <string name="mood_mad">&#x1f620; Mad</string>
+    <string name="mood_fear">&#x1f631; Afraid</string>
+    <string name="mood_disgust">&#x1f922; Disgusted</string>
 
     <string name="social_none">Not specified</string>
     <string name="social_alone">Alone</string>
     <string name="social_one_person">One other person</string>
     <string name="social_several_people">Two to several people</string>
     <string name="social_crowd">Crowd</string>
+
+    <string name="mood_no_filter">All mood events</string>
 
     <string name="reason_hint">Reason</string>
     <string name="save_mood_event_text">Confirm</string>

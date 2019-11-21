@@ -113,8 +113,8 @@ public class EditMoodTest {
 
     @Test
     public void testInitialValues() {
-        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-        Activity activity = rule.getActivity();
+        //solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
+        //Activity activity = rule.getActivity();
 
         // Add mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
@@ -136,8 +136,8 @@ public class EditMoodTest {
         Spinner emotionalStateSpinner = (Spinner) solo.getView(R.id.emotional_state_spinner);
         Spinner socialSituationSpinner = (Spinner) solo.getView(R.id.social_situation_spinner);
         EditText reasonText = (EditText) solo.getView(R.id.reason_edit_text);
-        TextView dateText = (TextView) solo.getView(R.id.date_text_view);
-        TextView timeText = (TextView) solo.getView(R.id.time_text_view);
+        TextView dateText = (TextView) solo.getView(R.id.date_picker_button);
+        TextView timeText = (TextView) solo.getView(R.id.time_picker_button);
 
         assertEquals(emotionalStateSpinner.getSelectedItem(), EmotionalState.SAD);
         assertEquals(socialSituationSpinner.getSelectedItem(), SocialSituation.ALONE);

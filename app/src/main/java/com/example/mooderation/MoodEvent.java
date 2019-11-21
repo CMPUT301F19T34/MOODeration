@@ -41,13 +41,24 @@ public class MoodEvent {
         this.location = location;
     }
 
-    public MoodEvent(String moodEventId, Date date, EmotionalState emotionalState,
-                     SocialSituation socialSituation, String reason, Location location) {
+    /**
+     * MoodEvent Constructor
+     * @param date
+     *      A Date with the date and time of the MoodEvent.
+     * @param emotionalState
+     *      The emotional state for this MoodEvent
+     * @param socialSituation
+     *      The social situation for this MoodEvent
+     * @param reason
+     *      The reason for this MoodEvent
+     */
+    public MoodEvent(Date date, EmotionalState emotionalState,
+                     SocialSituation socialSituation, String reason) {
         this.date = date;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
         this.reason = reason;
-        this.location = location;
+        this.location = null;
     }
 
     /**
@@ -123,7 +134,7 @@ public class MoodEvent {
             return false;
         if (!moodEvent.reason.equals(reason))
             return false;
-        if (!moodEvent.location.equals(location))
+        if (location != null && !moodEvent.location.equals(location))
             return false;
         return true;
     }

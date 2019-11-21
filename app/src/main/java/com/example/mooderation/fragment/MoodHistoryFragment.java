@@ -11,12 +11,15 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.example.mooderation.CustomExpandableListAdapter;
+import com.example.mooderation.DeleteMoodDialog;
 import com.example.mooderation.EmotionalState;
 import com.example.mooderation.ExpandableListDataPump;
 import com.example.mooderation.MoodEvent;
@@ -42,6 +45,7 @@ public class MoodHistoryFragment extends Fragment {
     private ExpandableListAdapter expandableListAdapter;
     private List<String> expandableListTitle;
     private Map<String, List<String>> expandableListDetail;
+    private static FragmentManager fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,8 @@ public class MoodHistoryFragment extends Fragment {
         moodHistoryViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryViewModel.class);
         moodEventViewModel = ViewModelProviders.of(getActivity()).get(MoodEventViewModel.class);
         setHasOptionsMenu(true);
+        moodEventList = new ArrayList<>();
+        fragmentManager = getFragmentManager();
     }
 
     @Override
@@ -82,7 +88,11 @@ public class MoodHistoryFragment extends Fragment {
                     },
                     // on delete button pressed listener
                     position -> {
-                        // TODO
+                        DialogFragment deleteMenu = new DeleteMoodDialog();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("position", position);
+                        deleteMenu.setArguments(bundle);
+                        deleteMenu.show(fragmentManager, "DELETE");
                     });
 
             // Specify adapter for expandable list
@@ -91,6 +101,15 @@ public class MoodHistoryFragment extends Fragment {
 
         return view;
     }
+
+    // Create dialog when delete is selected to confirm users intention
+//    public static void deleteMood(int position){
+//        DialogFragment deleteMenu = new DeleteMoodDialog();
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("position", position);
+//        deleteMenu.setArguments(bundle);
+//        deleteMenu.show(fragmentManager, "DELETE");
+//    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the followers of each participant.
+ * Database abstraction for accessing a participants followers and follow requests.
  */
 public class FollowRepository {
     private final FirebaseFirestore firestore;

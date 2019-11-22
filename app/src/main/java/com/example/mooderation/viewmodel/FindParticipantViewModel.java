@@ -55,18 +55,19 @@ public class FindParticipantViewModel extends ViewModel {
              * changes. Each update of searchQuery will call Transformation.map again.
              * Transformation.map tracks the participants LiveData and applies the filter function.
              */
-            searchResults = Transformations.switchMap(searchQuery, query -> Transformations.map(participantRepository.getParticipants(), participants -> {
-                List<Participant> results = new ArrayList<>();
-                for (Participant participant : participants) {
-                    // don't show current participant in results
-                    if (participant.getUid().equals(user.getUid()))
-                        continue;
-                    // only get participant that match searchQuery that match searchQuery
-                    if (participant.getUsername().toLowerCase().startsWith(query.toLowerCase()))
-                        results.add(participant);
-                }
-                return results;
-            }));
+            searchResults = Transformations.switchMap(searchQuery, query ->
+                Transformations.map(participantRepository.getParticipants(), participants -> {
+                    List<Participant> results = new ArrayList<>();
+                    for (Participant participant : participants) {
+                        // don't show current participant in results
+                        if (participant.getUid().equals(user.getUid()))
+                            continue;
+                        // only get participant that match searchQuery that match searchQuery
+                        if (participant.getUsername().toLowerCase().startsWith(query.toLowerCase()))
+                            results.add(participant);
+                    }
+                    return results;
+                }));
         }
 
         return searchResults;

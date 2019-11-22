@@ -26,17 +26,35 @@ public class FollowRepository {
     private MutableLiveData<List<Participant>> followers;
     private MutableLiveData<List<FollowRequest>> requests;
 
+    /**
+     * Default constructor for the FollowRepository.
+     * Generates dependencies internally.
+     */
     public FollowRepository() {
         this.firestore = FirebaseFirestore.getInstance();
         this.user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    // TODO implement real dependency injection
+    /**
+     * Constructor for FollowRepository used for testing.
+     * Dependencies are passed to constructor.
+     * @param user
+     *      A FirebaseUser that the repository will track.
+     * @param firestore
+     *      A instance of FirebaseFirestore.
+     */
     public FollowRepository(FirebaseUser user, FirebaseFirestore firestore) {
         this.user = user;
         this.firestore = firestore;
     }
 
+    /**
+     * Sends a follow request to another participant.
+     * @param participant
+     *      The participant to follow.
+     * @return
+     *      Database operation Task.
+     */
     public Task<Void> follow(Participant participant) {
         return firestore.collection("users").document(user.getUid()).get().continueWithTask(task -> {
             String username = (String) task.getResult().get("username");
@@ -45,17 +63,37 @@ public class FollowRepository {
         });
     }
 
+    /**
+     * Accepts a follow request from another user.
+     * @param request
+     *      The follow request to accept.
+     * @return
+     *      Database operation Task.
+     */
     public Task<Void> accept(FollowRequest request) {
         Participant follower = new Participant(request.getUid(), request.getUsername());
         return followRequestOf(user.getUid()).document(follower.getUid()).delete().continueWithTask(
                 task -> followersOf(user.getUid()).document(follower.getUid()).set(follower));
     }
 
+    /**
+     * Denies a follow request from another user.
+     * @param request
+     *      The follow request to deny.
+     * @return
+     *      Database operation Task.
+     */
     public Task<Void> deny(FollowRequest request) {
         return followRequestOf(user.getUid()).document(request.getUid()).delete();
     }
 
-
+    /**
+     * Check if the current user is following another participant.
+     * @param other
+     *      The other participant.
+     * @return
+     *      LiveData tracking the boolean condition.
+     */
     public LiveData<Boolean> isFollowing(Participant other) {
         MutableLiveData<Boolean> following = new MutableLiveData<>(false);
 
@@ -71,6 +109,13 @@ public class FollowRepository {
         return following;
     }
 
+    /**
+     * Check if the current user has already sent a follow request to another participant.
+     * @param other
+     *      The other participant.
+     * @return
+     *      LiveData tracking the boolean condition.
+     */
     public LiveData<Boolean> isRequestSent(Participant other) {
         MutableLiveData<Boolean> sent = new MutableLiveData<>(false);
 
@@ -86,6 +131,11 @@ public class FollowRepository {
         return sent;
     }
 
+    /**
+     * Get a list of the current user's follow request.
+     * @return
+     *      LiveData tracking the user's follow requests.
+     */
     public LiveData<List<FollowRequest>> getFollowRequests() {
         if (requests == null) {
             requests = new MutableLiveData<>();
@@ -107,6 +157,11 @@ public class FollowRepository {
         return requests;
     }
 
+    /**
+     * Get the current user's current followers.
+     * @return
+     *      LiveData tracking the user's follower list.
+     */
     public LiveData<List<Participant>> getFollowers() {
         if (followers == null) {
             followers = new MutableLiveData<>();
@@ -128,13 +183,26 @@ public class FollowRepository {
         return followers;
     }
 
+    /**
+     * Get a reference to a user's followers.
+     * @param userId
+     *      The user's ID.
+     * @return
+     *      A reference to the firestore collection for followers.
+     */
     private CollectionReference followersOf(String userId) {
         return firestore.collection("users")
                 .document(userId)
                 .collection("followers");
     }
 
-    // for sending follower requests
+    /**
+     * Get a reference to as user's follow requests.
+     * @param userId
+     *      The user's ID.
+     * @return
+     *      A reference to the firestore collection for follow requests.
+     */
     private CollectionReference followRequestOf(String userId) {
         return firestore.collection("users")
                 .document(userId)

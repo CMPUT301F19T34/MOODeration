@@ -20,14 +20,22 @@ import java.util.List;
  */
 public class ParticipantRepository {
     private final FirebaseFirestore firestore;
-
     private MutableLiveData<List<Participant>> participants;
 
+    /**
+     * Default Constructor.
+     * Generates dependencies internally.
+     */
     public ParticipantRepository() {
         this.firestore = FirebaseFirestore.getInstance();
     }
 
-    // TODO implement real dependency injection
+    /**
+     * Constructor used for testing.
+     * Supports dependency injection.
+     * @param firestore
+     *      An instance of the firestore access object.
+     */
     public ParticipantRepository(FirebaseFirestore firestore) {
         this.firestore = firestore;
     }
@@ -37,6 +45,12 @@ public class ParticipantRepository {
         return firestore.collection("users").document(participant.getUid()).set(participant);
     }
 
+    /**
+     * Get a list of the all participants.
+     * Sorted alphabetically by username.
+     * @return
+     *      LiveData tracking all participants sign up with MOODeration.
+     */
     public LiveData<List<Participant>> getParticipants() {
         if (participants == null) {
             participants = new MutableLiveData<>();
@@ -83,6 +97,11 @@ public class ParticipantRepository {
         return Tasks.whenAll(tasks);
     }
 
+    /**
+     * Get a reference to the users collection.
+     * @return
+     *      A reference to the users collection.
+     */
     private CollectionReference participantsPath() {
         return firestore.collection("users");
     }

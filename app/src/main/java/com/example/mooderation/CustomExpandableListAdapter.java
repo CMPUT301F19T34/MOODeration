@@ -156,13 +156,19 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         // Set colors and emoticons based on mood
         if(listTitle.contains("Happy")) {
-            listTitleTextView.setTextColor(-16729344); // Green
+            listTitleTextView.setTextColor(context.getResources().getColor(R.color.happy)); // Green
         }
         else if (listTitle.contains("Sad")) {
-            listTitleTextView.setTextColor(-16776961); // Blue
+            listTitleTextView.setTextColor(context.getResources().getColor(R.color.sad)); // Blue
         }
         else if(listTitle.contains("Mad")) {
-            listTitleTextView.setTextColor(-65536); // Red
+            listTitleTextView.setTextColor(context.getResources().getColor(R.color.mad)); // Red
+        }
+        else if(listTitle.contains("Disgusted")) {
+            listTitleTextView.setTextColor(context.getResources().getColor(R.color.disgusted)); // Red
+        }
+        else if(listTitle.contains("Afraid")) {
+            listTitleTextView.setTextColor(context.getResources().getColor(R.color.afraid)); // Red
         }
 
         return convertView;

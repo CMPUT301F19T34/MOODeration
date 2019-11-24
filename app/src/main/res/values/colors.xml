@@ -3,4 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="happy">#00C000</color>
+    <color name="sad">#0000FF</color>
+    <color name="mad">#FF0000</color>
+    <color name="disgusted">#800080</color>
+    <color name="afraid">#FFA500</color>
 </resources>

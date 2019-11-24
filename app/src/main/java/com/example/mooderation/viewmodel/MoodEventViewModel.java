@@ -7,17 +7,29 @@ import androidx.lifecycle.ViewModel;
 import com.example.mooderation.MoodEvent;
 import com.example.mooderation.backend.MoodEventRepository;
 
+/**
+ * ViewModel for MoodEventFragment
+ */
 public class MoodEventViewModel extends ViewModel {
     private MoodEventRepository moodEventRepository;
     private MutableLiveData<MoodEvent> moodEventLiveData;
 
+    /**
+     * Default constructor. Creates dependencies internally.
+     */
     public MoodEventViewModel() {
         moodEventRepository = new MoodEventRepository();
     }
 
+    /**
+     * Constructor with dependency injection.
+     * @param moodEventRepository
+     */
     public MoodEventViewModel(MoodEventRepository moodEventRepository) {
         this.moodEventRepository = moodEventRepository;
     }
+
+    // TODO Javadoc -- implementation will be updated in the near future.
 
     public void setMoodEvent(MoodEvent moodEvent) {
         if (moodEventLiveData == null) {

@@ -21,6 +21,10 @@
             android:title="@string/find_participant_label" />
 
         <item
+            android:id="@+id/followee_mood_history_map_drawer_item"
+            android:title="@string/followees_mood_history_map_label" />
+
+        <item
             android:id="@+id/log_out_drawer_item"
             android:title="@string/auth_action_log_out" />
     </group>

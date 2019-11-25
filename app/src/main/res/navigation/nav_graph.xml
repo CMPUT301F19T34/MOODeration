@@ -54,4 +54,9 @@
         android:name="com.example.mooderation.fragment.MoodHistoryMapFragment"
         android:label="@string/mood_history_map_label"
         tools:layout="@layout/fragment_mood_history_map" />
+    <fragment
+        android:id="@+id/followeeMoodHistoryMapFragment"
+        android:name="com.example.mooderation.fragment.FolloweeMoodHistoryMapFragment"
+        android:label="@string/followees_mood_history_map_label"
+        tools:layout="@layout/fragment_followee_mood_history_map" />
 </navigation>

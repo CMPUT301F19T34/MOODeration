@@ -5,7 +5,6 @@ import androidx.test.rule.ActivityTestRule;
 import com.example.mooderation.HomeActivity;
 import com.example.mooderation.Participant;
 import com.example.mooderation.R;
-import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.backend.FollowRepository;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +14,7 @@ import com.robotium.solo.Solo;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -23,11 +23,10 @@ import org.mockito.MockitoAnnotations;
 import java.util.concurrent.ExecutionException;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static com.example.mooderation.intent.AuthUtils.login;
 import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.when;
 
-public class TestFollowRequestsFragment {
+public class FollowRequestsFragmentTest {
     private Solo solo;
 
     @Mock
@@ -38,8 +37,13 @@ public class TestFollowRequestsFragment {
     private FollowRepository followRepository;
 
     @Rule
-    public ActivityTestRule<HomeActivity> rule =
-            new ActivityTestRule<>(HomeActivity.class, true, true);
+    public ActivityTestRule<HomeActivity> rule = new ActivityTestRule<>(HomeActivity.class);
+
+    @BeforeClass
+    public static void setUpClass() throws ExecutionException, InterruptedException {
+        FirebaseAuth.getInstance().signOut();
+        Tasks.await(FirebaseAuth.getInstance().signInWithEmailAndPassword("test@email.com", "password"));
+    }
 
     @Before
     public void setUp() throws ExecutionException, InterruptedException {
@@ -49,14 +53,9 @@ public class TestFollowRequestsFragment {
 
         // add mock user to follow
         Tasks.await(firestore.collection("users").document(followMe.getUid()).set(followMe));
-        // TODO clean up user
-
-        FirebaseAuth.getInstance().signOut();
+        // TODO clean up user?
 
         solo = new Solo(getInstrumentation(), rule.getActivity());
-        solo.waitForActivity(LoginActivity.class, 1000); // TODO fix - this times out
-        login(solo);
-        solo.waitForActivity(HomeActivity.class, 1000);
     }
 
     @After
@@ -66,15 +65,13 @@ public class TestFollowRequestsFragment {
 
     @Test
     public void testAcceptFollower() throws ExecutionException, InterruptedException {
-        //solo.assertCurrentActivity("Wrong Activity", HomeActivity.class); // TODO fix - will fail don't know why
-
         followCurrentUser();
         navigateToFollowRequestFragment();
 
         solo.clickInList(0);
         solo.clickOnText("Accept");
 
-        // TODO do check here
+        // TODO check repository here?
     }
 
     @Test

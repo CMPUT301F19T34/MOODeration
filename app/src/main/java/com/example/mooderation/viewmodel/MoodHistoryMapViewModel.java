@@ -1,8 +1,5 @@
 package com.example.mooderation.viewmodel;
 
-import android.location.Location;
-
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;

@@ -1,7 +1,5 @@
 package com.example.mooderation;
 
-import android.location.Location;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

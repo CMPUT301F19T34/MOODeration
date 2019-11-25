@@ -9,14 +9,14 @@ import com.example.mooderation.MoodEvent;
 import com.example.mooderation.MoodLatLng;
 import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
-import com.example.mooderation.SplashActivity;
-import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.backend.MoodEventRepository;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
-import static com.example.mooderation.intent.AuthUtils.login;
 import static junit.framework.TestCase.assertTrue;
 
 /**
@@ -40,18 +40,21 @@ public class MoodHistoryMapTest {
     private List<MoodEvent> moodEvents = new ArrayList<>();
 
     @Rule
-    public ActivityTestRule<SplashActivity> rule = new ActivityTestRule<>(
-            SplashActivity.class, true, true);
+    public ActivityTestRule<HomeActivity> rule = new ActivityTestRule<>(HomeActivity.class);
+
+    @BeforeClass
+    public static void setUpClass() throws ExecutionException, InterruptedException {
+        FirebaseAuth.getInstance().signOut();
+        Tasks.await(FirebaseAuth.getInstance().signInWithEmailAndPassword("test@email.com", "password"));
+    }
 
     @Before
     public void setUp() throws InterruptedException {
-        FirebaseAuth.getInstance().signOut();
-
         moodEvents.clear();
-        for (EmotionalState s: EmotionalState.values()) {
+        for (EmotionalState emotionalState: EmotionalState.values()) {
             moodEvents.add(new MoodEvent(
                     new Date(),
-                    s,
+                    emotionalState,
                     SocialSituation.NONE,
                     "Reason text",
                     new MoodLatLng(53.631611 + random.nextDouble()*0.1, -113.323975 + random.nextDouble()*0.1)
@@ -60,16 +63,14 @@ public class MoodHistoryMapTest {
         }
 
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        solo.waitForActivity(LoginActivity.class, 1000);
-        login(solo);
-        solo.waitForActivity(HomeActivity.class, 1000);
     }
 
     @After
     public void tearDown() {
-        for (MoodEvent e : moodEvents) {
-            moodEventRepository.remove(e);
+        for (MoodEvent moodEvent : moodEvents) {
+            moodEventRepository.remove(moodEvent);
         }
+        solo.finishOpenedActivities();
     }
 
     @Test
@@ -94,6 +95,7 @@ public class MoodHistoryMapTest {
         Thread.sleep(1000);
     }
 
+    // TODO this should be refactored somewhere
     /**
      * Navigates to the follow request fragment
      */

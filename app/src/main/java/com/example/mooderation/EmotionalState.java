@@ -1,11 +1,5 @@
 package com.example.mooderation;
 
-import android.graphics.Color;
-
-import androidx.core.content.res.ResourcesCompat;
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-
 /**
  * Enum of the possible Emotional States for a MoodEvent
  */

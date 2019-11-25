@@ -1,7 +1,5 @@
 package com.example.mooderation.viewmodel;
 
-import android.location.Location;
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -11,8 +9,6 @@ import com.example.mooderation.MoodEvent;
 import com.example.mooderation.MoodLatLng;
 import com.example.mooderation.SocialSituation;
 import com.example.mooderation.backend.MoodEventRepository;
-
-import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Rule;

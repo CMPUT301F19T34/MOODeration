@@ -49,4 +49,19 @@
             android:name="username"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/editMoodEventFragment"
+        android:name="com.example.mooderation.fragment.EditMoodEventFragment"
+        android:label="@string/edit_mood_label"
+        tools:layout="@layout/edit_mood_event_layout">
+        <argument
+            android:name="Argument"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
+    <fragment
+        android:id="@+id/moodHistoryMapFragment"
+        android:name="com.example.mooderation.fragment.MoodHistoryMapFragment"
+        android:label="@string/mood_history_map_label"
+        tools:layout="@layout/fragment_mood_history_map" />
 </navigation>

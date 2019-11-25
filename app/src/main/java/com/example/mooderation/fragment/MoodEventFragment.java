@@ -4,10 +4,13 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,10 +30,8 @@ import com.example.mooderation.MoodEventConstants;
 import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodEventViewModel;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 
-public class MoodEventFragment extends Fragment {
+public class MoodEventFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher{
     private MoodEventViewModel moodEventViewModel;
 
     private TextView dateTextView;
@@ -39,11 +40,6 @@ public class MoodEventFragment extends Fragment {
     private Spinner socialSituationSpinner;
     private EditText reasonEditText;
     private Switch locationSwitch;
-
-    private Button saveButton;
-
-    private FusedLocationProviderClient fusedLocationClient;
-    private boolean isToggled = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,63 +54,65 @@ public class MoodEventFragment extends Fragment {
         View view = inflater.inflate(R.layout.add_mood_event_layout,
                 container, false);
 
-        // find and initialize TextViews
+        // observe mood event's date and time
         dateTextView = view.findViewById(R.id.date_picker_button);
         timeTextView = view.findViewById(R.id.time_picker_button);
 
-        // find and initialize emotionalStateSpinner
+        // observe emotional state
         emotionalStateSpinner = view.findViewById(R.id.emotional_state_spinner);
-        emotionalStateSpinner.setAdapter(new MoodConstantAdapter<>(getContext(), EmotionalState.class.getEnumConstants()));
+        emotionalStateSpinner.setAdapter(new MoodConstantAdapter<>(
+                getContext(), EmotionalState.class.getEnumConstants()));
+        emotionalStateSpinner.setOnItemSelectedListener(this);
 
-        // find and initialize socialSituationSpinner
+        // observe social situation
         socialSituationSpinner = view.findViewById(R.id.social_situation_spinner);
-        socialSituationSpinner.setAdapter(new MoodConstantAdapter<>(getContext(), SocialSituation.class.getEnumConstants()));
+        socialSituationSpinner.setAdapter(new MoodConstantAdapter<>(
+                getContext(), SocialSituation.class.getEnumConstants()));
+        socialSituationSpinner.setOnItemSelectedListener(this);
 
-        // find reasonEditText
         reasonEditText = view.findViewById(R.id.reason_edit_text);
+        reasonEditText.addTextChangedListener(this);
 
-        // find and initialize locationSwitch
+        // find locationSwitch
         locationSwitch = view.findViewById(R.id.location_switch);
-        locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
-            if(isToggled) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1);
-            }
-        });
 
+        // observe the mood event and update UI
         moodEventViewModel.getMoodEvent().observe(getViewLifecycleOwner(), moodEvent -> {
             dateTextView.setText(moodEvent.getFormattedDate());
             timeTextView.setText(moodEvent.getFormattedTime());
+
             emotionalStateSpinner.setSelection(moodEvent.getEmotionalState().ordinal());
             socialSituationSpinner.setSelection(moodEvent.getSocialSituation().ordinal());
-            reasonEditText.setText(moodEvent.getReason());
+
+            // prevents infinite loop of text updates
+            if (!reasonEditText.getText().toString().equals(moodEvent.getReason())){
+                reasonEditText.setText(moodEvent.getReason());
+            }
+
+            // TODO mood event observe location
+            locationSwitch.setChecked(false);
+        });
+
+        locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
+            // TODO check permission first as well?
+            if(isToggled) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            }
         });
 
         // find and initialize saveButton
-        saveButton = view.findViewById(R.id.save_mood_event_button);
+        Button saveButton = view.findViewById(R.id.save_mood_event_button);
         saveButton.setOnClickListener((View v) -> {
-            // if location toggle is on
-            if(isToggled) {
-                // get location
-                fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-                fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
-                    if(location != null) {
-                        // TODO set location field of mood event
-                    }
-                });
-            }
 
-            // TODO better utilize the view model
-            MoodEvent moodEvent = moodEventViewModel.getMoodEvent().getValue();
-            moodEvent.setEmotionalState((EmotionalState) emotionalStateSpinner.getSelectedItem());
-            moodEvent.setSocialSituation((SocialSituation) socialSituationSpinner.getSelectedItem());
-            moodEvent.setReason(reasonEditText.getText().toString());
-            moodEventViewModel.setMoodEvent(moodEvent);
+            // TODO store location in mood event
+
+            // update the database with new changes
             moodEventViewModel.saveChanges();
 
             // Close keyboard
             InputMethodManager inputManager = (InputMethodManager) this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();
         });
@@ -130,11 +128,9 @@ public class MoodEventFragment extends Fragment {
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            isToggled = true;
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // TODO
         } else {
-            isToggled = false;
             locationSwitch.toggle();
             if(!shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 openDialog();
@@ -150,6 +146,47 @@ public class MoodEventFragment extends Fragment {
         LocationDeniedDialog locationDeniedDialog = new LocationDeniedDialog();
         locationDeniedDialog.show(getFragmentManager(), "Location Denied");
     }
+
+    // for listening updating the mood event when the spinners are updated
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        MoodEvent moodEvent = moodEventViewModel.getMoodEvent().getValue();
+        if (moodEvent == null) {
+            throw new IllegalStateException("Mood event cannot be null");
+        }
+
+        if (parent == emotionalStateSpinner) {
+            moodEvent.setEmotionalState((EmotionalState) parent.getItemAtPosition(position));
+        }
+        else if (parent == socialSituationSpinner) {
+            moodEvent.setSocialSituation((SocialSituation) parent.getItemAtPosition(position));
+        }
+
+        moodEventViewModel.setMoodEvent(moodEvent);
+    }
+
+    // required by OnItemSelectedListener but not used
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) { /* ignore */ }
+
+    // required by TextWatcher but not used
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+    // listens for the reason edit text to be updated
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        MoodEvent moodEvent = moodEventViewModel.getMoodEvent().getValue();
+        if (moodEvent == null) {
+            throw new IllegalStateException("Mood event cannot be null");
+        }
+        moodEvent.setReason(s.toString());
+        moodEventViewModel.setMoodEvent(moodEvent);
+    }
+
+    // required by TextWatcher but not used
+    @Override
+    public void afterTextChanged(Editable s) {}
 
     /**
      * Array adapter used to populate the spinners in MoodEventFragment

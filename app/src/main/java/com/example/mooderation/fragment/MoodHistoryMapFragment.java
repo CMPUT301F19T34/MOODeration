@@ -27,6 +27,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+/**
+ * The fragment for the "My Mood History Map" view
+ */
 public class MoodHistoryMapFragment extends Fragment {
 
     private MoodHistoryMapViewModel moodHistoryMapViewModel;

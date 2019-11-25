@@ -28,6 +28,9 @@ import java.util.Random;
 import static com.example.mooderation.intent.AuthUtils.login;
 import static junit.framework.TestCase.assertTrue;
 
+/**
+ * Intent tests for the mood history map view
+ */
 public class MoodHistoryMapTest {
     private Solo solo;
 

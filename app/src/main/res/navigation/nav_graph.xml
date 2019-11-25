@@ -62,6 +62,6 @@
     <fragment
         android:id="@+id/moodHistoryMapFragment"
         android:name="com.example.mooderation.fragment.MoodHistoryMapFragment"
-        android:label="fragment_mood_history_map"
+        android:label="@string/mood_history_map_label"
         tools:layout="@layout/fragment_mood_history_map" />
 </navigation>

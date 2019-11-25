@@ -8,4 +8,10 @@
     <color name="mad">#FF0000</color>
     <color name="disgusted">#800080</color>
     <color name="afraid">#FFA500</color>
+
+    <color name="happy_marker">#00FF00</color>
+    <color name="sad_marker">#0000FF</color>
+    <color name="mad_marker">#FF0000</color>
+    <color name="disgusted_marker">#7F00FF</color>
+    <color name="afraid_marker">#FF7F00</color>
 </resources>

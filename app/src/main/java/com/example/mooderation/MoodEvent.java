@@ -17,7 +17,7 @@ public class MoodEvent {
     private EmotionalState emotionalState;
     private String reason;
     private SocialSituation socialSituation;
-    private Location location;
+    private MoodLatLng location;
 
     /**
      * MoodEvent Constructor
@@ -33,7 +33,7 @@ public class MoodEvent {
      *      The location of this MoodEvent
      */
     public MoodEvent(Date date, EmotionalState emotionalState,
-                     SocialSituation socialSituation, String reason, Location location) {
+                     SocialSituation socialSituation, String reason, MoodLatLng location) {
         this.date = date;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
@@ -116,7 +116,7 @@ public class MoodEvent {
         this.reason = reason;
     }
 
-    public Location getLocation() {
+    public MoodLatLng getLocation() {
         return location;
     }
 

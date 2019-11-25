@@ -1,48 +1,41 @@
 package com.example.mooderation.fragment;
 
-import androidx.lifecycle.ViewModelProviders;
-
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.example.mooderation.EmotionalState;
 import com.example.mooderation.MoodEvent;
 import com.example.mooderation.R;
 import com.example.mooderation.viewmodel.MoodHistoryMapViewModel;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.List;
 
 public class MoodHistoryMapFragment extends Fragment {
 
     private MoodHistoryMapViewModel moodHistoryMapViewModel;
     private GoogleMap googleMap;
-    private Set<Marker> markers;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        markers = new HashSet<>();
         moodHistoryMapViewModel = ViewModelProviders.of(this).get(MoodHistoryMapViewModel.class);
     }
 
@@ -55,30 +48,46 @@ public class MoodHistoryMapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(map -> googleMap = map);
-        moodHistoryMapViewModel.getMoodHistoryWithLocation().observe(this, moodHistory -> {
-            googleMap.clear();
-            Random random = new Random();
-            LatLngBounds.Builder bounds = new LatLngBounds.Builder();
-            for (MoodEvent moodEvent : moodHistory) {
-                String title = getResources().getString(moodEvent.getEmotionalState().getStringResource());
-                String snippet = moodEvent.getReason();
-                // LatLng position = new LatLng(moodEvent.getLocation().getLatitude(), moodEvent.getLocation().getLongitude());
-                LatLng position = new LatLng(53.631611 + random.nextDouble()*0.1, -113.323975 + random.nextDouble()*0.1);
-                BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(moodEvent.getEmotionalState().getHue());
-                Marker marker = googleMap.addMarker(new MarkerOptions()
-                        .title(title)
-                        .snippet(snippet)
-                        .position(position)
-                        .icon(icon));
-                bounds.include(position);
-            }
-
-            googleMap.setMinZoomPreference(8);
-            googleMap.setMaxZoomPreference(20);
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 15));
-            googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            googleMap.setLatLngBoundsForCameraTarget(bounds.build());
+        googleMap = null;
+        mapFragment.getMapAsync(map -> {
+            googleMap = map;
+            updateMarkers(moodHistoryMapViewModel.getMoodHistoryWithLocation().getValue());
         });
+        moodHistoryMapViewModel.getMoodHistoryWithLocation().observe(this, this::updateMarkers);
+    }
+
+    private float getHue(EmotionalState emotionalState) {
+        float[] hsv = new float[]{0.f, 0.f, 0.f};
+        Color.colorToHSV(ResourcesCompat.getColor(getResources(), emotionalState.getMarkerColor(), null), hsv);
+        return hsv[0];
+    }
+
+    private void updateMarkers(@Nullable List<MoodEvent> moodHistory) {
+        if (googleMap == null) {
+            return;
+        }
+        googleMap.clear();
+        googleMap.setMinZoomPreference(8);
+        googleMap.setMaxZoomPreference(20);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        if (moodHistory == null || moodHistory.isEmpty()) {
+            return;
+        }
+        LatLngBounds.Builder bounds = new LatLngBounds.Builder();
+        for (MoodEvent moodEvent : moodHistory) {
+            String title = getResources().getString(moodEvent.getEmotionalState().getStringResource());
+            String snippet = moodEvent.getFormattedDate() + "\n" + moodEvent.getReason();
+            LatLng position = new LatLng(moodEvent.getLocation().getLatitude(), moodEvent.getLocation().getLongitude());
+            BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(getHue(moodEvent.getEmotionalState()));
+            googleMap.addMarker(new MarkerOptions()
+                    .title(title)
+                    .snippet(snippet)
+                    .position(position)
+                    .icon(icon));
+            bounds.include(position);
+        }
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 15));
+        googleMap.setLatLngBoundsForCameraTarget(bounds.build());
     }
 }

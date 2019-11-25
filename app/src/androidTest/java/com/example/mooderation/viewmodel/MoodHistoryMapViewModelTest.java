@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer;
 
 import com.example.mooderation.EmotionalState;
 import com.example.mooderation.MoodEvent;
+import com.example.mooderation.MoodLatLng;
 import com.example.mooderation.SocialSituation;
 import com.example.mooderation.backend.MoodEventRepository;
 
@@ -37,8 +38,8 @@ public class MoodHistoryMapViewModelTest {
     MoodEvent moodEvent;
     @Mock
     Observer<List<MoodEvent>> observer;
-    @Mock
-    Location location;
+
+    private MoodLatLng location = new MoodLatLng();
 
     private MutableLiveData<List<MoodEvent>> moodHistory = new MutableLiveData<>();
     private MoodHistoryMapViewModel moodHistoryMapViewModel;

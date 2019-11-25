@@ -31,9 +31,9 @@ public class MoodHistoryMapViewModel extends ViewModel {
                     input -> {
                         List<MoodEvent> events = new ArrayList<>();
                         for (MoodEvent event : input) {
-                            //if (event.getLocation() != null) {
+                            if (event.getLocation() != null) {
                                 events.add(event);
-                            //}
+                            }
                         }
                         return events;
                     });

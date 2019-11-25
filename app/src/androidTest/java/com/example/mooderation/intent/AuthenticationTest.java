@@ -1,5 +1,6 @@
 package com.example.mooderation.intent;
 
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -7,7 +8,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.mooderation.R;
-import com.example.mooderation.SplashActivity;
+import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,10 +32,15 @@ public class AuthenticationTest {
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<SplashActivity> rule = new ActivityTestRule<>(SplashActivity.class);
+    public ActivityTestRule<LoginActivity> rule = new ActivityTestRule<>(
+            LoginActivity.class, true, false);
 
     @Before
     public void setUp() {
+        Intent intent = new Intent();
+        intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
+        rule.launchActivity(intent);
+
         FirebaseAuth.getInstance().signOut();
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
     }
@@ -46,26 +52,26 @@ public class AuthenticationTest {
 
     @Test
     public void testLogin() {
-        //assertTrue(solo.waitForActivity("LoginActivity", 10000));
         login("test@email.com", "password");
 
         assertTrue(solo.searchText("Logged in as test-username"));
         assertNotNull(FirebaseAuth.getInstance().getCurrentUser());
         assertEquals("test@email.com", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+    }
 
+    @Test
+    public void testLogout() {
+        login("test@email.com", "password");
         logout();
         assertNull(FirebaseAuth.getInstance().getCurrentUser());
     }
 
     @Test
     public void testSignup() throws ExecutionException, InterruptedException {
-        //solo.waitForActivity(LoginActivity.class, 1000);
         solo.clickOnButton(1);
-        //solo.waitForActivity(SignUpActivity.class, 1000);
 
         try {
             signup("signup-username", "signup@email.com", "123456", "123456");
-            //solo.waitForActivity(HomeActivity.class, 1000);
 
             assertTrue(solo.searchText("Logged in as signup-username"));
             assertNotNull(FirebaseAuth.getInstance().getCurrentUser());
@@ -78,12 +84,9 @@ public class AuthenticationTest {
                         .collection("users")
                         .document(user.getUid())
                         .delete());
-                logout();
                 user.delete();
             }
         }
-
-        assertNull(FirebaseAuth.getInstance().getCurrentUser());
     }
 
     private void login(String email, String password) {

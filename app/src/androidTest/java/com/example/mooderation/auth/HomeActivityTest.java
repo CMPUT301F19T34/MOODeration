@@ -26,7 +26,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @Ignore("These should be refactored into their own test classes")
 public class HomeActivityTest {
@@ -46,19 +45,8 @@ public class HomeActivityTest {
         Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.register(p)));
     }
 
-    // TODO remove from main activity test
     @Test
-    public void testAddMoodEvent() {
-        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-        Activity activity = rule.getActivity();
-
-        // click the floating action button
-        solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
-        solo.clickOnView(solo.getView((R.id.save_mood_event_button)));
-        assertTrue(solo.waitForText("Happy"));
-    }
-
-    @Test
+    @Ignore("Takes too long")
     public void testToggleLocation() {
         solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
         Activity activity = rule.getActivity();

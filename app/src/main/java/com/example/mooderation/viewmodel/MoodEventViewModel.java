@@ -29,26 +29,33 @@ public class MoodEventViewModel extends ViewModel {
         this.moodEventRepository = moodEventRepository;
     }
 
-    // TODO Javadoc -- implementation will be updated in the near future.
-
+    /**
+     * Set the mood event displayed by this fragment.
+     * @param moodEvent
+     *      The mood event display and edit.
+     */
     public void setMoodEvent(MoodEvent moodEvent) {
+        // initialize live data
         if (moodEventLiveData == null) {
             moodEventLiveData = new MutableLiveData<>();
         }
+
         moodEventLiveData.setValue(moodEvent);
     }
 
     public LiveData<MoodEvent> getMoodEvent() {
         if (moodEventLiveData == null) {
-            throw new IllegalStateException("MoodEvent must be set!");
+            throw new IllegalStateException("Mood event must be set!");
         }
+
         return moodEventLiveData;
     }
 
+    // TODO
     public void saveChanges() {
-        if (moodEventLiveData == null) {
-            throw new IllegalStateException("MoodEvent must be set!");
+        MoodEvent moodEvent = moodEventLiveData.getValue();
+        if (moodEvent != null) {
+            moodEventRepository.add(moodEvent);
         }
-        moodEventRepository.add(moodEventLiveData.getValue());
     }
 }

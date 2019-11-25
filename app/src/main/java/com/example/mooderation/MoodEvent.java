@@ -15,8 +15,8 @@ public class MoodEvent {
 
     private Date date;
     private EmotionalState emotionalState;
-    private String reason;
     private SocialSituation socialSituation;
+    private String reason;
     private MoodLatLng location;
 
     /**

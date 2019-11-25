@@ -74,7 +74,7 @@ public class HomeActivity extends AppCompatActivity {
                 signOut();
             } else {
                 throw new RuntimeException("Attempting to navigate with unrecognized key "
-                        + menuItem.getItemId() + " (is it added to navDrawFragments? .");
+                        + menuItem.getItemId() + " (is it added to navDrawerItemToFragment?) .");
             }
             return true;
         });

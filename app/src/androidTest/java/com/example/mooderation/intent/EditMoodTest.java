@@ -11,17 +11,18 @@ import com.example.mooderation.EmotionalState;
 import com.example.mooderation.HomeActivity;
 import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
-import com.example.mooderation.SplashActivity;
-import com.example.mooderation.auth.ui.LoginActivity;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static com.example.mooderation.intent.AuthUtils.login;
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -29,17 +30,17 @@ public class EditMoodTest {
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<SplashActivity> rule = new ActivityTestRule<>(
-            SplashActivity.class, true, true);
+    public ActivityTestRule<HomeActivity> rule = new ActivityTestRule<>(HomeActivity.class);
+
+    @BeforeClass
+    public static void setUpClass() throws ExecutionException, InterruptedException {
+        FirebaseAuth.getInstance().signOut();
+        Tasks.await(FirebaseAuth.getInstance().signInWithEmailAndPassword("test@email.com", "password"));
+    }
 
     @Before
     public void setUp() {
-        FirebaseAuth.getInstance().signOut();
-
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        solo.waitForActivity(LoginActivity.class, 1000);
-        login(solo);
-        solo.waitForActivity(HomeActivity.class, 1000);
     }
 
     @After
@@ -49,8 +50,6 @@ public class EditMoodTest {
 
     @Test
     public void testEditMood() {
-        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-
         // click the floating action button and add happy mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
         solo.clickOnView(solo.getView((R.id.save_mood_event_button)));
@@ -71,8 +70,6 @@ public class EditMoodTest {
 
     @Test
     public void testEditSituation() {
-        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-
         // click the floating action button and add happy mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
         solo.clickOnView(solo.getView((R.id.save_mood_event_button)));
@@ -94,8 +91,6 @@ public class EditMoodTest {
 
     @Test
     public void testEditReason() {
-        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-
         // click the floating action button and add happy mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
         solo.clickOnView(solo.getView((R.id.save_mood_event_button)));
@@ -117,8 +112,6 @@ public class EditMoodTest {
 
     @Test
     public void testInitialValues() {
-        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-
         // Add mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
         solo.clickOnView(solo.getView(R.id.emotional_state_spinner));

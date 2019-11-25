@@ -13,11 +13,7 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 
 import com.example.mooderation.HomeActivity;
-import com.example.mooderation.Participant;
 import com.example.mooderation.R;
-import com.example.mooderation.backend.ParticipantRepository;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.auth.FirebaseAuth;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
@@ -27,7 +23,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-@Ignore("These should be refactored into their own test classes")
 public class HomeActivityTest {
     private Solo solo;
     private UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -37,12 +32,8 @@ public class HomeActivityTest {
             HomeActivity.class, true, true);
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        Tasks.await(FirebaseAuth.getInstance().signInAnonymously());
-        ParticipantRepository participantRepository = new ParticipantRepository();
-        Participant p = new Participant(FirebaseAuth.getInstance().getUid(), "user");
-        Tasks.await(participantRepository.remove(p).continueWith(task -> participantRepository.register(p)));
     }
 
     @Test

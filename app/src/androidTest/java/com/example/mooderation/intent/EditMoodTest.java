@@ -1,6 +1,5 @@
 package com.example.mooderation.intent;
 
-import android.app.Activity;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -51,19 +50,21 @@ public class EditMoodTest {
     @Test
     public void testEditMood() {
         solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-        Activity activity = rule.getActivity();
 
         // click the floating action button and add happy mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
         solo.clickOnView(solo.getView((R.id.save_mood_event_button)));
         assertTrue(solo.waitForText("Happy"));
+
         // Expand list and click edit
         solo.clickInList(0);
         solo.clickOnView(solo.getView((R.id.EditButton)));
+
         // Change mood to sad and commit change
         solo.clickOnView(solo.getView((R.id.emotional_state_spinner)));
         solo.clickInList(2);
         solo.clickOnView(solo.getView(R.id.save_mood_event_button));
+
         // Confirm mood changed to Sad
         assertTrue((solo.waitForText("Sad")));
     }
@@ -71,19 +72,21 @@ public class EditMoodTest {
     @Test
     public void testEditSituation() {
         solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-        Activity activity = rule.getActivity();
 
         // click the floating action button and add happy mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
         solo.clickOnView(solo.getView((R.id.save_mood_event_button)));
         assertTrue(solo.waitForText("Happy"));
+
         // Expand list and click edit
         solo.clickInList(0);
         solo.clickOnView(solo.getView((R.id.EditButton)));
+
         // Change social situation to One other person and commit change
         solo.clickOnView(solo.getView((R.id.social_situation_spinner)));
         solo.clickInList(3);
         solo.clickOnView(solo.getView(R.id.save_mood_event_button));
+
         // Expand list for details and verify social situation changed
         solo.clickInList(0);
         assertTrue((solo.waitForText("One other person")));
@@ -91,21 +94,22 @@ public class EditMoodTest {
 
     @Test
     public void testEditReason() {
-        // TODO fix - this assert fails even though the app is in the main activity
-        //solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-        Activity activity = rule.getActivity();
+        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
 
         // click the floating action button and add happy mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));
         solo.clickOnView(solo.getView((R.id.save_mood_event_button)));
         assertTrue(solo.waitForText("Happy"));
+
         // Expand list and click edit
         solo.clickInList(0);
         solo.clickOnView(solo.getView((R.id.EditButton)));
+
         // Change reason to Reason test and commit change
         solo.clickOnView(solo.getView((R.id.reason_edit_text)));
         solo.typeText(0,"Reason test");
         solo.clickOnView(solo.getView(R.id.save_mood_event_button));
+
         // Expand list for details and verify reason changed
         solo.clickInList(0);
         assertTrue(solo.waitForText("Reason test"));
@@ -113,8 +117,7 @@ public class EditMoodTest {
 
     @Test
     public void testInitialValues() {
-        //solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
-        //Activity activity = rule.getActivity();
+        solo.assertCurrentActivity("Wrong Activity", HomeActivity.class);
 
         // Add mood event
         solo.clickOnView(solo.getView((R.id.add_mood_event_button)));

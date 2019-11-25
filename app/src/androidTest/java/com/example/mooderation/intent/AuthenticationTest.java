@@ -1,17 +1,14 @@
 package com.example.mooderation.intent;
 
-import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.mooderation.HomeActivity;
 import com.example.mooderation.R;
 import com.example.mooderation.SplashActivity;
 import com.example.mooderation.auth.ui.LoginActivity;
-import com.example.mooderation.auth.ui.SignUpActivity;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,10 +22,6 @@ import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
 
-import static com.example.mooderation.intent.AuthUtils.getTestEmail;
-import static com.example.mooderation.intent.AuthUtils.getTestUsername;
-import static com.example.mooderation.intent.AuthUtils.login;
-import static com.example.mooderation.intent.AuthUtils.logout;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
@@ -38,14 +31,11 @@ public class AuthenticationTest {
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<SplashActivity> rule =
-            new ActivityTestRule<>(SplashActivity.class, true, false);
-
+    public ActivityTestRule<SplashActivity> rule = new ActivityTestRule<>(SplashActivity.class);
 
     @Before
     public void setUp() {
         FirebaseAuth.getInstance().signOut();
-        rule.launchActivity(new Intent());
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
     }
 
@@ -56,26 +46,26 @@ public class AuthenticationTest {
 
     @Test
     public void testLogin() {
-        solo.waitForActivity(LoginActivity.class, 1000); // TODO fix - this times out
-        login(solo);
+        //assertTrue(solo.waitForActivity("LoginActivity", 10000));
+        login("test@email.com", "password");
 
-        assertTrue(solo.searchText("Logged in as " + getTestUsername()));
+        assertTrue(solo.searchText("Logged in as test-username"));
         assertNotNull(FirebaseAuth.getInstance().getCurrentUser());
-        assertEquals(getTestEmail(), FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        assertEquals("test@email.com", FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
-        logout(solo);
+        logout();
         assertNull(FirebaseAuth.getInstance().getCurrentUser());
     }
 
     @Test
     public void testSignup() throws ExecutionException, InterruptedException {
-        solo.waitForActivity(LoginActivity.class, 1000); // TODO fix - this times out
+        //solo.waitForActivity(LoginActivity.class, 1000);
         solo.clickOnButton(1);
-        solo.waitForActivity(SignUpActivity.class, 1000);
+        //solo.waitForActivity(SignUpActivity.class, 1000);
 
         try {
             signup("signup-username", "signup@email.com", "123456", "123456");
-            solo.waitForActivity(HomeActivity.class, 1000);
+            //solo.waitForActivity(HomeActivity.class, 1000);
 
             assertTrue(solo.searchText("Logged in as signup-username"));
             assertNotNull(FirebaseAuth.getInstance().getCurrentUser());
@@ -88,12 +78,28 @@ public class AuthenticationTest {
                         .collection("users")
                         .document(user.getUid())
                         .delete());
-                logout(solo);
+                logout();
                 user.delete();
             }
         }
 
         assertNull(FirebaseAuth.getInstance().getCurrentUser());
+    }
+
+    private void login(String email, String password) {
+        // enter email
+        final EditText emailText = (EditText)solo.getView(R.id.email);
+        solo.clearEditText(emailText);
+        solo.enterText(emailText, email);
+
+        // enter password
+        final EditText passwordText = (EditText)solo.getView(R.id.password);
+        solo.clearEditText(passwordText);
+        solo.enterText(passwordText, password);
+
+        // press login button
+        final Button loginButton = (Button)solo.getView(R.id.login);
+        solo.clickOnButton(loginButton.getText().toString());
     }
 
     private void signup(String username, String email, String password, String password2) {
@@ -114,5 +120,14 @@ public class AuthenticationTest {
 
         final Button signUpButton = (Button)solo.getView(R.id.signup);
         solo.clickOnButton(signUpButton.getText().toString());
+    }
+
+    private void logout() {
+        // open navigation drawer and click logout button
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Log out"); // TODO don't search by text
+
+        // wait for logout activity
+        solo.waitForActivity(LoginActivity.class);
     }
 }

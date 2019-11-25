@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,12 +41,17 @@ public class HomeActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        // these fragments will have the navigation drawer
-        Set<Integer> topLevelFragments = new HashSet<>();
-        topLevelFragments.add(R.id.moodHistoryFragment);
-        topLevelFragments.add(R.id.followRequestsFragment);
-        topLevelFragments.add(R.id.findParticipantFragment);
+        // Nav drawer items and fragments
+        HashMap<Integer, Integer> navDrawerItemToFragment = new HashMap<>();
+        navDrawerItemToFragment.put(R.id.mood_history_drawer_item, R.id.moodHistoryFragment);
+        navDrawerItemToFragment.put(R.id.follow_request_drawer_item, R.id.followRequestsFragment);
+        navDrawerItemToFragment.put(R.id.mood_history_map_drawer_item, R.id.moodHistoryMapFragment);
+        navDrawerItemToFragment.put(R.id.find_participant_drawer_item, R.id.findParticipantFragment);
         // TODO register other top level fragments here
+
+        // these fragments will have the navigation drawer
+        Set<Integer> topLevelFragments = new HashSet<>(navDrawerItemToFragment.values());
+
 
         // configures the top app bar
         AppBarConfiguration appBarConfiguration =
@@ -60,32 +66,16 @@ public class HomeActivity extends AppCompatActivity {
         // navigation listener
         navView.setNavigationItemSelectedListener(menuItem -> {
             drawerLayout.closeDrawers();
-
-            switch (menuItem.getItemId()) {
-                // navigate to mood history
-                case R.id.mood_history_drawer_item:
-                    menuItem.setChecked(true);
-                    navController.navigate(R.id.moodHistoryFragment);
-                    break;
-
-                // navigate to follow requests
-                case R.id.follow_request_drawer_item:
-                    menuItem.setChecked(true);
-                    navController.navigate(R.id.followRequestsFragment);
-                    break;
-
-                // navigate to participant search
-                case R.id.find_participant_drawer_item:
-                    navController.navigate((R.id.findParticipantFragment));
-                    break;
-
-                // log out of the app
-                case R.id.log_out_drawer_item:
-                    FirebaseAuth.getInstance().signOut();
-                    signOut();
-                    break;
+            if (navDrawerItemToFragment.containsKey(menuItem.getItemId())) {
+                menuItem.setChecked(true);
+                navController.navigate(navDrawerItemToFragment.get(menuItem.getItemId()));
+            } else if (menuItem.getItemId() == R.id.log_out_drawer_item) {
+                FirebaseAuth.getInstance().signOut();
+                signOut();
+            } else {
+                throw new RuntimeException("Attempting to navigate with unrecognized key "
+                        + menuItem.getItemId() + " (is it added to navDrawFragments? .");
             }
-
             return true;
         });
 

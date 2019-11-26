@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         topLevelFragments.add(R.id.moodHistoryFragment);
         topLevelFragments.add(R.id.followRequestsFragment);
         topLevelFragments.add(R.id.findParticipantFragment);
+        topLevelFragments.add(R.id.followedMoodsFragment);
         // TODO register other top level fragments here
 
         // configures the top app bar
@@ -66,6 +67,12 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.mood_history_drawer_item:
                     menuItem.setChecked(true);
                     navController.navigate(R.id.moodHistoryFragment);
+                    break;
+
+                // navigate to followed moods
+                case R.id.followed_moods_drawer_item:
+                    menuItem.setChecked(true);
+                    navController.navigate(R.id.followedMoodsFragment);
                     break;
 
                 // navigate to follow requests

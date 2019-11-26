@@ -49,4 +49,9 @@
             android:name="username"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/followedMoodsFragment"
+        android:name="com.example.mooderation.fragment.FollowedMoodsFragment"
+        android:label="@string/followed_moods_label"
+        tools:layout="@layout/fragment_followed_moods" />
 </navigation>

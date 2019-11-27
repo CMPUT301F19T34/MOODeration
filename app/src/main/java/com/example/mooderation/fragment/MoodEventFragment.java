@@ -62,7 +62,9 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     private ViewFlipper viewFlipper;
     private ImageView imageView;
 
+    // the local version of the image
     private Uri imageUri;
+    private File imageFile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -185,7 +187,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     private void dispatchCameraIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            File imageFile = null;
+            imageFile = null;
             try {
                 imageFile = createImageFile();
             }
@@ -207,6 +209,10 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             viewFlipper.setDisplayedChild(1);
             moodEventViewModel.uploadImage(imageUri);
+        }
+        // delete local version of file
+        if (imageFile != null) {
+            imageFile.delete(); // TODO check return result
         }
     }
 

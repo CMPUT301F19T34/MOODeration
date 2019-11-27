@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     private Spinner emotionalStateSpinner;
     private Spinner socialSituationSpinner;
     private EditText reasonEditText;
+    private ImageView reasonImage;
     private Switch locationSwitch;
 
     @Override
@@ -116,6 +118,9 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
             // Close the current fragment
             Navigation.findNavController(v).popBackStack();
         });
+
+        Button imageButton = view.findViewById(R.id.imageButton);
+        
 
         return view;
     }

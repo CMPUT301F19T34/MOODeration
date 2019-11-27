@@ -5,13 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,7 @@ import java.util.Date;
 import static android.app.Activity.RESULT_OK;
 
 public class MoodEventFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher{
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private MoodEventViewModel moodEventViewModel;
 
@@ -63,8 +62,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     private ViewFlipper viewFlipper;
     private ImageView imageView;
 
-    // TODO move to MoodEvent class
-    private Uri photoURI;
+    private Uri imageUri;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,29 +106,17 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         // add the photo to the mood event
         Button takePhotoButton = view.findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(v -> {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                File photoFile = null;
-                try {
-                    photoFile = createImageFile();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (photoFile != null) {
-                    photoURI = FileProvider.getUriForFile(
-                            getContext(), "com.example.android.fileprovider",
-                            photoFile);
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                }
-            }
+            dispatchCameraIntent();
         });
 
         // delete the photo from the mood event
         Button deletePhotoButton = view.findViewById(R.id.delete_photo_button);
         deletePhotoButton.setOnClickListener(v -> {
-            viewFlipper.showNext();
+            moodEventViewModel.updateMoodEvent(moodEvent -> {
+                moodEvent.setImagePath(null);
+                return moodEvent;
+            });
+            viewFlipper.setDisplayedChild(0);
         });
 
         // observe the mood event and update UI
@@ -148,7 +134,13 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
 
             // TODO mood event observe location
 
-            // TODO load image view from firebase cloud storage
+            if (moodEvent.getImagePath() != null) {
+                moodEventViewModel.downloadImage().addOnSuccessListener(bytes -> {
+                    Bitmap imageBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    imageView.setImageBitmap(imageBitmap);
+                    viewFlipper.showNext();
+                });
+            }
         });
 
         locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
@@ -183,34 +175,38 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = getActivity().getCacheDir();
+        //File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-
-        //currentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
+    private void dispatchCameraIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            File imageFile = null;
+            try {
+                imageFile = createImageFile();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (imageFile != null) {
+                imageUri = FileProvider.getUriForFile(
+                        getContext(), "com.example.android.fileprovider", imageFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
+    // called when returning from camera intent
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            viewFlipper.showNext();
-
-            // TODO upload the image to firebase cloud storage instead
-
-            // get the image from the
-            Log.d("IMAGE_PATH", photoURI.getPath());
-            Bitmap imageBitmap = null;
-            try {
-                imageBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoURI);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (imageBitmap != null) {
-                imageView.setImageBitmap(imageBitmap);
-            }
-        }
-        else {
-            // TODO delete file??
+            moodEventViewModel.uploadImage(imageUri);
+            // delete image uri
+            //Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
         }
     }
 
@@ -244,19 +240,15 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     // for listening updating the mood event when the spinners are updated
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        MoodEvent moodEvent = moodEventViewModel.getMoodEvent().getValue();
-        if (moodEvent == null) {
-            throw new IllegalStateException("Mood event cannot be null");
-        }
-
-        if (parent == emotionalStateSpinner) {
-            moodEvent.setEmotionalState((EmotionalState) parent.getItemAtPosition(position));
-        }
-        else if (parent == socialSituationSpinner) {
-            moodEvent.setSocialSituation((SocialSituation) parent.getItemAtPosition(position));
-        }
-
-        moodEventViewModel.setMoodEvent(moodEvent);
+        moodEventViewModel.updateMoodEvent(moodEvent -> {
+            if (parent == emotionalStateSpinner) {
+                moodEvent.setEmotionalState((EmotionalState) parent.getItemAtPosition(position));
+            }
+            else if (parent == socialSituationSpinner) {
+                moodEvent.setSocialSituation((SocialSituation) parent.getItemAtPosition(position));
+            }
+            return moodEvent;
+        });
     }
 
     // required by OnItemSelectedListener but not used

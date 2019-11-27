@@ -87,6 +87,12 @@ public class MoodEventViewModel extends ViewModel {
         return imageRepository.downloadImage(moodEvent.getImagePath());
     }
 
+    public void deleteImage() {
+        imageRepository.deleteImage(moodEvent.getImagePath());
+        moodEvent.setImagePath(null);
+        moodEventLiveData.setValue(moodEvent);
+    }
+
     // TODO
     public void saveChanges() {
         if (moodEvent != null) {

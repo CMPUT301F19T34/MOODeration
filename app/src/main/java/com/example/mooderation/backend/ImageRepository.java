@@ -55,6 +55,18 @@ public class ImageRepository {
     }
 
     /**
+     * Delete an image from Firebase storage
+     * @param imagePath
+     *      The path to the image
+     * @return
+     *      The async task for deleting the image
+     */
+    public Task<Void> deleteImage(String imagePath) {
+        StorageReference imageRef = storage.getReference(imagePath);
+        return imageRef.delete();
+    }
+
+    /**
      * Gets the path to the file in Firebase Storage
      * @param imageUri
      *      The image's URI

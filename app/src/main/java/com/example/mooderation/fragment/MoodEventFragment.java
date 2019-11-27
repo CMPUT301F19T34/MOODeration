@@ -114,10 +114,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         // delete the photo from the mood event
         Button deletePhotoButton = view.findViewById(R.id.delete_photo_button);
         deletePhotoButton.setOnClickListener(v -> {
-            moodEventViewModel.updateMoodEvent(moodEvent -> {
-                moodEvent.setImagePath(null);
-                return moodEvent;
-            });
+            moodEventViewModel.deleteImage();
             viewFlipper.setDisplayedChild(0);
         });
 

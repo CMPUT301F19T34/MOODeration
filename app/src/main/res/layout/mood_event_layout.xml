@@ -130,12 +130,12 @@
 
             <ImageView
                 android:id="@+id/mood_image_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:scaleType="centerInside"
                 android:adjustViewBounds="true"
-                android:src="@drawable/beter"/>
+                android:layout_gravity="center"/>
 
         </LinearLayout>
 

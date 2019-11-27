@@ -2,8 +2,11 @@ package com.example.mooderation.fragment;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -32,6 +36,8 @@ import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodEventViewModel;
 
+import static android.app.Activity.RESULT_OK;
+
 public class MoodEventFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher{
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -43,6 +49,10 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     private Spinner socialSituationSpinner;
     private EditText reasonEditText;
     private Switch locationSwitch;
+
+    // views related to taking and displaying images
+    private ViewFlipper viewFlipper;
+    private ImageView imageView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,15 +90,16 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         locationSwitch = view.findViewById(R.id.location_switch);
 
         // for switching between view with photo and without
-        ViewFlipper viewFlipper = view.findViewById(R.id.photo_view_flipper);
+        viewFlipper = view.findViewById(R.id.photo_view_flipper);
+        imageView = view.findViewById(R.id.mood_image_view);
 
         // add the photo to the mood event
         Button takePhotoButton = view.findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(v -> {
-            //Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-            // TODO move into on result
-             viewFlipper.showNext();
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
         });
 
         // delete the photo from the mood event
@@ -141,6 +152,18 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            viewFlipper.showNext();
+
+            // TODO remove -- temporary code
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(imageBitmap);
+        }
     }
 
     /**

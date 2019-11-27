@@ -23,6 +23,9 @@
 
     <string name="reason_hint">Reason</string>
     <string name="save_mood_event_text">Confirm</string>
+    <string name="location_toggle_text">Attach location</string>
+    <string name="take_photo_button_text">Take a photo</string>
+    <string name="delete_photo_button_text">Delete photo</string>
 
     <string name="edit_mood_label">Edit Mood Event</string>
 

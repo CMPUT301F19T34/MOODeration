@@ -17,7 +17,6 @@
         android:layout_marginBottom="16dp"
         android:background="?attr/editTextBackground"
         android:textSize="16sp"
-        android:text="yyyy-mm-dd"
         app:layout_constraintEnd_toStartOf="@id/time_picker_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,10 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:background="?attr/editTextBackground"
         android:textSize="16sp"
-        android:text="hh:mm"
         app:layout_constraintBaseline_toBaselineOf="@id/date_picker_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/date_picker_button"
@@ -81,6 +78,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/social_situation_spinner" />
 
+    <Switch
+        android:id="@+id/location_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/location_toggle_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reason_edit_text"
+        tools:checked="false" />
+
+    <ViewFlipper
+        android:id="@+id/photo_view_flipper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/location_switch">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/take_photo_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/take_photo_button_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/delete_photo_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/delete_photo_button_text"/>
+
+            <ImageView
+                android:id="@+id/photo_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:src="@sample/mood-event-sample-image.jpg"/>
+
+        </LinearLayout>
+
+    </ViewFlipper>
+
     <Button
         android:id="@+id/save_mood_event_button"
         android:layout_width="0dp"
@@ -94,22 +150,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_switch" />
-
-    <Switch
-        android:id="@+id/location_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Attach location"
-        app:layout_constraintBottom_toTopOf="@+id/save_mood_event_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reason_edit_text"
-        tools:checked="false" />
+        app:layout_constraintTop_toBottomOf="@+id/photo_view_flipper" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

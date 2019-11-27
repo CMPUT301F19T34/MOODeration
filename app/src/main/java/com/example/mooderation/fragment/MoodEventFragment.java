@@ -51,7 +51,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.add_mood_event_layout,
+        View view = inflater.inflate(R.layout.mood_event_layout,
                 container, false);
 
         // observe mood event's date and time
@@ -75,6 +75,12 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
 
         // find locationSwitch
         locationSwitch = view.findViewById(R.id.location_switch);
+
+        // TODO take photo button
+
+        // TODO delete photo button
+
+        // TODO image view
 
         // observe the mood event and update UI
         moodEventViewModel.getMoodEvent().observe(getViewLifecycleOwner(), moodEvent -> {

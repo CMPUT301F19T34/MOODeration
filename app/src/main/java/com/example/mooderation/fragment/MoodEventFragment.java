@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -35,6 +39,11 @@ import com.example.mooderation.MoodEventConstants;
 import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodEventViewModel;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -53,6 +62,9 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     // views related to taking and displaying images
     private ViewFlipper viewFlipper;
     private ImageView imageView;
+
+    // TODO move to MoodEvent class
+    private Uri photoURI;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,7 +110,20 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         takePhotoButton.setOnClickListener(v -> {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (photoFile != null) {
+                    photoURI = FileProvider.getUriForFile(
+                            getContext(), "com.example.android.fileprovider",
+                            photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
             }
         });
 
@@ -122,9 +147,8 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
             }
 
             // TODO mood event observe location
-            locationSwitch.setChecked(false);
 
-            // TODO image view
+            // TODO load image view from firebase cloud storage
         });
 
         locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
@@ -154,15 +178,39 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         return view;
     }
 
+    // allocates a file where an image can be stored.
+    // from: https://developer.android.com/training/camera/photobasics
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        //currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             viewFlipper.showNext();
 
-            // TODO remove -- temporary code
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
+            // TODO upload the image to firebase cloud storage instead
+
+            // get the image from the
+            Log.d("IMAGE_PATH", photoURI.getPath());
+            Bitmap imageBitmap = null;
+            try {
+                imageBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoURI);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (imageBitmap != null) {
+                imageView.setImageBitmap(imageBitmap);
+            }
+        }
+        else {
+            // TODO delete file??
         }
     }
 

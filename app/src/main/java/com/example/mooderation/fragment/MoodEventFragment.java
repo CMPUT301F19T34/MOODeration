@@ -135,10 +135,11 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
             // TODO mood event observe location
 
             if (moodEvent.getImagePath() != null) {
+                viewFlipper.setDisplayedChild(1);
                 moodEventViewModel.downloadImage().addOnSuccessListener(bytes -> {
                     Bitmap imageBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     imageView.setImageBitmap(imageBitmap);
-                    viewFlipper.showNext();
+                    viewFlipper.setDisplayedChild(2);
                 });
             }
         });
@@ -204,9 +205,8 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            viewFlipper.setDisplayedChild(1);
             moodEventViewModel.uploadImage(imageUri);
-            // delete image uri
-            //Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
         }
     }
 

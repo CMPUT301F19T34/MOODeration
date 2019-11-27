@@ -99,6 +99,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:measureAllChildren="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/location_switch">
@@ -111,7 +112,7 @@
             <Button
                 android:id="@+id/take_photo_button"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/take_photo_button_text"/>
 
         </LinearLayout>
@@ -124,14 +125,17 @@
             <Button
                 android:id="@+id/delete_photo_button"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/delete_photo_button_text"/>
 
             <ImageView
-                android:id="@+id/photo_image_view"
+                android:id="@+id/mood_image_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:src="@sample/mood-event-sample-image.jpg"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/beter"/>
 
         </LinearLayout>
 

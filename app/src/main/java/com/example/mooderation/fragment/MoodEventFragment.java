@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,8 @@ import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodEventViewModel;
 
 public class MoodEventFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher{
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private MoodEventViewModel moodEventViewModel;
 
     private TextView dateTextView;
@@ -76,11 +79,23 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         // find locationSwitch
         locationSwitch = view.findViewById(R.id.location_switch);
 
-        // TODO take photo button
+        // for switching between view with photo and without
+        ViewFlipper viewFlipper = view.findViewById(R.id.photo_view_flipper);
 
-        // TODO delete photo button
+        // add the photo to the mood event
+        Button takePhotoButton = view.findViewById(R.id.take_photo_button);
+        takePhotoButton.setOnClickListener(v -> {
+            //Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        // TODO image view
+            // TODO move into on result
+             viewFlipper.showNext();
+        });
+
+        // delete the photo from the mood event
+        Button deletePhotoButton = view.findViewById(R.id.delete_photo_button);
+        deletePhotoButton.setOnClickListener(v -> {
+            viewFlipper.showNext();
+        });
 
         // observe the mood event and update UI
         moodEventViewModel.getMoodEvent().observe(getViewLifecycleOwner(), moodEvent -> {
@@ -97,6 +112,8 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
 
             // TODO mood event observe location
             locationSwitch.setChecked(false);
+
+            // TODO image view
         });
 
         locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {

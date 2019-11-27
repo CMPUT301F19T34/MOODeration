@@ -120,7 +120,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         });
 
         Button imageButton = view.findViewById(R.id.imageButton);
-        
+
 
         return view;
     }

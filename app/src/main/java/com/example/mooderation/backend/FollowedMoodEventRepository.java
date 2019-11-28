@@ -25,7 +25,7 @@ public class FollowedMoodEventRepository {
     private final FirebaseFirestore firestore;
     private final FirebaseUser user;
 
-    private MutableLiveData<HashMap<String, MoodEvent>> followedMoodEvents;
+    private MutableLiveData<HashMap<Participant, MoodEvent>> followedMoodEvents;
 
     private ArrayList<ListenerRegistration> listenerRegistrations;
 
@@ -35,7 +35,7 @@ public class FollowedMoodEventRepository {
         this.listenerRegistrations = new ArrayList<>();
     }
 
-    public LiveData<HashMap<String, MoodEvent>> getFollowedMoodEvents() {
+    public LiveData<HashMap<Participant, MoodEvent>> getFollowedMoodEvents() {
         if (followedMoodEvents == null) {
             followedMoodEvents = new MutableLiveData<>();
 
@@ -45,6 +45,7 @@ public class FollowedMoodEventRepository {
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                         followerList.add(doc.toObject(Participant.class));
                     }
+                    followedMoodEvents.setValue(new HashMap<>());
                     listenForFollowEvents(followerList);
                 }
                 else if (e != null) {
@@ -66,9 +67,9 @@ public class FollowedMoodEventRepository {
                     .addSnapshotListener((queryDocumentSnapshots, e) -> {
                 if (queryDocumentSnapshots != null) {
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                        HashMap<String, MoodEvent> m = followedMoodEvents.getValue();
+                        HashMap<Participant, MoodEvent> m = followedMoodEvents.getValue();
                         if (m == null) m = new HashMap<>();
-                        m.put(p.getUid(), doc.toObject(MoodEvent.class));
+                        m.put(p, doc.toObject(MoodEvent.class));
                         followedMoodEvents.setValue(m);
                     }
                 }

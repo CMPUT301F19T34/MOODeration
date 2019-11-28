@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mooderation.auth.firebase.FirebaseAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
     @Override
@@ -16,15 +15,18 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null) {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+        Intent intent;
+
+        // if user is not logged in go to LoginActivity
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            intent = new Intent(SplashActivity.this, LoginActivity.class);
             intent.putExtra(LoginActivity.AUTHENTICATOR, new FirebaseAuthenticator());
-            startActivity(intent);
         } else {
-            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-            startActivity(intent);
+            intent = new Intent(SplashActivity.this, HomeActivity.class);
         }
-        // TODO finish splash activity?
+
+        // start activity
+        startActivity(intent);
+        finish();
     }
 }

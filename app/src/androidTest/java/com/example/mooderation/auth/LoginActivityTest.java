@@ -14,13 +14,17 @@ import com.example.mooderation.R;
 import com.example.mooderation.auth.base.IAuthenticator;
 import com.example.mooderation.auth.ui.LoginActivity;
 import com.example.mooderation.auth.ui.SignUpActivity;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.auth.FirebaseAuth;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.concurrent.ExecutionException;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
@@ -33,6 +37,13 @@ public class LoginActivityTest {
     @Rule
     public ActivityTestRule<LoginActivity> rule =
             new ActivityTestRule<>(LoginActivity.class, true, false);
+
+    // Some tests will throw an IllegalStateException if there is no user logged in
+    @BeforeClass
+    public static void setUpClass() throws ExecutionException, InterruptedException {
+        FirebaseAuth.getInstance().signOut();
+        Tasks.await(FirebaseAuth.getInstance().signInWithEmailAndPassword("test@email.com", "password"));
+    }
 
     @Before
     public void setUp() {
@@ -48,7 +59,6 @@ public class LoginActivityTest {
     }
 
     @Test
-    @Ignore("Can't start HomeActivity with actually being logged in.")
     public void testLogin() {
         login(MockAuthenticator.REGISTERED_EMAIL, MockAuthenticator.REGISTERED_PASSWORD);
 
@@ -73,7 +83,6 @@ public class LoginActivityTest {
     }
 
     @Test
-    @Ignore("Can't start HomeActivity with actually being logged in.")
     public void testProgressBar() {
         final ProgressBar pbar = (ProgressBar)solo.getView(R.id.loading);
 

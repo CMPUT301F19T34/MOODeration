@@ -1,7 +1,5 @@
 package com.example.mooderation;
 
-import android.location.Location;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,9 +13,10 @@ public class MoodEvent {
 
     private Date date;
     private EmotionalState emotionalState;
-    private String reason;
     private SocialSituation socialSituation;
-    private Location location;
+    private String reason;
+    private MoodLatLng location;
+    private String imagePath;
 
     /**
      * MoodEvent Constructor
@@ -33,7 +32,7 @@ public class MoodEvent {
      *      The location of this MoodEvent
      */
     public MoodEvent(Date date, EmotionalState emotionalState,
-                     SocialSituation socialSituation, String reason, Location location) {
+                     SocialSituation socialSituation, String reason, MoodLatLng location) {
         this.date = date;
         this.emotionalState = emotionalState;
         this.socialSituation = socialSituation;
@@ -116,8 +115,16 @@ public class MoodEvent {
         this.reason = reason;
     }
 
-    public Location getLocation() {
+    public MoodLatLng getLocation() {
         return location;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Override

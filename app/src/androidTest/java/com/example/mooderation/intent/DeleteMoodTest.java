@@ -7,37 +7,38 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.example.mooderation.HomeActivity;
 import com.example.mooderation.R;
-import com.example.mooderation.SplashActivity;
-import com.example.mooderation.auth.ui.LoginActivity;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static com.example.mooderation.intent.AuthUtils.login;
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.Assert.assertTrue;
 
 public class DeleteMoodTest {
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<SplashActivity> rule = new ActivityTestRule<>(
-            SplashActivity.class, true, true);
+    public ActivityTestRule<HomeActivity> rule = new ActivityTestRule<>(HomeActivity.class);
+
+    @BeforeClass
+    public static void setUpClass() throws ExecutionException, InterruptedException {
+        FirebaseAuth.getInstance().signOut();
+        Tasks.await(FirebaseAuth.getInstance().signInWithEmailAndPassword("test@email.com", "password"));
+    }
 
     @Before
     public void setUp() {
-        FirebaseAuth.getInstance().signOut();
-
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        solo.waitForActivity(LoginActivity.class, 1000);
-        login(solo);
-        solo.waitForActivity(HomeActivity.class, 1000);
     }
 
-    @After
+        @After
     public void tearDown() {
         solo.finishOpenedActivities();
     }

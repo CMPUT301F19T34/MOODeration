@@ -118,6 +118,10 @@ public class MoodEvent {
         return location;
     }
 
+    public void setLocation(MoodLatLng location) {
+        this.location = location;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) return true;

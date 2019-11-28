@@ -13,6 +13,8 @@ import com.example.mooderation.backend.MoodEventRepository;
 public class MoodEventViewModel extends ViewModel {
     private MoodEventRepository moodEventRepository;
     private MutableLiveData<MoodEvent> moodEventLiveData;
+    private MutableLiveData<Boolean> isEditingLiveData;
+    private MutableLiveData<Boolean> locationToggleStateLiveData;
 
     /**
      * Default constructor. Creates dependencies internally.
@@ -51,10 +53,62 @@ public class MoodEventViewModel extends ViewModel {
         return moodEventLiveData;
     }
 
+
+    /**
+     * Sets isEditing which indicates whether the moodEvent is being created or edited
+     * @param isEditing
+     */
+    public void setIsEditing(Boolean isEditing) {
+        // Initialize live data
+        if (isEditingLiveData == null) {
+            isEditingLiveData = new MutableLiveData<>();
+        }
+
+        isEditingLiveData.setValue(isEditing);
+    }
+
+    /**
+     * Returns a boolean which indicates if the moodEvent is being created or edited
+     * @return isEditingLiveData
+     */
+    public LiveData<Boolean> getIsEditing() {
+        if (isEditingLiveData == null) {
+            setIsEditing(false);
+        }
+
+        return isEditingLiveData;
+    }
+
+    /**
+     * Sets a boolean which indicates the correct state of the location toggle
+     * @param locationToggleState
+     */
+    public void setLocationToggleState(Boolean locationToggleState) {
+        // Initialize live data
+        if (locationToggleStateLiveData == null) {
+            locationToggleStateLiveData = new MutableLiveData<>();
+        }
+
+        locationToggleStateLiveData.setValue(locationToggleState);
+    }
+
+    /**
+     * Returns a boolean which indicates the correct state of the location toggle
+     * @return locationToggleStateLiveData
+     */
+    public LiveData<Boolean> getLocationToggleState() {
+        if (locationToggleStateLiveData == null) {
+            setLocationToggleState(false);
+        }
+
+        return locationToggleStateLiveData;
+    }
+
     // TODO
     public void saveChanges() {
         MoodEvent moodEvent = moodEventLiveData.getValue();
         if (moodEvent != null) {
+
             moodEventRepository.add(moodEvent);
         }
     }

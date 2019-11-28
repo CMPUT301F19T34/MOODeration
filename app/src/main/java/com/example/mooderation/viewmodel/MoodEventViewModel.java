@@ -20,6 +20,8 @@ public class MoodEventViewModel extends ViewModel {
 
     private MoodEvent moodEvent;
     private MutableLiveData<MoodEvent> moodEventLiveData;
+    private MutableLiveData<Boolean> isEditingLiveData;
+    private MutableLiveData<Boolean> locationToggleStateLiveData;
 
     private Uri localUri;
 
@@ -82,10 +84,62 @@ public class MoodEventViewModel extends ViewModel {
     }
 
     /**
+     * Sets isEditing which indicates whether the moodEvent is being created or edited
+     * @param isEditing
+     */
+    public void setIsEditing(Boolean isEditing) {
+        // Initialize live data
+        if (isEditingLiveData == null) {
+            isEditingLiveData = new MutableLiveData<>();
+        }
+
+        isEditingLiveData.setValue(isEditing);
+    }
+
+    /**
+     * Returns a boolean which indicates if the moodEvent is being created or edited
+     * @return isEditingLiveData
+     */
+    public LiveData<Boolean> getIsEditing() {
+        if (isEditingLiveData == null) {
+            setIsEditing(false);
+        }
+
+        return isEditingLiveData;
+    }
+
+    /**
+     * Sets a boolean which indicates the correct state of the location toggle
+     * @param locationToggleState
+     */
+    public void setLocationToggleState(Boolean locationToggleState) {
+        // Initialize live data
+        if (locationToggleStateLiveData == null) {
+            locationToggleStateLiveData = new MutableLiveData<>();
+        }
+
+        locationToggleStateLiveData.setValue(locationToggleState);
+    }
+
+    /**
+     * Returns a boolean which indicates the correct state of the location toggle
+     * @return locationToggleStateLiveData
+     */
+    public LiveData<Boolean> getLocationToggleState() {
+        if (locationToggleStateLiveData == null) {
+            setLocationToggleState(false);
+        }
+
+        return locationToggleStateLiveData;
+    }
+
+    // TODO
+    /**
      * Upload an image to Firebase Storage
      * @param imageUri
      *      The image's URI
      */
+
     public void uploadImage(Uri imageUri) {
         imageRepository.uploadImage(imageUri).addOnSuccessListener(taskSnapshot -> {
             if (moodEvent == null) {
@@ -119,6 +173,7 @@ public class MoodEventViewModel extends ViewModel {
      */
     public void saveChanges() {
         if (moodEvent != null) {
+
             moodEventRepository.add(moodEvent);
         }
     }

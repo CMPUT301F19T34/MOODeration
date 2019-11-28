@@ -2,13 +2,18 @@ package com.example.mooderation.fragment;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import com.example.mooderation.MoodLatLng;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,25 +24,37 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.example.mooderation.EmotionalState;
 import com.example.mooderation.LocationDeniedDialog;
-import com.example.mooderation.MoodEvent;
 import com.example.mooderation.MoodEventConstants;
 import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
 import com.example.mooderation.viewmodel.MoodEventViewModel;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static android.app.Activity.RESULT_OK;
+
 public class MoodEventFragment extends Fragment implements AdapterView.OnItemSelectedListener, TextWatcher{
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private MoodEventViewModel moodEventViewModel;
 
     private TextView dateTextView;
@@ -47,6 +64,14 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     private EditText reasonEditText;
     private FusedLocationProviderClient fusedLocationClient;
     private Switch locationSwitch;
+
+    // views related to taking and displaying images
+    private ViewFlipper viewFlipper;
+    private ImageView imageView;
+
+    // the local version of the image
+    private Uri imageUri;
+    private File imageFile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +83,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.add_mood_event_layout,
+        View view = inflater.inflate(R.layout.mood_event_layout,
                 container, false);
 
         // observe mood event's date and time
@@ -83,6 +108,23 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         // find locationSwitch
         locationSwitch = view.findViewById(R.id.location_switch);
 
+        // for switching between view with photo and without
+        viewFlipper = view.findViewById(R.id.photo_view_flipper);
+        imageView = view.findViewById(R.id.mood_image_view);
+
+        // add the photo to the mood event
+        Button takePhotoButton = view.findViewById(R.id.take_photo_button);
+        takePhotoButton.setOnClickListener(v -> {
+            dispatchCameraIntent();
+        });
+
+        // delete the photo from the mood event
+        Button deletePhotoButton = view.findViewById(R.id.delete_photo_button);
+        deletePhotoButton.setOnClickListener(v -> {
+            moodEventViewModel.deleteImage();
+            viewFlipper.setDisplayedChild(0);
+        });
+
         // observe the mood event and update UI
         moodEventViewModel.getMoodEvent().observe(getViewLifecycleOwner(), moodEvent -> {
             dateTextView.setText(moodEvent.getFormattedDate());
@@ -96,6 +138,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
                 reasonEditText.setText(moodEvent.getReason());
             }
 
+
             // set location toggle
             if (moodEventViewModel.getIsEditing().getValue()) {
                 locationSwitch.setChecked(true);
@@ -106,6 +149,14 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
                 locationSwitch.setChecked(false);
             }
 
+            if (moodEvent.getImagePath() != null) {
+                viewFlipper.setDisplayedChild(1);
+                moodEventViewModel.downloadImage().addOnSuccessListener(bytes -> {
+                    Bitmap imageBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    imageView.setImageBitmap(imageBitmap);
+                    viewFlipper.setDisplayedChild(2);
+                });
+            }
         });
 
         locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
@@ -129,7 +180,6 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
                     moodEventViewModel.setLocationToggleState(false);
                 }
             }
-
         });
 
         // find and initialize saveButton
@@ -157,6 +207,49 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         });
 
         return view;
+    }
+
+    // allocates a file where an image can be stored.
+    // from: https://developer.android.com/training/camera/photobasics
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getCacheDir();
+        //File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        return image;
+    }
+
+    private void dispatchCameraIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            imageFile = null;
+            try {
+                imageFile = createImageFile();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (imageFile != null) {
+                imageUri = FileProvider.getUriForFile(
+                        getContext(), "com.example.android.fileprovider", imageFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
+    // called when returning from camera intent
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            viewFlipper.setDisplayedChild(1);
+            moodEventViewModel.uploadImage(imageUri);
+        }
+        // delete local version of file
+        if (imageFile != null) {
+            imageFile.delete(); // TODO check return result
+        }
     }
 
     /**
@@ -191,19 +284,15 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     // for listening updating the mood event when the spinners are updated
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        MoodEvent moodEvent = moodEventViewModel.getMoodEvent().getValue();
-        if (moodEvent == null) {
-            throw new IllegalStateException("Mood event cannot be null");
-        }
-
-        if (parent == emotionalStateSpinner) {
-            moodEvent.setEmotionalState((EmotionalState) parent.getItemAtPosition(position));
-        }
-        else if (parent == socialSituationSpinner) {
-            moodEvent.setSocialSituation((SocialSituation) parent.getItemAtPosition(position));
-        }
-
-        moodEventViewModel.setMoodEvent(moodEvent);
+        moodEventViewModel.updateMoodEvent(moodEvent -> {
+            if (parent == emotionalStateSpinner) {
+                moodEvent.setEmotionalState((EmotionalState) parent.getItemAtPosition(position));
+            }
+            else if (parent == socialSituationSpinner) {
+                moodEvent.setSocialSituation((SocialSituation) parent.getItemAtPosition(position));
+            }
+            return moodEvent;
+        });
     }
 
     // required by OnItemSelectedListener but not used
@@ -217,12 +306,10 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     // listens for the reason edit text to be updated
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        MoodEvent moodEvent = moodEventViewModel.getMoodEvent().getValue();
-        if (moodEvent == null) {
-            throw new IllegalStateException("Mood event cannot be null");
-        }
-        moodEvent.setReason(s.toString());
-        moodEventViewModel.setMoodEvent(moodEvent);
+        moodEventViewModel.updateMoodEvent(moodEvent -> {
+            moodEvent.setReason(s.toString());
+            return moodEvent;
+        });
     }
 
     // required by TextWatcher but not used

@@ -29,6 +29,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private ButtonPressListener editListener;
     private ButtonPressListener deleteListener;
+    private boolean displayButtons;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
                                        Map<String, List<String>> expandableListDetail,
@@ -39,6 +40,15 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         this.expandableListDetail = expandableListDetail;
         this.editListener = editListener;
         this.deleteListener = deleteListener;
+        this.displayButtons = true;
+    }
+
+    public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
+                                       Map<String, List<String>> expandableListDetail) {
+        this.context = context;
+        this.expandableListTitle = expandableListTitle;
+        this.expandableListDetail = expandableListDetail;
+        this.displayButtons = false;
     }
 
     /**
@@ -97,7 +107,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         Button deletebutton = convertView.findViewById(R.id.DeleteButton);
 
         // Set buttons at end of expanded view
-        if(isLastChild){
+        if(isLastChild & displayButtons){
             editbutton.setVisibility(View.VISIBLE);
             deletebutton.setVisibility(View.VISIBLE);
 

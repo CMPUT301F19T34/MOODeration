@@ -5,17 +5,36 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
+import com.example.mooderation.CustomExpandableListAdapter;
+import com.example.mooderation.DeleteMoodDialog;
+import com.example.mooderation.ExpandableListDataPump;
+import com.example.mooderation.MoodEvent;
 import com.example.mooderation.R;
 import com.example.mooderation.viewmodel.FollowedMoodsViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class FollowedMoodsFragment extends Fragment {
     private FollowedMoodsViewModel followedMoodsViewModel;
+
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter expandableListAdapter;
+    private List<String> expandableListTitle;
+    private Map<String, List<String>> expandableListDetail;
+    private static FragmentManager fragmentManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,8 +53,15 @@ public class FollowedMoodsFragment extends Fragment {
                         String.format("%s: %s", uid, moodEvents.get(uid).getEmotionalState()));
             }
             Log.d(this.getClass().getSimpleName(), FollowedMoodsFragment.this.toString());
-        });
 
+
+            expandableListDetail = ExpandableListDataPump.getFollowed(getContext(), moodEvents);
+            expandableListView = view.findViewById(R.id.followedListView);
+            expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+            expandableListAdapter = new CustomExpandableListAdapter(
+                    this.getContext(), expandableListTitle, expandableListDetail);
+            expandableListView.setAdapter(expandableListAdapter);
+        });
         return view;
     }
 }

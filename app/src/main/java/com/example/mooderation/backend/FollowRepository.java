@@ -10,6 +10,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -72,8 +73,15 @@ public class FollowRepository {
      */
     public Task<Void> accept(FollowRequest request) {
         Participant follower = new Participant(request.getUid(), request.getUsername());
+
         return followRequestOf(user.getUid()).document(follower.getUid()).delete().continueWithTask(
-                task -> followersOf(user.getUid()).document(follower.getUid()).set(follower));
+                task -> followersOf(user.getUid()).document(follower.getUid()).set(follower)).continueWithTask(
+                task -> this.userReference(user.getUid()).get()).continueWithTask(
+                task -> {
+                    String username = (String) task.getResult().get("username");
+                    Participant following = new Participant(user.getUid(), username);
+                    return following(follower.getUid()).document(user.getUid()).set(following);
+                });
     }
 
     /**
@@ -197,6 +205,19 @@ public class FollowRepository {
     }
 
     /**
+     * Get a reference to the users that a user is following
+     * @param userId
+     *      The user's ID.
+     * @return
+     *      A reference to the firestore collection for followers.
+     */
+    private CollectionReference following(String userId) {
+        return firestore.collection("users")
+                .document(userId)
+                .collection("following");
+    }
+
+    /**
      * Get a reference to as user's follow requests.
      * @param userId
      *      The user's ID.
@@ -207,5 +228,10 @@ public class FollowRepository {
         return firestore.collection("users")
                 .document(userId)
                 .collection("follow_requests");
+    }
+
+    private DocumentReference userReference(String uid) {
+        return firestore.collection("users")
+                .document(uid);
     }
 }

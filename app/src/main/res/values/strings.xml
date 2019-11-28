@@ -2,6 +2,7 @@
     <string name="app_name">MOODeration</string>
 
     <string name="mood_history_label">My Mood History</string>
+    <string name="followed_moods_label">Followed Moods</string>
     <string name="add_mood_event_label">Add Mood Event</string>
     <string name="follow_request_label">My Follow Requests</string>
     <string name="mood_history_map_label">My Mood History Map</string>

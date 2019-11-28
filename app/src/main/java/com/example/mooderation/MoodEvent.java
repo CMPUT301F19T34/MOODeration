@@ -119,6 +119,11 @@ public class MoodEvent {
         return location;
     }
 
+
+    public void setLocation(MoodLatLng location) {
+        this.location = location;
+    }
+
     public String getImagePath() {
         return imagePath;
     }

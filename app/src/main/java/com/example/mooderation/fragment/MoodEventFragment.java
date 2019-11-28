@@ -4,6 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
+import com.example.mooderation.MoodLatLng;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -26,6 +31,8 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -55,6 +62,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     private Spinner emotionalStateSpinner;
     private Spinner socialSituationSpinner;
     private EditText reasonEditText;
+    private FusedLocationProviderClient fusedLocationClient;
     private Switch locationSwitch;
 
     // views related to taking and displaying images
@@ -130,7 +138,16 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
                 reasonEditText.setText(moodEvent.getReason());
             }
 
-            // TODO mood event observe location
+
+            // set location toggle
+            if (moodEventViewModel.getIsEditing().getValue()) {
+                locationSwitch.setChecked(true);
+                locationSwitch.setEnabled(false);
+            } else if(moodEventViewModel.getLocationToggleState().getValue()) {
+                locationSwitch.setChecked(true);
+            } else {
+                locationSwitch.setChecked(false);
+            }
 
             if (moodEvent.getImagePath() != null) {
                 viewFlipper.setDisplayedChild(1);
@@ -143,18 +160,41 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         });
 
         locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
-            // TODO check permission first as well?
-            if(isToggled) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            // prevents location from being changed once set
+            if(!moodEventViewModel.getIsEditing().getValue()) {
+                if(isToggled) {
+                    // request permission if permission is not already granted
+                    if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                    } else {
+                        locationSwitch.setChecked(true);
+                        moodEventViewModel.setLocationToggleState(true);
+                    }
+                }
+            }else {
+                if(moodEventViewModel.getMoodEvent().getValue().getLocation() != null) {
+                    locationSwitch.setChecked(true);
+                    moodEventViewModel.setLocationToggleState(true);
+                } else {
+                    locationSwitch.setChecked(false);
+                    moodEventViewModel.setLocationToggleState(false);
+                }
             }
         });
 
         // find and initialize saveButton
         Button saveButton = view.findViewById(R.id.save_mood_event_button);
         saveButton.setOnClickListener((View v) -> {
-
-            // TODO store location in mood event
-
+            // store location in mood event if it not already set
+            if(locationSwitch.isChecked() && !moodEventViewModel.getIsEditing().getValue()) {
+                fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+                fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+                    if(location != null) {
+                        moodEventViewModel.getMoodEvent().getValue().setLocation(new MoodLatLng(location.getLatitude(), location.getLongitude()));
+                        moodEventViewModel.saveChanges();
+                    }
+                });
+            }
             // update the database with new changes
             moodEventViewModel.saveChanges();
 
@@ -220,13 +260,15 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // TODO
-        } else {
-            locationSwitch.toggle();
+        if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            locationSwitch.setChecked(false);
+            moodEventViewModel.setLocationToggleState(false);
             if(!shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 openDialog();
             }
+        } else {
+            locationSwitch.setChecked(true);
+            moodEventViewModel.setLocationToggleState(true);
         }
     }
 

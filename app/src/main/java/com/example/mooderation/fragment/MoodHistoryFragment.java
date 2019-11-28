@@ -66,6 +66,8 @@ public class MoodHistoryFragment extends Fragment {
         final FloatingActionButton addMoodEventButton = view.findViewById(R.id.add_mood_event_button);
         addMoodEventButton.setOnClickListener((View v) -> {
             moodEventViewModel.setMoodEvent(new MoodEvent());
+            moodEventViewModel.setIsEditing(false);
+            moodEventViewModel.setLocationToggleState(false);
             NavDirections action = MoodHistoryFragmentDirections.actionViewMoodHistoryFragmentToAddMoodEventFragment();
             Navigation.findNavController(v).navigate(action);
         });
@@ -84,6 +86,7 @@ public class MoodHistoryFragment extends Fragment {
                     // on edit button pressed listener
                     position -> {
                         moodEventViewModel.setMoodEvent(moodEventList.get(position));
+                        moodEventViewModel.setIsEditing(true);
                         Navigation.findNavController(view).navigate(R.id.addMoodEventFragment);
                     },
                     // on delete button pressed listener

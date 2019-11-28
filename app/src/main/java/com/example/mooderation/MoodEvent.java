@@ -16,6 +16,7 @@ public class MoodEvent {
     private SocialSituation socialSituation;
     private String reason;
     private MoodLatLng location;
+    private String imagePath;
 
     /**
      * MoodEvent Constructor
@@ -116,6 +117,14 @@ public class MoodEvent {
 
     public MoodLatLng getLocation() {
         return location;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Override

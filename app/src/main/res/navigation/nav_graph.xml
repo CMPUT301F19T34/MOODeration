@@ -22,7 +22,7 @@
         android:id="@+id/addMoodEventFragment"
         android:name="com.example.mooderation.fragment.MoodEventFragment"
         android:label="@string/add_mood_event_label"
-        tools:layout="@layout/add_mood_event_layout" />
+        tools:layout="@layout/mood_event_layout" />
     <fragment
         android:id="@+id/followRequestsFragment"
         android:name="com.example.mooderation.fragment.FollowRequestsFragment"

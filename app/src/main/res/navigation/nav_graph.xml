@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/participantProfileFragment"
         android:name="com.example.mooderation.fragment.ParticipantProfileFragment"
-        android:label="fragment_participant_profile"
+        android:label="@string/participant_profile_label"
         tools:layout="@layout/fragment_participant_profile" >
         <argument
             android:name="uid"

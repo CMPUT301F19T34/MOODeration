@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mooderation.MoodEvent;
+import com.example.mooderation.Participant;
 import com.example.mooderation.backend.FollowedMoodEventRepository;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class FollowedMoodsViewModel extends ViewModel {
     /**
      * Get LiveData referring to the list of mood events of followed participants
      */
-    public LiveData<HashMap<String, MoodEvent>> getMoodEvents() {
+    public LiveData<HashMap<Participant, MoodEvent>> getMoodEvents() {
         return repository.getFollowedMoodEvents();
     }
 }

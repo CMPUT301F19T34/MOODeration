@@ -49,12 +49,6 @@ public class FollowedMoodsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_followed_moods, container, false);
 
         followedMoodsViewModel.getMoodEvents().observe(this, moodEvents -> {
-            for (Participant p : moodEvents.keySet()) {
-                Log.d("FOLLOWED_MOODS",
-                        String.format("%s: %s", p.getUsername(), moodEvents.get(p).getEmotionalState()));
-            }
-            Log.d(this.getClass().getSimpleName(), FollowedMoodsFragment.this.toString());
-
 
             expandableListDetail = ExpandableListDataPump.getFollowed(getContext(), moodEvents);
             expandableListView = view.findViewById(R.id.followedListView);

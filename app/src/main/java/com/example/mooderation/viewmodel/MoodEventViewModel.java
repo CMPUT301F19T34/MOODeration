@@ -1,7 +1,6 @@
 package com.example.mooderation.viewmodel;
 
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -59,12 +58,22 @@ public class MoodEventViewModel extends ViewModel {
         moodEventLiveData.setValue(moodEvent);
     }
 
+    /**
+     * Updates the mood event being viewed.
+     * @param callback
+     *      A function that should update the mood event.
+     */
     public void updateMoodEvent(UpdateMoodEventCallback callback) {
         MoodEvent moodEvent = callback.update(this.moodEvent);
         this.moodEvent = moodEvent;
         this.moodEventLiveData.setValue(moodEvent);
     }
 
+    /**
+     * Get live data of the mood event.
+     * @return
+     *      Live data tracking the current mood event.
+     */
     public LiveData<MoodEvent> getMoodEvent() {
         if (moodEventLiveData == null) {
             throw new IllegalStateException("Mood event cannot be null!");
@@ -72,34 +81,52 @@ public class MoodEventViewModel extends ViewModel {
         return moodEventLiveData;
     }
 
+    /**
+     * Upload an image to Firebase Storage
+     * @param imageUri
+     *      The image's URI
+     */
     public void uploadImage(Uri imageUri) {
         imageRepository.uploadImage(imageUri).addOnSuccessListener(taskSnapshot -> {
             if (moodEvent == null) {
                 throw new IllegalStateException("Mood event cannot be null!");
             }
-            Log.d("IMAGE_PATH", taskSnapshot.getStorage().toString());
             moodEvent.setImagePath(imageRepository.getImagePath(imageUri));
             moodEventLiveData.setValue(moodEvent);
         });
     }
 
+    /**
+     * Download the image from Firebase storage.
+     * @return
+     *      An async task.
+     */
     public Task<byte[]> downloadImage() {
         return imageRepository.downloadImage(moodEvent.getImagePath());
     }
 
+    /**
+     * Delete an image from Firestore Storage.
+     */
     public void deleteImage() {
         imageRepository.deleteImage(moodEvent.getImagePath());
         moodEvent.setImagePath(null);
         moodEventLiveData.setValue(moodEvent);
     }
 
-    // TODO
+    /**
+     * Save the changes made to the current mood event.
+     */
     public void saveChanges() {
         if (moodEvent != null) {
             moodEventRepository.add(moodEvent);
         }
     }
 
+    /**
+     * Interface for a mood event update callback.
+     * Used to make changes to the mood event.
+     */
     public interface UpdateMoodEventCallback {
         public MoodEvent update(MoodEvent moodEvent);
     }

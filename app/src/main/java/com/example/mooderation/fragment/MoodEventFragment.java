@@ -33,7 +33,6 @@ import androidx.navigation.Navigation;
 
 import com.example.mooderation.EmotionalState;
 import com.example.mooderation.LocationDeniedDialog;
-import com.example.mooderation.MoodEvent;
 import com.example.mooderation.MoodEventConstants;
 import com.example.mooderation.R;
 import com.example.mooderation.SocialSituation;
@@ -265,12 +264,10 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     // listens for the reason edit text to be updated
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        MoodEvent moodEvent = moodEventViewModel.getMoodEvent().getValue();
-        if (moodEvent == null) {
-            throw new IllegalStateException("Mood event cannot be null");
-        }
-        moodEvent.setReason(s.toString());
-        moodEventViewModel.setMoodEvent(moodEvent);
+        moodEventViewModel.updateMoodEvent(moodEvent -> {
+            moodEvent.setReason(s.toString());
+            return moodEvent;
+        });
     }
 
     // required by TextWatcher but not used

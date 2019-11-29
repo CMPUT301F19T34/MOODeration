@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -200,6 +201,8 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
                     if(location != null) {
                         moodEventViewModel.getMoodEvent().getValue().setLocation(new MoodLatLng(location.getLatitude(), location.getLongitude()));
                         moodEventViewModel.saveChanges();
+                    } else {
+                        Toast.makeText(getContext(), "Unable to add location", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

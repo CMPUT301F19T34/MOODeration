@@ -22,7 +22,7 @@
         android:id="@+id/addMoodEventFragment"
         android:name="com.example.mooderation.fragment.MoodEventFragment"
         android:label="@string/add_mood_event_label"
-        tools:layout="@layout/add_mood_event_layout" />
+        tools:layout="@layout/mood_event_layout" />
     <fragment
         android:id="@+id/followRequestsFragment"
         android:name="com.example.mooderation.fragment.FollowRequestsFragment"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/participantProfileFragment"
         android:name="com.example.mooderation.fragment.ParticipantProfileFragment"
-        android:label="fragment_participant_profile"
+        android:label="@string/participant_profile_label"
         tools:layout="@layout/fragment_participant_profile" >
         <argument
             android:name="uid"
@@ -59,4 +59,9 @@
         android:name="com.example.mooderation.fragment.FollowedMoodHistoryMapFragment"
         android:label="@string/followed_mood_history_map_label"
         tools:layout="@layout/fragment_followed_mood_history_map" />
+    <fragment
+        android:id="@+id/followedMoodsFragment"
+        android:name="com.example.mooderation.fragment.FollowedMoodsFragment"
+        android:label="@string/followed_moods_label"
+        tools:layout="@layout/fragment_followed_moods" />
 </navigation>

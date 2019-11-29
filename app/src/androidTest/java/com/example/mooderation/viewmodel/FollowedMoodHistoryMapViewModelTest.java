@@ -29,6 +29,9 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.when;
 
+/**
+ * Tests for the followed moods map viewmodel
+ */
 @RunWith(JUnit4.class)
 public class FollowedMoodHistoryMapViewModelTest {
     @Mock

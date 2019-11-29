@@ -1,18 +1,16 @@
 package com.example.mooderation.fragment;
 
-import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mooderation.EmotionalState;
 import com.example.mooderation.MoodEvent;
@@ -29,8 +27,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
-import java.util.List;
 
+/**
+ * The followed moods map fragment.
+ */
 public class FollowedMoodHistoryMapFragment extends Fragment {
 
     private FollowedMoodHistoryMapViewModel followedMoodHistoryMapViewModel;

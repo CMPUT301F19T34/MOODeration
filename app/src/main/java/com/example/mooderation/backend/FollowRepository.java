@@ -75,6 +75,12 @@ public class FollowRepository {
         return acceptAs(user.getUid(), request);
     }
 
+    /**
+     * Accepts a follow request as another user. This is intended to be used for testing.
+     * @param uid UID of the user accepting the follow request.
+     * @param request Request sent to the user.
+     * @return A task which completes once the request has been accepted.
+     */
     public Task<Void> acceptAs(String uid, FollowRequest request) {
         Participant follower = new Participant(request.getUid(), request.getUsername());
 

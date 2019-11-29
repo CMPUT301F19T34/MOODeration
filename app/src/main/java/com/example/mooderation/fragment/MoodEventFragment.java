@@ -174,7 +174,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
                         locationSwitch.setChecked(false);
                         locationSwitch.setText("Location not attached");
                         moodEventViewModel.setLocationToggleState(false);
-                        openLocationDiasbledDialog();
+                        openLocationDisabledDialog();
                     } else {
                         // request permission if permission is not already granted
                         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -305,7 +305,11 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
         locationDeniedDialog.show(getFragmentManager(), "Location Denied");
     }
 
-    public void openLocationDiasbledDialog() {
+    /**
+     * Displays a dialog box when a user attempts to attach location to a Mood Event but their
+     * device's location services are disabled
+     */
+    public void openLocationDisabledDialog() {
         LocationDisabledDialog locationDisabledDialog = new LocationDisabledDialog();
         locationDisabledDialog.show(getFragmentManager(), "Location Off");
     }

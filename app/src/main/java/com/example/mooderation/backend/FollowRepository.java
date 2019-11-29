@@ -72,15 +72,25 @@ public class FollowRepository {
      *      Database operation Task.
      */
     public Task<Void> accept(FollowRequest request) {
+        return acceptAs(user.getUid(), request);
+    }
+
+    /**
+     * Accepts a follow request as another user. This is intended to be used for testing.
+     * @param uid UID of the user accepting the follow request.
+     * @param request Request sent to the user.
+     * @return A task which completes once the request has been accepted.
+     */
+    public Task<Void> acceptAs(String uid, FollowRequest request) {
         Participant follower = new Participant(request.getUid(), request.getUsername());
 
-        return followRequestOf(user.getUid()).document(follower.getUid()).delete().continueWithTask(
-                task -> followersOf(user.getUid()).document(follower.getUid()).set(follower)).continueWithTask(
-                task -> this.userReference(user.getUid()).get()).continueWithTask(
+        return followRequestOf(uid).document(follower.getUid()).delete().continueWithTask(
+                task -> followersOf(uid).document(follower.getUid()).set(follower)).continueWithTask(
+                task -> this.userReference(uid).get()).continueWithTask(
                 task -> {
                     String username = (String) task.getResult().get("username");
-                    Participant following = new Participant(user.getUid(), username);
-                    return following(follower.getUid()).document(user.getUid()).set(following);
+                    Participant following = new Participant(uid, username);
+                    return following(follower.getUid()).document(uid).set(following);
                 });
     }
 

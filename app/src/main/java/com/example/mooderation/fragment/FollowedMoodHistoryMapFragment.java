@@ -13,26 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mooderation.R;
-import com.example.mooderation.viewmodel.FolloweeMoodHistoryMapViewModel;
+import com.example.mooderation.viewmodel.FollowedMoodHistoryMapViewModel;
 
-public class FolloweeMoodHistoryMapFragment extends Fragment {
+public class FollowedMoodHistoryMapFragment extends Fragment {
 
-    private FolloweeMoodHistoryMapViewModel mViewModel;
+    private FollowedMoodHistoryMapViewModel mViewModel;
 
-    public static FolloweeMoodHistoryMapFragment newInstance() {
-        return new FolloweeMoodHistoryMapFragment();
+    public static FollowedMoodHistoryMapFragment newInstance() {
+        return new FollowedMoodHistoryMapFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_followee_mood_history_map, container, false);
+        return inflater.inflate(R.layout.fragment_followed_mood_history_map, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(FolloweeMoodHistoryMapViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FollowedMoodHistoryMapViewModel.class);
         // TODO: Use the ViewModel
     }
 

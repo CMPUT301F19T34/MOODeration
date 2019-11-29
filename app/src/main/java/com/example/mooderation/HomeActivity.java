@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         navDrawerItemToFragment.put(R.id.follow_request_drawer_item, R.id.followRequestsFragment);
         navDrawerItemToFragment.put(R.id.mood_history_map_drawer_item, R.id.moodHistoryMapFragment);
         navDrawerItemToFragment.put(R.id.find_participant_drawer_item, R.id.findParticipantFragment);
-        navDrawerItemToFragment.put(R.id.followee_mood_history_map_drawer_item, R.id.followeeMoodHistoryMapFragment);
+        navDrawerItemToFragment.put(R.id.followed_mood_history_map_drawer_item, R.id.followedMoodHistoryMapFragment);
         // TODO register other top level fragments here
 
         // these fragments will have the navigation drawer

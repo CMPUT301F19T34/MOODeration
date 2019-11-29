@@ -51,7 +51,7 @@ public class ImageRepository {
      */
     public Task<byte[]> downloadImage(String imagePath) {
         StorageReference imageRef = storage.getReference(imagePath);
-        return imageRef.getBytes(ONE_MEGABYTE);
+        return imageRef.getBytes(10 * ONE_MEGABYTE);
     }
 
     /**

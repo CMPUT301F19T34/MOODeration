@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class AddMoodEventTest {
@@ -115,6 +116,37 @@ public class AddMoodEventTest {
     }
 
     // TODO test location
+    @Test
+    public void testLocation() {
+        // open mood event fragment
+        solo.clickOnView(solo.getView(R.id.add_mood_event_button));
+
+        // toggle location
+        solo.clickOnView(solo.getView(R.id.location_switch));
+
+        // save mood event fragments and open details
+        solo.clickOnView(solo.getView(R.id.save_mood_event_button));
+        solo.clickInList(0);
+
+        // check result
+        solo.clickOnText("EDIT");
+        assertTrue(solo.waitForText("Location attached"));
+        assertFalse(solo.getView(R.id.location_switch).isEnabled());
+        solo.clickOnView(solo.getView(R.id.save_mood_event_button));
+
+        // open mood event fragment
+        solo.clickOnView(solo.getView(R.id.add_mood_event_button));
+
+        // save mood event fragments and open details
+        solo.clickOnView(solo.getView(R.id.save_mood_event_button));
+        solo.clickInList(0);
+
+        // check result
+        solo.clickOnText("EDIT");
+        assertTrue(solo.waitForText("Location not attached"));
+        assertFalse(solo.getView(R.id.location_switch).isEnabled());
+    }
+
 
     @Test
     public void testAddPhoto() {

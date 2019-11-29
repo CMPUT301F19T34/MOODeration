@@ -141,12 +141,14 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
 
             // set location toggle
             if (moodEventViewModel.getIsEditing().getValue()) {
-                locationSwitch.setChecked(true);
                 locationSwitch.setEnabled(false);
-            } else if(moodEventViewModel.getLocationToggleState().getValue()) {
+            }
+            if(moodEventViewModel.getLocationToggleState().getValue()) {
                 locationSwitch.setChecked(true);
+                locationSwitch.setText("Location attached");
             } else {
                 locationSwitch.setChecked(false);
+                locationSwitch.setText("Location not attached");
             }
 
             if (moodEvent.getImagePath() != null) {
@@ -159,24 +161,30 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
             }
         });
 
-        locationSwitch.setOnCheckedChangeListener((compoundButton, isToggled) -> {
+        locationSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             // prevents location from being changed once set
             if(!moodEventViewModel.getIsEditing().getValue()) {
-                if(isToggled) {
+                if(isChecked) {
                     // request permission if permission is not already granted
                     if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
                     } else {
                         locationSwitch.setChecked(true);
+                        locationSwitch.setText("Location attached");
                         moodEventViewModel.setLocationToggleState(true);
                     }
+                } else {
+                    locationSwitch.setText("Location not attached");
+                    moodEventViewModel.setLocationToggleState(false);
                 }
             }else {
                 if(moodEventViewModel.getMoodEvent().getValue().getLocation() != null) {
                     locationSwitch.setChecked(true);
+                    locationSwitch.setText("Location attached");
                     moodEventViewModel.setLocationToggleState(true);
                 } else {
                     locationSwitch.setChecked(false);
+                    locationSwitch.setText("Location not attached");
                     moodEventViewModel.setLocationToggleState(false);
                 }
             }
@@ -262,12 +270,14 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
             locationSwitch.setChecked(false);
+            locationSwitch.setText("Location not attached");
             moodEventViewModel.setLocationToggleState(false);
             if(!shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 openDialog();
             }
         } else {
             locationSwitch.setChecked(true);
+            locationSwitch.setText("Location attached");
             moodEventViewModel.setLocationToggleState(true);
         }
     }

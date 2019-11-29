@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="59cm" height="37cm" viewBox="13 22 1171 728" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <rect style="fill: #ffffff" x="128.439" y="29.2894" width="456.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="128.439" y="29.2894" width="456.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="356.739" y="49.2894">FollowRequestsFragment</text>
+    <rect style="fill: #ffffff" x="128.439" y="57.2894" width="456.6" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="128.439" y="57.2894" width="456.6" height="8"/>
+    <rect style="fill: #ffffff" x="128.439" y="65.2894" width="456.6" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="128.439" y="65.2894" width="456.6" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="131.439" y="78.4894">+onCreate(savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="131.439" y="94.4894">+onCreateView(inflater:LayourInflater,container:ViewGroup,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="131.439" y="110.489">              savedInstanceState:Bundle): View</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="131.439" y="126.489">+onViewCreated(view:View,savedInstanceState:Bundle)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="495.59" y="215.148" width="410.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="495.59" y="215.148" width="410.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="700.79" y="235.148">FollowRequestsViewModel</text>
+    <rect style="fill: #ffffff" x="495.59" y="243.148" width="410.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="495.59" y="243.148" width="410.4" height="8"/>
+    <rect style="fill: #ffffff" x="495.59" y="251.148" width="410.4" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="495.59" y="251.148" width="410.4" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="498.59" y="264.348">+acceptRequest(request:FollowRequest)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="498.59" y="280.348">+denyRequest(request:FollowRequest)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="498.59" y="296.348">+getFollowRequests(): LiveData&lt;List&lt;FollowRequests&gt;&gt;</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="690.696" y="23.2284" width="487.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="690.696" y="23.2284" width="487.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="934.396" y="43.2284">FollowRequestAdapter</text>
+    <rect style="fill: #ffffff" x="690.696" y="51.2284" width="487.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="690.696" y="51.2284" width="487.4" height="8"/>
+    <rect style="fill: #ffffff" x="690.696" y="59.2284" width="487.4" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="690.696" y="59.2284" width="487.4" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="693.696" y="72.4284">+getView(position:int,convertView:View,parent:ViewGroup): View</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="693.696" y="88.4284">+update(requests:List&lt;FollowRequest&gt;)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="457.936" y="469.784" width="418.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="457.936" y="469.784" width="418.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="666.986" y="489.784">FollowRepository</text>
+    <rect style="fill: #ffffff" x="457.936" y="497.784" width="418.1" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="457.936" y="497.784" width="418.1" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="510.984">-firestore: FirebaseFirestore</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="526.984">-user: FireabaseUser</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="542.984">+followers: MutableLiveData&lt;List&lt;Participants&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="558.984">+request: MutableLiveData&lt;List&lt;FollowRequest&gt;&gt;</text>
+    <rect style="fill: #ffffff" x="457.936" y="565.784" width="418.1" height="180"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="457.936" y="565.784" width="418.1" height="180"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="578.984">+follow(participant:Participant): Task&lt;Void&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="594.984">+accept(uid:String,request:FollowRequest): Task&lt;Void&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="610.984">+deny(request:FollowRequest): Task&lt;Void&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="626.984">+isFollowing(other:Participant): LiveData&lt;Boolean&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="642.984">+isRequestSent(other:Participant): LiveData&lt;Boolean&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="658.984">+getFollowRequests(): LiveData&lt;List&lt;FollowRequest&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="674.984">+getFollowers(): LiveData&lt;List&lt;Participant&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="690.984">-followersOf(userId:String): CollectionReference</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="706.984">-following(userId:String): CollectionReference</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="722.984">-followRequestsOf(userId:String): CollectionReference</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="460.936" y="738.984">-userReference(uid:String): DocumentReference</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="356.739,159.467 356.739,181.219 700.79,181.219 700.79,214.143 "/>
+    <polygon style="fill: #ffffff" points="356.739,134.296 361.539,148.296 356.739,162.296 351.939,148.296 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="356.739,134.296 361.539,148.296 356.739,162.296 351.939,148.296 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="528.764" y="177.219"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="367.739" y="146.296"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="704.79" y="210.143">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="611.217,81.2894 644.867,81.2894 644.867,59.2284 689.689,59.2284 "/>
+    <polygon style="fill: #ffffff" points="586.046,81.2894 600.046,76.4894 614.046,81.2894 600.046,86.0894 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="586.046,81.2894 600.046,76.4894 614.046,81.2894 600.046,86.0894 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="646.867" y="66.2589"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="618.046" y="77.2894"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="685.689" y="55.2284">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="700.79,329.325 700.79,393.465 666.986,393.465 666.986,468.776 "/>
+    <polygon style="fill: #ffffff" points="700.79,304.153 705.59,318.153 700.79,332.153 695.99,318.153 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="700.79,304.153 705.59,318.153 700.79,332.153 695.99,318.153 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="683.888" y="389.465"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="711.79" y="316.153"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="670.986" y="464.776">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="964.858" y="660.446" width="217.9" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="964.858" y="660.446" width="217.9" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="1073.81" y="680.446">FollowRequest</text>
+    <rect style="fill: #ffffff" x="964.858" y="688.446" width="217.9" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="964.858" y="688.446" width="217.9" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="967.858" y="701.646">-uid: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="967.858" y="717.646">-username: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="967.858" y="733.646">-createTimestamp: Timestamp</text>
+    <rect style="fill: #ffffff" x="964.858" y="740.446" width="217.9" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="964.858" y="740.446" width="217.9" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="934.396,121.409 934.396,384.839 1073.81,384.839 1073.81,659.441 "/>
+    <polygon style="fill: #ffffff" points="934.396,96.2374 939.196,110.237 934.396,124.237 929.596,110.237 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="934.396,96.2374 939.196,110.237 934.396,124.237 929.596,110.237 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1004.1" y="380.839"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="945.396" y="108.237"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1077.81" y="655.441">0..*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="902.214,607.784 927.447,607.784 927.447,704.446 963.851,704.446 "/>
+    <polygon style="fill: #ffffff" points="877.042,607.784 891.042,602.984 905.042,607.784 891.042,612.584 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="877.042,607.784 891.042,602.984 905.042,607.784 891.042,612.584 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="929.447" y="652.115"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="909.042" y="603.784"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="959.851" y="700.446">0..*</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="14.5065" y="213.556" width="456.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="14.5065" y="213.556" width="456.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="242.807" y="233.556">ParticipantProfileFragment</text>
+    <rect style="fill: #ffffff" x="14.5065" y="241.556" width="456.6" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="14.5065" y="241.556" width="456.6" height="8"/>
+    <rect style="fill: #ffffff" x="14.5065" y="249.556" width="456.6" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="14.5065" y="249.556" width="456.6" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="17.5065" y="262.756">+onCreate(savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="17.5065" y="278.756">+onCreateView(inflater:LayoutInflater,container:ViewGroup,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="17.5065" y="294.756">              savedInstanceState:Bundle): View</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="62.5898" y="427.102" width="341.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="62.5898" y="427.102" width="341.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="233.14" y="447.102">ParticipantProfileViewModel</text>
+    <rect style="fill: #ffffff" x="62.5898" y="455.102" width="341.1" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="62.5898" y="455.102" width="341.1" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="65.5898" y="468.302">-viewing: Participant</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="65.5898" y="484.302">-username: MutableLiveData&lt;String&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="65.5898" y="500.302">-requestSent: LiveData&lt;Boolean&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="65.5898" y="516.302">+following: LiveData&lt;Boolean&gt;</text>
+    <rect style="fill: #ffffff" x="62.5898" y="523.102" width="341.1" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="62.5898" y="523.102" width="341.1" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="65.5898" y="536.302">+setViewingParticipant(viewing:Participant)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="65.5898" y="552.302">+getFollowRequestSent(): LiveData&lt;Boolean&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="65.5898" y="568.302">+getThisFollowingOther(): LiveData&lt;Boolean&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="65.5898" y="584.302">+getUsername(): LiveData&lt;String&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="65.5898" y="600.302">+sendFollowRequest()</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="242.807,327.733 242.807,371.329 233.14,371.329 233.14,426.096 "/>
+    <polygon style="fill: #ffffff" points="242.807,302.561 247.607,316.561 242.807,330.561 238.007,316.561 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="242.807,302.561 247.607,316.561 242.807,330.561 238.007,316.561 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="237.973" y="367.329"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="253.807" y="314.561"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="237.14" y="422.096">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="429.867,517.102 437.812,517.102 437.812,607.784 456.93,607.784 "/>
+    <polygon style="fill: #ffffff" points="404.695,517.102 418.695,512.302 432.695,517.102 418.695,521.902 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="404.695,517.102 418.695,512.302 432.695,517.102 418.695,521.902 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="439.812" y="558.443"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="436.695" y="513.102"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="452.93" y="603.784">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="185.626" y="688.732" width="98.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="185.626" y="688.732" width="98.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="234.826" y="708.732">Participant</text>
+    <rect style="fill: #ffffff" x="185.626" y="716.732" width="98.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="185.626" y="716.732" width="98.4" height="8"/>
+    <rect style="fill: #ffffff" x="185.626" y="724.732" width="98.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="185.626" y="724.732" width="98.4" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="233.14,633.279 233.14,654.917 234.826,654.917 234.826,687.726 "/>
+    <polygon style="fill: #ffffff" points="233.14,608.108 237.94,622.108 233.14,636.108 228.34,622.108 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="233.14,608.108 237.94,622.108 233.14,636.108 228.34,622.108 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="233.983" y="650.917"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="244.14" y="620.108"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="238.826" y="683.726">0..1</text>
+  </g>
+</svg>

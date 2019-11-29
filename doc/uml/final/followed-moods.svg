@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="56cm" height="32cm" viewBox="36 51 1103 623" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <rect style="fill: #ffffff" x="618.028" y="52.8874" width="456.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="618.028" y="52.8874" width="456.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="846.328" y="72.8874">FollowedMoodsFragment</text>
+    <rect style="fill: #ffffff" x="618.028" y="80.8874" width="456.6" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="618.028" y="80.8874" width="456.6" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="621.028" y="94.0874">-expandableListView: ExpandableListView</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="621.028" y="110.087">-expandableListAdapter: ExpandableListAdapter</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="621.028" y="126.087">-expandableListTitle: List&lt;String&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="621.028" y="142.087">-expandableListDetail: Map&lt;String, List&lt;String&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="621.028" y="158.087">-fragmentManager: FragmentManager</text>
+    <rect style="fill: #ffffff" x="618.028" y="164.887" width="456.6" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="618.028" y="164.887" width="456.6" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="621.028" y="178.087">+onCreate(savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="621.028" y="194.087">+onCreateView(inflater:LayoutInflater,container:ViewGroup,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="621.028" y="210.087">              savedInstanceState:Bundle): View</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="706.496" y="326.172" width="402.7" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="706.496" y="326.172" width="402.7" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="907.846" y="346.172">FollowedMoodsViewModel</text>
+    <rect style="fill: #ffffff" x="706.496" y="354.172" width="402.7" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="706.496" y="354.172" width="402.7" height="8"/>
+    <rect style="fill: #ffffff" x="706.496" y="362.172" width="402.7" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="706.496" y="362.172" width="402.7" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="709.496" y="375.372">+getMoodEvents(): LiveData&lt;Participant, MoodEvent&gt;&gt;</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="846.328,243.064 846.328,278.529 907.846,278.529 907.846,325.165 "/>
+    <polygon style="fill: #ffffff" points="846.328,217.892 851.128,231.892 846.328,245.892 841.528,231.892 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="846.328,217.892 851.128,231.892 846.328,245.892 841.528,231.892 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="877.087" y="274.529"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="857.328" y="229.892"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="911.846" y="321.165">0..1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1036.23" y="479.914" width="98.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1036.23" y="479.914" width="98.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="1085.43" y="499.914">Participant</text>
+    <rect style="fill: #ffffff" x="1036.23" y="507.914" width="98.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1036.23" y="507.914" width="98.4" height="8"/>
+    <rect style="fill: #ffffff" x="1036.23" y="515.914" width="98.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1036.23" y="515.914" width="98.4" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1038.54" y="618.684" width="99.65" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1038.54" y="618.684" width="99.65" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="1088.36" y="638.684">MoodEvent</text>
+    <rect style="fill: #ffffff" x="1038.54" y="646.684" width="99.65" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1038.54" y="646.684" width="99.65" height="8"/>
+    <rect style="fill: #ffffff" x="1038.54" y="654.684" width="99.65" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1038.54" y="654.684" width="99.65" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="320.886" y="477.124" width="541.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="320.886" y="477.124" width="541.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="591.536" y="497.124">FollowedMoodEventRepository</text>
+    <rect style="fill: #ffffff" x="320.886" y="505.124" width="541.3" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="320.886" y="505.124" width="541.3" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="518.324">-firestore: FirebaseFirestore</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="534.324">-FirebaseUser</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="550.324">-followedMoodEvents: MutableLiveData&lt;HashMap&lt;Participant, MoodEvent&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="566.324">-listenerRegistrations: ArrayList&lt;ListenerRegistrations&gt;</text>
+    <rect style="fill: #ffffff" x="320.886" y="573.124" width="541.3" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="320.886" y="573.124" width="541.3" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="586.324">+&lt;&lt;constructor&gt;&gt; FollowMoodEventRepository()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="602.324">+getFollowedMoodEvent(): LiveData&lt;HashMap&lt;Participant,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="618.324">                       MoodEvent&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="634.324">-listenForFollowEvents(followerList:List&lt;Participant&gt;)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="650.324">-following(userId:String): CollectionReference</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="323.886" y="666.324">-lastestMoodEventOf(userId:String): Query</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1037.53,640.684 950.362,640.684 950.362,575.124 863.194,575.124 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="952.362" y="603.904"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="1033.53" y="636.684"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="867.194" y="571.124"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="907.846,408.351 907.846,436.649 591.536,436.649 591.536,476.118 "/>
+    <polygon style="fill: #ffffff" points="907.846,383.179 912.646,397.179 907.846,411.179 903.046,397.179 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="907.846,383.179 912.646,397.179 907.846,411.179 903.046,397.179 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="749.691" y="432.649"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="918.846" y="395.179"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="595.536" y="472.118">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="37.3344" y="54.8652" width="456.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="37.3344" y="54.8652" width="456.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="265.634" y="74.8652">FollowedMoodHistoryMapFragment</text>
+    <rect style="fill: #ffffff" x="37.3344" y="82.8652" width="456.6" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="37.3344" y="82.8652" width="456.6" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="40.3344" y="96.0652">-googleMap: GoogleMap</text>
+    <rect style="fill: #ffffff" x="37.3344" y="102.865" width="456.6" height="116"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="37.3344" y="102.865" width="456.6" height="116"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="40.3344" y="116.065">+onCreate(savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="40.3344" y="132.065">+onCreateView(inflater:LayoutInflater,container:ViewGroup,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="40.3344" y="148.065">              savedInstanceState:Bundle): View</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="40.3344" y="164.065">+onViewCreated(view:View,savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="40.3344" y="180.065">+updateMarkers(moodHistory:HashMap&lt;Participant,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="40.3344" y="196.065">                MoodEvent&gt;)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="40.3344" y="212.065">+getHue(emotionalState:EmotionalState): float</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="43.4176" y="298.694" width="579.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="43.4176" y="298.694" width="579.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="333.318" y="318.694">FollowedMoodHistoryMapViewModel</text>
+    <rect style="fill: #ffffff" x="43.4176" y="326.694" width="579.8" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="43.4176" y="326.694" width="579.8" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="46.4176" y="339.894">+followedMoodEventsWithLocation: LiveData&lt;HashMap&lt;Participant, MoodEvent&gt;&gt;</text>
+    <rect style="fill: #ffffff" x="43.4176" y="346.694" width="579.8" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="43.4176" y="346.694" width="579.8" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="46.4176" y="359.894">+getFollowedMoodEventsWithLocation(): LiveData&lt;HashMap&lt;Participant,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="46.4176" y="375.894">                                    MoodEvent&gt;&gt;</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="265.634,245.042 265.634,265.78 333.318,265.78 333.318,297.689 "/>
+    <polygon style="fill: #ffffff" points="265.634,219.87 270.434,233.87 265.634,247.87 260.834,233.87 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="265.634,219.87 270.434,233.87 265.634,247.87 260.834,233.87 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="299.476" y="261.78"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="276.634" y="231.87"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="337.318" y="277.689"> 0..1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="337.318" y="293.689"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="333.318,408.871 333.318,436.909 591.536,436.909 591.536,476.118 "/>
+    <polygon style="fill: #ffffff" points="333.318,383.699 338.118,397.699 333.318,411.699 328.518,397.699 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="333.318,383.699 338.118,397.699 333.318,411.699 328.518,397.699 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="462.427" y="432.909"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="344.318" y="395.699"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="595.536" y="472.118"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="863.194,575.124 949.211,575.124 949.211,501.914 1035.23,501.914 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="951.211" y="534.519"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="867.194" y="571.124"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="1031.23" y="497.914"></text>
+  </g>
+</svg>

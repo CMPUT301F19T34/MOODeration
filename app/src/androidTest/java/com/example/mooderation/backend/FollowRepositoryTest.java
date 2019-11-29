@@ -1,5 +1,7 @@
 package com.example.mooderation.backend;
 
+import android.provider.Telephony;
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -113,6 +115,16 @@ public class FollowRepositoryTest {
         Participant follower = otherFollowRepository.getFollowers().getValue().get(0);
         assertEquals(myParticipant.getUid(), follower.getUid());
         assertEquals(myParticipant.getUsername(), follower.getUsername());
+
+
+        LiveData<List<Participant>> followingLiveData = myFollowRepository.getFollowing();
+        Thread.sleep(100);
+        assertNotNull(followingLiveData.getValue());
+        assertEquals(1, followingLiveData.getValue().size());
+
+        Participant following = followingLiveData.getValue().get(0);
+        assertEquals(otherParticipant.getUid(), following.getUid());
+        assertEquals(otherParticipant.getUsername(), following.getUsername());
     }
 
     @Test

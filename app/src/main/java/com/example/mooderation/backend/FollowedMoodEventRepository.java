@@ -35,6 +35,12 @@ public class FollowedMoodEventRepository {
         this.listenerRegistrations = new ArrayList<>();
     }
 
+    public FollowedMoodEventRepository(FirebaseUser user, FirebaseFirestore firebaseFirestore) {
+        this.firestore = firebaseFirestore;
+        this.user = user;
+        this.listenerRegistrations = new ArrayList<>();
+    }
+
     public LiveData<HashMap<Participant, MoodEvent>> getFollowedMoodEvents() {
         if (followedMoodEvents == null) {
             followedMoodEvents = new MutableLiveData<>();

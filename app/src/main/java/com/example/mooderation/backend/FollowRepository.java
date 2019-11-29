@@ -202,6 +202,27 @@ public class FollowRepository {
     }
 
     /**
+     * Get the current participants following user
+     * @return
+     *      LiveData tracking the user's follower list.
+     */
+    public LiveData<List<Participant>> getFollowing() {
+        MutableLiveData<List<Participant>> followingLiveData = new MutableLiveData<>();
+
+        following(user.getUid()).addSnapshotListener((queryDocumentSnapshots, e) -> {
+            if (queryDocumentSnapshots != null) {
+                List<Participant> followingList = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    followingList.add(doc.toObject(Participant.class));
+                }
+                followingLiveData.setValue(followingList);
+            }
+        });
+
+        return followingLiveData;
+    }
+
+    /**
      * Get a reference to a user's followers.
      * @param userId
      *      The user's ID.

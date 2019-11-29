@@ -80,6 +80,10 @@ public class ParticipantRepository {
                 .continueWithTask(task -> firestore.collectionGroup("followers").whereEqualTo("uid", participant.getUid()).get())
                 .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))
 
+                // delete following
+                .continueWithTask(task -> firestore.collectionGroup("following").whereEqualTo("uid", participant.getUid()).get())
+                .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))
+
                 // delete from other user's follow requests
                 .continueWithTask(task -> firestore.collectionGroup("follow_requests").whereEqualTo("uid", participant.getUid()).get())
                 .continueWithTask(task -> deleteAllImmediateDocuments(task.getResult()))

@@ -39,7 +39,7 @@ public class MoodHistoryMapFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        moodHistoryMapViewModel = ViewModelProviders.of(this).get(MoodHistoryMapViewModel.class);
+        moodHistoryMapViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryMapViewModel.class);
     }
 
     @Override

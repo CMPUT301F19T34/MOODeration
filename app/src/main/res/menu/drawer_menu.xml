@@ -9,6 +9,9 @@
             android:title="@string/mood_history_label"
             android:checked="true"/>
         <item
+            android:id="@+id/followed_moods_drawer_item"
+            android:title="@string/followed_moods_label" />
+        <item
             android:id="@+id/follow_request_drawer_item"
             android:title="@string/follow_request_label" />
 
@@ -19,6 +22,10 @@
         <item
             android:id="@+id/find_participant_drawer_item"
             android:title="@string/find_participant_label" />
+
+        <item
+            android:id="@+id/followed_mood_history_map_drawer_item"
+            android:title="@string/followed_mood_history_map_label" />
 
         <item
             android:id="@+id/log_out_drawer_item"

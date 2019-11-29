@@ -40,4 +40,5 @@ public class MoodLatLng {
     public double getLongitude() {
         return longitude;
     }
+
 }

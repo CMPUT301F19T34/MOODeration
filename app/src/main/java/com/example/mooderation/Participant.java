@@ -37,4 +37,9 @@ public class Participant {
     public String toString() {
         return String.format("{uid: %s, username: %s}", getUid(), getUsername());
     }
+
+    @Override
+    public int hashCode() {
+        return this.getUid().hashCode() + this.getUsername().hashCode();
+    }
 }

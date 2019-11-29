@@ -14,8 +14,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mooderation.EmotionalState;
 import com.example.mooderation.MoodEvent;
+import com.example.mooderation.Participant;
 import com.example.mooderation.R;
-import com.example.mooderation.viewmodel.MoodHistoryMapViewModel;
+import com.example.mooderation.viewmodel.FollowedMoodHistoryMapViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -25,27 +26,26 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
- * The fragment for the "My Mood History Map" view
+ * The followed moods map fragment.
  */
-public class MoodHistoryMapFragment extends Fragment {
+public class FollowedMoodHistoryMapFragment extends Fragment {
 
-    private MoodHistoryMapViewModel moodHistoryMapViewModel;
+    private FollowedMoodHistoryMapViewModel followedMoodHistoryMapViewModel;
     private GoogleMap googleMap;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        moodHistoryMapViewModel = ViewModelProviders.of(getActivity()).get(MoodHistoryMapViewModel.class);
+        followedMoodHistoryMapViewModel = ViewModelProviders.of(getActivity()).get(FollowedMoodHistoryMapViewModel.class);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mood_history_map, container, false);
+        return inflater.inflate(R.layout.fragment_followed_mood_history_map, container, false);
     }
 
     @Override
@@ -54,18 +54,12 @@ public class MoodHistoryMapFragment extends Fragment {
         googleMap = null;
         mapFragment.getMapAsync(map -> {
             googleMap = map;
-            updateMarkers(moodHistoryMapViewModel.getMoodHistoryWithLocation().getValue());
+            updateMarkers(followedMoodHistoryMapViewModel.getFollowedMoodEventsWithLocation().getValue());
         });
-        moodHistoryMapViewModel.getMoodHistoryWithLocation().observe(this, this::updateMarkers);
+        followedMoodHistoryMapViewModel.getFollowedMoodEventsWithLocation().observe(this, this::updateMarkers);
     }
 
-    private float getHue(EmotionalState emotionalState) {
-        float[] hsv = new float[]{0.f, 0.f, 0.f};
-        Color.colorToHSV(ResourcesCompat.getColor(getResources(), emotionalState.getMarkerColor(), null), hsv);
-        return hsv[0];
-    }
-
-    private void updateMarkers(@Nullable List<MoodEvent> moodHistory) {
+    private void updateMarkers(@Nullable HashMap<Participant, MoodEvent> moodHistory) {
         if (googleMap == null) {
             return;
         }
@@ -78,9 +72,12 @@ public class MoodHistoryMapFragment extends Fragment {
             return;
         }
         LatLngBounds.Builder bounds = new LatLngBounds.Builder();
-        for (MoodEvent moodEvent : moodHistory) {
+        for (HashMap.Entry<Participant, MoodEvent> entry : moodHistory.entrySet()) {
+            Participant participant = entry.getKey();
+            MoodEvent moodEvent = entry.getValue();
+
             String title = getResources().getString(moodEvent.getEmotionalState().getStringResource());
-            String snippet = moodEvent.getFormattedDate() + "\n" + moodEvent.getReason();
+            String snippet = participant.getUsername() + "\n" + moodEvent.getFormattedDate() + "\n" + moodEvent.getReason();
             LatLng position = new LatLng(moodEvent.getLocation().getLatitude(), moodEvent.getLocation().getLongitude());
             BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(getHue(moodEvent.getEmotionalState()));
             googleMap.addMarker(new MarkerOptions()
@@ -92,5 +89,11 @@ public class MoodHistoryMapFragment extends Fragment {
         }
         googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 15));
         googleMap.setLatLngBoundsForCameraTarget(bounds.build());
+    }
+
+    private float getHue(EmotionalState emotionalState) {
+        float[] hsv = new float[]{0.f, 0.f, 0.f};
+        Color.colorToHSV(ResourcesCompat.getColor(getResources(), emotionalState.getMarkerColor(), null), hsv);
+        return hsv[0];
     }
 }

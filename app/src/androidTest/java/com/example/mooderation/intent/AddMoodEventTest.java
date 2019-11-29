@@ -119,5 +119,7 @@ public class AddMoodEventTest {
     @Test
     public void testAddPhoto() {
         // TODO may not be possible with robotium
+        //solo.clickOnView(solo.getView(R.id.take_photo_button));
+
     }
 }

@@ -22,6 +22,9 @@ import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ * Test FollowedMoodsViewModel
+ */
 @RunWith(JUnit4.class)
 public class FollowedMoodsViewModelTest {
     @Mock

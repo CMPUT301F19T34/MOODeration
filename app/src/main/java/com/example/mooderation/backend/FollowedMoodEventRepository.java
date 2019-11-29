@@ -35,12 +35,20 @@ public class FollowedMoodEventRepository {
         this.listenerRegistrations = new ArrayList<>();
     }
 
+    /**
+     * Construct with specified user and firestore. Used for dependency injection in testing
+     */
     public FollowedMoodEventRepository(FirebaseUser user, FirebaseFirestore firebaseFirestore) {
         this.firestore = firebaseFirestore;
         this.user = user;
         this.listenerRegistrations = new ArrayList<>();
     }
 
+    /**
+     * Get livedata refering to the user's followed mood events
+     *
+     * @return livedata refering to the user's followed mood events
+     */
     public LiveData<HashMap<Participant, MoodEvent>> getFollowedMoodEvents() {
         if (followedMoodEvents == null) {
             followedMoodEvents = new MutableLiveData<>();

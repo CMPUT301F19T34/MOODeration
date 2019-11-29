@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Fragment for viewing mood events of participants the user is following
+ */
 public class FollowedMoodsFragment extends Fragment {
     private FollowedMoodsViewModel followedMoodsViewModel;
 

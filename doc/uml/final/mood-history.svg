@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="77cm" height="48cm" viewBox="-1568 40 1532 941" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <rect style="fill: #ffffff" x="-1323.02" y="180.142" width="456.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1323.02" y="180.142" width="456.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1094.72" y="200.142">MoodHistoryFragment</text>
+    <rect style="fill: #ffffff" x="-1323.02" y="208.142" width="456.6" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1323.02" y="208.142" width="456.6" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="221.342">-moodEventList: ArrayList&lt;MoodEvent&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="237.342">-expandableListView: ExpandableListView</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="253.342">-expandableListAdapter: ExpandableListAdapter</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="269.342">-expandableListTitle: List&lt;String&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="285.342">-expandableListDetail: Map&lt;String, List&lt;String&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="301.342">-fragmentManager: FragmentManager</text>
+    <rect style="fill: #ffffff" x="-1323.02" y="308.142" width="456.6" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1323.02" y="308.142" width="456.6" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="321.342">+onCreate(savednstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="337.342">+onCreateView(inflater:LayoutInflater,container:ViewGroup,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="353.342">              savedInstanceState:Bundle): View</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="369.342">+onCreateOptionsMenu(menu:Menu,inflater:MenuInflater)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1320.02" y="385.342">+onOptionsItemSelected(item:MenuItem)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-796.894" y="145.152" width="348.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-796.894" y="145.152" width="348.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-622.494" y="165.152">MoodHistoryViewModel</text>
+    <rect style="fill: #ffffff" x="-796.894" y="173.152" width="348.8" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-796.894" y="173.152" width="348.8" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-793.894" y="186.352">-moodFilter: MutableLiveData&lt;EmotionalState&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-793.894" y="202.352">+moodHistory: LiveData&lt;List&lt;MoodEvent&gt;&gt;</text>
+    <rect style="fill: #ffffff" x="-796.894" y="209.152" width="348.8" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-796.894" y="209.152" width="348.8" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-793.894" y="222.352">+getMoodHistory(): LiveData&lt;List&lt;MoodEvent&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-793.894" y="238.352">+setFilter(emotionalState:EmotionalState)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-793.894" y="254.352">+addMoodEvent(moodEvent:MoodEvent)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-793.894" y="270.352">+removeMoodEvent(moodEvent:MoodEvent)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-796.446" y="350.16" width="187.65" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-796.446" y="350.16" width="187.65" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-702.621" y="370.16">MoodEventViewModel</text>
+    <rect style="fill: #ffffff" x="-796.446" y="378.16" width="187.65" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-796.446" y="378.16" width="187.65" height="8"/>
+    <rect style="fill: #ffffff" x="-796.446" y="386.16" width="187.65" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-796.446" y="386.16" width="187.65" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-840.239,286.142 -824.655,286.142 -824.655,211.152 -797.899,211.152 "/>
+    <polygon style="fill: #ffffff" points="-865.411,286.142 -851.411,281.342 -837.411,286.142 -851.411,290.942 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-865.411,286.142 -851.411,281.342 -837.411,286.142 -851.411,290.942 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-822.655" y="244.647"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-833.411" y="282.142"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-801.899" y="207.152">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-840.239,286.142 -824.431,286.142 -824.431,372.16 -797.452,372.16 "/>
+    <polygon style="fill: #ffffff" points="-865.411,286.142 -851.411,281.342 -837.411,286.142 -851.411,290.942 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-865.411,286.142 -851.411,281.342 -837.411,286.142 -851.411,290.942 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-822.431" y="325.151"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-833.411" y="282.142"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-801.452" y="368.16">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-401.88" y="142.27" width="364.2" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-401.88" y="142.27" width="364.2" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-219.78" y="162.27">MoodEventRepository</text>
+    <rect style="fill: #ffffff" x="-401.88" y="170.27" width="364.2" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-401.88" y="170.27" width="364.2" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-398.88" y="183.47">-firestore: FirebaseFirestore</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-398.88" y="199.47">+user: FirebaseUser</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-398.88" y="215.47">+moodHistory: MutableLiveData&lt;List&lt;MoodEvent&gt;&gt;</text>
+    <rect style="fill: #ffffff" x="-401.88" y="222.27" width="364.2" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-401.88" y="222.27" width="364.2" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-398.88" y="235.47">+add(moodEvent:MoodEvent): Task&lt;Void&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-398.88" y="251.47">+remove(moodEvent:MoodEvent): Task&lt;Void&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-398.88" y="267.47">+getMoodHistory(): LiveData&lt;List&lt;MoodEvent&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-398.88" y="283.47">-getCollectionReference(): CollectionReference</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-421.917,211.152 -417.987,211.152 -417.987,216.27 -402.886,216.27 "/>
+    <polygon style="fill: #ffffff" points="-447.089,211.152 -433.089,206.352 -419.089,211.152 -433.089,215.952 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-447.089,211.152 -433.089,206.352 -419.089,211.152 -433.089,215.952 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-415.987" y="209.711"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-415.089" y="207.152"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-406.886" y="212.27">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-574.726" y="831.808" width="502.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-574.726" y="831.808" width="502.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-323.326" y="851.808">MoodHistoryMapFragment</text>
+    <rect style="fill: #ffffff" x="-574.726" y="859.808" width="502.8" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-574.726" y="859.808" width="502.8" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-571.726" y="873.008">-googleMap: GoogleMap</text>
+    <rect style="fill: #ffffff" x="-574.726" y="879.808" width="502.8" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-574.726" y="879.808" width="502.8" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-571.726" y="893.008">+onCreate(savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-571.726" y="909.008">+onCreateView(savedInstanceState:Bundle,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-571.726" y="925.008">              inflater:LayoutInflater,container:ViewGroup): View</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-571.726" y="941.008">+onViewCreated(view:View,savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-571.726" y="957.008">-getHue(emotionalState:EmotionalState): float</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-571.726" y="973.008">-updateMarkers(moodHistory:List&lt;MoodEvent&gt;)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-547.738" y="356.99" width="441.2" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-547.738" y="356.99" width="441.2" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-327.138" y="376.99">MoodHistoryMapViewModel</text>
+    <rect style="fill: #ffffff" x="-547.738" y="384.99" width="441.2" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-547.738" y="384.99" width="441.2" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-544.738" y="398.19">-moodEventWithLocation: LiveData&lt;List&lt;MoodEvent&gt;&gt;</text>
+    <rect style="fill: #ffffff" x="-547.738" y="404.99" width="441.2" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-547.738" y="404.99" width="441.2" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-544.738" y="418.19">+getMoodHistoryWithLocation(): LiveData&lt;List&lt;MoodEvent&gt;&gt;</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-269.534" y="41.0416" width="99.65" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-269.534" y="41.0416" width="99.65" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-219.709" y="61.0416">MoodEvent</text>
+    <rect style="fill: #ffffff" x="-269.534" y="69.0416" width="99.65" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-269.534" y="69.0416" width="99.65" height="8"/>
+    <rect style="fill: #ffffff" x="-269.534" y="77.0416" width="99.65" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-269.534" y="77.0416" width="99.65" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-219.78,116.089 -219.78,106.654 -219.709,106.654 -219.709,86.0472 "/>
+    <polygon style="fill: #ffffff" points="-219.78,141.261 -224.58,127.261 -219.78,113.261 -214.98,127.261 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-219.78,141.261 -224.58,127.261 -219.78,113.261 -214.98,127.261 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-219.745" y="102.654"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-208.78" y="137.261"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-215.709" y="98.0472">0..*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-323.326,805.627 -323.326,621.399 -327.138,621.399 -327.138,425.999 "/>
+    <polygon style="fill: #ffffff" points="-323.326,830.799 -328.126,816.799 -323.326,802.799 -318.526,816.799 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-323.326,830.799 -328.126,816.799 -323.326,802.799 -318.526,816.799 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-325.232" y="617.399"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-312.326" y="826.799"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-323.138" y="437.999">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-327.138,330.81 -327.138,316.63 -219.78,316.63 -219.78,291.279 "/>
+    <polygon style="fill: #ffffff" points="-327.138,355.981 -331.938,341.981 -327.138,327.981 -322.338,341.981 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-327.138,355.981 -331.938,341.981 -327.138,327.981 -322.338,341.981 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-273.459" y="312.63"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-316.138" y="351.981"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-215.78" y="303.279">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-1261.48" y="64.5908" width="395" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1261.48" y="64.5908" width="395" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1063.98" y="84.5908">DeleteMoodDialog</text>
+    <rect style="fill: #ffffff" x="-1261.48" y="92.5908" width="395" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1261.48" y="92.5908" width="395" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1258.48" y="105.791">+moodEventList: ArrayList&lt;MoodEvent&gt;</text>
+    <rect style="fill: #ffffff" x="-1261.48" y="112.591" width="395" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1261.48" y="112.591" width="395" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1258.48" y="125.791">+onCreateDialog(savedInstanceState:Bundle): Dialog</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1094.72,179.136 -1094.72,156.368 -1063.98,156.368 -1063.98,133.599 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-1079.35" y="152.368"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1090.72" y="175.136"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1059.98" y="145.599"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-840.302,98.5908 -824.687,98.5908 -824.687,211.152 -797.899,211.152 "/>
+    <polygon style="fill: #ffffff" points="-865.474,98.5908 -851.474,93.7908 -837.474,98.5908 -851.474,103.391 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-865.474,98.5908 -851.474,93.7908 -837.474,98.5908 -851.474,103.391 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-822.687" y="150.872"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-833.474" y="94.5908"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-801.899" y="207.152"></text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-936.21" y="473.298" width="564.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-936.21" y="473.298" width="564.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-654.01" y="493.298">CustomExpandableListAdapter</text>
+    <rect style="fill: #ffffff" x="-936.21" y="501.298" width="564.4" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-936.21" y="501.298" width="564.4" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="514.498">-context: Context</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="530.498">-expandableListTitle: List&lt;String&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="546.498">-expandableListDetail: Map&lt;String, List&lt;String&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="562.498">-displayButtons: boolean</text>
+    <rect style="fill: #ffffff" x="-936.21" y="569.298" width="564.4" height="228"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-936.21" y="569.298" width="564.4" height="228"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="582.498">+getChild(listPosition:int,expandedListPosition:int): Object</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="598.498">+getChildId(listPosition:int,expandedListPosition:int)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="614.498">+getChildView(listPosition:int,expandableListPosition:int,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="630.498">              isLastChild:boolean,convertView:View,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="646.498">              parent:ViewGroup): View</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="662.498">+getChildrenCount(listPosition:int): int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="678.498">+getGroup(listPosition:int): Object</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="694.498">+getGroupCount(): int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="710.498">+getGroupId(listPosition:int): long</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="726.498">+getViewGroup(listPosition:int,isExpanded:boolean,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="742.498">              convertView:View,parent:ViewGroup): View</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="758.498">+hasStableIds(): boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="774.498">+isChildSelectable(listPosition:int,expandableListPosition:int): boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-933.21" y="790.498">+registerDataSetObserver(DataSetObserver observer)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-1566.95" y="473.298" width="572.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1566.95" y="473.298" width="572.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1280.9" y="493.298">ExpandableListDataPump</text>
+    <rect style="fill: #ffffff" x="-1566.95" y="501.298" width="572.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1566.95" y="501.298" width="572.1" height="8"/>
+    <rect style="fill: #ffffff" x="-1566.95" y="509.298" width="572.1" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1566.95" y="509.298" width="572.1" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1563.95" y="522.498">+getData(context:Context,moodEventData:ArrayList&lt;MoodEvent&gt;): Map&lt;String,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1563.95" y="538.498">          List&lt;String&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1563.95" y="554.498">+getFollowed(context:Context,moodEventData:HashMap&lt;Participant,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1563.95" y="570.498">              MoodEvent&gt;): Map&lt;String, List&lt;String&gt;&gt;</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-1257.24" y="733.514" width="225.6" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1257.24" y="733.514" width="225.6" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-1144.44" y="748.714">&lt;&lt;interface&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1144.44" y="769.514">ButtonPressListener</text>
+    <rect style="fill: #ffffff" x="-1257.24" y="777.514" width="225.6" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1257.24" y="777.514" width="225.6" height="8"/>
+    <rect style="fill: #ffffff" x="-1257.24" y="785.514" width="225.6" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1257.24" y="785.514" width="225.6" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1254.24" y="798.714">+onButtonPress(position:int)</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-962.39,635.298 -990.924,635.298 -990.924,769.514 -1030.63,769.514 "/>
+    <polygon style="fill: #ffffff" points="-937.219,635.298 -951.219,640.098 -965.219,635.298 -951.219,630.498 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-937.219,635.298 -951.219,640.098 -965.219,635.298 -951.219,630.498 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-988.924" y="698.406"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="-969.219" y="631.298"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1026.63" y="765.514">2</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-1417.04" y="650.076" width="271.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1417.04" y="650.076" width="271.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1281.14" y="670.076">Comparator&lt;String&gt;</text>
+    <rect style="fill: #ffffff" x="-1417.04" y="678.076" width="271.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1417.04" y="678.076" width="271.8" height="8"/>
+    <rect style="fill: #ffffff" x="-1417.04" y="686.076" width="271.8" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1417.04" y="686.076" width="271.8" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1414.04" y="699.276">+compare(s1:String,s2:String): int</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1280.9,603.476 -1280.9,620.687 -1281.14,620.687 -1281.14,649.069 "/>
+    <polygon style="fill: #ffffff" points="-1280.9,578.304 -1276.1,592.304 -1280.9,606.304 -1285.7,592.304 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1280.9,578.304 -1276.1,592.304 -1280.9,606.304 -1285.7,592.304 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-1281.02" y="616.687"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1269.9" y="590.304"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1277.14" y="645.069">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1094.72,418.32 -1094.72,439.718 -654.01,439.718 -654.01,472.288 "/>
+    <polygon style="fill: #ffffff" points="-1094.72,393.149 -1089.92,407.149 -1094.72,421.149 -1099.52,407.149 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1094.72,393.149 -1089.92,407.149 -1094.72,421.149 -1099.52,407.149 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-874.364" y="435.718"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1083.72" y="405.149"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-650.01" y="468.288">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1094.72,418.32 -1094.72,439.72 -1280.9,439.72 -1280.9,472.292 "/>
+    <polygon style="fill: #ffffff" points="-1094.72,393.149 -1089.92,407.149 -1094.72,421.149 -1099.52,407.149 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-1094.72,393.149 -1089.92,407.149 -1094.72,421.149 -1099.52,407.149 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-1187.81" y="435.72"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1083.72" y="405.149"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1276.9" y="468.292">1</text>
+  </g>
+</svg>

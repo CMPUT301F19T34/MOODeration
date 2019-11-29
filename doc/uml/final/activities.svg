@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="21cm" height="13cm" viewBox="527 34 413 251" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <rect style="fill: #ffffff" x="564.222" y="35.2598" width="287.2" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="564.222" y="35.2598" width="287.2" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="707.822" y="55.2598">SplashActivity</text>
+    <rect style="fill: #ffffff" x="564.222" y="63.2598" width="287.2" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="564.222" y="63.2598" width="287.2" height="8"/>
+    <rect style="fill: #ffffff" x="564.222" y="71.2598" width="287.2" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="564.222" y="71.2598" width="287.2" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="567.222" y="84.4598">+onCreate(savedInstanceState:Bundle)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="528.866" y="146.638" width="115.05" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="528.866" y="146.638" width="115.05" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="586.391" y="166.638">LoginActivity</text>
+    <rect style="fill: #ffffff" x="528.866" y="174.638" width="115.05" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="528.866" y="174.638" width="115.05" height="8"/>
+    <rect style="fill: #ffffff" x="528.866" y="182.638" width="115.05" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="528.866" y="182.638" width="115.05" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="651.902" y="211.692" width="287.2" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="651.902" y="211.692" width="287.2" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="795.502" y="231.692">HomeActivity</text>
+    <rect style="fill: #ffffff" x="651.902" y="239.692" width="287.2" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="651.902" y="239.692" width="287.2" height="8"/>
+    <rect style="fill: #ffffff" x="651.902" y="247.692" width="287.2" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="651.902" y="247.692" width="287.2" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="654.902" y="260.892">+onCreate(savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="654.902" y="276.892">-signOut()</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="707.822,92.2669 707.822,151.475 795.502,151.475 795.502,210.683 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="751.662" y="147.475"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="711.822" y="104.267"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="799.502" y="206.683"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="707.822,92.2669 707.822,118.949 586.391,118.949 586.391,145.632 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="647.106" y="114.949"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="711.822" y="104.267"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="590.391" y="141.632"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="586.391,191.643 586.391,247.692 650.893,247.692 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="618.642" y="243.692"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="590.391" y="203.643"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="646.893" y="243.692"></text>
+  </g>
+</svg>

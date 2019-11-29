@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="54cm" height="30cm" viewBox="91 84 1078 597" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <rect style="fill: #ffffff" x="95.4558" y="85.5026" width="456.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="95.4558" y="85.5026" width="456.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="323.756" y="105.503">FindParticipantFragment</text>
+    <rect style="fill: #ffffff" x="95.4558" y="113.503" width="456.6" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="95.4558" y="113.503" width="456.6" height="8"/>
+    <rect style="fill: #ffffff" x="95.4558" y="121.503" width="456.6" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="95.4558" y="121.503" width="456.6" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="98.4558" y="134.703">+onCreate(savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="98.4558" y="150.703">+onCreateView(inflater:LayoutInflater,container:ViewGroup,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="98.4558" y="166.703">              savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="98.4558" y="182.703">+onViewCreated(view:View,savedInstanceState:Bundle)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="98.4558" y="198.703">+onCreateOptionsMenu(menu:Menu,inflater:MenuInflater)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="680.642" y="108.525" width="487.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="680.642" y="108.525" width="487.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="924.342" y="128.525">ParticipantAdapter</text>
+    <rect style="fill: #ffffff" x="680.642" y="136.525" width="487.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="680.642" y="136.525" width="487.4" height="8"/>
+    <rect style="fill: #ffffff" x="680.642" y="144.525" width="487.4" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="680.642" y="144.525" width="487.4" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="683.642" y="157.725">+update(participantList:List&lt;Participant&gt;)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="683.642" y="173.725">+getView(position:int,convertView:View,parent:ViewGroup): View</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="133.782" y="306.928" width="379.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="133.782" y="306.928" width="379.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="323.582" y="326.928">FindParticipantViewModel</text>
+    <rect style="fill: #ffffff" x="133.782" y="334.928" width="379.6" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="133.782" y="334.928" width="379.6" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="136.782" y="348.128">-user: FirebaseUser</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="136.782" y="364.128">+searchResults: LiveData&lt;List&lt;Participant&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="136.782" y="380.128">-searchQuery: MutableLiveData&lt;String&gt;</text>
+    <rect style="fill: #ffffff" x="133.782" y="386.928" width="379.6" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="133.782" y="386.928" width="379.6" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="136.782" y="400.128">+getSearchResults(): LiveData&lt;List&lt;Participant&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="136.782" y="416.128">+searchFor(query:String)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="92.1644" y="547.97" width="464.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="92.1644" y="547.97" width="464.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="324.314" y="567.97">ParticipantRepository</text>
+    <rect style="fill: #ffffff" x="92.1644" y="575.97" width="464.3" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="92.1644" y="575.97" width="464.3" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="95.1644" y="589.17">-firestore: FirebaseFirestore</text>
+    <rect style="fill: #ffffff" x="92.1644" y="595.97" width="464.3" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="92.1644" y="595.97" width="464.3" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="95.1644" y="609.17">+register(participant:Participant): Task&lt;Void&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="95.1644" y="625.17">+getParticipants(): LiveData&lt;List&lt;Participants&gt;&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="95.1644" y="641.17">+remove(participant:Participant): Task&lt;Void&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="95.1644" y="657.17">-deleteAllImmediateDocuments(ref:QuerySnapshot): Task&lt;Void&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="95.1644" y="673.17">-participantsPath(): CollectionReference</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="323.756,231.682 323.756,263.215 323.582,263.215 323.582,305.921 "/>
+    <polygon style="fill: #ffffff" points="323.756,206.51 328.556,220.51 323.756,234.51 318.956,220.51 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="323.756,206.51 328.556,220.51 323.756,234.51 318.956,220.51 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="323.669" y="259.215"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="334.756" y="218.51"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="327.582" y="301.921">0..1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="323.582,449.107 323.582,492.449 324.314,492.449 324.314,546.962 "/>
+    <polygon style="fill: #ffffff" points="323.582,423.935 328.382,437.935 323.582,451.935 318.782,437.935 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="323.582,423.935 328.382,437.935 323.582,451.935 318.782,437.935 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="323.948" y="488.449"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="334.582" y="435.935"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="328.314" y="542.962">0..1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="578.234,145.503 623.349,145.503 623.349,144.525 679.635,144.525 "/>
+    <polygon style="fill: #ffffff" points="553.063,145.503 567.063,140.703 581.063,145.503 567.063,150.303 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="553.063,145.503 567.063,140.703 581.063,145.503 567.063,150.303 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="625.349" y="141.014"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="585.063" y="141.503"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="675.635" y="140.525"></text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="779.436" y="459.338" width="179.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="779.436" y="459.338" width="179.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="869.136" y="479.338">Participant</text>
+    <rect style="fill: #ffffff" x="779.436" y="487.338" width="179.4" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="779.436" y="487.338" width="179.4" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="782.436" y="500.538">-uid: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="782.436" y="516.538">-username: String</text>
+    <rect style="fill: #ffffff" x="779.436" y="523.338" width="179.4" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="779.436" y="523.338" width="179.4" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="782.436" y="536.538">+getUid(): String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="782.436" y="552.538">+getUsername(): String</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="924.342,206.705 924.342,326.933 869.136,326.933 869.136,458.332 "/>
+    <polygon style="fill: #ffffff" points="924.342,181.534 929.142,195.534 924.342,209.534 919.542,195.534 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="924.342,181.534 929.142,195.534 924.342,209.534 919.542,195.534 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="896.739" y="322.933"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="935.342" y="193.534"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="873.136" y="454.332">0..*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="582.643,613.97 674.951,613.97 674.951,509.338 778.43,509.338 "/>
+    <polygon style="fill: #ffffff" points="557.472,613.97 571.472,609.17 585.472,613.97 571.472,618.77 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="557.472,613.97 571.472,609.17 585.472,613.97 571.472,618.77 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="676.951" y="557.654"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="589.472" y="609.97"></text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="774.43" y="505.338"></text>
+  </g>
+</svg>

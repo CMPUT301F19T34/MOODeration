@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import com.example.mooderation.LocationDisabledDialog;
 import com.example.mooderation.MoodLatLng;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -166,13 +168,22 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
             // prevents location from being changed once set
             if(!moodEventViewModel.getIsEditing().getValue()) {
                 if(isChecked) {
-                    // request permission if permission is not already granted
-                    if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                    // check if location is turned on
+                    LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+                    if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        locationSwitch.setChecked(false);
+                        locationSwitch.setText("Location not attached");
+                        moodEventViewModel.setLocationToggleState(false);
+                        openLocationDiasbledDialog();
                     } else {
-                        locationSwitch.setChecked(true);
-                        locationSwitch.setText("Location attached");
-                        moodEventViewModel.setLocationToggleState(true);
+                        // request permission if permission is not already granted
+                        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                        } else {
+                            locationSwitch.setChecked(true);
+                            locationSwitch.setText("Location attached");
+                            moodEventViewModel.setLocationToggleState(true);
+                        }
                     }
                 } else {
                     locationSwitch.setText("Location not attached");
@@ -276,7 +287,7 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
             locationSwitch.setText("Location not attached");
             moodEventViewModel.setLocationToggleState(false);
             if(!shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                openDialog();
+                openPermissionDialog();
             }
         } else {
             locationSwitch.setChecked(true);
@@ -289,9 +300,14 @@ public class MoodEventFragment extends Fragment implements AdapterView.OnItemSel
      * Displays a dialog box instructing the user how to turn on location permission if they
      * selected "deny and never show again"
      */
-    public void openDialog() {
+    public void openPermissionDialog() {
         LocationDeniedDialog locationDeniedDialog = new LocationDeniedDialog();
         locationDeniedDialog.show(getFragmentManager(), "Location Denied");
+    }
+
+    public void openLocationDiasbledDialog() {
+        LocationDisabledDialog locationDisabledDialog = new LocationDisabledDialog();
+        locationDisabledDialog.show(getFragmentManager(), "Location Off");
     }
 
     // for listening updating the mood event when the spinners are updated

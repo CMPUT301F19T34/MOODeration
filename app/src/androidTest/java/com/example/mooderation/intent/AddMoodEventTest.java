@@ -115,7 +115,6 @@ public class AddMoodEventTest {
         assertTrue(solo.waitForText("My reason test"));
     }
 
-    // TODO test location
     @Test
     public void testLocation() {
         // open mood event fragment

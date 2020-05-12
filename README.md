@@ -8,13 +8,13 @@ MOODeration is an Android app that allows individuals to post, track, and share
 their moods. The goal is to assist in understanding the emotional states and
 triggers of individuals and groups.
 
-## Getting Started
+![App Storyboard](https://github.com/CMPUT301F19T34/MOODeration/blob/final-checkpoint/doc/UI-mockups/overview.png)
 
-**TODO** How to use the app
+See the [wiki](https://github.com/CMPUT301F19T34/MOODeration/wiki) for more information about the app.
 
 ## License
 
-**TODO** Pick a License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgements
 * CMPUT 301 Instructor and TAs
